@@ -1,0 +1,44 @@
+# Loại bỏ các file hệ thống và file ẩn
+.DS_Store
+Thumbs.db
+
+# Thư mục vendor (cài bằng Composer)
+vendor/
+
+# Cache và logs
+cache/
+logs/
+
+# Thông tin nhạy cảm (thông tin database, token, key...)
+.env
+*.env
+
+# File tạm và file tạo trong quá trình chạy ứng dụng
+*.bak
+*.tmp
+*.swp
+
+# Các file và thư mục không cần đẩy lên git
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+
+# IDE và các cấu hình cục bộ
+.vscode/
+.idea/
+
+# Tệp dựng và biên dịch
+*.min.js
+*.min.css
+*.map
+
+# Thư mục uploads (nếu bạn cho phép người dùng tải file lên)
+uploads/
+
+# Tệp log của PHP
+*.log
+
+# Các tệp hệ thống của Git
+.git/

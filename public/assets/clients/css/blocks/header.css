@@ -1,0 +1,281 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    
+}
+
+body {
+    background-color: #dfdcdc;
+}
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #222;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 80px;
+    z-index: 1000;
+}
+
+/* Logo */
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    width: 50px;
+    height: 50px;
+}
+
+.logo-text {
+    color: #c9a56d;
+    margin-left: 10px;
+}
+
+a{
+    text-decoration: none;
+    color: inherit; /* Giữ nguyên màu chữ */
+    border: none; /* Đảm bảo không có viền */
+    outline: none; /* Loại bỏ viền khi focus */
+}
+
+
+.s-letter {
+    font-size: 65px;
+    font-weight: bold;
+    background: #C4A262;
+    color: white;
+    float: left;
+    margin-right: 8px;
+    line-height: 1;
+    font-family: 'Pacifico', cursive;
+}
+.stationery {
+    font-size: 35px;
+    font-weight: bold;
+    font-family: 'Pacifico', cursive;
+}
+
+.tagline {
+    font-size: 13px;
+    font-style: italic;
+    color: rgb(224, 218, 218);
+    font-family: 'Caveat', cursive;
+    
+}
+
+/* Search Bar */
+.search-bar {
+    display: flex;
+    align-items: center;
+    background: rgb(213, 212, 212);
+    border-radius: 20px;
+    padding: 5px 15px;
+    width: 35%;
+    font-family: 'Caveat', cursive;
+}
+
+.search-bar input {
+    border: none;
+    outline: none;
+    padding: 8px;
+    width: 100%;
+    font-size: 14px;
+    color: rgb(0, 0, 0);
+    background: rgb(213, 212, 212);
+}
+
+.search-bar button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #c9a56d;
+}
+
+/* Hotline */
+.hotline {
+    background: #a7895c;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    font-family: 'Caveat', cursive;
+    margin-left: 5px;
+}
+
+.hotline i {
+    margin-right: 5px;
+}
+
+/* Icons */
+.icons {
+    display: flex;
+    gap: 50px;
+    align-items: center;
+}
+
+.icon {
+    position: relative;
+    color: white;
+    font-size: 26px;
+    cursor: pointer;
+}
+
+.badge {
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    background: #c9a56d;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 2px 5px;
+    border-radius: 50%;
+    font-family: 'Caveat', cursive;
+}
+/* Container chứa icon người dùng */
+.user-menu {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+/* Dropdown menu */
+.dropdown-user {
+    display: none;
+    position: absolute;
+    top: 35px;
+    left: 30%;
+    transform: translateX(-50%);
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+    min-width: 120px;
+    overflow: hidden;
+    text-align: left;
+    z-index: 1000;
+}
+
+.user-menu:hover .dropdown-user {
+    display: block;
+}
+
+.dropdown-user a {
+    display: block;
+    padding: 10px;
+    color: black;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.dropdown-user a:hover {
+    background: #f2f2f2;
+}
+
+.show {
+    display: flex;
+}
+
+.breadcrumb-banner {
+    background: url('../image/breadcrumb.jpg') center/cover no-repeat;
+    padding: 0;
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    color: rgb(61, 60, 60);
+    position: absolute;
+    transform: translateX(-50%);
+    top: 85px; 
+    left: 50%;
+    width: 100%;
+}
+
+.breadcrumb-banner .container {
+    width: 100%;
+    margin: auto;
+    background: rgba(112, 128, 144, 0.693);
+    z-index: 2;
+    padding: 10px;
+}
+
+.breadcrumb-banner p {
+    font-size: 16px;
+    font-style: italic;
+    color: #e0c08d;
+}
+
+.breadcrumb-banner p a {
+    color: white;
+    text-decoration: none;
+}
+
+.breadcrumb-banner h2 {
+    font-size: 28px;
+    font-weight: bold;
+    margin-top: 5px;
+}
+.cart-floating {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 350px;
+    height: 100vh;
+    background: white;
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    overflow: hidden;
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
+    
+}
+.cart-floating.active {
+    transform: translateX(0);
+}
+.cart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 20px;
+    font-weight: bold;
+    color: #ab8b58;
+    font-family: 'Montserrat', sans-serif;
+}
+.cart-content {
+    margin-top: 20px;
+}
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+}
+.cart-item img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+}
+.cart-footer {
+    margin-top: 20px;
+    text-align: center;
+}
+.cart-button {
+    background: #c9a56d;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 90%;
+}
+.cart-button:hover {
+    background: #ab8b58;
+} 
