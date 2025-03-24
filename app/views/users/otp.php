@@ -5,10 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Nhập OTP</title>
 
-    <link rel="stylesheet" href="<?= _WEB_ROOT; ?>/public/assets/clients/css/blocks/otp.css"/>
+    <link rel="stylesheet" href="<?= _WEB_ROOT; ?>/public/assets/clients/css/users/otp.css"/>
 </head>
 <body>
 
+<?php  require_once _DIR_ROOT . "/app/views/blocks/header.php";?>
 <div class="otp-container">
     <h2>Xác thực OTP</h2>
 
@@ -22,7 +23,7 @@
 
     <form action="<?= _WEB_ROOT; ?>/nhap-otp" method="POST" class="otp-form">
         <div class="otp-inputs">
-            <?php for ($i = 0; $i < 6; $i++): ?>
+            <?php for ($i = 0; $i < 4; $i++): ?>
                 <input type="text" name="otp[]" maxlength="1" pattern="[0-9]" inputmode="numeric" required/>
             <?php endfor; ?>
         </div>
@@ -37,7 +38,7 @@
     <div id="resendMessage" class="success-message" style="display: none;"></div>
 
 </div>
-
+<?php  require_once _DIR_ROOT . "/app/views/blocks/footer.php";?>
 <script>
     // Tự động chuyển sang ô tiếp theo khi nhập
     document.querySelectorAll('.otp-inputs input').forEach((input, index, inputs) => {

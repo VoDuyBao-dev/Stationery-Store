@@ -1,12 +1,13 @@
 body {
     font-family: Arial, sans-serif;
-    display: flex;
     justify-content: center;
     align-items: flex-start;
-    height: 100vh;
-    margin-top: 200px;
+    height: 100%;
+ 
+}
 
-
+.hidden {
+    display: none !important;
 }
 
 .container {
@@ -15,9 +16,10 @@ body {
     width: 700px;
     padding: 30px;
     border-radius: 8px;
+    margin: 150px 400px 50px 400px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     overflow: hidden;
-
+    
 }
 
 .tabs {
@@ -42,7 +44,7 @@ body {
 }
 
 .active {
-    border-bottom: 3px solid black;
+    border-bottom: 3px solid rgb(0, 0, 0);
 }
 
 .form-container {
@@ -70,6 +72,9 @@ input {
     background: #f8f8f8;
 }
 
+p{
+    font-weight: italic;
+}
 .btn {
     width: 100%;
     padding: 12px;
@@ -85,11 +90,21 @@ input {
 .btn:hover {
     background: #a7895c;
 }
-
-.error-message {
-    color: red;
-    font-size: 20px;
-    font-weight: bold;
+.forgot {
+    padding-top: 8px;
+    color: #a7895c;
+    cursor: pointer;
     text-align: center;
-    margin-top: 10px;
+}
+h4 {
+    text-align: center;
+    color: #797373e8;
+}
+
+.forgot span{
+    text-align: center;
+    color: #000000;
+}
+.forgot:hover {
+    color: #ddb06b;
 }

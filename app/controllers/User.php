@@ -148,4 +148,24 @@ class User extends Controller
         $otpService->resendOTP($requestAjax);
 
     }
+
+    public function signin()
+    {
+        $this->render("users/signin");
+    }
+
+    public function forgot_pass()
+    {
+     $this->render("users/forgot_pass");   
+    }
+
+    public function home()
+    {
+        $this->render("users/index");
+    }
+
+    public function newpass()
+    {
+        $this->render("users/newpass");
+    }
 }

@@ -6,11 +6,12 @@
     <title>Đăng ký</title>
     <link type="text/css" rel="stylesheet"
           href="<?php echo _WEB_ROOT; ?>/public/assets/clients/css/users/Signin-Signup.css"/>
-
-
+    <scipt type="text/javascript" href="
+        <?php echo _WEB_ROOT; ?>/public/assets/clients/js/users/Signin-Signup.js"></scipt>
 </head>
 <body>
-
+    
+<?php  require_once _DIR_ROOT . "/app/views/blocks/header.php";?>
 <div class="container">
     <div class="tabs">
         <div class="tab" onclick="redirectTo('signin.php')">Đăng nhập</div>
@@ -49,8 +50,10 @@
             <?php endif; ?>
 
             <label for="password">Mật khẩu</label>
-            <input type="password" id="password" name="password" autocomplete="off placeholder=" Nhập Mật khẩu"
-            required>
+            <input type="password" id="password" name="password" autocomplete="off" placeholder=" Nhập Mật khẩu" required>
+
+            <label for="password">Nhập lại mật khẩu</label>
+            <input type="confirm-password" id="password" name="password" placeholder="Nhập Mật khẩu" required>
 
             <button type="submit" name="submit" class="btn">Tạo tài khoản</button>
         </form>
@@ -58,8 +61,7 @@
 
 </div>
 
-<scipt type="text/javascript" href="
-<?php echo _WEB_ROOT; ?>/public/assets/clients/js/users/Signin-Signup.js"></scipt>
+<?php  require_once _DIR_ROOT . "/app/views/blocks/footer.php";?>
 
 </body>
 </html>

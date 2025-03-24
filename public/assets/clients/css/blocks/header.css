@@ -160,7 +160,7 @@ a{
     box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
     min-width: 120px;
     overflow: hidden;
-    text-align: left;
+    text-align: left; 
     z-index: 1000;
 }
 
@@ -177,7 +177,7 @@ a{
 }
 
 .dropdown-user a:hover {
-    background: #f2f2f2;
+    background: #e2b36dbd;;
 }
 
 .show {
@@ -185,42 +185,53 @@ a{
 }
 
 .breadcrumb-banner {
-    background: url('../image/breadcrumb.jpg') center/cover no-repeat;
+    background: url('../../images/breadcrumb.jpg') center/cover no-repeat;
     padding: 0;
-    text-align: center;
+    text-align: left;
     font-family: 'Montserrat', sans-serif;
-    color: rgb(61, 60, 60);
+    color: rgba(98, 115, 135, 0.668);
     position: absolute;
     transform: translateX(-50%);
     top: 85px; 
     left: 50%;
     width: 100%;
+    display: flex;
 }
 
 .breadcrumb-banner .container {
     width: 100%;
     margin: auto;
-    background: rgba(112, 128, 144, 0.693);
+    background: rgba(112, 128, 144, 0.478);
     z-index: 2;
     padding: 10px;
+    display: inline-flex;
 }
 
 .breadcrumb-banner p {
     font-size: 16px;
     font-style: italic;
     color: #e0c08d;
+    display: inline;
+
 }
 
-.breadcrumb-banner p a {
-    color: white;
+.breadcrumb-banner a {
+    color:#f6ebd9f5;
     text-decoration: none;
-}
+} 
 
 .breadcrumb-banner h2 {
-    font-size: 28px;
-    font-weight: bold;
-    margin-top: 5px;
+    font-size: 16px;
+    font-style: italic;
+    color: #f6ebd9e4;
 }
+.breadcrumb-banner span {
+    display: inline-block !important; /* Giữ nó trên cùng một hàng */
+    font-size: 16px; /* Kích thước chữ giống h2 */
+    font-weight: bold; /* Độ đậm giống h2 */
+    color: #f6ebd9e4; /* Màu chữ */
+}
+
 .cart-floating {
     position: fixed;
     top: 0;
@@ -241,7 +252,7 @@ a{
 .cart-header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: left;
     font-size: 20px;
     font-weight: bold;
     color: #ab8b58;
