@@ -32,7 +32,6 @@ function updateCart(id, quantity) {
         body: `update_id=${id}&new_quantity=${quantity}`
     }).then(() => location.reload());
 }
-
 function removeItem(id) {
     fetch('cart.php', {
         method: 'POST',

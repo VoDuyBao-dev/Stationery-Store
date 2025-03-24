@@ -24,11 +24,11 @@ class UserModel extends Model
 
     }
 
-    public function createUser($ho, $ten, $sdt, $email, $password)
+    public function createUser($fullname, $sdt, $email, $password)
     {
 
-        $sql = "INSERT INTO $this->_table(password, ten, ho, email, phone) VALUES(?,?,?,?,?)";
-        $params = [$password, $ten, $ho, $email, $sdt];
+        $sql = "INSERT INTO $this->_table(password, fullname, email, phone) VALUES(?,?,?,?)";
+        $params = [$password, $fullname, $email, $sdt];
 
         $affectedRows = $this->execute($sql, $params);
         if ($affectedRows > 0) {
@@ -36,7 +36,6 @@ class UserModel extends Model
         } else {
             return "Đăng ký thất bại!";
         }
-
 
     }
 
@@ -53,6 +52,18 @@ class UserModel extends Model
 
         } else {
             return "Tài khoản không tồn tại!";
+        }
+    }
+
+    public function changePassword($email, $new_password)
+    {
+        $sql = "UPDATE $this->_table SET password = ? WHERE email = ?";
+        $params = [$new_password, $email];
+        $affectedRows = $this->execute($sql, $params);
+        if ($affectedRows > 0) {
+            return true;
+        } else {
+            return "Đổi mật khẩu thất bại!";
         }
     }
 

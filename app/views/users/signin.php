@@ -1,3 +1,6 @@
+<?php
+use core\Helpers;
+?>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -6,20 +9,34 @@
     <title>Đăng nhập</title>
     <link type="text/css" rel="stylesheet"
           href="<?php echo _WEB_ROOT; ?>/public/assets/clients/css/users/Signin-Signup.css"/>
+    <script type="text/javascript"
+            src="<?php echo _WEB_ROOT; ?>/public/assets/clients/js/users/Signin-Signup.js"></script>
 
 
 </head>
 <body>
-<!-- Hiển thị cảnh báo  -->
-<?php if (!empty($_SESSION['signin_incorrect'])): ?>
-    <div class="error-message"><?= $_SESSION['signin_incorrect']; ?></div>
-<?php endif; ?>
+<?php require_once _DIR_ROOT . "/app/views/blocks/header.php"; ?>
+
+
 
 <div class="container">
-    <div class="tabs">
-        <div class="tab active" onclick="redirectTo('signin.php')">Đăng nhập</div>
-        <div class="tab" onclick="redirectTo('register.php')">Đăng ký</div>
-    </div>
+        <div class="tabs">
+        <div class="tab active" onclick="redirectTo('<?php echo _WEB_ROOT . '/dang-nhap'; ?>')">Đăng nhập</div>
+                 <div class="tab" onclick="redirectTo('<?php echo _WEB_ROOT . '/dang-ky'; ?>')">Đăng ký</div>
+     </div> 
+
+     <!-- Hiển thị cảnh báo  -->
+<?php if (!empty($_SESSION['warning_signin'])): ?>
+    <div class="error-message"><?= $_SESSION['warning_signin']; ?></div>
+<?php endif; ?>
+
+<!-- Hiển thị đăng ký thành công -->
+<?php if ($message = Helpers::getFlash('success')): ?>
+    <div class="success-message"><?php echo $message; ?></div>
+<?php endif; ?>
+
+
+    
 
     <div class="form-container active">
         <form action="<?php echo _WEB_ROOT . '/dang-nhap'; ?>" method="POST">
@@ -36,8 +53,10 @@
 
             <label for="login-password">Mật khẩu</label>
             <input type="password" id="login-password" name="password" placeholder="Nhập Mật khẩu" required>
+            <div class="forgot"><a href="<?php echo _WEB_ROOT; ?>/forgot_pass"> Quên mật khẩu?</a></div>
 
             <button type="submit" name="submit-signin" class="btn">Đăng nhập</button>
+
         </form>
     </div>
 
@@ -45,5 +64,6 @@
 </div>
 
 
+<?php require_once _DIR_ROOT . "/app/views/blocks/footer.php"; ?>
 </body>
 </html>

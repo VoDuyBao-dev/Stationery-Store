@@ -35,11 +35,12 @@ if (!empty($configs_dir)) {
     }
 }
 require_once "app/Logger.php"; //Load Log
-
+require_once "core/Helpers.php";
 require_once "configs/routes.php"; // Load routes config
 require_once "core/Route.php"; //Load Route class
 
 require_once "core/Mail.php"; //Load Mail
+
 require_once "core/OtpService.php"; //Load OtpService
 require_once "app/App.php"; //Load App
 
