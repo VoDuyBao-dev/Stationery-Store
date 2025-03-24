@@ -7,14 +7,10 @@ class Database
 
     public function __construct()
     {
-        global $config;
+        // global $config;
+        $config = require __DIR__ . "/../configs/database.php";
         $this->conn = Connection::getInstance($config['database'])->getConnection();
     }
-
-//    public function getConnection()
-//    {
-//        return $this->conn;
-//    }
 
     public function query($sql, $params = [])
     {
@@ -39,10 +35,9 @@ class Database
 
         $stmt->execute();
         return $stmt;
-
     }
 
-//    Lấy 1 dòng dữ liệu
+    //    Lấy 1 dòng dữ liệu
     public function fetch($sql, $params = [])
     {
         $stmt = $this->query($sql, $params);
@@ -58,7 +53,7 @@ class Database
         return $data;
     }
 
-//    Lấy nhiều dòng dữ liệu
+    //    Lấy nhiều dòng dữ liệu
     public function fetchAll($sql, $params = [])
     {
         $stmt = $this->query($sql, $params);
@@ -75,7 +70,7 @@ class Database
         return $data;
     }
 
-//    execute cho INSERT, UPDATE, DELETE
+    //    execute cho INSERT, UPDATE, DELETE
     public function execute($sql, $params = [])
     {
 
