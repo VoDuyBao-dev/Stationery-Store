@@ -7,7 +7,7 @@ $routes['default_controller'] = 'home';
 $routes['dang-ky'] = 'user/register';
 $routes['nhap-otp'] = 'user/verifyOTP';
 $routes['resend-otp'] = 'user/resendOTP';
-
+$routes['dang-nhap'] = 'user/signin';
 
 //trang client_layout
 $routes['client_layout'] = 'dashboard/index';

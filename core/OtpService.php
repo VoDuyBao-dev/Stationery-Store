@@ -3,7 +3,9 @@
 namespace core;
 
 use core\Mail;
+use app\Logger;
 use mysql_xdevapi\Exception;
+
 
 
 class OtpService
@@ -65,7 +67,7 @@ class OtpService
                     return true;
                 }
             } catch (\Exception $e) {
-
+                Logger::logError("Lỗi gửi mã OTP ở Mail" . $e->getMessage());
                 throw new \Exception("Lỗi gửi mã OTP ở Mail");
             }
         } else {

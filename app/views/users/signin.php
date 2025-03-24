@@ -4,11 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đăng nhập</title>
-    <link rel="stylesheet" href="../static/CSS/Signin-Signup.css">
-    <script src="../static/java/Signin-Signup.js"></script>
+    <link type="text/css" rel="stylesheet"
+          href="<?php echo _WEB_ROOT; ?>/public/assets/clients/css/users/Signin-Signup.css"/>
+
 
 </head>
 <body>
+<!-- Hiển thị cảnh báo  -->
+<?php if (!empty($_SESSION['signin_incorrect'])): ?>
+    <div class="error-message"><?= $_SESSION['signin_incorrect']; ?></div>
+<?php endif; ?>
 
 <div class="container">
     <div class="tabs">
@@ -17,38 +22,26 @@
     </div>
 
     <div class="form-container active">
-        <form action="signin.php" method="POST">
+        <form action="<?php echo _WEB_ROOT . '/dang-nhap'; ?>" method="POST">
             <label for="login-email">Email</label>
-            <input type="email" id="login-email" name="email" placeholder="Nhập Email" required>
+            <input type="email" id="login-email" name="email"
+                   value="<?= htmlspecialchars($_SESSION['old_email'] ?? '') ?>"
+                   placeholder="Nhập Email" required>
+
+            <!-- Hiển thị lỗi -->
+            <?php if (!empty($_SESSION['error'])): ?>
+                <div class="error-message"><?= $_SESSION['error']; ?></div>
+                <?php unset($_SESSION['error']); ?>
+            <?php endif; ?>
 
             <label for="login-password">Mật khẩu</label>
             <input type="password" id="login-password" name="password" placeholder="Nhập Mật khẩu" required>
 
-            <button type="submit" class="btn">Đăng nhập</button>
+            <button type="submit" name="submit-signin" class="btn">Đăng nhập</button>
         </form>
     </div>
 
-    <!-- Form Đăng ký -->
-    <div class="form-container">
-        <form action="./register.php" method="POST">
-            <label for="ho">Họ</label>
-            <input type="text" id="ho" name="ho" placeholder="Nhập Họ" required>
 
-            <label for="ten">Tên</label>
-            <input type="text" id="ten" name="ten" placeholder="Nhập Tên" required>
-
-            <label for="sdt">Số điện thoại</label>
-            <input type="tel" id="sdt" name="sdt" placeholder="Nhập Số điện thoại" required>
-
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" placeholder="Nhập Email" required>
-
-            <label for="password">Mật khẩu</label>
-            <input type="password" id="password" name="password" placeholder="Nhập Mật khẩu" required>
-
-            <button type="submit" class="btn">Tạo tài khoản</button>
-        </form>
-    </div>
 </div>
 
 

@@ -125,7 +125,8 @@ class User extends Controller
             if ($result === true) {
                 unset($_SESSION["otp"]);
                 unset($_SESSION['register_data']);
-                header("Location:" . _BASE_URL . "/client_layout?success=1");
+                $messages['create_success'] = 1;
+                $this->render("users/signin", $messages);
                 exit();
             } else {
                 $messages['$create_user'] = $result;
@@ -143,9 +144,63 @@ class User extends Controller
 
     public function resendOTP()
     {
-        $requestAjax =$_SERVER['HTTP_X_REQUESTED_WITH'];
+        $requestAjax = $_SERVER['HTTP_X_REQUESTED_WITH'];
         $otpService = new OtpService();
         $otpService->resendOTP($requestAjax);
 
     }
+
+    public function signin()
+    {
+
+        if (isset($_POST['submit-signin'])) {
+            $email = strtolower(htmlspecialchars(trim($_POST['email'])));
+            $password = htmlspecialchars(trim($_POST['password']));
+
+            $_SESSION['old_email'] = $email;
+// đếm số lần đăng nhập sai
+            if (!isset($_SESSION['signin_incorrect'])) {
+                $_SESSION['signin_incorrect'] = 0;
+            }
+            if ($_SESSION['signin_incorrect'] >= 3) {
+                if (!isset($_SESSION['warning_signin'])) {
+                    $_SESSION['warning_signin'] = "Bạn đã nhập sai quá 3 lần. Vui lòng dùng quên mật khẩu!";
+                }
+
+            }
+
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                $_SESSION['error'] = "Email của bạn không hợp lệ!";
+                header("Location: " . _WEB_ROOT . "/dang-nhap");
+                exit();
+
+            }
+            $verifyUser = $this->userModel->verifyUser($email, $password);
+            if (is_array($verifyUser)) {
+                $_SESSION['user'] = $verifyUser;
+//                reset bộ đếm dăng nhập sai
+                $_SESSION['signin_incorrect'] = 0;
+//                Nếu có cảnh báo đăng nhập quá số lần thì xóa khi đăng nhập thành công
+                if (isset($_SESSION['warning_signin'])) {
+                    unset($_SESSION['warning_signin']);
+                }
+                header("Location:" . _WEB_ROOT . "/home");
+                exit();
+            } else {
+                $_SESSION['error'] = $verifyUser;
+                $_SESSION['signin_incorrect']++;
+                
+                header("Location: " . _WEB_ROOT . "/dang-nhap");
+                exit();
+            }
+
+        } else {
+            $_SESSION['signin_incorrect'] = 0;
+            $this->render("users/signin");
+        }
+
+
+    }
+
+
 }

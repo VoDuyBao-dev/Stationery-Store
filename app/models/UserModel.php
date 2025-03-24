@@ -4,13 +4,14 @@ class UserModel extends Model
 {
     private $_table = 'users';
 
+
     public function checkEmailExists($email)
     {
         $sql = "SELECT * FROM $this->_table WHERE LOWER(email)  = LOWER(?) ";
         $params = [$email];
         $result = $this->fetch($sql, $params);
 
-        return $result ? true : false;
+        return $result;
     }
 
     public function checkSDTExists($sdt)
@@ -37,6 +38,22 @@ class UserModel extends Model
         }
 
 
+    }
+
+    public function verifyUser($email, $input_password)
+    {
+        $account = $this->checkEmailExists($email);
+        if ($account) {
+            $password_account = $account['password'];
+            if (password_verify($input_password, $password_account)) {
+                return $account;
+            } else {
+                return "Email hoặc mật khẩu không đúng!";
+            }
+
+        } else {
+            return "Tài khoản không tồn tại!";
+        }
     }
 
 }

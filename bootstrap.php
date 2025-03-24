@@ -3,12 +3,12 @@
 define('_DIR_ROOT', __DIR__);
 
 // Đường dẫn BASE URL
-define('_BASE_URL', 'http://localhost/mvc_training');
+define('_BASE_URL', 'http://localhost/Stationery-Store');
 
 // XỬ LÝ HTTP ROOT
 // vd: ở đường link css ở file client_layout:
-// "http://localhost/mvc_training/public/assets/clients/css/style.css"
-// => http root: http://localhost/mvc_training
+// "http://localhost/Stationery-Store/public/assets/clients/css/style.css"
+// => http root: http://localhost/Stationery-Store
 if (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') {
     $web_root = 'http://' . $_SERVER['HTTP_HOST'];
 
@@ -17,7 +17,7 @@ if (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') {
 
 }
 
-// Xử lý để lấy chuỗi '/mvc_training'
+// Xử lý để lấy chuỗi '/Stationery-Store'
 $folder = str_replace(strtolower($_SERVER['DOCUMENT_ROOT']), '', str_replace('\\', '/', strtolower(_DIR_ROOT)));
 
 $web_root = $web_root . $folder;
@@ -34,11 +34,11 @@ if (!empty($configs_dir)) {
         }
     }
 }
-
+require_once "app/Logger.php"; //Load Log
 
 require_once "configs/routes.php"; // Load routes config
 require_once "core/Route.php"; //Load Route class
-require_once "app/Logger.php"; //Load Log
+
 require_once "core/Mail.php"; //Load Mail
 require_once "core/OtpService.php"; //Load OtpService
 require_once "app/App.php"; //Load App
