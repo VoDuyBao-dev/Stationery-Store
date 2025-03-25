@@ -4,7 +4,6 @@ define('_DIR_ROOT', __DIR__);
 
 // Đường dẫn BASE URL
 define('_BASE_URL', 'http://localhost/mvc_training');
-
 // XỬ LÝ HTTP ROOT
 // vd: ở đường link css ở file client_layout:
 // "http://localhost/mvc_training/public/assets/clients/css/style.css"

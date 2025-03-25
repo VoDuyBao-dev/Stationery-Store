@@ -3,11 +3,13 @@
 
 class Users
 {
+    private $db;
     public function up()
     {
-        $config = require __DIR__ . "/../../configs/database.php";
-        $config = $config['database'];
-        $db = Connection::getInstance($config)->getConnection();
+        global $config;
+        // $config = require __DIR__ . "/../configs/database.php";
+        $this->db = Connection::getInstance($config['database'])->getConnection();
+
         $sql = "CREATE TABLE IF NOT EXISTS users (
             id INT AUTO_INCREMENT PRIMARY KEY,
             ho VARCHAR(100) NOT NULL,
@@ -20,10 +22,10 @@ class Users
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
 
-        if ($db->query($sql)) {
+        if ($this->db->query($sql)) {
             echo "Bảng `users` đã được tạo thành công!\n";
         } else {
-            echo "Lỗi khi tạo bảng: " . $db->error . "\n";
+            echo "Lỗi khi tạo bảng: " . $this->db->error . "\n";
         }
     }
 }

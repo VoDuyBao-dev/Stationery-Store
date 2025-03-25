@@ -7,8 +7,8 @@ $routes['default_controller'] = 'home';
 $routes['dang-ky'] = 'user/register';
 $routes['nhap-otp'] = 'user/verifyOTP';
 $routes['resend-otp'] = 'user/resendOTP';
-$routes['chat'] = 'user/chat';
 
+$routes['chat'] = 'chat/detail';
 
 //trang client_layout
 $routes['client_layout'] = 'dashboard/index';

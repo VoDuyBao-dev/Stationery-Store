@@ -1,7 +1,7 @@
 <?php
 class ChatModel extends Model
 {
-    private $_table = 'Chat';
+    private $_table = 'chat';
 
     public function sendMessage($sender_id, $receiver_id, $message)
     {

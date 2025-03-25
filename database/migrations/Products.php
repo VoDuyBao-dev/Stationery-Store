@@ -3,11 +3,12 @@
 
 class Products
 {
+    private $db;
     public function up()
     {
-        $config = require __DIR__ . "/../../configs/database.php";
-        $config = $config['database'];
-        $db = Connection::getInstance($config)->getConnection();
+        global $config;
+        // $config = require __DIR__ . "/../configs/database.php";
+        $this->db = Connection::getInstance($config['database'])->getConnection();
 
         $sql = "CREATE TABLE IF NOT EXISTS products (
             id INT AUTO_INCREMENT PRIMARY KEY,
@@ -27,10 +28,10 @@ class Products
             CHECK (price >= 0 and discount_price >= 0 and stock_quantity >= 0)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
 
-        if ($db->query($sql)) {
+        if ($this->db->query($sql)) {
             echo "Bảng `products` đã được tạo thành công!\n";
         } else {
-            echo "Lỗi khi tạo bảng: " . $db->error . "\n";
+            echo "Lỗi khi tạo bảng: " . $this->db->error . "\n";
         }
     }
 }

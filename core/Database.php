@@ -7,8 +7,8 @@ class Database
 
     public function __construct()
     {
-        // global $config;
-        $config = require __DIR__ . "/../configs/database.php";
+        global $config;
+        // $config = require __DIR__ . "/../configs/database.php";
         $this->conn = Connection::getInstance($config['database'])->getConnection();
     }
 
@@ -30,6 +30,7 @@ class Database
                     $types .= 'd';
                 }
             }
+            // gán dữ liệu vào phần value() của câu lệnh SQL
             $stmt->bind_param($types, ...$params);
         }
 

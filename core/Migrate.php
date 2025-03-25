@@ -1,12 +1,8 @@
 <?php
-
-// require_once __DIR__ . "/../bootstrap.php";
-
-require_once __DIR__ . "/../core/Connection.php";
-
-// Kết nối đến database
+require_once __DIR__ . "/../configs/database.php";
+require_once __DIR__ . "/Connection.php";
+global $config;
 try {
-    $config = require __DIR__ . "/../configs/database.php";
     if (!is_array($config) || !isset($config['database'])) {
         die("❌ Lỗi: Không thể tải cấu hình cơ sở dữ liệu!\n");
     }
@@ -33,7 +29,6 @@ $migrations = [
 
 // Chạy từng migration
 foreach ($migrations as $migration) {
-
     require_once __DIR__ . "/../database/migrations/{$migration}.php";
     $migrationClass = new $migration();
     $migrationClass->up(); // Truyền kết nối vào class
