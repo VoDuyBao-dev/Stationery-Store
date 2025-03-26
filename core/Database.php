@@ -1,5 +1,6 @@
 <?php
 
+use app\Logger;
 
 class Database
 {

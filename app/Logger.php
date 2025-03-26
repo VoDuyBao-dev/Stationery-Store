@@ -1,4 +1,7 @@
 <?php
+
+namespace App;
+
 class Logger
 {
     private static $file;

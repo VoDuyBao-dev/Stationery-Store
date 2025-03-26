@@ -3,7 +3,9 @@
 namespace core;
 
 use core\Mail;
+use app\Logger;
 use mysql_xdevapi\Exception;
+
 
 
 class OtpService
@@ -11,7 +13,7 @@ class OtpService
 
     public function generateOtp()
     {
-        return rand(100000, 999999); //Tao otp
+        return rand(1000, 9999); //Tao otp
     }
 
     public function saveOtp($otp, $expiryMinutes = 1)
@@ -25,8 +27,13 @@ class OtpService
 //    Check mã Otp có hợp lệ không
     public function isValidOtp($inputOtp)
     {
+        $regex = '/^\d{4}$/';
+       
         $currentTime = time();
-        if ($inputOtp != $_SESSION['otp']['code']) {
+        if(!preg_match($regex, $inputOtp)){
+            return "Mã OTP phải đủ 4 số!";
+        }
+        elseif ($inputOtp != $_SESSION['otp']['code']) {
             return "Mã OTP không chính xác!";
         } elseif ($currentTime > $_SESSION['otp']['expires_at']) {
             return "Mã OTP đã hết hiệu lực!";
@@ -34,16 +41,17 @@ class OtpService
 
     }
 
-    public function sendOtp()
+    public function sendOtp($email = null)
     {
         try {
             $mail = new Mail();
         } catch (\Exception $e) {
             echo "<div class='error-message'>" . $e->getMessage() . "</div>";
         }
+        // chú ý dòng này đã sửa
+        $to = $email ?? $_SESSION['register_data']['email'] ?? $_SESSION['email'];
 
-        if (isset($_SESSION['register_data']['email'])) {
-            $to = $_SESSION['register_data']['email'];
+        if ($to) {
             $otp = $this->generateOtp(); // Tạo mã OTP
             $this->saveOtp($otp);
 
@@ -65,7 +73,7 @@ class OtpService
                     return true;
                 }
             } catch (\Exception $e) {
-
+                Logger::logError("Lỗi gửi mã OTP ở Mail" . $e->getMessage());
                 throw new \Exception("Lỗi gửi mã OTP ở Mail");
             }
         } else {
@@ -75,7 +83,7 @@ class OtpService
 
     }
 
-    public function resendOTP($requestAjax)
+    public function resendOTP($requestAjax, $email = null)
     {
 //        debug
         // Tắt báo lỗi HTML để tránh làm hỏng JSON
@@ -84,7 +92,8 @@ class OtpService
 
         // Kiểm tra yêu cầu AJAX
         if ($requestAjax === 'XMLHttpRequest') {
-            $email = $_SESSION['register_data']['email'] ?? null;
+            // ưu tiên dùng email
+            $email = $email ?? $_SESSION['register_data']['email'] ?? $_SESSION['email'] ?? null;
 
             if ($email) {
                 try {
@@ -92,7 +101,7 @@ class OtpService
                     if (isset($_SESSION["otp"])) {
                         unset($_SESSION["otp"]);
                     }
-                    $result = $this->sendOtp(); // Tạo và gửi lại OTP
+                    $result = $this->sendOtp($email); // Tạo và gửi lại OTP
 
                     if ($result) {
 
@@ -101,7 +110,7 @@ class OtpService
                         ob_clean();
                         header('Content-Type: application/json');
                         $response = ['success' => true];
-                        error_log("📤 JSON Response: " . json_encode($response)); //  In log phản hồi JSON
+                        error_log("JSON Response: " . json_encode($response)); //  In log phản hồi JSON
                         echo json_encode($response);
                     }
 

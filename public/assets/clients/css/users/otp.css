@@ -1,17 +1,18 @@
 body {
     font-family: Arial, sans-serif;
-    display: flex;
     justify-content: center;
-    align-items: center;
-    height: 100vh;
+    align-items: flex-start;
+    height: 100%;
     background-color: #f4f4f9;
 }
 
 .otp-container {
+    position: relative;
     background: #fff;
-    padding: 20px;
+    padding: 30px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 150px 600px 50px 600px;
     text-align: center;
     width: 320px;
 }
