@@ -28,7 +28,7 @@
             <?php endif; ?>
 
             <label for="login-email">Email</label>
-            <input type="email" id="login-email" name="email" value="<?= htmlspecialchars($_SESSION['old_email'] ?? '') ?>" placeholder="Nhập Email" required>
+            <input type="email" id="login-email" name="email" value="<?= htmlspecialchars($_SESSION['oldEmail_forgotPass'] ?? '') ?>" placeholder="Nhập Email" required>
             <!-- Hiển thị lỗi Email -->
            
              <?php if (!empty($_SESSION['error'])): ?>

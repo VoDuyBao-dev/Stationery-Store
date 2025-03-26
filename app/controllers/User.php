@@ -169,6 +169,29 @@ class User extends Controller
 
     }
 
+    public function signin_incorrect()
+    {
+        // đếm số lần đăng nhập sai
+        if (!isset($_SESSION['signin_incorrect'])) {
+            $_SESSION['signin_incorrect'] = 0;
+        }
+
+        // Xóa cảnh báo nếu đã hết hạn
+        if (isset($_SESSION['warning_signin_expire']) && time() > $_SESSION['warning_signin_expire']) {
+            unset($_SESSION['warning_signin']);
+            unset($_SESSION['warning_signin_expire']);
+        }
+        
+        if ($_SESSION['signin_incorrect'] >= 2) {
+            if (!isset($_SESSION['warning_signin'])) {
+                $_SESSION['warning_signin'] = "Bạn đã nhập sai quá 3 lần. Vui lòng dùng quên mật khẩu!";
+                // Đặt thời gian hết hạn là 3 phút kể từ bây giờ
+                $_SESSION['warning_signin_expire'] = time() + (3 * 60);
+            }
+
+        }
+    }
+
     public function signin()
     {
 
@@ -177,25 +200,8 @@ class User extends Controller
             $password = htmlspecialchars(trim($_POST['password']));
 
             $_SESSION['old_email'] = $email;
-// đếm số lần đăng nhập sai
-            if (!isset($_SESSION['signin_incorrect'])) {
-                $_SESSION['signin_incorrect'] = 0;
-            }
 
-            // Xóa cảnh báo nếu đã hết hạn
-            if (isset($_SESSION['warning_signin_expire']) && time() > $_SESSION['warning_signin_expire']) {
-                unset($_SESSION['warning_signin']);
-                unset($_SESSION['warning_signin_expire']);
-            }
-            
-            if ($_SESSION['signin_incorrect'] >= 2) {
-                if (!isset($_SESSION['warning_signin'])) {
-                    $_SESSION['warning_signin'] = "Bạn đã nhập sai quá 3 lần. Vui lòng dùng quên mật khẩu!";
-                     // Đặt thời gian hết hạn là 3 phút kể từ bây giờ
-                    $_SESSION['warning_signin_expire'] = time() + (3 * 60);
-                }
-
-            }
+            $this->signin_incorrect();
 
             if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 $_SESSION['error'] = "Email của bạn không hợp lệ!";
@@ -205,9 +211,12 @@ class User extends Controller
             }
             $verifyUser = $this->userModel->verifyUser($email, $password);
             if (is_array($verifyUser)) {
+                // Lấy thông tin người dùng
                 $_SESSION['user'] = $verifyUser;
 //                reset bộ đếm dăng nhập sai
                 $_SESSION['signin_incorrect'] = 0;
+                // xóa session old email
+                unset($_SESSION['old_email']);
 //                Nếu có cảnh báo đăng nhập quá số lần thì xóa khi đăng nhập thành công
                 if (isset($_SESSION['warning_signin'])) {
                     unset($_SESSION['warning_signin']);
@@ -233,7 +242,7 @@ class User extends Controller
     {
         if (isset($_POST['submit'])) {
             $email = strtolower(htmlspecialchars(trim($_POST['email'])));
-            $_SESSION['old_email'] = $email;
+            $_SESSION['oldEmail_forgotPass'] = $email;
 
             if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 $_SESSION['error'] = "Email của bạn không hợp lệ!";
@@ -289,6 +298,7 @@ class User extends Controller
             if($result === true){
                 unset($_SESSION['email']);
                 Helpers::setFlash('success', 'Đổi mật khẩu thành công!');
+                unset( $_SESSION['oldEmail_forgotPass']);
                 header("Location:" . _WEB_ROOT . "/dang-nhap");
                 exit();
             }else{

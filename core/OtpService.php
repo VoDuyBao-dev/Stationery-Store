@@ -48,7 +48,8 @@ class OtpService
         } catch (\Exception $e) {
             echo "<div class='error-message'>" . $e->getMessage() . "</div>";
         }
-        $to = $email ?? $_SESSION['register_data']['email'];
+        // chú ý dòng này đã sửa
+        $to = $email ?? $_SESSION['register_data']['email'] ?? $_SESSION['email'];
 
         if ($to) {
             $otp = $this->generateOtp(); // Tạo mã OTP
@@ -92,7 +93,7 @@ class OtpService
         // Kiểm tra yêu cầu AJAX
         if ($requestAjax === 'XMLHttpRequest') {
             // ưu tiên dùng email
-            $email = $email ?? $_SESSION['register_data']['email'] ?? null;
+            $email = $email ?? $_SESSION['register_data']['email'] ?? $_SESSION['email'] ?? null;
 
             if ($email) {
                 try {
