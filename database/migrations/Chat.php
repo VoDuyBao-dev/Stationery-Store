@@ -9,16 +9,16 @@ class Chat
         $this->db = new Database($config['database']);
 
         $sql = "CREATE TABLE IF NOT EXISTS chat (
-            id INT AUTO_INCREMENT PRIMARY KEY,
+            chat_id INT AUTO_INCREMENT PRIMARY KEY,
             product_id INT DEFAULT NULL,       -- Nếu nhắn trực tiếp thì kh cần còn nếu vào một sản phẩm nào đó rồi nhắn thì cần
             sender_id  INT NOT NULL,
             receiver_id   INT NOT NULL,
             message TEXT,                    -- Nội dung tin nhắn (có thể để NULL khi gửi sticker)
             sticker_id INT,                  -- ID sticker (nếu gửi sticker, giá trị này khác NULL)
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-            FOREIGN KEY (sender_id ) REFERENCES users(id) ON DELETE CASCADE,
-            FOREIGN KEY (receiver_id ) REFERENCES users(id) ON DELETE CASCADE,
-            FOREIGN KEY (sticker_id) REFERENCES stickers(id) ON DELETE SET NULL
+            FOREIGN KEY (sender_id ) REFERENCES users(user_id) ON DELETE CASCADE,
+            FOREIGN KEY (receiver_id ) REFERENCES users(user_id) ON DELETE CASCADE,
+            FOREIGN KEY (sticker_id) REFERENCES stickers(sticker_id) ON DELETE CASCADE
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
 
         try {
@@ -33,24 +33,24 @@ class Chat
 
     public function seed()
     {
-        $sql = "INSERT INTO chat (id, product_id, sender_id, receiver_id, message, sticker_id) VALUES (?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO chat (product_id, sender_id, receiver_id, message, sticker_id) VALUES (?, ?, ?, ?, ?)";
         $data = [
-            [1, 1, 1, 2, 'Chào bạn!', 1],
-            [2, 1, 2, 1, 'Chào bạn!', 1],
-            [3, 1, 1, 2, '', 1],
-            [4, 1, 2, 1, '', 2],
-            [5, 1, 1, 2, 'Bạn cần giúp gì không?', 1],
-            [6, 1, 2, 1, 'Tôi cần mua một sản phẩm', 1],
-            [7, 1, 1, 2, 'Bạn cần mua sản phẩm gì?', 1],
-            [8, 1, 2, 1, 'Tôi cần mua iPhone 12', 1],
-            [9, 1, 1, 2, 'Bạn muốn mua bản 64GB hay 128GB?', 1],
-            [10, 1, 2, 1, 'Tôi muốn mua bản 128GB', 1],
-            [11, 1, 1, 2, 'Sản phẩm có màu gì?', 1],
-            [12, 1, 2, 1, 'Màu đen và màu trắng', 1],
-            [13, 1, 1, 2, 'Tôi muốn mua màu đen', 1],
-            [14, 1, 2, 1, 'Ok, tôi sẽ kiểm tra hàng và báo giá cho bạn', 1],
-            [15, 1, 1, 2, 'Cảm ơn bạn!', 1],
-            [16, 1, 2, 1, 'Không có gì!', 1]
+            [1, 1, 2, 'Chào bạn!', 1],
+            [1, 2, 1, 'Chào bạn!', 1],
+            [1, 1, 2, '', 1],
+            [1, 2, 1, '', 2],
+            [1, 1, 2, 'Bạn cần giúp gì không?', 1],
+            [1, 2, 1, 'Tôi cần mua một sản phẩm', 1],
+            [1, 1, 2, 'Bạn cần mua sản phẩm gì?', 1],
+            [1, 2, 1, 'Tôi cần mua iPhone 12', 1],
+            [1, 1, 2, 'Bạn muốn mua bản 64GB hay 128GB?', 1],
+            [1, 2, 1, 'Tôi muốn mua bản 128GB', 1],
+            [1, 1, 2, 'Sản phẩm có màu gì?', 1],
+            [1, 2, 1, 'Màu đen và màu trắng', 1],
+            [1, 1, 2, 'Tôi muốn mua màu đen', 1],
+            [1, 2, 1, 'Ok, tôi sẽ kiểm tra hàng và báo giá cho bạn', 1],
+            [1, 1, 2, 'Cảm ơn bạn!', 1],
+            [1, 2, 1, 'Không có gì!', 1]
         ];
 
         foreach ($data as $params) {

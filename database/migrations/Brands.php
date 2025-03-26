@@ -9,7 +9,7 @@ class Brands
 
 
         $sql = "CREATE TABLE IF NOT EXISTS brands (
-            id INT AUTO_INCREMENT PRIMARY KEY,
+            brand_id INT AUTO_INCREMENT PRIMARY KEY,
             name VARCHAR(255) NOT NULL UNIQUE,
             description TEXT NULL,
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -28,12 +28,12 @@ class Brands
 
     public function seed()
     {
-        $sql = "INSERT INTO brands (id, name, description) VALUES (?, ?, ?)";
+        $sql = "INSERT INTO brands (name, description) VALUES (?, ?)";
         $data = [
-            [1, 'Apple', 'Thương hiệu Apple'],
-            [2, 'Samsung', 'Thương hiệu Samsung'],
-            [3, 'Sony', 'Thương hiệu Sony'],
-            [4, 'LG', 'Thương hiệu LG']
+            ['Apple', 'Thương hiệu Apple'],
+            ['Samsung', 'Thương hiệu Samsung'],
+            ['Sony', 'Thương hiệu Sony'],
+            ['LG', 'Thương hiệu LG']
         ];
 
         foreach ($data as $params) {

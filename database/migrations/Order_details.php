@@ -10,7 +10,7 @@ class Order_details
         $this->db = new Database($config['database']);
 
         $sql = "CREATE TABLE IF NOT EXISTS order_details (
-            id INT AUTO_INCREMENT PRIMARY KEY,
+            order_detail_id INT AUTO_INCREMENT PRIMARY KEY,
             order_id INT NOT NULL,
             product_id INT NOT NULL,
             tenDonHang VARCHAR(100) NOT NULL,
@@ -22,9 +22,9 @@ class Order_details
             coupon_id INT DEFAULT 0,           -- mã giảm giá
             vanChuyen INT DEFAULT 15000,
             price DECIMAL(10,2) NOT NULL,      -- giá sau khi giảm giá
-            FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE,
-            FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE,
-            FOREIGN KEY (coupon_id) REFERENCES coupons(id) ON DELETE SET NULL,
+            FOREIGN KEY (order_id) REFERENCES orders(order_id) ON DELETE CASCADE,
+            FOREIGN KEY (product_id) REFERENCES products(product_id) ON DELETE CASCADE,
+            FOREIGN KEY (coupon_id) REFERENCES coupons(coupon_id) ON DELETE SET NULL,
             check(quantity >= 0 and price >= 0)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
 

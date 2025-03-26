@@ -18,17 +18,32 @@ class Chat extends Controller
     }
 
     // Hiển thị trang chat
-    public function detail($receiver_id)
+    public function detail($userId)
     {
-        $sender_id = $_SESSION['user_id'] ?? 0;
-        $receiver_id = intval($receiver_id); // Chuyển đổi giá trị $receiver_id thành số nguyên
-        if ($receiver_id > 0) {
-            $messages = $this->chatModel->getMessages($sender_id, $receiver_id);
-            $this->render('chat/detail', ['messages' => $messages, 'receiver_id' => $receiver_id]);
+        $currentUserId = $_SESSION['user_id']; // ID của user đang đăng nhập
+        $role = $_SESSION['role']; // Lấy role của user hiện tại (admin hoặc user)
+
+        // Nếu user đang chat với admin, thì adminId là userId và ngược lại
+        if ($role === 'admin') {
+            $adminId = $currentUserId;
+            $receiverId = $userId;
         } else {
-            echo "Người nhận không hợp lệ.";
+            $adminId = $userId;
+            $receiverId = $currentUserId;
         }
+
+        $messages = $this->chatModel->getMessages($adminId, $receiverId);
+        $userInfo = $this->chatModel->getUserInfo($receiverId);
+
+        $this->render('mess/chat', [
+            'messages' => $messages,
+            'userInfo' => $userInfo,
+            'admin_id' => $adminId,
+            'receiver_id' => $receiverId,
+            'role' => $role
+        ]);
     }
+
 
     // Gửi tin nhắn
     public function sendMessage()
@@ -39,7 +54,12 @@ class Chat extends Controller
             $message = $_POST['message'] ?? '';
             $icon = $_POST['icon'] ?? null;
             $sticker = $_POST['sticker'] ?? null;
-
+            if (!is_numeric($receiver_id) || $receiver_id <= 0) {
+                die("Lỗi: ID người nhận không hợp lệ.");
+            }
+            if ($sender_id <= 0) {
+                die("Bạn cần đăng nhập để gửi tin nhắn.");
+            }
             if (!empty($message) || !empty($icon) || !empty($sticker)) {
                 $this->chatModel->sendMessage($sender_id, $receiver_id, $message, $icon, $sticker);
             }
@@ -50,9 +70,9 @@ class Chat extends Controller
     // Lấy danh sách người đã nhắn tin
     public function chatList()
     {
-        $user_id = $_SESSION['user_id'] ?? 0;
-        $role = $_SESSION['role'] ?? 'user'; // Lấy vai trò của người dùng từ session
+        $user_id = $_SESSION['user_id'] ?? 2;
+        $role = $_SESSION['role'] ?? 'admin'; // Lấy vai trò của người dùng từ session
         $chatList = $this->chatModel->getChatList($user_id, $role);
-        $this->render('chat/list', ['chatList' => $chatList]);
+        $this->render('mess/chat', ['chatList' => $chatList, 'role' => $role]);
     }
 }

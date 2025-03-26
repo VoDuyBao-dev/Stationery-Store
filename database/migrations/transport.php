@@ -10,7 +10,7 @@ class transport
         $this->db = new Database($config['database']);
 
         $sql = "CREATE TABLE IF NOT EXISTS transport (
-            id INT AUTO_INCREMENT PRIMARY KEY,
+            transport_id INT AUTO_INCREMENT PRIMARY KEY,
             name VARCHAR(255) NOT NULL,      -- Tên phương thức vẫn chuyển
             price DECIMAL(10,2) NOT NULL
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";

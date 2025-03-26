@@ -10,7 +10,7 @@ class Stickers
         $this->db = new Database($config['database']);
 
         $sql = "CREATE TABLE IF NOT EXISTS stickers (
-                id INT AUTO_INCREMENT PRIMARY KEY,
+                sticker_id INT AUTO_INCREMENT PRIMARY KEY,
                 name VARCHAR(255) NOT NULL,      -- Tên sticker
                 image_url VARCHAR(500) NOT NULL  -- Đường dẫn ảnh sticker
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";

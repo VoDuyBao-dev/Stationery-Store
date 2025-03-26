@@ -10,7 +10,7 @@ class Coupons
         $this->db = new Database($config['database']);
 
         $sql = "CREATE TABLE IF NOT EXISTS coupons (
-            id INT AUTO_INCREMENT PRIMARY KEY,
+            coupon_id INT AUTO_INCREMENT PRIMARY KEY,
             code VARCHAR(255) NOT NULL,                       -- mã giảm giá
             price_min DECIMAL(10,2) NOT NULL DEFAULT 0,       -- giá tối thiểu để sử dụng mã giảm giá
             discount INT NOT NULL check(discount >= 0),       -- phần trăm giảm giá

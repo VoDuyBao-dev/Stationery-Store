@@ -10,7 +10,6 @@ $routes['dang-ky'] = 'user/register';
 $routes['register_user'] = 'user/registerUser';
 $routes['resend-otp'] = 'user/resendOTP';
 
-$routes['chat'] = 'chat/detail';
 
 $routes['dang-nhap'] = 'user/signin';
 $routes['forgot_pass'] = 'user/forgot_pass';
@@ -23,5 +22,4 @@ $routes['nha_cung_cap'] = 'Categorie';
 
 $routes['trang-chu'] = 'home';
 
-$routes['chat'] = 'chat/index';
-$routes['chat_detail'] = 'chat/detail';
+$routes['^chat/([0-9]+)$'] = 'chat/detail/$1';

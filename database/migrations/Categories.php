@@ -10,7 +10,7 @@ class Categories
 
 
         $sql = "CREATE TABLE IF NOT EXISTS categories (
-            id INT AUTO_INCREMENT PRIMARY KEY,
+            category_id INT AUTO_INCREMENT PRIMARY KEY,
             name VARCHAR(255) NOT NULL UNIQUE,
             description TEXT  DEFAULT NULL,
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -29,12 +29,12 @@ class Categories
 
     public function seed()
     {
-        $sql = "INSERT INTO categories (id, name, description) VALUES (?, ?, ?)";
+        $sql = "INSERT INTO categories (name, description) VALUES (?, ?)";
         $data = [
-            [1, 'Điện thoại', 'Danh mục điện thoại di động'],
-            [2, 'Máy tính bảng', 'Danh mục máy tính bảng'],
-            [3, 'Laptop', 'Danh mục laptop'],
-            [4, 'Phụ kiện', 'Danh mục phụ kiện điện thoại, máy tính']
+            ['Điện thoại', 'Danh mục điện thoại di động'],
+            ['Máy tính bảng', 'Danh mục máy tính bảng'],
+            ['Laptop', 'Danh mục laptop'],
+            ['Phụ kiện', 'Danh mục phụ kiện điện thoại, máy tính']
         ];
 
         foreach ($data as $params) {

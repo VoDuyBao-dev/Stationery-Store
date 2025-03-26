@@ -10,15 +10,15 @@ class Reviews
         $this->db = new Database($config['database']);
 
         $sql = "CREATE TABLE IF NOT EXISTS reviews (
-            id INT AUTO_INCREMENT PRIMARY KEY,
+            review_id INT AUTO_INCREMENT PRIMARY KEY,
             product_id INT NOT NULL,
             user_id INT NOT NULL,
             comment TEXT DEFAULT NULL,
             rating INT DEFAULT 0 CHECK (rating >= 0 AND rating <= 5),
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-            FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE,
-            FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+            FOREIGN KEY (product_id) REFERENCES products(product_id) ON DELETE CASCADE,
+            FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
 
         try {

@@ -8,8 +8,8 @@ class Users
         $this->db = new Database($config['database']);
 
         $sql = "CREATE TABLE IF NOT EXISTS users (
-            id INT AUTO_INCREMENT PRIMARY KEY,
-            name VARCHAR(100) NOT NULL,
+            user_id INT AUTO_INCREMENT PRIMARY KEY,
+            fullname VARCHAR(100) NOT NULL,
             email VARCHAR(255) NOT NULL UNIQUE,
             password VARCHAR(255) NOT NULL UNIQUE,
             phone VARCHAR(15) NOT NULL UNIQUE,
@@ -30,10 +30,10 @@ class Users
 
     public function seed()
     {
-        $sql = "INSERT INTO users (id, name, email, password, phone, address, role) VALUES(?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO users (fullname, email, password, phone, address, role) VALUES(?, ?, ?, ?, ?, ?)";
         $data = [
-            [1, "nameUser", "emailUser@gmail.com", "passwordUser", "phoneUser", "addressUser", "user"],
-            [2, "nameAdmin", "emailAdmin@gmail.com", "passwordAdmin", "phoneAdmin", "addressAdmin", "admin"]
+            ["nameUser", "emailUser@gmail.com", "passwordUser", "phoneUser", "addressUser", "user"],
+            ["nameAdmin", "emailAdmin@gmail.com", "passwordAdmin", "phoneAdmin", "addressAdmin", "admin"]
         ];
         foreach ($data as $params) {
             try {

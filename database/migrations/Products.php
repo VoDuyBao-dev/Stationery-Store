@@ -10,7 +10,7 @@ class Products
         $this->db = new Database($config['database']);
 
         $sql = "CREATE TABLE IF NOT EXISTS products (
-            id INT AUTO_INCREMENT PRIMARY KEY,
+            product_id INT AUTO_INCREMENT PRIMARY KEY,
             name VARCHAR(255) NOT NULL,
             description TEXT DEFAULT NULL,
             image VARCHAR(255) DEFAULT NULL,
@@ -23,8 +23,8 @@ class Products
             status ENUM('0', '1') NOT NULL DEFAULT '1',     -- 1 : còn hàng ,  0: hết hàng
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-            FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE CASCADE,
-            FOREIGN KEY (brand_id) REFERENCES brands(id) ON DELETE CASCADE,
+            FOREIGN KEY (category_id) REFERENCES categories(category_id) ON DELETE CASCADE,
+            FOREIGN KEY (brand_id) REFERENCES brands(brand_id) ON DELETE CASCADE,
             CHECK (priceCurrent >= 0 and priceOld and discount_price >= 0 and stock_quantity >= 0)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
 
@@ -39,11 +39,11 @@ class Products
     }
     public function seed()
     {
-        $sql = "INSERT INTO products (id, name, description, image, priceCurrent, discount_price, stock_quantity, category_id, brand_id, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO products (name, description, image, priceCurrent, discount_price, stock_quantity, category_id, brand_id, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $data = [
-            [1, 'iPhone 13', 'Điện thoại Apple iPhone 13',  __DIR__ . '/../../public/assets/clients/images/sticker/1.png', 100000, 100000, 100, 1, 1, '1'],
-            [2, 'Samsung Galaxy S21', 'Điện thoại Samsung Galaxy S21',  __DIR__ . '/../../public/assets/clients/images/sticker/1.png', 200000, 200000, 150, 1, 2, '1'],
-            [3, 'Sony WH-1000XM4', 'Tai nghe Sony WH-1000XM4',  __DIR__ . '/../../public/assets/clients/images/sticker/1.png', 200000, 200000, 200, 4, 3, '1']
+            ['iPhone 13', 'Điện thoại Apple iPhone 13',  __DIR__ . '/../../public/assets/clients/images/sticker/1.png', 100000, 100000, 100, 1, 1, '1'],
+            ['Samsung Galaxy S21', 'Điện thoại Samsung Galaxy S21',  __DIR__ . '/../../public/assets/clients/images/sticker/1.png', 200000, 200000, 150, 1, 2, '1'],
+            ['Sony WH-1000XM4', 'Tai nghe Sony WH-1000XM4',  __DIR__ . '/../../public/assets/clients/images/sticker/1.png', 200000, 200000, 200, 4, 3, '1']
         ];
 
         foreach ($data as $params) {
