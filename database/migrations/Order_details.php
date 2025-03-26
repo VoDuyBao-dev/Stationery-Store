@@ -7,24 +7,49 @@ class Order_details
     public function up()
     {
         global $config;
-        // $config = require __DIR__ . "/../configs/database.php";
-        $this->db = Connection::getInstance($config['database'])->getConnection();
+        $this->db = new Database($config['database']);
 
         $sql = "CREATE TABLE IF NOT EXISTS order_details (
             id INT AUTO_INCREMENT PRIMARY KEY,
             order_id INT NOT NULL,
             product_id INT NOT NULL,
-            quantity INT NOT NULL,            -- số lượng sản phẩm
-            price DECIMAL(10,2) NOT NULL,
+            cost DECIMAL(10,2) NOT NULL,       -- giá sản phẩm
+            quantity INT NOT NULL,             -- số lượng sản phẩm
+            coupon_id INT DEFAULT 0,        -- mã giảm giá
+            price DECIMAL(10,2) NOT NULL,      -- giá sau khi giảm giá
             FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE,
             FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE,
+            FOREIGN KEY (coupon_id) REFERENCES coupons(id) ON DELETE SET NULL,
             check(quantity >= 0 and price >= 0)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
 
-        if ($this->db->query($sql)) {
+        try {
+            $this->db->query($sql);
             echo "Bảng `order_details` đã được tạo thành công!\n";
-        } else {
-            echo "Lỗi khi tạo bảng: " . $this->db->error . "\n";
+            $this->seed();
+        } catch (mysqli_sql_exception $e) {
+            echo "Lỗi khi thực thi câu lệnh: " . $e->getMessage();
+            throw $e;
+        }
+    }
+
+    public function seed()
+    {
+        $sql = "INSERT INTO order_details (order_id, product_id, cost, quantity, coupon_id, price) VALUES (?, ?, ?, ?, ?, ?)";
+        $data = [
+            [1, 1, 100000, 1, 2, 90000],
+            [1, 2, 200000, 2, 3, 160000]
+        ];
+
+
+
+        foreach ($data as $params) {
+            try {
+                $this->db->execute($sql, $params);
+                echo "Dữ liệu mẫu cho bảng `order_details` đã được tạo thành công!\n";
+            } catch (mysqli_sql_exception $e) {
+                echo "Lỗi khi tạo dữ liệu mẫu cho bảng `order_details`: " . $e->getMessage() . "\n";
+            }
         }
     }
 }

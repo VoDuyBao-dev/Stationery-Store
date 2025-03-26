@@ -1,19 +1,15 @@
 <?php
-
-
 class Users
 {
     private $db;
     public function up()
     {
         global $config;
-        // $config = require __DIR__ . "/../configs/database.php";
-        $this->db = Connection::getInstance($config['database'])->getConnection();
+        $this->db = new Database($config['database']);
 
         $sql = "CREATE TABLE IF NOT EXISTS users (
             id INT AUTO_INCREMENT PRIMARY KEY,
-            ho VARCHAR(100) NOT NULL,
-            ten VARCHAR(100) NOT NULL,
+            name VARCHAR(100) NOT NULL,
             email VARCHAR(255) NOT NULL UNIQUE,
             password VARCHAR(255) NOT NULL UNIQUE,
             phone VARCHAR(15) NOT NULL UNIQUE,
@@ -22,10 +18,30 @@ class Users
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
 
-        if ($this->db->query($sql)) {
+        try {
+            $this->db->query($sql);
             echo "Bảng `users` đã được tạo thành công!\n";
-        } else {
-            echo "Lỗi khi tạo bảng: " . $this->db->error . "\n";
+            $this->seed();
+        } catch (mysqli_sql_exception $e) {
+            echo "Lỗi khi thực thi câu lệnh: " . $e->getMessage();
+            throw $e;
+        }
+    }
+
+    public function seed()
+    {
+        $sql = "INSERT INTO users (id, name, email, password, phone, address, role) VALUES(?, ?, ?, ?, ?, ?, ?)";
+        $data = [
+            [1, "nameUser", "emailUser@gmail.com", "passwordUser", "phoneUser", "addressUser", "user"],
+            [2, "nameAdmin", "emailAdmin@gmail.com", "passwordAdmin", "phoneAdmin", "addressAdmin", "admin"]
+        ];
+        foreach ($data as $params) {
+            try {
+                $this->db->execute($sql, $params);
+                echo "Dữ liệu mẫu cho bảng `users` đã được tạo thành công!\n";
+            } catch (mysqli_sql_exception $e) {
+                echo "Lỗi khi tạo dữ liệu mẫu cho bảng `users`: " . $e->getMessage() . "\n";
+            }
         }
     }
 }

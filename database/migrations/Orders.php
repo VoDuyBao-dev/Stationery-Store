@@ -7,9 +7,7 @@ class Orders
     public function up()
     {
         global $config;
-        // $config = require __DIR__ . "/../configs/database.php";
-        $this->db = Connection::getInstance($config['database'])->getConnection();
-
+        $this->db = new Database($config['database']);
 
         $sql = "CREATE TABLE IF NOT EXISTS orders (
             id INT AUTO_INCREMENT PRIMARY KEY,
@@ -22,10 +20,31 @@ class Orders
             FOREIGN KEY (user_id) REFERENCES Users(id)  ON DELETE CASCADE
         )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
 
-        if ($this->db->query($sql)) {
+        try {
+            $this->db->query($sql);
             echo "Bảng `orders` đã được tạo thành công!\n";
-        } else {
-            echo "Lỗi khi tạo bảng: " . $this->db->error . "\n";
+            $this->seed();
+        } catch (mysqli_sql_exception $e) {
+            echo "Lỗi khi thực thi câu lệnh: " . $e->getMessage();
+            throw $e;
+        }
+    }
+
+    public function seed()
+    {
+        $sql = "INSERT INTO orders (id, user_id, total_price, payment_method) VALUES (?, ?, ?, ?)";
+        $data = [
+            [1, 1, 90000, 'card'],
+            [2, 2, 160000, 'momo'],
+        ];
+
+        foreach ($data as $params) {
+            try {
+                $this->db->execute($sql, $params);
+                echo "Dữ liệu mẫu cho bảng `orders` đã được tạo thành công!\n";
+            } catch (mysqli_sql_exception $e) {
+                echo "Lỗi khi tạo dữ liệu mẫu cho bảng `orders`: " . $e->getMessage() . "\n";
+            }
         }
     }
 }

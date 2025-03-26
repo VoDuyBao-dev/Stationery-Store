@@ -7,8 +7,7 @@ class Reviews
     public function up()
     {
         global $config;
-        // $config = require __DIR__ . "/../configs/database.php";
-        $this->db = Connection::getInstance($config['database'])->getConnection();
+        $this->db = new Database($config['database']);
 
         $sql = "CREATE TABLE IF NOT EXISTS reviews (
             id INT AUTO_INCREMENT PRIMARY KEY,
@@ -22,10 +21,30 @@ class Reviews
             FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
 
-        if ($this->db->query($sql)) {
-            echo "Bảng `reviews` đã được tạo thành công!\n";
-        } else {
-            echo "Lỗi khi tạo bảng: " . $this->db->error . "\n";
+        try {
+            $this->db->query($sql);
+            echo "Bảng `categories` đã được tạo thành công!\n";
+            $this->seed();
+        } catch (mysqli_sql_exception $e) {
+            echo "Lỗi khi thực thi câu lệnh: " . $e->getMessage();
+            throw $e;
+        }
+    }
+
+    public function seed()
+    {
+        $sql = "INSERT INTO reviews (product_id, user_id, comment, rating) VALUES (?, ?, ?, ?)";
+        $data = [
+            [1, 1, 'Sản phẩm rất tốt', 5],
+            [1, 2, 'Sản phẩm không tốt', 1]
+        ];
+        foreach ($data as $params) {
+            try {
+                $this->db->execute($sql, $params);
+                echo "Dữ liệu mẫu cho bảng `reviews` đã được tạo thành công!\n";
+            } catch (mysqli_sql_exception $e) {
+                echo "Lỗi khi tạo dữ liệu mẫu cho bảng `reviews`: " . $e->getMessage() . "\n";
+            }
         }
     }
 }

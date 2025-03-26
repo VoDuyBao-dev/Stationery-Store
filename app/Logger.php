@@ -1,12 +1,22 @@
 <?php
-
 class Logger
 {
-    private static $file = _DIR_ROOT . '/app/logs/error.log';
+    private static $file;
+
+    public static function init()
+    {
+        // Định nghĩa đường dẫn tệp log
+        self::$file = _DIR_ROOT . '/app/logs/error.log';
+
+        // Kiểm tra và tạo thư mục logs nếu chưa tồn tại
+        $logDir = dirname(self::$file);
+        if (!is_dir($logDir)) {
+            mkdir($logDir, 0777, true);
+        }
+    }
 
     public static function logError($message)
     {
-
         self::writeLog('ERROR', $message);
     }
 
@@ -26,5 +36,7 @@ class Logger
         $logMessage = "[$date] [$type] $message" . PHP_EOL;
         file_put_contents(self::$file, $logMessage, FILE_APPEND);
     }
-
 }
+
+// Khởi tạo Logger
+Logger::init();

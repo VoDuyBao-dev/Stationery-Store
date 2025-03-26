@@ -1,33 +1,26 @@
 <?php
 class ChatModel extends Model
 {
-    private $_table = 'chat';
+    private $table = 'chat';
 
-    public function sendMessage($sender_id, $receiver_id, $message)
+    // Lấy danh sách tin nhắn theo user ID
+    public function getMessages($user_id, $receiver_id)
     {
-        $sql = "INSERT INTO $this->_table (sender_id, receiver_id, message) VALUES (?, ?, ?)";
-        $params = [$sender_id, $receiver_id, $message];
-        return $this->execute($sql, $params);
+        $sql = "SELECT * FROM $this->table WHERE (sender_id = ? AND receiver_id = ?) OR (sender_id = ? AND receiver_id = ?) ORDER BY created_at ASC";
+        return $this->fetchAll($sql, [$user_id, $receiver_id, $receiver_id, $user_id]);
     }
 
-    public function getMessages($user1, $user2)
+    // Gửi tin nhắn mới
+    public function sendMessage($sender_id, $receiver_id, $message, $icon = null, $sticker = null)
     {
-        $sql = "SELECT * FROM $this->_table WHERE (sender_id = ? AND receiver_id = ?) OR (sender_id = ? AND receiver_id = ?) ORDER BY created_at ASC";
-        $params = [$user1, $user2, $user2, $user1];
-        return $this->fetchAll($sql, $params);
+        $sql = "INSERT INTO $this->table (sender_id, receiver_id, message, icon, sticker, created_at) VALUES (?, ?, ?, ?, ?, NOW())";
+        return $this->query($sql, [$sender_id, $receiver_id, $message, $icon, $sticker]);
     }
 
-    public function getAllUsers()
+    // Lấy danh sách người đã nhắn tin với user
+    public function getChatList($user_id)
     {
-        $sql = "SELECT * FROM users WHERE role != 'admin'";
-        return $this->fetchAll($sql);
-    }
-
-    public function saveMessage($sender_id, $receiver_id, $message, $icon_id, $sticker_id)
-    {
-        $sql = "INSERT INTO $this->_table (sender_id, receiver_id, message, icon_id, sticker_id) VALUES (?, ?, ?, ?, ?)";
-        $params = [$sender_id, $receiver_id, $message, $icon_id, $sticker_id];
-
-        return $this->execute($sql, $params);
+        $sql = "SELECT DISTINCT CASE WHEN sender_id = ? THEN receiver_id ELSE sender_id END AS chat_user FROM $this->table WHERE sender_id = ? OR receiver_id = ?";
+        return $this->fetchAll($sql, [$user_id, $user_id, $user_id]);
     }
 }

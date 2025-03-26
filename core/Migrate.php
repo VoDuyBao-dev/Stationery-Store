@@ -1,15 +1,16 @@
 <?php
 require_once __DIR__ . "/../configs/database.php";
 require_once __DIR__ . "/Connection.php";
+require_once __DIR__ . "/Database.php";
 global $config;
 try {
     if (!is_array($config) || !isset($config['database'])) {
-        die("❌ Lỗi: Không thể tải cấu hình cơ sở dữ liệu!\n");
+        die("Lỗi: Không thể tải cấu hình cơ sở dữ liệu!\n");
     }
     $db = Connection::getInstance($config['database'])->getConnection();
-    echo "✅ Kết nối database thành công!\n";
+    echo "Kết nối database thành công!\n";
 } catch (Exception $e) {
-    die("❌ Lỗi kết nối: " . $e->getMessage());
+    die("Lỗi kết nối: " . $e->getMessage());
 }
 
 // Danh sách các class migration cần chạy
@@ -19,12 +20,13 @@ $migrations = [
     'Categories',
     'Products',
     'Product_images',
+    'Coupons',
     'Orders',
     'Order_details',
-    'Coupons',
+    'Stickers',
     'Chat',
-    'Reviews',
-    'Icons_stickers'
+    'Reviews'
+
 ];
 
 // Chạy từng migration

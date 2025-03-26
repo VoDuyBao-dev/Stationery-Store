@@ -75,10 +75,16 @@
                     </div>
                 </div>
             </div>
-            <div class="input">
-                <input type="text" name="message" id="message">
-                <button id="send">Send</button>
-            </div>
+            <form action="/chat/sendMessage" method="POST">
+
+                <div class="input">
+                    <input type="hidden" name="receiver_id" value="2">
+                    <input type="text" name="message" placeholder="Nhập tin nhắn..." required>
+                    <button type="submit">Gửi</button>
+                </div>
+            </form>
+
+
         </div>
 
         <div class="information">

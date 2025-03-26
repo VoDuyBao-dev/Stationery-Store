@@ -8,7 +8,6 @@ class Database
     public function __construct()
     {
         global $config;
-        // $config = require __DIR__ . "/../configs/database.php";
         $this->conn = Connection::getInstance($config['database'])->getConnection();
     }
 

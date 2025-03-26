@@ -7,8 +7,7 @@ class Coupons
     public function up()
     {
         global $config;
-        // $config = require __DIR__ . "/../configs/database.php";
-        $this->db = Connection::getInstance($config['database'])->getConnection();
+        $this->db = new Database($config['database']);
 
         $sql = "CREATE TABLE IF NOT EXISTS coupons (
             id INT AUTO_INCREMENT PRIMARY KEY,
@@ -21,10 +20,32 @@ class Coupons
             FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE
         )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
 
-        if ($this->db->query($sql)) {
+        try {
+            $this->db->query($sql);
             echo "Bảng `coupons` đã được tạo thành công!\n";
-        } else {
-            echo "Lỗi khi tạo bảng: " . $this->db->error . "\n";
+            $this->seed();
+        } catch (mysqli_sql_exception $e) {
+            echo "Lỗi khi thực thi câu lệnh: " . $e->getMessage();
+            throw $e;
+        }
+    }
+
+    public function seed()
+    {
+        $sql = "INSERT INTO coupons (product_id, code, discount) VALUES (?, ?, ?)";
+        $data = [
+            [1, 'trong', 0],
+            [2, 'ABC123', 10],
+            [3, 'DEF456', 20]
+        ];
+
+        foreach ($data as $params) {
+            try {
+                $this->db->execute($sql, $params);
+                echo "Dữ liệu mẫu cho bảng `coupons` đã được tạo thành công!\n";
+            } catch (mysqli_sql_exception $e) {
+                echo "Lỗi khi tạo dữ liệu mẫu cho bảng `coupons`: " . $e->getMessage() . "\n";
+            }
         }
     }
 }
