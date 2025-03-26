@@ -1,5 +1,6 @@
 <?php
 
+use app\Logger;
 
 class Database
 {
@@ -10,11 +11,6 @@ class Database
         global $config;
         $this->conn = Connection::getInstance($config['database'])->getConnection();
     }
-
-//    public function getConnection()
-//    {
-//        return $this->conn;
-//    }
 
     public function query($sql, $params = [])
     {

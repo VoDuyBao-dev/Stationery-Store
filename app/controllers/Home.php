@@ -12,16 +12,14 @@ class Home extends Controller
 
     public function index()
     {
-        $data[] = $this->homeModel->getList();
-//        print_r($data);
-        echo 'home index';
+        $this->render("layouts/client_layout");
     }
 
     public function getHomeID($id)
     {
         $data[] = $this->homeModel->getDetail($id);
         print_r($data);
-       
+
     }
 
 

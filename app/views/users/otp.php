@@ -21,7 +21,11 @@
         <div class="error-message"><?= htmlspecialchars($create_user) ?></div>
     <?php endif; ?>
 
-    <form action="<?= _WEB_ROOT; ?>/nhap-otp" method="POST" class="otp-form">
+
+    <form action="<?= _WEB_ROOT ?>/handle-otp" method="POST" class="otp-form">
+    <!-- Input ẩn để xác định chức năng -->
+    <input type="hidden" name="action" value="<?= htmlspecialchars($_GET['action'] ?? 'default') ?>">
+
         <div class="otp-inputs">
             <?php for ($i = 0; $i < 4; $i++): ?>
                 <input type="text" name="otp[]" maxlength="1" pattern="[0-9]" inputmode="numeric" required/>

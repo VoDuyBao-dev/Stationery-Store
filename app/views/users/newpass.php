@@ -4,31 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nhập mật khẩu mới</title>
-    <link type="text/css" rel="stylesheet" 
-      href=" <?php echo _WEB_ROOT; ?>//public/assets/clients/css/users/Signin-Signup.css"/>
-    <scipt type="text/javascript" href="
-      <?php echo _WEB_ROOT; ?>/public/assets/clients/js/users/Signin-Signup.js"></scipt>
+    <link type="text/css" rel="stylesheet"
+          href="<?php echo _WEB_ROOT; ?>/public/assets/clients/css/users/Signin-Signup.css"/>
+    <script type="text/javascript" src=" <?php echo _WEB_ROOT; ?>/public/assets/clients/js/users/Signin-Signup.js"></script>
+      
 
 </head>
 <body>
 <?php  require_once _DIR_ROOT . "/app/views/blocks/header.php";?>
 <div class="container">
-    <div class="tabs">
-        <div class="tab active" onclick="redirectTo('signin.php')">Đăng nhập</div>
-        <div class="tab" onclick="redirectTo('register.php')">Đăng ký</div>
-    </div>
+<div class="tabs">
+        <div class="tab active" onclick="redirectTo('<?php echo _WEB_ROOT . '/dang-nhap'; ?>')">Đăng nhập</div>
+                 <div class="tab" onclick="redirectTo('<?php echo _WEB_ROOT . '/dang-ky'; ?>')">Đăng ký</div>
+     </div> 
 
     <div class="form-container active">
-        <form action="newpass.php" method="POST">
+        <form action="<?php echo _WEB_ROOT . '/change_password'; ?>" method="POST">
           <h4>Cài lại mật khẩu mới</h4>
           <label for="login-password">Mật khẩu mới</label>
-          <input type="newpassword" id="login-password" name="password" placeholder="Nhập Mật khẩu" required>
+          <input type="password" id="login-password" name="newPassword" placeholder="Nhập Mật khẩu" required>
 
           <label for="login-password">Nhập lại mật khẩu mới</label>
-          <input type="confirm-newpassword" id="login-password" name="password" placeholder="Nhập Mật khẩu" required>
+          <input type="password" id="login-password" name="conf_new_password" placeholder="Nhập Mật khẩu" required>
+          
+           <!-- Hiển thị lỗi -->
+           <?php if (!empty($_SESSION['error'])): ?>
+                <div class="error-message"><?= $_SESSION['error']; ?></div>
+                <?php unset($_SESSION['error']); ?>
+            <?php endif; ?>
 
-            <button type="submit" class="btn">Đăng nhập</button>
+            <button type="submit" name="submit-newPass" class="btn">Đăng nhập</button>
           </form>
+          
     </div>
         
 </div>

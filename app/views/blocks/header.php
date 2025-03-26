@@ -52,8 +52,8 @@
             href="<?php echo _WEB_ROOT; ?>/public/assets/clients/css/blocks/header.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap">
-    <script type="text/javascript" hrf="
-        <?php echo _WEB_ROOT; ?>/public/assets/clients/js/blocks/header.js"></script>
+    <script type="text/javascript" src="<?php echo _WEB_ROOT; ?>/public/assets/clients/js/blocks/header.js"></script>
+        
 </head>
 <body>
     
