@@ -6,8 +6,7 @@
     <title>Quên mật khẩu</title>
     <link type="text/css" rel="stylesheet" 
       href=" <?php echo _WEB_ROOT; ?>//public/assets/clients/css/users/Signin-Signup.css"/>
-    <scipt type="text/javascript" src="
-      <?php echo _WEB_ROOT; ?>/public/assets/clients/js/users/Signin-Signup.js"></scipt>
+      <script type="text/javascript" src=" <?php echo _WEB_ROOT; ?>/public/assets/clients/js/users/Signin-Signup.js"></script>
 
 </head>
 <body>
@@ -19,12 +18,26 @@
     </div>
 
     <div class="form-container active">
-        <form action="forgot_pass.php" method="POST">
+        <form action="<?php echo _WEB_ROOT . '/forgot_pass'; ?>" method="POST">
           <h4>Bạn quên mật khẩu? Nhập địa chỉ email để lấy lại mật khẩu nhé!</h4>
+
+          <!-- bao loi -->
+<?php if (!empty($_SESSION['fail'])): ?>
+                <div class="error-message"><?= $_SESSION['fail']; ?></div>
+                <?php unset($_SESSION['fail']); ?>
+            <?php endif; ?>
+
             <label for="login-email">Email</label>
-            <input type="email" id="login-email" name="email" placeholder="Nhập Email" required>
-            <p class="forgot" onclick="redirectTo('signin.php')"><span>Quay lại</span> tại đây<p>
-            <button type="submit" class="btn">Lấy lại mật khẩu</button>
+            <input type="email" id="login-email" name="email" value="<?= htmlspecialchars($_SESSION['old_email'] ?? '') ?>" placeholder="Nhập Email" required>
+            <!-- Hiển thị lỗi Email -->
+           
+             <?php if (!empty($_SESSION['error'])): ?>
+                <div class="error-message"><?= $_SESSION['error']; ?></div>
+                <?php unset($_SESSION['error']); ?>
+            <?php endif; ?>
+
+            <p class="forgot" onclick="redirectTo('<?php echo _WEB_ROOT . '/dang-nhap'; ?>')"><span>Quay lại</span> tại đây<p>
+            <button type="submit" name="submit" class="btn">Lấy lại mật khẩu</button>
           </form>
     </div>
         

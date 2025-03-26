@@ -16,6 +16,5 @@
 <?php  require_once _DIR_ROOT . "/app/views/blocks/menu.php";?>
 <?php  require_once _DIR_ROOT . "/app/views/blocks/footer.php";?>
 
-
 </body>
 </html>
