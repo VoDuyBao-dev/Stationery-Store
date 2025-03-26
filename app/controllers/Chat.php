@@ -3,18 +3,31 @@ class Chat extends Controller
 {
     private $chatModel;
 
-    // public function __construct()
-    // {
-    //     $this->chatModel = $this->model('ChatModel');
-    // }
+    public function __construct()
+    {
+        try {
+            $this->chatModel = $this->model('chatModel');  // tạo một object mới
+
+            if (!$this->chatModel) {
+                throw new Exception("Lỗi trong quá trình tạo đối tượng");
+            }
+        } catch (Exception $e) {
+            header("Location:" . _BASE_URL . "/app/errors/loichung.php?message=" . urlencode($e->getMessage()));
+            exit;
+        }
+    }
 
     // Hiển thị trang chat
-    public function detail()
+    public function detail($receiver_id)
     {
-        $this->render('mess/chat');
-        // $user_id = $_SESSION['user_id'] ?? 0;
-        // $messages = $this->chatModel->getMessages($user_id, $receiver_id);
-        // $this->render('chat/detail', ['messages' => $messages, 'receiver_id' => $receiver_id]);
+        $sender_id = $_SESSION['user_id'] ?? 0;
+        $receiver_id = intval($receiver_id); // Chuyển đổi giá trị $receiver_id thành số nguyên
+        if ($receiver_id > 0) {
+            $messages = $this->chatModel->getMessages($sender_id, $receiver_id);
+            $this->render('chat/detail', ['messages' => $messages, 'receiver_id' => $receiver_id]);
+        } else {
+            echo "Người nhận không hợp lệ.";
+        }
     }
 
     // Gửi tin nhắn
@@ -38,7 +51,8 @@ class Chat extends Controller
     public function chatList()
     {
         $user_id = $_SESSION['user_id'] ?? 0;
-        $chatList = $this->chatModel->getChatList($user_id);
+        $role = $_SESSION['role'] ?? 'user'; // Lấy vai trò của người dùng từ session
+        $chatList = $this->chatModel->getChatList($user_id, $role);
         $this->render('chat/list', ['chatList' => $chatList]);
     }
 }

@@ -13,9 +13,14 @@ class Order_details
             id INT AUTO_INCREMENT PRIMARY KEY,
             order_id INT NOT NULL,
             product_id INT NOT NULL,
+            tenDonHang VARCHAR(100) NOT NULL,
+            phone VARCHAR(11) NOT NULL, 
+            address VARCHAR(500) NOT NULL,
+            ghiChu TEXT DEFAULT NULL,
             cost DECIMAL(10,2) NOT NULL,       -- giá sản phẩm
             quantity INT NOT NULL,             -- số lượng sản phẩm
-            coupon_id INT DEFAULT 0,        -- mã giảm giá
+            coupon_id INT DEFAULT 0,           -- mã giảm giá
+            vanChuyen INT DEFAULT 15000,
             price DECIMAL(10,2) NOT NULL,      -- giá sau khi giảm giá
             FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE,
             FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE,
@@ -35,10 +40,10 @@ class Order_details
 
     public function seed()
     {
-        $sql = "INSERT INTO order_details (order_id, product_id, cost, quantity, coupon_id, price) VALUES (?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO order_details (order_id, product_id,tenDonHang, phone,address,  ghiChu, cost, quantity, coupon_id, price) VALUES (?, ?, ?, ?, ?, ?, ?, ?,?,?)";
         $data = [
-            [1, 1, 100000, 1, 2, 90000],
-            [1, 2, 200000, 2, 3, 160000]
+            [1, 1, "don hang 1", "0762358945", "dia chi", "hien tai khogn co ghi chu", 100000, 1, 2, 90000],
+            [1, 2, "don hang 2", "0258946712", "khognbietnx", "kh co", 200000, 2, 3, 160000]
         ];
 
 
