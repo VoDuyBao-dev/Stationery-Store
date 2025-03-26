@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Nhập OTP</title>
 
-    <link rel="stylesheet" href="<?= _WEB_ROOT; ?>/public/assets/clients/css/users/otp.css"/>
+    <link rel="stylesheet" src="<?= _WEB_ROOT; ?>/public/assets/clients/css/users/otp.css"/>
 </head>
 <body>
 

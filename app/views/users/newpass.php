@@ -6,7 +6,7 @@
     <title>Nhập mật khẩu mới</title>
     <link type="text/css" rel="stylesheet" 
       href=" <?php echo _WEB_ROOT; ?>//public/assets/clients/css/users/Signin-Signup.css"/>
-    <scipt type="text/javascript" href="
+    <scipt type="text/javascript" src="
       <?php echo _WEB_ROOT; ?>/public/assets/clients/js/users/Signin-Signup.js"></scipt>
 
 </head>
