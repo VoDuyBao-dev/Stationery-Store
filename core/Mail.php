@@ -6,7 +6,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 use app\Logger;
 
-require_once _DIR_ROOT . '/vendor/autoload.php';
+require_once _DIR_ROOT . '../vendor/autoload.php';
 
 class Mail
 {
