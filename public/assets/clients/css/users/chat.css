@@ -83,6 +83,7 @@ body {
     justify-content: flex-start;
 }
 
+
 .avatar img {
     width: 40px;
     height: 40px;
@@ -130,6 +131,39 @@ body {
     cursor: pointer;
     margin-left: 10px;
 }
+
+
+.sticker-menu {
+    display: none;
+    position: absolute;
+    bottom: 50px;
+    background: white;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.sticker-menu.show {
+    display: flex;
+    gap: 10px;
+}
+
+.sticker-menu img {
+    width: 50px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.sticker-menu img:hover {
+    transform: scale(1.2);
+}
+
+.sticker-img {
+    width: 80px;
+    height: auto;
+    margin-top: 5px;
+}
+
 
 /* Thông tin người dùng */
 .information {

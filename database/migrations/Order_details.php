@@ -20,10 +20,11 @@ class Order_details
             cost DECIMAL(10,2) NOT NULL,       -- giá sản phẩm
             quantity INT NOT NULL,             -- số lượng sản phẩm
             coupon_id INT DEFAULT 0,           -- mã giảm giá
-            vanChuyen INT DEFAULT 15000,
+            transport_id INT NOT NULL,
             price DECIMAL(10,2) NOT NULL,      -- giá sau khi giảm giá
             FOREIGN KEY (order_id) REFERENCES orders(order_id) ON DELETE CASCADE,
             FOREIGN KEY (product_id) REFERENCES products(product_id) ON DELETE CASCADE,
+            FOREIGN KEY (transport_id) REFERENCES transport(transport_id) ON DELETE CASCADE,
             FOREIGN KEY (coupon_id) REFERENCES coupons(coupon_id) ON DELETE SET NULL,
             check(quantity >= 0 and price >= 0)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
@@ -40,10 +41,10 @@ class Order_details
 
     public function seed()
     {
-        $sql = "INSERT INTO order_details (order_id, product_id,tenDonHang, phone,address,  ghiChu, cost, quantity, coupon_id, price) VALUES (?, ?, ?, ?, ?, ?, ?, ?,?,?)";
+        $sql = "INSERT INTO order_details (order_id, product_id,tenDonHang, phone,address,  ghiChu, cost, quantity, coupon_id, transport_id, price) VALUES (?, ?, ?, ?, ?, ?, ?, ?,?,?, ?)";
         $data = [
-            [1, 1, "don hang 1", "0762358945", "dia chi", "hien tai khogn co ghi chu", 100000, 1, 2, 90000],
-            [1, 2, "don hang 2", "0258946712", "khognbietnx", "kh co", 200000, 2, 3, 160000]
+            [1, 1, "don hang 1", "0762358945", "dia chi", "hien tai khogn co ghi chu", 100000, 1, 2, 1, 1050000],
+            [1, 2, "don hang 2", "0258946712", "khognbietnx", "kh co", 200000, 2, 3, 2, 170000]
         ];
 
 

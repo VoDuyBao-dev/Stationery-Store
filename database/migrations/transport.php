@@ -26,5 +26,18 @@ class transport
     public function seed()
     {
         $sql = "INSERT INTO transport (name, price) VALUES (?, ?)";
+        $data = [
+            ['Chuyển hỏa tốc', 15000],
+            ['Chuyển trong ngày', 10000],
+            ['Chuyển tiết kiệm', 5000]
+        ];
+        foreach ($data as $params) {
+            try {
+                $this->db->execute($sql, $params);
+                echo "Dữ liệu mẫu cho bảng `transport` đã được tạo thành công!\n";
+            } catch (mysqli_sql_exception $e) {
+                echo "Lỗi khi tạo dữ liệu mẫu cho bảng `transport`: " . $e->getMessage() . "\n";
+            }
+        }
     }
 }

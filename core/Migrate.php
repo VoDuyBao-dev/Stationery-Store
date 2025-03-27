@@ -21,6 +21,7 @@ $migrations = [
     'Products',
     'Product_images',
     'Coupons',
+    'transport',
     'Orders',
     'Order_details',
     'Stickers',

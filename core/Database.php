@@ -64,6 +64,7 @@ class Database
             $item = [];
             foreach ($row as $key => $value) {
                 $item[$key] = $value;
+                // echo $key . " " . $value . "<br>";
             }
             $data[] = $item;
         }

@@ -33,7 +33,7 @@ class Coupons
     {
         $sql = "INSERT INTO coupons (price_min, code, discount) VALUES (?, ?, ?)";
         $data = [
-            [1, 'trong', 0],
+            [1, 'trong', 0],             // Trống 
             [20000, 'ABC123', 10],
             [30000, 'DEF456', 20]
         ];

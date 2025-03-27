@@ -1,37 +1,24 @@
-function sendMessage() {
-    let message = document.getElementById('message').value;
-    fetch("send.php", {
-        method: "POST",
-        body: JSON.stringify({
-            message
-        }),
-        headers: {
-            "Content-Type": "application/json"
-        }
-    }).then(() => {
-        document.getElementById('message').value = "";
-        loadMessages();
-    });
+function toggleStickerMenu() {
+    document.getElementById("stickerMenu").classList.toggle("show");
 }
 
-function loadMessages() {
-    fetch("load.php").then(res => res.json()).then(data => {
-        let messagesDiv = document.getElementById("messages");
-        messagesDiv.innerHTML = "";
-        data.forEach(msg => {
-            let div = document.createElement("div");
-            div.innerText = msg.message;
-            messagesDiv.appendChild(div);
-        });
-    });
+function selectSticker(imgElement) {
+    let stickerSrc = imgElement.getAttribute("id");
+    if (stickerSrc) {
+        document.getElementById("stickerInput").value = stickerSrc; // Lưu đường dẫn ảnh vào input ẩn
+        document.getElementById("messageInput").removeAttribute("required"); // Không bắt buộc nhập text nếu chọn sticker
+        document.querySelector("form").submit(); // Gửi tin nhắn ngay lập tức
+    }
+    else stickerSrc = 1;
+
 }
 
-function showIcons() {
-    alert("Chọn icon (chức năng sẽ làm sau)");
+function scrollToBottom() {
+    var chatBox = document.querySelector(".message");
+    if (chatBox) chatBox.scrollTop = chatBox.scrollHeight;
 }
 
-function showStickers() {
-    alert("Chọn sticker (chức năng sẽ làm sau)");
-}
-
-loadMessages();
+window.onload = scrollToBottom; // Cuộn khi tải trang
+document.querySelector("form").onsubmit = function () {
+    setTimeout(scrollToBottom, 200); // Cuộn sau khi gửi tin nhắn
+};
