@@ -13,7 +13,7 @@ class Orders
             order_id INT AUTO_INCREMENT PRIMARY KEY,
             user_id INT NOT NULL,
             total_price INT NOT NULL check(total_price >= 0),     -- tổng tiền
-            payment_method ENUM('card', 'momo') NOT NULL,         -- phương thức thanh toán
+            payment_method ENUM('card', 'momo', 'money') NOT NULL,         -- phương thức thanh toán
             status ENUM('0', '1') NOT NULL DEFAULT '1',           -- 1 : đã thanh toán ,  0: chưa thanh toán
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -34,8 +34,8 @@ class Orders
     {
         $sql = "INSERT INTO orders (user_id, total_price, payment_method) VALUES ( ?, ?, ?)";
         $data = [
-            [1, 90000, 'card'],
-            [2, 160000, 'momo'],
+            [1, 10500, 'card'],
+            [2, 170000, 'momo'],
         ];
 
         foreach ($data as $params) {
