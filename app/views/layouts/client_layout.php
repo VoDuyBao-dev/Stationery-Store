@@ -4,14 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stationery</title>
-
+    <style>
+        menu {
+            float: left;
+        }
+        main{
+            margin-top: 150px;
+            margin-left: 250px;
+        }
+    </style>
 </head>
 
 <body>
-<?php  require_once _DIR_ROOT . "/app/views/blocks/header.php";?>
-<?php  require_once _DIR_ROOT . "/app/views/blocks/menu.php";?>
+<header>
+    <?php  require_once _DIR_ROOT . "/app/views/blocks/header.php";?>
+</header>  
 
-<?php  require_once _DIR_ROOT . "/app/views/blocks/footer.php";?>
+<menu>
+    <?php  require_once _DIR_ROOT . "/app/views/blocks/menu.php";?>
+</menu> 
+<main>
+    <?php require_once _DIR_ROOT . "/app/views/users/TrangChu.php"?>
+</main>
+
+<footer>
+    <?php  require_once _DIR_ROOT . "/app/views/blocks/footer.php";?>
+</footer>
+
 
 </body>
 </html>

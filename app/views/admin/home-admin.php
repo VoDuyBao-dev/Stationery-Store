@@ -28,9 +28,6 @@
 
 <body>
 
-
-
-
   <div id="app">
     <div class="main-wrapper main-wrapper-1">
       <div class="main-content">
@@ -158,7 +155,7 @@
                           <div class="list-inline text-center">
                             <div class="list-inline-item p-r-30"><i data-feather="arrow-up-circle"
                                 class="col-green"></i>
-                              <h5 class="mb-0 m-b-0">45.965,000 VNĐ</h5>
+                              <h5 class="mb-0 m-b-0">45,965,000 VNĐ</h5>
                               <p class="text-muted font-14 m-b-0">Thu nhập hằng năm</p>
                             </div>
                           </div>
@@ -325,7 +322,7 @@
     </div>
 
     <div class="settingSidebar">
-          <a href="javascript:void(0)" class="settingPanelToggle"> <i class="fa fa-spin fa-cog"></i>
+          <a href="<?php echo _WEB_ROOT;?>/javascript:void(0)" class="settingPanelToggle"> <i class="fa fa-spin fa-cog"></i>
           </a>
           <div class="settingSidebar-body ps-container ps-theme-default">
             <div class=" fade show active">

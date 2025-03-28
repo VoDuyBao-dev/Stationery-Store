@@ -38,8 +38,8 @@
         <div class="icon user-menu">
             <i class="fas fa-user" id="userIcon"></i>
             <div class="dropdown-user" id="dropdownUser">
-                <a href="../">Đăng nhập</a>
-                <a href="./register.php">Đăng ký</a>
+                <a href="<?php echo _WEB_ROOT . '/dang-nhap'; ?>">Đăng nhập</a>
+                <a href="<?php echo _WEB_ROOT . '/dang-ky'; ?>">Đăng ký</a>
             </div>
         </div>
 
