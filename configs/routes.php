@@ -12,8 +12,10 @@ $routes['resend-otp'] = 'user/resendOTP';
 $routes['dang-nhap'] = 'user/signin';
 $routes['forgot_pass'] = 'user/forgot_pass';
 $routes['change_password'] = 'user/change_password';
+$routes['thong-tin-sp'] = 'user/thongtin';
 //trang client_layout
 $routes['client_layout'] = 'dashboard/index';
+$routes['admin_layout'] = 'dashboard/home';
 
 $routes['san-pham'] = 'product/index';
 $routes['nha_cung_cap'] = 'Categorie';

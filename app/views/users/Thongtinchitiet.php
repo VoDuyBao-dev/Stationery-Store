@@ -4,19 +4,36 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vở viết kẻ ngang nhiều hình siêu ngộ nghĩnh</title>
-    <link rel="stylesheet" href="../css/product_info.css" />
+    <link type="text/css" rel="stylesheet" href="<?php echo _WEB_ROOT;?>/public/assets/clients/css/users/Thongtinchitiet.css" />
+    <style>
+      menu{
+        float:left
+      }
+      main{
+        margin-top: 150px ;
+        margin-left: 250px;
+      }
+    </style>
   </head>
   
   <body>
+  <header>
+<?php require_once _DIR_ROOT . "/app/views/blocks/header.php"; ?>
+</header>
+<menu>
+    <?php require_once _DIR_ROOT . "/app/views/blocks/menu.php"; ?>
+</menu>
+<main>
+
     <!-- Khu vực hiển thị sản phẩm -->
     <div class="nd-img-and-info">
       <!-- Hình ảnh sản phẩm -->
       <div class="product-images">
-        <img src="../img/but.webp" alt="Sổ tay mini" class="main-image" />
+        <img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/but.webp" alt="Sổ tay mini" class="main-image" />
         <div class="thumbnail-container">
-          <img src="../img/but.webp" class="thumbnail" />
-          <img src="../img/but.webp" class="thumbnail" />
-          <img src="../img/but.webp" class="thumbnail" />
+          <img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/but.webp" class="thumbnail" />
+          <img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/but.webp" class="thumbnail" />
+          <img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/but.webp" class="thumbnail" />
         </div>
       </div>
       <!-- Thông tin sản phẩm -->
@@ -57,7 +74,7 @@
       <div class="service_product">
         <div class="item">
           <div class="icon">
-            <img src="../img/icongiaohang.svg" alt="Giao hàng nội thành" />
+            <img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/icongiaohang.svg" alt="Giao hàng nội thành" />
           </div>
           <div class="info">
             <h3>Giao hàng free nội thành</h3>
@@ -66,7 +83,7 @@
         </div>
         <div class="item">
           <div class="icon">
-            <img src="../img/icontrahang.svg" alt="Trả hàng trong 24h" />
+            <img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/icontrahang.svg" alt="Trả hàng trong 24h" />
           </div>
           <div class="info">
             <h3>Trả hàng trong vòng 24h</h3>
@@ -75,7 +92,7 @@
         </div>
         <div class="item">
           <div class="icon">
-            <img src="../img/Iconkiemtra.svg" alt="Kiểm tra hàng khi nhận" />
+            <img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/Iconkiemtra.svg" alt="Kiểm tra hàng khi nhận" />
           </div>
           <div class="info">
             <h3>Kiểm tra hàng khi nhận hàng</h3>
@@ -84,7 +101,7 @@
         </div>
         <div class="item">
           <div class="icon">
-            <img src="../img/iconthanhtoan.svg" alt="Thanh toán cod " />
+            <img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/iconthanhtoan.svg" alt="Thanh toán cod " />
           </div>
           <div class="info">
             <h3>Thanh toán cod</h3>
@@ -322,7 +339,7 @@
           <div class="product-featured-swiper">
             <div class="product-block">
               <div class="product-block-item">
-                <a href="#"><img src="../img/but.webp" alt="Vở viết" /></a>
+                <a href="#"><img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/but.webp" alt="Vở viết" /></a>
               </div>
               <div class="product-info">
                 <a href="#">Vở viết kẻ ngang nhiều hình ngộ nghĩnh</a>
@@ -334,7 +351,7 @@
             </div>
             <div class="product-block">
                 <div class="product-block-item">
-                  <a href="#"><img src="../img/but.webp" alt="Vở viết" /></a>
+                  <a href="#"><img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/but.webp" alt="Vở viết" /></a>
                 </div>
                 <div class="product-info">
                   <a href="#">Vở viết kẻ ngang nhiều hình ngộ nghĩnh</a>
@@ -346,7 +363,7 @@
               </div>
               <div class="product-block">
                 <div class="product-block-item">
-                  <a href="#"><img src="../img/but.webp" alt="Vở viết" /></a>
+                  <a href="#"><img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/but.webp" alt="Vở viết" /></a>
                 </div>
                 <div class="product-info">
                   <a href="#">Vở viết kẻ ngang nhiều hình ngộ nghĩnh</a>
@@ -359,7 +376,7 @@
               
             <div class="product-block">
               <div class="product-block-item">
-                <a href="#"><img src="../img/but.webp" alt="Hộp bút" /></a>
+                <a href="#"><img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/but.webp" alt="Hộp bút" /></a>
               </div>
               <div class="product-info">
                 <a href="#">Hộp đựng văn phòng phẩm</a>
@@ -371,7 +388,7 @@
             </div>
             <div class="product-block">
               <div class="product-block-item">
-                <a href="#"><img src="../img/but.webp" alt="Sổ tay" /></a>
+                <a href="#"><img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/but.webp" alt="Sổ tay" /></a>
               </div>
               <div class="product-info">
                 <a href="#">Sổ tay cá nhân</a>
@@ -389,5 +406,7 @@
         </div>
       </div>
     </section>
+</main>
+    <?php require_once _DIR_ROOT . "/app/views/blocks/footer.php"; ?>
   </body>
 </html>

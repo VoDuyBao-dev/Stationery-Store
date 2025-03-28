@@ -24,8 +24,8 @@ body {
 
 /* Logo */
 .logo {
-    display: flex;
-    align-items: center;
+    display: flex !important;
+    align-items: center !important;
 }
 
 .logo img {
@@ -39,8 +39,8 @@ body {
 }
 
 a{
-    text-decoration: none;
-    color: inherit; /* Giữ nguyên màu chữ */
+    text-decoration: none !important;
+    color: inherit !important; /* Giữ nguyên màu chữ */
     border: none; /* Đảm bảo không có viền */
     outline: none; /* Loại bỏ viền khi focus */
 }
@@ -66,7 +66,7 @@ a{
     font-size: 13px;
     font-style: italic;
     color: rgb(224, 218, 218);
-    font-family: 'Caveat', cursive;
+    font-family: 'Caveat', cursive !important;
     
 }
 
@@ -78,7 +78,7 @@ a{
     border-radius: 20px;
     padding: 5px 15px;
     width: 35%;
-    font-family: 'Caveat', cursive;
+    font-family: 'Caveat', cursive !important;
 }
 
 .search-bar input {
@@ -171,13 +171,14 @@ a{
 .dropdown-user a {
     display: block;
     padding: 10px;
-    color: black;
+    color: black !important;
     text-decoration: none;
     font-size: 14px;
 }
 
 .dropdown-user a:hover {
-    background: #e2b36dbd;;
+    background: #e2b36dbd;
+    color: black !important;
 }
 
 .show {
@@ -189,47 +190,47 @@ a{
     padding: 0;
     text-align: left;
     font-family: 'Montserrat', sans-serif;
-    color: rgba(98, 115, 135, 0.668);
-    position: absolute;
+    color: rgba(98, 115, 135, 0.668) !important;
+    position: absolute !important;
     transform: translateX(-50%);
     top: 85px; 
     left: 50%;
     width: 100%;
-    display: flex;
+    display: flex !important;
 }
 
 .breadcrumb-banner .container {
-    width: 100%;
+    width: 200% !important;
     margin: auto;
     background: rgba(112, 128, 144, 0.478);
     z-index: 2;
     padding: 10px;
-    display: inline-flex;
+    display: ruby;
 }
 
 .breadcrumb-banner p {
     font-size: 16px;
     font-style: italic;
-    color: #e0c08d;
+    color: #e0c08d !important;
     display: inline;
 
 }
 
 .breadcrumb-banner a {
-    color:#f6ebd9f5;
+    color:#f6ebd9f5 !important;
     text-decoration: none;
 } 
 
 .breadcrumb-banner h2 {
     font-size: 16px;
     font-style: italic;
-    color: #f6ebd9e4;
+    color: #f6ebd9e4 !important;
 }
 .breadcrumb-banner span {
     display: inline-block !important; /* Giữ nó trên cùng một hàng */
     font-size: 16px; /* Kích thước chữ giống h2 */
     font-weight: bold; /* Độ đậm giống h2 */
-    color: #f6ebd9e4; /* Màu chữ */
+    color: #f6ebd9e4 !important; /* Màu chữ */
 }
 
 .cart-floating {

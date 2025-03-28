@@ -1,4 +1,5 @@
 /* ========================== Reset mặc định ========================== */
+
 * {
     margin: 0; /* Xóa khoảng cách mặc định của tất cả các phần tử */
     padding: 0; /* Xóa padding mặc định của tất cả các phần tử */
@@ -6,6 +7,7 @@
     font-family: Arial, sans-serif; /* Đặt font chữ mặc định */
   }
   body {
+  
     background: #f8f8f8;
   }
   /* Flash Sale */
