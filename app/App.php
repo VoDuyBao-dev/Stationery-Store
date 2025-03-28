@@ -111,6 +111,5 @@ class App
 
     }
 
-//    Hàm ghi log
 
 }

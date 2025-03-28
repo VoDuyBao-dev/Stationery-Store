@@ -20,7 +20,5 @@ $routes['nha_cung_cap'] = 'Categorie';
 
 $routes['trang-chu'] = 'home';
 
-$routes['chat'] = 'chat/index';
-$routes['chat_detail'] = 'chat/detail';
 
 ?>
