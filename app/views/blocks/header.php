@@ -104,8 +104,8 @@
         <div class="icon user-menu">
             <i class="fas fa-user" id="userIcon"></i>
             <div class="dropdown-user" id="dropdownUser">
-                <a href="./signin.php">Đăng nhập</a>
-                <a href="./register.php">Đăng ký</a>
+                <a href="<?php echo _WEB_ROOT . '/dang-nhap'; ?>">Đăng nhập</a>
+                <a href="<?php echo _WEB_ROOT . '/dang-ky'; ?>">Đăng ký</a>
             </div>
         </div>
 
@@ -114,7 +114,7 @@
 </header>
 <div class="breadcrumb-banner">
     <div class="container">
-        <p><a href="./index.php">Trang chủ</a> / <span>Loading...</span> / <h2>Loading...</h2></p>
+        <p><a href="../layouts/client_layout.php">Trang chủ</a> / <span>Loading...</span> / <h2>Loading...</h2></p>
     </div>
 </div>
 
