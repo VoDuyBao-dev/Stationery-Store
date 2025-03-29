@@ -10,7 +10,6 @@ class Chat
 
         $sql = "CREATE TABLE IF NOT EXISTS chat (
             chat_id INT AUTO_INCREMENT PRIMARY KEY,
-            product_id INT DEFAULT NULL,       -- Nếu nhắn trực tiếp thì kh cần còn nếu vào một sản phẩm nào đó rồi nhắn thì cần
             sender_id  INT NOT NULL,
             receiver_id   INT NOT NULL,
             message TEXT,                    -- Nội dung tin nhắn (có thể để NULL khi gửi sticker)
@@ -33,24 +32,24 @@ class Chat
 
     public function seed()
     {
-        $sql = "INSERT INTO chat (product_id, sender_id, receiver_id, message, sticker_id) VALUES (?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO chat (sender_id, receiver_id, message, sticker_id) VALUES (?, ?, ?, ?)";
         $data = [
-            [1, 1, 2, 'Chào bạn!', 1],
-            [1, 2, 1, 'Chào bạn!', 1],
-            [1, 1, 2, '', 1],
-            [1, 2, 1, '', 2],
-            [1, 1, 2, 'Bạn cần giúp gì không?', 1],
-            [1, 2, 1, 'Tôi cần mua một sản phẩm', 1],
-            [1, 1, 2, 'Bạn cần mua sản phẩm gì?', 1],
-            [1, 2, 1, 'Tôi cần mua iPhone 12', 1],
-            [1, 1, 2, 'Bạn muốn mua bản 64GB hay 128GB?', 1],
-            [1, 2, 1, 'Tôi muốn mua bản 128GB', 1],
-            [1, 1, 2, 'Sản phẩm có màu gì?', 1],
-            [1, 2, 1, 'Màu đen và màu trắng', 1],
-            [1, 1, 2, 'Tôi muốn mua màu đen', 1],
-            [1, 2, 1, 'Ok, tôi sẽ kiểm tra hàng và báo giá cho bạn', 1],
-            [1, 1, 2, 'Cảm ơn bạn!', 1],
-            [1, 2, 1, 'Không có gì!', 1]
+            [1, 2, 'Chào bạn!', 1],
+            [2, 1, 'Chào bạn!', 1],
+            [1, 2, '', 1],
+            [2, 1, '', 2],
+            [1, 2, 'Bạn cần giúp gì không?', 1],
+            [2, 1, 'Tôi cần mua một sản phẩm', 1],
+            [1, 2, 'Bạn cần mua sản phẩm gì?', 1],
+            [2, 1, 'Tôi cần mua iPhone 12', 1],
+            [1, 2, 'Bạn muốn mua bản 64GB hay 128GB?', 1],
+            [2, 1, 'Tôi muốn mua bản 128GB', 1],
+            [1, 2, 'Sản phẩm có màu gì?', 1],
+            [2, 1, 'Màu đen và màu trắng', 1],
+            [1, 2, 'Tôi muốn mua màu đen', 1],
+            [2, 1, 'Ok, tôi sẽ kiểm tra hàng và báo giá cho bạn', 1],
+            [1, 2, 'Cảm ơn bạn!', 1],
+            [2, 1, 'Không có gì!', 1]
         ];
 
         foreach ($data as $params) {

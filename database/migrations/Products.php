@@ -8,25 +8,17 @@ class Products
     {
         global $config;
         $this->db = new Database($config['database']);
-
+        // Tạo 4 số 
         $sql = "CREATE TABLE IF NOT EXISTS products (
-            product_id INT AUTO_INCREMENT PRIMARY KEY,
+            product_id INT(4) ZEROFILL AUTO_INCREMENT PRIMARY KEY, 
             name VARCHAR(255) NOT NULL,
             description TEXT DEFAULT NULL,
-            image VARCHAR(255) DEFAULT NULL,
-            priceOld DECIMAL(10,2) DEFAULT NULL,
-            priceCurrent DECIMAL(10,2) NOT NULL,
-            discount_price DECIMAL(10,2) DEFAULT 0.00,   -- giá sau khi giảm giá
-            stock_quantity INT NOT NULL DEFAULT 0,       -- số lượng tồn kho
             category_id INT NOT NULL,
             brand_id INT NOT NULL,
             status ENUM('0', '1') NOT NULL DEFAULT '1',     -- 1 : còn hàng ,  0: hết hàng
-            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-            updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
             FOREIGN KEY (category_id) REFERENCES categories(category_id) ON DELETE CASCADE,
-            FOREIGN KEY (brand_id) REFERENCES brands(brand_id) ON DELETE CASCADE,
-            CHECK (priceCurrent >= 0 and priceOld and discount_price >= 0 and stock_quantity >= 0)
-        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
+            FOREIGN KEY (brand_id) REFERENCES brands(brand_id) ON DELETE CASCADE
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1001;";
 
         try {
             $this->db->query($sql);
@@ -37,17 +29,26 @@ class Products
             throw $e;
         }
     }
+
+    // private function random_id()
+    // {
+    //     return $randomNumber = random_int(100000, 999999);
+    // }
+
     public function seed()
     {
-        $sql = "INSERT INTO products (name, description, image, priceCurrent, discount_price, stock_quantity, category_id, brand_id, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO products (name, description, category_id, brand_id, status) VALUES (?, ?, ?, ?, ?)";
         $data = [
-            ['iPhone 13', 'Điện thoại Apple iPhone 13',  __DIR__ . '/../../public/assets/clients/images/sticker/1.png', 100000, 100000, 100, 1, 1, '1'],
-            ['Samsung Galaxy S21', 'Điện thoại Samsung Galaxy S21',  __DIR__ . '/../../public/assets/clients/images/sticker/1.png', 200000, 200000, 150, 1, 2, '1'],
-            ['Sony WH-1000XM4', 'Tai nghe Sony WH-1000XM4',  __DIR__ . '/../../public/assets/clients/images/sticker/1.png', 200000, 200000, 200, 4, 3, '1']
+            ['iPhone', 'Điện thoại Apple iPhone 13', 1, 1, '1'],
+            ['Samsung', 'Điện thoại Samsung Galaxy S21', 1, 2, '1'],
+            ['Sony', 'Tai nghe Sony WH-1000XM4', 4, 3, '1']
         ];
 
         foreach ($data as $params) {
             try {
+                // $id_random = $this->random_id();
+                // array_unshift($params, $id_random);
+
                 $this->db->execute($sql, $params);
                 echo "Dữ liệu mẫu cho bảng `products` đã được tạo thành công!\n";
             } catch (mysqli_sql_exception $e) {

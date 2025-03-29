@@ -13,12 +13,15 @@ try {
     die("Lỗi kết nối: " . $e->getMessage());
 }
 
+// Viết hàm để tọa id tự động cho tất cả các bảng có type = "int" size = 6;
+
 // Danh sách các class migration cần chạy
 $migrations = [
     'Users',
     'Brands',
     'Categories',
     'Products',
+    'product_type',
     'Product_images',
     'Coupons',
     'transport',

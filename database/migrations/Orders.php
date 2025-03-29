@@ -34,8 +34,8 @@ class Orders
     {
         $sql = "INSERT INTO orders (user_id, total_price, payment_method) VALUES ( ?, ?, ?)";
         $data = [
-            [1, 10500, 'card'],
-            [2, 170000, 'momo'],
+            [1, 115000, 'card'],
+            [2, 185000, 'momo'],
         ];
 
         foreach ($data as $params) {
