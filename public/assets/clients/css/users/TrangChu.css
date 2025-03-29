@@ -32,7 +32,7 @@
   .section-1 {
     display: flex; /* Sử dụng flexbox để căn giữa */
     justify-content: center; /* Căn giữa theo chiều ngang */
-    padding: 20px 0; /* Tạo khoảng cách trên và dưới */
+    padding: 30px 0; /* Tạo khoảng cách trên và dưới */
   }
   .home-slider {
     position: relative; /* Định vị để đặt nút điều hướng */
@@ -451,7 +451,7 @@
   .block-image {
     flex: 1;
     text-align: right;
-    margin-right: 400px;
+    margin-right: 200px;
   }
   
   .item {

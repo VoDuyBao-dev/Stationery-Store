@@ -16,9 +16,7 @@
 <header class="header">
     <div class="logo">
         <div class="logo-text">
-            <a href="./index.php"><span class="s-letter">S</span>
-            <span class="stationery">tationery</span>
-            <p class="tagline">Lựa chọn số 1 cho bạn</p> </a>
+            <a href="<?php echo _WEB_ROOT; ?>/admin_layout"><img src="<?php echo _WEB_ROOT; ?> /public/assets/clients/images/logo.png" ></a>
         </div>
     </div>
 
@@ -48,10 +46,12 @@
 </header>
 <div class="breadcrumb-banner">
     <div class="container">
-        <p><a href="../layouts/admin_layout.php">Trang chủ</a> / <span>Loading...</span> / <h2>Loading...</h2></p>
+        <p><a href="<?php echo _WEB_ROOT;?>/admin_layout">Trang chủ</a> / <span>Loading...</span> / <h2>Loading...</h2></p>
     </div>
 </div>
-
+<div>
+<button id="backToTop" onclick="scrollToTop()"><i class="fas fa-arrow-up"></i></button>
+</div>
 
 </body>
 </html>

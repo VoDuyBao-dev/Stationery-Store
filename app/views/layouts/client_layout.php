@@ -9,8 +9,8 @@
             float: left;
         }
         main{
-            margin-top: 150px;
-            margin-left: 250px;
+            margin-top: 120px;
+            margin-left: 280px;
         }
     </style>
 </head>
