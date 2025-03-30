@@ -29,45 +29,16 @@ body {
 }
 
 .logo img {
-    width: 50px;
+    width: 250px;
     height: 50px;
 }
 
-.logo-text {
-    color: #c9a56d;
-    margin-left: 10px;
-}
 
 a{
     text-decoration: none !important;
     color: inherit !important; /* Giữ nguyên màu chữ */
     border: none; /* Đảm bảo không có viền */
     outline: none; /* Loại bỏ viền khi focus */
-}
-
-
-.s-letter {
-    font-size: 65px;
-    font-weight: bold;
-    background: #C4A262;
-    color: white;
-    float: left;
-    margin-right: 8px;
-    line-height: 1;
-    font-family: 'Pacifico', cursive;
-}
-.stationery {
-    font-size: 35px;
-    font-weight: bold;
-    font-family: 'Pacifico', cursive;
-}
-
-.tagline {
-    font-size: 13px;
-    font-style: italic;
-    color: rgb(224, 218, 218);
-    font-family: 'Caveat', cursive !important;
-    
 }
 
 /* Search Bar */
@@ -193,7 +164,7 @@ a{
     color: rgba(98, 115, 135, 0.668) !important;
     position: absolute !important;
     transform: translateX(-50%);
-    top: 85px; 
+    top: 70px; 
     left: 50%;
     width: 100%;
     display: flex !important;
@@ -291,3 +262,42 @@ a{
 .cart-button:hover {
     background: #ab8b58;
 } 
+#backToTop {
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    background-color: #cfab57;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 17px;
+    border-radius: 50px;
+    cursor: pointer;
+    display: none; /* Ẩn ban đầu */
+    transition: opacity 0.3s;
+    z-index: 1050;
+}
+
+#backToTop:hover {
+    background-color:  #d4b264;
+}
+
+#chat {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #cfab57;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 16px;
+    border-radius: 50px;
+    cursor: pointer;
+    display: block;
+    transition: opacity 0.3s;
+    z-index: 1050;
+}
+
+#chat:hover {
+    background-color:  #d4b264;
+}

@@ -15,15 +15,15 @@
   <link type="text/css" rel="stylesheet" href="<?php echo _WEB_ROOT;?>/public/assets/clients/css/admin/custom.css"/>
   <!-- <link rel='shortcut icon' type='image/x-icon' href='../static/image/favicon.ico' /> -->
     <!-- General JS Scripts -->
-  <script type="text/javasript" src="<?php echo _WEB_ROOT;?>/public/assets/clients/js/admin/app.min.js"></script>
+  <script type="text/javascript" src="<?php echo _WEB_ROOT;?>/public/assets/clients/js/admin/app.min.js"></script>
   <!-- JS Libraies -->
-  <script type="text/javasript"  src="<?php echo _WEB_ROOT;?>/public/assets/clients/js/admin/apexcharts.min.js"></script>
+  <script type="text/javascript" src="<?php echo _WEB_ROOT;?>/public/assets/clients/js/admin/apexcharts.min.js"></script>
   <!-- Page Specific JS File -->
-  <script type="text/javasript"  src="<?php echo _WEB_ROOT;?>/public/assets/clients/js/admin/index.js"></script>
+  <script type="text/javascript"  src="<?php echo _WEB_ROOT;?>/public/assets/clients/js/admin/index.js"></script>
   <!-- Template JS File -->
-  <script type="text/javasript"  src="<?php echo _WEB_ROOT;?>/public/assets/clients/js/admin/scripts.js"></script>
+  <script type="text/javascript"  src="<?php echo _WEB_ROOT;?>/public/assets/clients/js/admin/scripts.js"></script>
   <!-- Custom JS File -->
-  <script type="text/javasript"  src="<?php echo _WEB_ROOT;?>/public/assets/clients/js/admin/custom.js"></script>
+  <script type="text/javascript"  src="<?php echo _WEB_ROOT;?>/public/assets/clients/js/admin/custom.js"></script>
 </head>
 
 <body>
