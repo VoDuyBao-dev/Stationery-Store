@@ -4,7 +4,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/public/assets/clients/css/users/TrangChu.css">
+    <link type="text/css" rel="stylesheet" href="<?php echo _WEB_ROOT; ?>/public/assets/clients/css/users/TrangChu.css">
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
@@ -17,7 +17,7 @@
       <div class="home-slider">
         <div class="main clearfix">
           <div class="clearfix">
-            <a href=""><img src="../img/slider_1.webp" alt="Văn phòng phẩm" /></a>
+            <a href=""><img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/slider_1.webp" alt="Văn phòng phẩm" /></a>
           </div>
         </div>
         <button class="fa-solid fa-arrow-left"></button
@@ -30,7 +30,7 @@
         <div class="swiper-slide">
           <div class="cate-item">
             <a class="img" href=""
-              ><img src="../img/vvphocsinh.webp" alt="Văn phòng phẩm học sinh"
+              ><img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/vvphocsinh.webp" alt="Văn phòng phẩm học sinh"
             /></a>
             <h3 class="title_cate"><a href="http://">Vpp học sinh</a></h3>
           </div>
@@ -38,7 +38,7 @@
         <div class="swiper-slide">
           <div class="cate-item">
             <a class="img" href=""
-              ><img src="../img/vpp_vanphong.jpg" alt="Văn phòng phẩm văn phòng"
+              ><img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/vpp_vanphong.jpg" alt="Văn phòng phẩm văn phòng"
             /></a>
             <h3 class="title_cate"><a href="http://">Vpp văn phòng</a></h3>
           </div>
@@ -46,7 +46,7 @@
         <div class="swiper-slide">
           <div class="cate-item">
             <a class="img" href=""
-              ><img src="../img/Phu_kien.jpg" alt="Phụ kiện"
+              ><img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/Phu_kien.jpg" alt="Phụ kiện"
             /></a>
             <h3 class="title_cate"><a href="http://">Phu kiện</a></h3>
           </div>
@@ -54,7 +54,7 @@
         <div class="swiper-slide">
           <div class="cate-item">
             <a class="img" href=""
-              ><img src="../img/Cap.jpg" alt="Cặp-Túi xách"
+              ><img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/Cap.jpg" alt="Cặp-Túi xách"
             /></a>
             <h3 class="title_cate"><a href="http://">Cặp-Túi xách</a></h3>
           </div>
@@ -62,7 +62,7 @@
         <div class="swiper-slide">
           <div class="cate-item">
             <a class="img" href=""
-              ><img src="../img/Dungcuvp.jpg" alt="Dụng cụ văn phòng"
+              ><img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/Dungcuvp.jpg" alt="Dụng cụ văn phòng"
             /></a>
             <h3 class="title_cate"><a href="http://">Dụng cụ văn phòng</a></h3>
           </div>
@@ -75,14 +75,14 @@
         <div class="block-title">
           <h2>
             <a href="" title="Flash sale"
-              ><img src="../img/fs.png" alt="fash-sale"
+              ><img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/fs.png" alt="fash-sale"
             /></a>
           </h2>
         </div>
         <div class="block-product">
           <!-- Sản phẩm 1 -->
           <div class="product-card">
-            <img src="../img/Cap.jpg" alt="Hộp bút" />
+            <img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/Cap.jpg" alt="Hộp bút" />
             <div class="product-name">Hộp đựng văn phòng phẩm</div>
             <div class="price">
               15.000₫ <span class="old-price">25.000₫</span>
@@ -91,7 +91,7 @@
           </div>
           <!-- Sản phẩm 2 -->
           <div class="product-card">
-            <img src="../img/Cap.jpg" alt="Hộp bút" />
+            <img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/Cap.jpg" alt="Hộp bút" />
             <div class="product-name">Hộp đựng văn phòng phẩm</div>
             <div class="price">
               15.000₫ <span class="old-price">25.000₫</span>
@@ -100,7 +100,7 @@
           </div>
           <!-- Sản phẩm 3 -->
           <div class="product-card">
-            <img src="../img/Cap.jpg" alt="Hộp bút" />
+            <img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/Cap.jpg" alt="Hộp bút" />
             <div class="product-name">Hộp đựng văn phòng phẩm</div>
             <div class="price">
               15.000₫ <span class="old-price">25.000₫</span>
@@ -109,7 +109,7 @@
           </div>
           <!-- Sản phẩm 4 -->
           <div class="product-card">
-            <img src="../img/Cap.jpg" alt="Hộp bút" />
+            <img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/Cap.jpg" alt="Hộp bút" />
             <div class="product-name">Hộp đựng văn phòng phẩm</div>
             <div class="price">
               15.000₫ <span class="old-price">25.000₫</span>
@@ -118,7 +118,7 @@
           </div>
           <!-- Sản phẩm 5-->
           <div class="product-card">
-            <img src="../img/Cap.jpg" alt="Hộp bút" />
+            <img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/Cap.jpg" alt="Hộp bút" />
             <div class="product-name">Hộp đựng văn phòng phẩm</div>
             <div class="price">
               15.000₫ <span class="old-price">25.000₫</span>
@@ -127,7 +127,7 @@
           </div>
           <!-- Sản phẩm 6 -->
           <div class="product-card">
-            <img src="../img/Cap.jpg" alt="Hộp bút" />
+            <img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/Cap.jpg" alt="Hộp bút" />
             <div class="product-name">Hộp đựng văn phòng phẩm</div>
             <div class="price">
               15.000₫ <span class="old-price">25.000₫</span>
@@ -136,7 +136,7 @@
           </div>
               <!-- Sản phẩm 7 -->
                 <div class="product-card">
-            <img src="../img/Cap.jpg" alt="Hộp bút" />
+            <img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/Cap.jpg" alt="Hộp bút" />
             <div class="product-name">Hộp đựng văn phòng phẩm</div>
             <div class="price">
               15.000₫ <span class="old-price">25.000₫</span>
@@ -159,7 +159,7 @@
             <!-- Sản phẩm 1 -->
             <div class="product-block">
               <div class="product-block-item">
-                <a href="#"><img src="../img/Cap.jpg" alt="Vở viết" /></a>
+                <a href="#"><img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/Cap.jpg" alt="Vở viết" /></a>
               </div>
               <div class="product-info">
                 <a href="#">Vở viết kẻ ngang nhiều hình ngộ nghĩnh</a>
@@ -172,7 +172,7 @@
             <!-- Sản phẩm 2 -->
             <div class="product-block">
               <div class="product-block-item">
-                <a href="#"><img src="../img/Cap.jpg" alt="Vở viết" /></a>
+                <a href="#"><img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/Cap.jpg" alt="Vở viết" /></a>
               </div>
               <div class="product-info">
                 <a href="#">Vở viết kẻ ngang nhiều hình ngộ nghĩnh</a>
@@ -185,7 +185,7 @@
             <!-- Sản phẩm 3-->
             <div class="product-block">
               <div class="product-block-item">
-                <a href="#"><img src="../img/Cap.jpg" alt="Vở viết" /></a>
+                <a href="#"><img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/Cap.jpg" alt="Vở viết" /></a>
               </div>
               <div class="product-info">
                 <a href="#">Vở viết kẻ ngang nhiều hình ngộ nghĩnh</a>
@@ -198,7 +198,7 @@
             <!-- Sản phẩm 4 -->
             <div class="product-block">
               <div class="product-block-item">
-                <a href="#"><img src="../img/Cap.jpg" alt="Vở viết" /></a>
+                <a href="#"><img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/Cap.jpg" alt="Vở viết" /></a>
               </div>
               <div class="product-info">
                 <a href="#">Vở viết kẻ ngang nhiều hình ngộ nghĩnh</a>
@@ -211,7 +211,7 @@
             <!-- Sản phẩm 5 -->
             <div class="product-block">
               <div class="product-block-item">
-                <a href="#"><img src="../img/Cap.jpg" alt="Vở viết" /></a>
+                <a href="#"><img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/Cap.jpg" alt="Vở viết" /></a>
               </div>
               <div class="product-info">
                 <a href="#">Vở viết kẻ ngang nhiều hình ngộ nghĩnh</a>
@@ -255,7 +255,7 @@
                 <!-- Sản phẩm 1 -->
                 <div class="product-block-item">
                   <a href="#"
-                    ><img src="../img/Cap.jpg" alt="Sổ tay dễ thương"
+                    ><img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/Cap.jpg" alt="Sổ tay dễ thương"
                   /></a>
                   <div class="product-info">
                     <a href="#">Sổ dễ thương</a>
@@ -268,7 +268,7 @@
 
                 <!-- Sản phẩm 2 -->
                 <div class="product-block-item">
-                  <a href="#"><img src="../img/Cap.jpg" alt="Sổ bìa cứng" /></a>
+                  <a href="#"><img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/Cap.jpg" alt="Sổ bìa cứng" /></a>
                   <div class="product-info">
                     <a href="#">Sổ bìa cứng</a>
                     <div class="product-price">
@@ -280,7 +280,7 @@
 
                 <!-- Sản phẩm 3 -->
                 <div class="product-block-item">
-                  <a href="#"><img src="../img/Cap.jpg" alt="Sổ da cao cấp" /></a>
+                  <a href="#"><img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/Cap.jpg" alt="Sổ da cao cấp" /></a>
                   <div class="product-info">
                     <a href="#">Sổ da cao cấp</a>
                     <div class="product-price">
@@ -293,7 +293,7 @@
                  <!-- Sản phẩm 4 -->
                  <div class="product-block-item">
                   <a href="#"
-                    ><img src="../img/Cap.jpg" alt="Sổ tay dễ thương"
+                    ><img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/Cap.jpg" alt="Sổ tay dễ thương"
                   /></a>
                   <div class="product-info">
                     <a href="#">Sổ dễ thương</a>
@@ -306,7 +306,7 @@
                 <!-- Sản phẩm 5 -->
                 <div class="product-block-item">
                   <a href="#"
-                    ><img src="../img/Cap.jpg" alt="Sổ tay dễ thương"
+                    ><img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/Cap.jpg" alt="Sổ tay dễ thương"
                   /></a>
                   <div class="product-info">
                     <a href="#">Sổ dễ thương</a>
@@ -319,7 +319,7 @@
                  <!-- Sản phẩm 6 -->
                  <div class="product-block-item">
                   <a href="#"
-                    ><img src="../img/Cap.jpg" alt="Sổ tay dễ thương"
+                    ><img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/Cap.jpg" alt="Sổ tay dễ thương"
                   /></a>
                   <div class="product-info">
                     <a href="#">Sổ dễ thương</a>
@@ -332,7 +332,7 @@
                  <!-- Sản phẩm 7 -->
                  <div class="product-block-item">
                   <a href="#"
-                    ><img src="../img/Cap.jpg" alt="Sổ tay dễ thương"
+                    ><img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/Cap.jpg" alt="Sổ tay dễ thương"
                   /></a>
                   <div class="product-info">
                     <a href="#">Sổ dễ thương</a>
@@ -345,7 +345,7 @@
                  <!-- Sản phẩm 88 -->
                  <div class="product-block-item">
                   <a href="#"
-                    ><img src="../img/Cap.jpg" alt="Sổ tay dễ thương"
+                    ><img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/Cap.jpg" alt="Sổ tay dễ thương"
                   /></a>
                   <div class="product-info">
                     <a href="#">Sổ dễ thương</a>
@@ -376,7 +376,7 @@
                 <div class="item">
                   <div class="icon">
                     <img
-                      src="../img/icongiaohang.svg"
+                      src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/icongiaohang.svg"
                       alt="Giao hàng nội thành"
                     />
                   </div>
@@ -387,7 +387,7 @@
                 </div>
                 <div class="item">
                   <div class="icon">
-                    <img src="../img/icontrahang.svg" alt="Trả hàng trong 24h" />
+                    <img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/icontrahang.svg" alt="Trả hàng trong 24h" />
                   </div>
                   <div class="info">
                     <h3>Trả hàng trong vòng 24h</h3>
@@ -397,7 +397,7 @@
                 <div class="item">
                   <div class="icon">
                     <img
-                      src="../img/Iconkiemtra.svg"
+                      src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/Iconkiemtra.svg"
                       alt="Kiểm tra hàng khi nhận"
                     />
                   </div>
@@ -408,7 +408,7 @@
                 </div>
                 <div class="item">
                   <div class="icon">
-                    <img src="../img/iconthanhtoan.svg" alt="Thanh toán cod " />
+                    <img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/iconthanhtoan.svg" alt="Thanh toán cod " />
                   </div>
                   <div class="info">
                     <h3>Thanh toán codcod</h3>
@@ -420,7 +420,7 @@
             <div class="col-md-6">
               <div class="block-image">
                 <img
-                  src="../img/giaohang.webp"
+                  src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/giaohang.webp"
                   alt="giaohang"
                   width="419"
                   height="617"

@@ -22,35 +22,34 @@ class User extends Controller
 
     }
 
-    public function handle_action_OTP()
-    {
+    public function handle_action_OTP(){
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $action = $_POST['action'] ?? 'default';
             $otp = implode('', $_POST['otp']);
             $otpService = new OtpService();
             $otpIsValid = $otpService->isValidOtp($otp);
             $messages = [];
-            if ($otpIsValid === true) {
+            if($otpIsValid === true){
                 switch ($action) {
                     case 'register_user':
-                        $this->registerUser($messages);
+                       $this->registerUser($messages);
                         break;
                     case 'change_password':
                         $this->change_password();
                         break;
                     default:
-                        header("Location:" . _BASE_URL . "/app/errors/loichung.php?message=Action không hợp lệ! $action");
+                        header("Location:" . _BASE_URL . "/app/errors/loichung.php?message=Action không hợp lệ! $action" );
                         exit();
-
-                }
-            } else {
+                       
+                }     
+            }else {
                 $messages['error_otp'] = $otpIsValid;
                 $this->render("users/otp", $messages);
                 return;
             }
             // Xử lý tới đây rồi: chuyền mess vào để hiển thị lỗi và xóa bớt bên xử lý kia
-
-
+            
+            
         }
     }
 
@@ -88,7 +87,7 @@ class User extends Controller
 
             }
 
-            if ($password !== $confirmPassword) {
+            if($password !== $confirmPassword){
                 $messages['error_confirmPassword'] = "Mật khẩu không khớp!";
             }
 
@@ -121,8 +120,9 @@ class User extends Controller
                 $_SESSION['fail'] = $e->getMessage();
                 header("Location: " . _WEB_ROOT . "/dang-ky");
                 exit();
-
+                
             }
+           
 
 
         } else {
@@ -131,7 +131,7 @@ class User extends Controller
 
     }
 
-    public function registerUser($messages = [])
+    public function registerUser($messages=[])
     {
 
         $result = false;
@@ -144,7 +144,7 @@ class User extends Controller
             $data['password']
 
         );
-
+        
 
         if ($result === true) {
             unset($_SESSION["otp"]);
@@ -181,7 +181,7 @@ class User extends Controller
             unset($_SESSION['warning_signin']);
             unset($_SESSION['warning_signin_expire']);
         }
-
+        
         if ($_SESSION['signin_incorrect'] >= 2) {
             if (!isset($_SESSION['warning_signin'])) {
                 $_SESSION['warning_signin'] = "Bạn đã nhập sai quá 3 lần. Vui lòng dùng quên mật khẩu!";
@@ -231,10 +231,10 @@ class User extends Controller
                 exit();
             }
 
-        }
-
+        } 
+        
         $this->render("users/signin");
-
+    
     }
 
 
@@ -249,66 +249,78 @@ class User extends Controller
                 header("Location: " . _WEB_ROOT . "/forgot_pass");
                 exit();
             }
-
+            
             $checkEmail = $this->userModel->checkEmailExists($email);
-            if (!$checkEmail) {
+            if(!$checkEmail){
                 $_SESSION['error'] = "Email chưa được đăng ký trên hệ thống. Vui lòng kiểm tra lại!";
                 header("Location: " . _WEB_ROOT . "/forgot_pass");
                 exit();
 
             }
 
-            $_SESSION['email'] = $email;
+           $_SESSION['email'] = $email;
             $otpService = new OtpService();
             try {
                 $otpService->sendOtp($email);
-                if ($otpService) {
+                if($otpService){
                     header("Location: nhap-otp?action=change_password");
                     exit();
                 }
-            } catch (\Exception $e) {
+            } 
+            catch (\Exception $e) {
                 $_SESSION['fail'] = $e->getMessage();
                 header("Location: " . _WEB_ROOT . "/forgot_pass");
                 exit();
-
+                
             }
-
+           
         }
         $this->render("users/forgot_pass");
     }
 
-    public function change_password()
-    {
-        if (isset($_POST['submit-newPass'])) {
+    public function change_password(){
+        if(isset($_POST['submit-newPass']) ){
             $newPassword = trim($_POST['newPassword']);
             $confirmPassword = trim($_POST['conf_new_password']);
-            if ($newPassword !== $confirmPassword) {
+            if($newPassword !== $confirmPassword){
                 $_SESSION['error'] = "Mật khẩu không khớp!";
                 header("Location: " . _WEB_ROOT . "/change_password");
                 exit();
             }
 
             $hashPassword = password_hash($newPassword, PASSWORD_DEFAULT);
-
-            if (!isset($_SESSION['email'])) {
-                header("Location:" . _BASE_URL . "/app/errors/loichung.php?message=Không tìm thấy tài khoản cần đổi password!");
+            
+            if(!isset($_SESSION['email'])){
+                header("Location:" . _BASE_URL . "/app/errors/loichung.php?message=Không tìm thấy tài khoản cần đổi password!" );
                 exit();
             }
             $result = $this->userModel->changePassword($_SESSION['email'], $hashPassword);
-            if ($result === true) {
+            if($result === true){
                 unset($_SESSION['email']);
                 Helpers::setFlash('success', 'Đổi mật khẩu thành công!');
-                unset($_SESSION['oldEmail_forgotPass']);
+                unset( $_SESSION['oldEmail_forgotPass']);
                 header("Location:" . _WEB_ROOT . "/dang-nhap");
                 exit();
-            } else {
+            }else{
                 $_SESSION['error'] = $result;
                 header("Location: " . _WEB_ROOT . "/change_password");
                 exit();
             }
 
-        }
+        }   
         $this->render("users/newpass");
+    }
+
+
+    public function home()
+    {
+        $this->render("users/index");
+    }
+
+
+    public function thongtin()
+    {
+        $this->render("users/Thongtinchitiet");
     }
 
 }

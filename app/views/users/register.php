@@ -14,8 +14,8 @@
 <?php require_once _DIR_ROOT . "/app/views/blocks/header.php"; ?>
 <div class="container">
 <div class="tabs">
-        <div class="tab active" onclick="redirectTo('<?php echo _WEB_ROOT . '/dang-nhap'; ?>')">Đăng nhập</div>
-                 <div class="tab" onclick="redirectTo('<?php echo _WEB_ROOT . '/dang-ky'; ?>')">Đăng ký</div>
+        <div class="tab" onclick="redirectTo('<?php echo _WEB_ROOT . '/dang-nhap'; ?>')">Đăng nhập</div>
+                 <div class="tab active" onclick="redirectTo('<?php echo _WEB_ROOT . '/dang-ky'; ?>')">Đăng ký</div>
      </div> 
 
      <!-- bao loi -->
