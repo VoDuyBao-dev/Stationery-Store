@@ -14,7 +14,7 @@ class Connection
             Logger::logError("Connection failed: " . $this->conn->connect_error);
             throw new \Exception("Connection failed: ");
         } else {
-            echo "Connection successfully";
+            // echo "Connection successfully";
         }
     }
 

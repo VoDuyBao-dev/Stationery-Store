@@ -56,7 +56,7 @@ body {
 
 /* Khung chat chính */
 .context {
-    width: 50%;
+    width: 75%;
     display: flex;
     flex-direction: column;
     background: #f5f7fa;
@@ -81,6 +81,11 @@ body {
 
 .message_left {
     justify-content: flex-start;
+}
+
+.text img {
+    display: block;
+    overflow: auto;
 }
 
 
@@ -144,7 +149,10 @@ body {
 }
 
 .sticker-menu.show {
-    display: flex;
+    display: block;
+    width: 49%;
+    white-space: nowrap;
+    overflow-x: scroll;
     gap: 10px;
 }
 

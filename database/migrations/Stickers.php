@@ -29,18 +29,14 @@ class Stickers
     {
         $sql = "INSERT INTO stickers (name, image_url) VALUES (?, ?)";
         $data = [
-            ['khong', ''],
-            ['Sticker 1', __DIR__ . '/../../public/assets/clients/images/sticker/1.png'],
-            ['Sticker 2', __DIR__ . '/../../public/assets/clients/images/sticker/2.png'],
-            ['Sticker 3', __DIR__ . '/../../public/assets/clients/images/sticker/3.png'],
-            ['Sticker 4', __DIR__ . '/../../public/assets/clients/images/sticker/4.png'],
-            ['Sticker 5', __DIR__ . '/../../public/assets/clients/images/sticker/5.png'],
-            ['Sticker 6', __DIR__ . '/../../public/assets/clients/images/sticker/6.png'],
-            ['Sticker 7', __DIR__ . '/../../public/assets/clients/images/sticker/7.png'],
-            ['Sticker 8', __DIR__ . '/../../public/assets/clients/images/sticker/8.png'],
-            ['Sticker 9', __DIR__ . '/../../public/assets/clients/images/sticker/9.png'],
-            ['Sticker 10', __DIR__ . '/../../public/assets/clients/images/sticker/10.png']
+            ['khong', '']
         ];
+        for ($i = 1; $i < 33; $i++) {
+            $s = ["Sticker " . $i];
+            $tmp = __DIR__ . '/../../public/assets/clients/images/sticker/' . $i . '.png';
+            array_push($s, $tmp);
+            array_push($data, $s);
+        }
         foreach ($data as $params) {
             try {
                 $this->db->execute($sql, $params);

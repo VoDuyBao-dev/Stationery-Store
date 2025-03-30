@@ -12,8 +12,8 @@
 
 <body>
     <div class="container">
-        <?php if ($role == "admin") { ?>
-            <div class="list_user">
+        <?php if ($role != "admin") { ?>
+            <div class="list_user" style="width: 50%;">
                 <h2>Chats</h2>
                 <ul>
                     <?php foreach ($chatList as $user) : ?>
@@ -30,7 +30,7 @@
         <?php } ?>
         <?php if (!isset($admin_id)) : ?>
             <div class="context">
-                <div class="message">Bạn muốn nhắn tin cho ai</div>
+                <div class="message" style="text-align: center;">Bạn muốn nhắn tin cho ai</div>
                 <form action="<?php echo _WEB_ROOT; ?>/chat/sendMessage" method="POST">
                     <div class="input">
                         <input type="hidden" name="receiver_id" value="<?php echo $receiver_id; ?>">
@@ -40,8 +40,9 @@
                         <button type="submit">Gửi</button>
                     </div>
                     <div id="stickerMenu" class="sticker-menu">
-                        <?php foreach ($allSticker as $sticker): ?>
-                            <img src="<?php echo _WEB_ROOT; ?>/public/assets/clients/images/sticker/<?php echo $sticker["sticker_id"] + 1 ?>.png" id=<?php echo $sticker["sticker_id"] + 1 ?> onclick="selectSticker(this)">
+                        <?php foreach ($allSticker as $index => $sticker): ?>
+                            <?php if ($index === (count($allSticker) - 1)) break;  ?>
+                            <img src="<?php echo _WEB_ROOT; ?>/public/assets/clients/images/sticker/<?php echo $sticker["sticker_id"] ?>.png" id=<?php echo $sticker["sticker_id"] ?> onclick="selectSticker(this)">
                         <?php endforeach; ?>
                     </div>
                 </form>
@@ -62,7 +63,7 @@
                     <div class="message">
                         <!-- $msg['sender_id'] == $_SESSION['user_id'] -->
                         <?php if (count($messages) == 0) : ?>
-                            <div>Bạn có thắc mắc gì</div>
+                            <div style="text-align: center;">Bạn có thắc mắc gì</div>
                         <?php else : ?>
                             <?php foreach ($messages as $msg) : ?>
                                 <?php if ($msg['sender_id'] == 2) : ?>
@@ -102,8 +103,9 @@
                             <button type="submit">Gửi</button>
                         </div>
                         <div id="stickerMenu" class="sticker-menu">
-                            <?php foreach ($allSticker as $sticker): ?>
-                                <img src="<?php echo _WEB_ROOT; ?>/public/assets/clients/images/sticker/<?php echo $sticker["sticker_id"] + 1 ?>.png" id=<?php echo $sticker["sticker_id"] + 1 ?> onclick="selectSticker(this)">
+                            <?php foreach ($allSticker as $index => $sticker): ?>
+                                <?php if ($index === (count($allSticker) - 1)) break;  ?>
+                                <img src="<?php echo _WEB_ROOT; ?>/public/assets/clients/images/sticker/<?php echo $sticker["sticker_id"] ?>.png" id=<?php echo $sticker["sticker_id"] ?> onclick="selectSticker(this)">
                             <?php endforeach; ?>
                         </div>
                     </form>

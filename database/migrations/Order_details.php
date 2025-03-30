@@ -19,7 +19,7 @@ class Order_details
             ghiChu TEXT DEFAULT NULL,
             cost DECIMAL(10,2) NOT NULL,       -- giá sản phẩm
             quantity INT NOT NULL,             -- số lượng sản phẩm
-            coupon_id INT DEFAULT 0,           -- mã giảm giá
+            coupon_id INT NULL,           -- mã giảm giá
             transport_id INT NOT NULL,
             price DECIMAL(10,2) NOT NULL,      -- giá sau khi giảm giá
             FOREIGN KEY (order_id) REFERENCES orders(order_id) ON DELETE CASCADE,
