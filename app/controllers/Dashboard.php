@@ -7,4 +7,8 @@ class Dashboard extends Controller
         $this->render("layouts/client_layout");
     }
 
+    public function home()
+    {
+        $this->render("layouts/admin_layout");
+    }
 }

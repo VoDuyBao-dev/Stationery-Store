@@ -317,10 +317,10 @@ class User extends Controller
         $this->render("users/index");
     }
 
-    public function newpass()
-    {
-        $this->render("users/newpass");
-    }
 
+    public function thongtin()
+    {
+        $this->render("users/Thongtinchitiet");
+    }
 
 }

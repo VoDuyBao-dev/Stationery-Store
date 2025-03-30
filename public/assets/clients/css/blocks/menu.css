@@ -4,13 +4,14 @@ body {
 }
 
 .menu {
-    width: 280px;
+    width: 240px;
     background-color: #fff;
     border-radius: 10px;
     padding: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin: 90px 30px 2px 30px;
-    position: relative;
+    margin: 150px 30px;
+    position: absolute;
+    /* z-index: 1000; */
 }
 
 .menu-list {
@@ -30,7 +31,7 @@ body {
 
 .menu-list li a {
     text-decoration: none;
-    color: #333;
+    color: #333 !important;
     font-weight: bold;
     display: flex;
     align-items: center;
@@ -87,12 +88,15 @@ body {
 }
 
 .featured {
-    margin: 10px 30px;
-    width: 280px;
+    margin: 380px 30px 500px 30px;
+    width: 240px;
     position: relative;
     background-color: #f9f9f9;
     border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: absolute;
     padding: 10px;
+    /* z-index: 1; */
 }
 
 .featured h3 {

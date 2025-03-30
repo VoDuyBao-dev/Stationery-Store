@@ -1,19 +1,37 @@
 <!doctype html>
-<html lang="en">
+<html lang="vi">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Client layout</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stationery</title>
+    <style>
+        menu {
+            float: left;
+        }
 
+        main {
+            margin-top: 120px;
+            margin-left: 280px;
+        }
+    </style>
 </head>
 
 <body>
+    <header>
+        <?php require_once _DIR_ROOT . "/app/views/blocks/header.php"; ?>
+    </header>
 
-    <div>
-        <h2>Đây là nội dung của client_layout</h2>
+    <menu>
+        <?php require_once _DIR_ROOT . "/app/views/blocks/menu.php"; ?>
+    </menu>
+    <main>
+        <?php require_once _DIR_ROOT . "/app/views/users/TrangChu.php" ?>
+    </main>
 
-    </div>
+    <footer>
+        <?php require_once _DIR_ROOT . "/app/views/blocks/footer.php"; ?>
+    </footer>
 
 
 </body>
