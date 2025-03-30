@@ -12,11 +12,12 @@ class Coupons
         $sql = "CREATE TABLE IF NOT EXISTS coupons (
             coupon_id INT AUTO_INCREMENT PRIMARY KEY,
             price_min DECIMAL(10,2) NOT NULL DEFAULT 0,       -- giá tối thiểu để sử dụng mã giảm giá
-            discount INT NOT NULL check(discount >= 0),       -- phần trăm giảm giá
+            discount INT DEFAULT 0,                           -- phần trăm giảm giá
             start_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-            end_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+            end_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             status ENUM('0', '1') NOT NULL DEFAULT '1',   -- 1 : còn hạn ,  0: hết hạn
-            code VARCHAR(255) NOT NULL                      -- mã giảm giá
+            code VARCHAR(255) NOT NULL,                      -- mã giảm giá
+            CHECK(discount BETWEEN 0 AND 100)
 
         )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
 
