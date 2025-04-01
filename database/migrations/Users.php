@@ -15,6 +15,7 @@ class Users
             phone VARCHAR(15) NOT NULL UNIQUE,
             address TEXT DEFAULT NULL,
             role ENUM('admin', 'user') DEFAULT 'user',
+            status ENUM('0', '1') NOT NULL DEFAULT '1', 
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
 

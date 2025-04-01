@@ -26,4 +26,6 @@ $routes['trang-chu'] = 'home';
 
 $routes['^chat/([0-9]+)$'] = 'chat/detail/$1';
 $routes['beginChat'] = 'chat/beginChat';
-$routes['chat/sendMessage'] = 'chat/sendMessage';
+$routes['sendMessage'] = 'chat/sendMessage';
+
+$routes['admin/search'] = 'search';
