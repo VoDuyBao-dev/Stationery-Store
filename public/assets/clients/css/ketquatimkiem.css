@@ -82,5 +82,6 @@ h2 {
 @media (max-width: 768px) {
     .product-list {
         grid-template-columns: repeat(1, 1fr);
+        
     }
 }

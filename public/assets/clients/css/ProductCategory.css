@@ -142,5 +142,6 @@ body {
     .filter-container {
         flex-direction: column;
         align-items: flex-start;
+        
     }
 }

@@ -24,7 +24,7 @@
         <!-- Phần Form Liên Hệ -->
         <div class="contact-form">
             <h2>LIÊN HỆ CHÚNG TÔI</h2>
-            <p>Để liên hệ và nhận các thông tin khuyến mãi sớm nhất, chúng tôi sẽ liên lạc với bạn trong thời gian sớm nhất.</p>
+            <p>Để liên hệ nhận các thông tin khuyến mãi sớm nhất, chúng tôi sẽ liên lạc với bạn trong thời gian sớm nhất.</p>
     
             <label>Họ và tên*</label>
             <input type="text" placeholder="Nhập họ và tên" required>

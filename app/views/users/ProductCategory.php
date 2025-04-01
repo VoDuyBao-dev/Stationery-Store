@@ -46,7 +46,7 @@
             <div class="product">
                 <img src="./img.jpg" alt="Bút đánh dấu">
                 <p class="name">Màu Sắc Bút Đánh Dấu Hai Đầu</p>
-                <p class="price"><span class="new">24.000 <span class="old">43.000đ</span></p>
+                <p class="price"><span class="new">24.000 <span class="old">43.0 0đ</span></p>
                 <button class="btn">Xem ngay</button>
             </div>
         </div>

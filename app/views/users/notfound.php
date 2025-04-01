@@ -9,7 +9,7 @@
 <body>
     <div class="not-found-container">
         <h2>Rất tiếc, sản phẩm bạn tìm kiếm không tồn tại!</h2>
-        <p>Hãy thử tìm kiếm sản phẩm khác hoặc quay về trang chủ.</p>
+        <p>Hãy thử tìm kiếm sản phẩm khác hoặc quay về trang chủ </p>
     </div>
 </body>
 </html>
