@@ -17,7 +17,7 @@ class Coupons
             end_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             status ENUM('0', '1') NOT NULL DEFAULT '1',   -- 1 : còn hạn ,  0: hết hạn
             code VARCHAR(255) NOT NULL,                      -- mã giảm giá
-            CHECK(discount BETWEEN 0 AND 100)
+            CHECK(discount BETWEEN 0 AND 100 AND price_min > 0)
 
         )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
 
