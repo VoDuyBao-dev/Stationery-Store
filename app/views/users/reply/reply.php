@@ -3,10 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="reply.css">
+    <link type="text/css" rel="stylesheet" href="<?php echo _WEB_ROOT;?>/public/assets/clients/css/users/reply/reply.css"/>">
     <title>Liên Hệ Chúng Tôi</title>
 </head>
 <body>
+<?php  require_once _DIR_ROOT . "/app/views/blocks/header.php";?>
+<?php  require_once _DIR_ROOT . "/app/views/blocks/menu.php";?>
+
+
     <div class="contact-container">
         <!-- Phần Bản Đồ -->
         <div class="contact-map">
@@ -40,6 +44,10 @@
     
             <button>GỬI LIÊN HỆ NGAY</button>
         </div>
+    </div>
+    
+    <div class="contact-footer">
+    <?php  require_once _DIR_ROOT . "/app/views/blocks/footer.php";?>
     </div>
     
 </body>

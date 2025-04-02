@@ -6,9 +6,13 @@ body {
     padding: 0;
     background-color: #f8f8f8;
 }
+.not-found-footer{
+    margin-left: 280px;
+}
 
 /* Container chính */
 .not-found-container {
+    margin: 120px 0 400px 280px;
     padding: 50px;
 }
 

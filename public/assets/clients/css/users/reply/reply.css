@@ -9,16 +9,21 @@ body {
 /* Container chính chứa bản đồ và form */
 .contact-container {
     display: flex;
+    flex-direction: row;
     align-items: stretch;
     justify-content: center;
     max-width: 1200px;
-    margin: 30px auto;
+    margin: 120px auto 30px 280px;
     background: white;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     overflow: hidden;
 }
 
+.contact-footer {
+   
+    margin-left: 280px;
+}
 /* Phần bản đồ */
 .contact-map {
     width: 50%; /* Chiếm 50% chiều ngang */
