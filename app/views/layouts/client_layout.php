@@ -25,12 +25,8 @@
 </menu> 
 <main>
     <?php require_once _DIR_ROOT . "/app/views/users/TrangChu.php"?>
-</main>
-
-<footer>
     <?php  require_once _DIR_ROOT . "/app/views/blocks/footer.php";?>
-</footer>
-
+</main>
 
 </body>
 </html>

@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vở viết kẻ ngang nhiều hình siêu ngộ nghĩnh</title>
-    <link type="text/css" rel="stylesheet" href="<?php echo _WEB_ROOT;?>/public/assets/clients/css/users/Thongtinchitiet.css" />
+    <link type="text/css" rel="stylesheet" href="<?php echo _WEB_ROOT;?>/public/assets/clients/css/users/products/Thongtinchitiet.css" />
     <style>
       menu{
         float:left
@@ -406,7 +406,8 @@
         </div>
       </div>
     </section>
-</main>
     <?php require_once _DIR_ROOT . "/app/views/blocks/footer.php"; ?>
+</main>
+    
   </body>
 </html>

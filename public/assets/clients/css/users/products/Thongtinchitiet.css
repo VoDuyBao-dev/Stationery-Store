@@ -14,8 +14,8 @@
   /* 🎯 Bố cục chung */
   .nd-img-and-info {
     display: flex;
-    gap: 20px;
-    padding: 20px;
+    gap: 5px;
+    padding: 10px;
     border-radius: 10px;
     max-width: 1700px;
     margin: 50px;
@@ -53,7 +53,6 @@
   /* 🎯 Thông tin sản phẩm */
   .product-info {
     padding: 30px;
-    margin-top: -20px;
     background-color: white; /* Màu nền trắng cho phần thông tin */
   }
   
@@ -81,6 +80,10 @@
     color: #888;
     font-size: 16px;
     margin-left: 10px;
+  }
+  .text-muted{
+    font-size: 14px;
+    padding: 10px;
   }
   /* 🎯 Lựa chọn màu sắc */
   .color-options {
@@ -283,7 +286,7 @@
   .progress-bar {
     flex: 1;
     height: 5px; /* Thu nhỏ chiều cao */
-    background: #ddd;
+    background: #d6ca93;
     border-radius: 3px;
   }
   
@@ -345,14 +348,14 @@
   /* 🏆 Phần đánh giá người dùng */
   .review-container {
     width: 100%;
-    margin: 15px 0;
+    margin: 15px 0 10px 0;
     display: flex;
     flex-direction: column;
     gap: 8px;
   }
   .review-box {
     background: #fff;
-    padding: 10px;
+    padding: 8px;
     border-radius: 6px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s ease-in-out;
@@ -372,12 +375,12 @@
   }
   
   .rating {
-    font-size: 14px;
+    font-size: 18px;
     color: #ffcc00;
   }
   
   .review-text {
-    font-size: 12px;
+    font-size: 15px;
     color: #555;
     margin: 5px 0;
   }
