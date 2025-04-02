@@ -10,8 +10,7 @@
         float:left
       }
       main{
-        margin-top: 150px ;
-        margin-left: 250px;
+        margin: 150px 0 0 280px;
       }
     </style>
   </head>
@@ -322,7 +321,7 @@
 
     <div
       style="
-        width: 100%;
+        width: 95%;
         height: 5px;
         margin-top: 100px;
         background-color:rgb(105, 22, 59);

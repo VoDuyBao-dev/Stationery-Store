@@ -323,4 +323,22 @@ class User extends Controller
         $this->render("products/Thongtinchitiet");
     }
 
+    public function payment()
+    {
+        $this->render("users/payment/Payment");
+    }
+
+   public function reply()
+    {
+        $this->render("users/reply/reply");
+    }
+
+    public function search()
+    {
+        $this->render("users/search/ketquatimkiem");
+    }
+    public function notfound()
+    {
+        $this->render("users/search/notfound");
+    }
 }

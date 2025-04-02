@@ -8,17 +8,16 @@
   /* 🎯 Body tổng quan */
   body {
     color: #333;
-    margin: 50px;
+    margin: 0;
   }
   
   /* 🎯 Bố cục chung */
   .nd-img-and-info {
     display: flex;
     gap: 5px;
-    padding: 10px;
     border-radius: 10px;
-    max-width: 1700px;
-    margin: 50px;
+    max-width: 95%;
+    margin: 0;
   }
   
   /* 🎯 Ảnh sản phẩm */
@@ -220,7 +219,7 @@
   }
   /* 🎯 Thông tin chi tiết */
   .product-details {
-    width: 100%;
+    width: 95%;
     background: #fff;
     padding: 50px;
     border-radius: 12px;
@@ -248,7 +247,7 @@
   }
   /* Đánh giá sản phẩm */
   .col_right{
-    width: 70%;
+    width: 60%;
   }
   /* ⭐ Căn chỉnh phần tổng quan đánh giá */
   .container h3 {
@@ -270,6 +269,7 @@
     flex-direction: column;
     gap: 2px;
     margin-top: 4px;
+    width: 95%;
   }
   
   .star-row {
@@ -347,7 +347,7 @@
   
   /* 🏆 Phần đánh giá người dùng */
   .review-container {
-    width: 100%;
+    width: 95%;
     margin: 15px 0 10px 0;
     display: flex;
     flex-direction: column;
