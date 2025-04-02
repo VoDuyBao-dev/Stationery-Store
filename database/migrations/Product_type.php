@@ -10,8 +10,8 @@ class Product_type
         $this->db = new Database($config['database']);
         // Không tạo id 4 số chỉ tạo cho bảng products
         $sql = "CREATE TABLE IF NOT EXISTS product_type (
-            product_type_id INT AUTO_INCREMENT PRIMARY KEY, 
-            product_id INT(4) ZEROFILL NOT NULL,
+            product_type_id INT(4) ZEROFILL AUTO_INCREMENT PRIMARY KEY, 
+            product_id INT NOT NULL,
             name VARCHAR(255) NOT NULL,
             image VARCHAR(255) DEFAULT NULL,
             priceOld DECIMAL(10,2) DEFAULT NULL,
@@ -23,7 +23,7 @@ class Product_type
             updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
             FOREIGN KEY (product_id) REFERENCES products(product_id) ON DELETE CASCADE,
             CHECK (priceCurrent >= 0 and priceOld and discount_price >= 0 and stock_quantity >= 0)
-        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ; ";
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=100001; ";
 
         try {
             $this->db->query($sql);
@@ -53,9 +53,9 @@ class Product_type
     {
         $sql = "INSERT INTO product_type (product_id, name, image, priceOld, priceCurrent, stock_quantity, status) VALUES (?, ?, ?, ?, ?, ?, ?)";
         $data = [
-            [1001, 'iPhone 13',  __DIR__ . '/../../public/assets/clients/images/sticker/1.png', 100000, 100000, 100, '1'],
-            [1002, 'Samsung Galaxy S21',  __DIR__ . '/../../public/assets/clients/images/sticker/1.png', 200000, 200000, 150, '1'],
-            [1003, 'Sony WH-1000XM4',  __DIR__ . '/../../public/assets/clients/images/sticker/1.png', 200000, 200000, 200, '1']
+            [1, 'iPhone 13',  __DIR__ . '/../../public/assets/clients/images/sticker/1.png', 100000, 100000, 100, '1'],
+            [2, 'Samsung Galaxy S21',  __DIR__ . '/../../public/assets/clients/images/sticker/1.png', 200000, 200000, 150, '1'],
+            [3, 'Sony WH-1000XM4',  __DIR__ . '/../../public/assets/clients/images/sticker/1.png', 200000, 200000, 200, '1']
         ];
 
         foreach ($data as $params) {

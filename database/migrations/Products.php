@@ -10,7 +10,7 @@ class Products
         $this->db = new Database($config['database']);
         // Tạo 4 số 
         $sql = "CREATE TABLE IF NOT EXISTS products (
-            product_id INT(4) ZEROFILL AUTO_INCREMENT PRIMARY KEY, 
+            product_id INT AUTO_INCREMENT PRIMARY KEY, 
             name VARCHAR(255) NOT NULL,
             description TEXT DEFAULT NULL,
             category_id INT NOT NULL,
@@ -18,7 +18,7 @@ class Products
             status ENUM('0', '1') NOT NULL DEFAULT '1',     -- 1 : còn hàng ,  0: hết hàng
             FOREIGN KEY (category_id) REFERENCES categories(category_id) ON DELETE CASCADE,
             FOREIGN KEY (brand_id) REFERENCES brands(brand_id) ON DELETE CASCADE
-        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1001;";
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
 
         try {
             $this->db->query($sql);

@@ -11,7 +11,7 @@ class Reviews
 
         $sql = "CREATE TABLE IF NOT EXISTS reviews (
             review_id INT AUTO_INCREMENT PRIMARY KEY,
-            product_id INT(4) ZEROFILL NOT NULL,
+            product_id INT NOT NULL,
             user_id INT NOT NULL,
             comment TEXT DEFAULT NULL,
             rating INT DEFAULT 0 CHECK (rating >= 0 AND rating <= 5),
@@ -35,8 +35,8 @@ class Reviews
     {
         $sql = "INSERT INTO reviews (product_id, user_id, comment, rating) VALUES (?, ?, ?, ?)";
         $data = [
-            [1001, 1, 'Sản phẩm rất tốt', 5],
-            [1002, 2, 'Sản phẩm không tốt', 1]
+            [1, 1, 'Sản phẩm rất tốt', 5],
+            [2, 2, 'Sản phẩm không tốt', 1]
         ];
         foreach ($data as $params) {
             try {
