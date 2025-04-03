@@ -4,7 +4,7 @@ class ChatModel extends Model
     private $table = 'chat';
     private $table_stickers = 'stickers';
 
-    // Lấy danh sách tin nhắn giữa 2 người (giới hạn 20 tin mới nhất)
+    // Lấy danh sách tin nhắn giữa 2 người 
     public function getMessages($user_id, $receiver_id)
     {
         $sql = "SELECT *, DATE_FORMAT(created_at, '%d-%m-%Y %H:%i') as formatted_time 

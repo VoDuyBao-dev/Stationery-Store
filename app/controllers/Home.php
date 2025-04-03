@@ -19,8 +19,5 @@ class Home extends Controller
     {
         $data[] = $this->homeModel->getDetail($id);
         print_r($data);
-
     }
-
-
 }

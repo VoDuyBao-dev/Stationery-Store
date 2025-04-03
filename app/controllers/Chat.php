@@ -21,14 +21,21 @@ class Chat extends Controller
     {
         $currentUserId = $_SESSION['user_id'] ?? 2; // Người dùng hiện tại phải là admin
         $role = $_SESSION['role'] ?? 'admin'; // Lấy role của user hiện tại (admin hoặc user)
-
+        if ($role != 'admin') {
+            header("HTTP/1.0 404 Not Found");
+            echo "Không tìm thấy trang.";
+            exit();
+        }
+        $userInfo = $this->chatModel->getUserInfo(2);
         $chatList = $this->chatModel->getChatList($currentUserId, $role);
         $allSticker = $this->chatModel->getAllStickers();
         $this->render('mess/chat', [
             'chatList' => $chatList,
             'role' => $role,
-            'admin_id' => null,
-            'allSticker' => $allSticker
+            'admin_id' => 2,
+            'allSticker' => $allSticker,
+            'userInfo' => $userInfo,
+            'messages' => []
         ]);
     }
 
@@ -74,22 +81,20 @@ class Chat extends Controller
     }
 
 
-    // Gửi tin nhắn
     public function sendMessage()
     {
         // Lấy thông tin từ session và POST
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $sender_id = $_SESSION['user_id'] ?? 2; // ID của người gửi
-            $receiver_id = $_POST['receiver_id'] ?? 1; // ID của người nhận
-            $message = trim($_POST['message'] ?? ''); // Nội dung tin nhắn\
-            $sticker_id = $_POST['sticker_id'] ?? 1; // Sticker (nếu có)
+            $sender_id = $_SESSION['user_id'] ?? 2;
+            $receiver_id = $_POST['receiver_id'] ?? 1;
+            $message = trim($_POST['message'] ?? '');
+            $sticker_id = $_POST['sticker_id'] ?? 1;
             echo $_POST['sticker_id'] . "dday af noi debug <br>";
             // Kiểm tra tính hợp lệ của ID người nhận
             if (!is_numeric($receiver_id) || $receiver_id <= 0) {
                 die("Lỗi: ID người nhận không hợp lệ.");
             }
 
-            // Kiểm tra người gửi đã đăng nhập hay chưa
             if ($sender_id <= 0) {
                 die("Bạn cần đăng nhập để gửi tin nhắn.");
             }
@@ -109,7 +114,7 @@ class Chat extends Controller
             $chatModel = new ChatModel();
             $chatModel->sendMessage(...array_values($data));
 
-            header("Location:" . _BASE_URL . " /chat/" . $receiver_id);
+            header("Location:" . _BASE_URL . "/chat/" . $receiver_id);
         }
     }
 }

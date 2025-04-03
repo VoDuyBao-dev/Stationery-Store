@@ -29,3 +29,5 @@ $routes['beginChat'] = 'chat/beginChat';
 $routes['sendMessage'] = 'chat/sendMessage';
 
 $routes['admin/search'] = 'search';
+$routes['admin/transport'] = 'transport/index';
+$routes['admin/do'] = 'transport/transportHandler';
