@@ -1,5 +1,6 @@
 <?php
 
+use app\Logger;
 class UserModel extends Model
 {
     private $_table = 'users';
@@ -22,6 +23,15 @@ class UserModel extends Model
 
         return $result ? true : false;
 
+    }
+
+    public function checkSDTExists2($sdt, $id)
+    {
+        $sql = "SELECT * FROM $this->_table WHERE phone = ? AND user_id != ? ";
+        $params = [$sdt, $id];
+        $result = $this->fetch($sql, $params);
+
+        return $result ? true : false;
     }
 
     public function createUser($fullname, $sdt, $email, $password)
@@ -66,5 +76,89 @@ class UserModel extends Model
             return "Đổi mật khẩu thất bại!";
         }
     }
+
+    public function getAllUsers()
+    {
+        $sql = "Select * from $this->_table where status = 1";
+        $result = $this->fetchAll($sql);
+        if(!$result){
+            return false;
+        }
+        return $result;
+    }
+
+    public function getAllUsersLock()
+    {
+        $sql = "Select * from $this->_table where status = 0";
+        $result = $this->fetchAll($sql);
+        if(!$result){
+            return false;
+        }
+        return $result;
+    }
+
+    public function getUserById($id)
+    {
+        $sql = "SELECT * FROM $this->_table WHERE user_id = ?";
+        $params = [$id];
+        $result = $this->fetch($sql, $params);
+        if(empty($result)){
+            return false;
+        }
+        return $result;
+    }
+
+    // public function updateUser($id, $fullname, $sdt, $address)
+    // {
+    //     $sql = "UPDATE $this->_table SET fullname = ?, phone = ?, address = ? WHERE user_id = ?";
+    //     $params = [$fullname, $sdt, $address, $id];
+
+    //     try{
+    //         $affectedRows = $this->execute($sql, $params);
+    //         if ($affectedRows > 0) {
+    //             return true;
+    //         } 
+    //     }catch (Exception $e) {
+    //         Logger::logError("Lỗi khi update user: " . $e->getMessage());
+    //         return false;
+    //     }
+
+       
+        
+    // }
+
+    public function lockUser($id)
+    {
+        $sql = "UPDATE users SET status = 0 WHERE user_id = ?";
+        $params = [$id];
+        try{
+            $affectedRows = $this->execute($sql, $params);
+            if ($affectedRows > 0) {
+                return true;
+            }
+        }catch (Exception $e) {
+            Logger::logError("Lỗi khi khóa user: " . $e->getMessage());
+            return false;
+        }
+       
+    }
+
+    public function unlockUser($id)
+    {
+        $sql = "UPDATE users SET status = 1 WHERE user_id = ?";
+        $params = [$id];
+        try{
+            $affectedRows = $this->execute($sql, $params);
+            if ($affectedRows > 0) {
+                return true;
+            }
+        }catch (Exception $e) {
+            Logger::logError("Lỗi khi mở khóa user: " . $e->getMessage());
+            return false;
+        }
+       
+    }
+
+
 
 }

@@ -12,7 +12,14 @@ $routes['resend-otp'] = 'user/resendOTP';
 $routes['dang-nhap'] = 'user/signin';
 $routes['forgot_pass'] = 'user/forgot_pass';
 $routes['change_password'] = 'user/change_password';
-$routes['thong-tin-sp'] = 'user/thongtin';
+// trang chu
+$routes['trang-chu'] = 'product/TrangChu';
+// test chi tiet san phampham
+$routes['thong-tin-sp'] = 'product/productDetail';
+// API response
+$routes['getProductType'] = 'product/getProductType';
+
+
 //trang client_layout
 $routes['client_layout'] = 'dashboard/index';
 $routes['admin_layout'] = 'dashboard/home';
@@ -20,7 +27,7 @@ $routes['admin_layout'] = 'dashboard/home';
 $routes['san-pham'] = 'product/index';
 $routes['nha_cung_cap'] = 'Categorie';
 
-$routes['trang-chu'] = 'home';
+
 
 
 ?>

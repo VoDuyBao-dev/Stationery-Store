@@ -14,6 +14,28 @@
         margin-left: 250px;
       }
     </style>
+    <script>
+function changeProductType(productTypeId) {
+    fetch("/ss2/getProductType?product_type_id=" + productTypeId)
+    .then(response => response.json())
+    .then(data => {
+        if (data.error) {
+            console.error(data.error);
+            return;
+        }
+
+        document.querySelector("h2").innerText = data.name;
+        document.querySelector(".product_code").innerText = data.product_type_id;
+        document.querySelector(".old-price").innerText = data.priceOld.toLocaleString() + "0đ";
+        document.querySelector(".price").innerHTML = 
+        data.priceCurrent.toLocaleString() + "0đ" +
+        `<span class="old-price">${data.priceOld.toLocaleString()}0đ</span>`;
+        document.querySelector(".status").innerText = data.stock_quantity > 0 ? "Còn hàng" : "Hết hàng";
+        document.querySelector(".main-image").src = "<?php echo _WEB_ROOT;?>/public/assets/clients/images/products/" + data.image;
+    })
+    .catch(error => console.error("Lỗi khi tải dữ liệu:", error));
+}
+</script>
   </head>
   
   <body>
@@ -29,31 +51,41 @@
     <div class="nd-img-and-info">
       <!-- Hình ảnh sản phẩm -->
       <div class="product-images">
-        <img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/but.webp" alt="Sổ tay mini" class="main-image" />
+        <img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/products/<?= $default_product_type['image'];?>" alt="Sổ tay mini" class="main-image" />
         <div class="thumbnail-container">
-          <img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/but.webp" class="thumbnail" />
-          <img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/but.webp" class="thumbnail" />
-          <img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/but.webp" class="thumbnail" />
+          <?php foreach($images_product as $img):?>
+          <img src="<?= $img['image_url']?>" class="thumbnail" />
+          <?php endforeach;?>
+          <img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/products/<?= $default_product_type['image'];?>" class="thumbnail" />
+          
         </div>
       </div>
       <!-- Thông tin sản phẩm -->
       <div class="product-info"  >
-        <h2>Vở viết kẻ ngang nhiều hình siêu ngộ nghĩnh</h2>
-        <p class="price">12.000đ <span class="old-price">41.000đ</span></p>
-        <p><strong>Mã sản phẩm:</strong> Đang cập nhật</p>
-        <p><strong>Tác giả:</strong> Đang cập nhật</p>
-        <p><strong>Tình trạng:</strong> <span class="status">Còn hàng</span></p>
-        <p>
-          Notebook 32 trang nhỏ xinh tiện lợi, quà tặng văn phòng phẩm giá rẻ.
-        </p>
+        <h2><?= $product['product_name'];?></h2>
+        <p class="price"><?= $default_product_type['priceCurrent'];?>0đ <span class="old-price"><?= $default_product_type['priceOld'];?>0đ</span></p>
+        <p></p>
+        <p><strong>Mã sản phẩm:</strong> <span class="product_code"><?= $default_product_type['product_type_id'];?></span></p>
+        <p><strong>Tác giả:</strong> <?= $product['brand_name'];?></p>
+        <p><strong>Tình trạng:</strong> <span class="status"><?php echo ($default_product_type['stock_quantity'] > 0) ? "Còn hàng" : "Hết hàng"; ?></span></p>
+        
+        <?php
+// Đảm bảo biến tồn tại trước khi sử dụng
+$product_type_id = $default_product_type['product_type_id'] ?? null;
+?>
         <!-- Lựa chọn loại -->
         <label>Loại:</label>
         <div class="color-options">
-          <button>Bé mập</button>
-          <button>Panda</button>
-          <button>Gấu thú</button>
-          <button>Con trắng</button>
+          <?php
+          foreach ($product_types as $type) {
+            $activeClass = ($type['product_type_id'] == $product_type_id) ? "class='active'" : "";
+            echo "<button $activeClass onclick='changeProductType(" . $type['product_type_id'] . ")'>" . $type['name'] . "</button>";
+        }
+          ?>
+          
         </div>
+
+        
 
         <!-- Điều chỉnh số lượng -->
         <label>Số lượng:</label>
@@ -124,13 +156,10 @@
     <div class="product-details">
       <h2>Thông tin chi tiết</h2>
       <ul>
-        <li>📏 Size: Khổ A5 (20,7cm × 14cm), gồm 120 trang giấy dày dặn.</li>
-        <li>
-          📌 Chất liệu: Giấy chống lóa mắt cao cấp, không gây mỏi mắt khi nhìn
-          lâu.
-        </li>
-        <li>📖 Bìa cứng chắc chắn, thiết kế hình thú ngộ nghĩnh.</li>
-        <li>💡 Hình ảnh tươi sáng, giúp học tập thú vị hơn.</li>
+        <?php foreach($product['description'] as $descrip):?>
+        <li><?= $descrip;?></li>
+        <?php endforeach;?>
+        
       </ul>
     </div>
     <!-- Đánh giá sản phẩm -->

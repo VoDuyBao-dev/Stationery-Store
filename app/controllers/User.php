@@ -1,5 +1,6 @@
 <?php
 
+use App\Logger;
 use core\OtpService;
 use core\Helpers;
 
@@ -16,7 +17,7 @@ class User extends Controller
                 throw new Exception("Lỗi trong quá trình tạo đối tượng");
             }
         } catch (Exception $e) {
-            header("Location:" . _BASE_URL . "/app/errors/loichung.php?message=" . urlencode($e->getMessage()));
+            header("Location:" . _WEB_ROOT . "/app/errors/loichung.php?message=" . urlencode($e->getMessage()));
             exit;
         }
 
@@ -38,7 +39,7 @@ class User extends Controller
                         $this->change_password();
                         break;
                     default:
-                        header("Location:" . _BASE_URL . "/app/errors/loichung.php?message=Action không hợp lệ! $action" );
+                        header("Location:" . _WEB_ROOT . "/app/errors/loichung.php?message=Action không hợp lệ! $action" );
                         exit();
                        
                 }     
@@ -150,7 +151,7 @@ class User extends Controller
             unset($_SESSION["otp"]);
             unset($_SESSION['register_data']);
             Helpers::setFlash('success', 'Đăng ký thành công!');
-            header("Location:" . _BASE_URL . "/dang-nhap");
+            header("Location:" . _WEB_ROOT . "/dang-nhap");
             exit();
         } else {
             $messages['$create_user'] = $result;
@@ -291,7 +292,7 @@ class User extends Controller
             $hashPassword = password_hash($newPassword, PASSWORD_DEFAULT);
             
             if(!isset($_SESSION['email'])){
-                header("Location:" . _BASE_URL . "/app/errors/loichung.php?message=Không tìm thấy tài khoản cần đổi password!" );
+                header("Location:" . _WEB_ROOT . "/app/errors/loichung.php?message=Không tìm thấy tài khoản cần đổi password!" );
                 exit();
             }
             $result = $this->userModel->changePassword($_SESSION['email'], $hashPassword);
@@ -322,5 +323,89 @@ class User extends Controller
     {
         $this->render("users/Thongtinchitiet");
     }
+
+    public function listuser()
+    {
+        $users = $this->userModel->getAllUsers();
+        $usersLock = $this->userModel->getAllUsersLock();
+        if(!empty($users)){
+            $this->render("users/listuser", ["users" => $users, "usersLock" => $usersLock]);
+        }else{
+            Logger::logError("Không tìm thấy người dùng nào trong hệ thống!");
+            header("Location:" . _WEB_ROOT . "/home");
+            exit();
+        }
+
+        
+    }
+
+
+    public function unlockUser(){
+        if(isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST'){
+            $id = $_POST['id'] ?? null;
+            if($id === null || !is_numeric($id) || $id <= 0){
+                $_SESSION['error'] = "ID không hợp lệ!";
+                header("Location:" . _WEB_ROOT . "/user/listuser");
+                exit();
+            }
+            $id = (int)$id;
+    
+            $user = $this->userModel->getUserById($id);
+            if($user === false){
+                $_SESSION['error'] = "Không tìm thấy người dùng cần mở khóa!";
+                header("Location:" . _WEB_ROOT . "/user/listuser");
+                exit();
+            }
+            $result = $this->userModel->unlockUser($id);
+            if($result){
+                $_SESSION['message'] = "Mở khóa người dùng thành công!";
+                header("Location:" . _WEB_ROOT . "/user/listuser");
+                exit();
+            }else{
+                $_SESSION['error'] = "Xóa người dùng thất bại!";
+                header("Location:" . _WEB_ROOT . "/user/listuser");
+                exit();
+            }
+        }
+        Logger::logError("Lỗi ở method POST. Không có dữ liệu để mở khóa người dùng!");
+        header("Location:" . _WEB_ROOT . "/user/listuser");
+        exit();
+       
+    }
+
+
+    public function lockUser(){
+        if(isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST'){
+            $id = $_POST['id'] ?? null;
+            if($id === null || !is_numeric($id) || $id <= 0){
+                $_SESSION['error'] = "ID không hợp lệ!";
+                header("Location:" . _WEB_ROOT . "/user/listuser");
+                exit();
+            }
+            $id = (int)$id;
+    
+            $user = $this->userModel->getUserById($id);
+            if($user === false){
+                $_SESSION['error'] = "Không tìm thấy người dùng cần xóa!";
+                header("Location:" . _WEB_ROOT . "/user/listuser");
+                exit();
+            }
+            $result = $this->userModel->lockUser($id);
+            if($result){
+                $_SESSION['message'] = "Khóa người dùng thành công!";
+                header("Location:" . _WEB_ROOT . "/user/listuser");
+                exit();
+            }else{
+                $_SESSION['error'] = "Khóa người dùng thất bại!";
+                header("Location:" . _WEB_ROOT . "/user/listuser");
+                exit();
+            }
+        }
+        Logger::logError("Lỗi ở method POST. Không có dữ liệu để khóa người dùng!");
+        header("Location:" . _WEB_ROOT . "/user/listuser");
+        exit();
+       
+    }
+
 
 }
