@@ -8,17 +8,16 @@
   /* 🎯 Body tổng quan */
   body {
     color: #333;
-    margin: 50px;
+    margin: 0;
   }
   
   /* 🎯 Bố cục chung */
   .nd-img-and-info {
     display: flex;
-    gap: 20px;
-    padding: 20px;
+    gap: 5px;
     border-radius: 10px;
-    max-width: 1700px;
-    margin: 50px;
+    max-width: 95%;
+    margin: 0;
   }
   
   /* 🎯 Ảnh sản phẩm */
@@ -53,7 +52,6 @@
   /* 🎯 Thông tin sản phẩm */
   .product-info {
     padding: 30px;
-    margin-top: -20px;
     background-color: white; /* Màu nền trắng cho phần thông tin */
   }
   
@@ -81,6 +79,10 @@
     color: #888;
     font-size: 16px;
     margin-left: 10px;
+  }
+  .text-muted{
+    font-size: 14px;
+    padding: 10px;
   }
   /* 🎯 Lựa chọn màu sắc */
   .color-options {
@@ -217,7 +219,7 @@
   }
   /* 🎯 Thông tin chi tiết */
   .product-details {
-    width: 100%;
+    width: 95%;
     background: #fff;
     padding: 50px;
     border-radius: 12px;
@@ -245,7 +247,7 @@
   }
   /* Đánh giá sản phẩm */
   .col_right{
-    width: 70%;
+    width: 60%;
   }
   /* ⭐ Căn chỉnh phần tổng quan đánh giá */
   .container h3 {
@@ -267,6 +269,7 @@
     flex-direction: column;
     gap: 2px;
     margin-top: 4px;
+    width: 95%;
   }
   
   .star-row {
@@ -283,7 +286,7 @@
   .progress-bar {
     flex: 1;
     height: 5px; /* Thu nhỏ chiều cao */
-    background: #ddd;
+    background: #d6ca93;
     border-radius: 3px;
   }
   
@@ -344,15 +347,15 @@
   
   /* 🏆 Phần đánh giá người dùng */
   .review-container {
-    width: 100%;
-    margin: 15px 0;
+    width: 95%;
+    margin: 15px 0 10px 0;
     display: flex;
     flex-direction: column;
     gap: 8px;
   }
   .review-box {
     background: #fff;
-    padding: 10px;
+    padding: 8px;
     border-radius: 6px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s ease-in-out;
@@ -372,12 +375,12 @@
   }
   
   .rating {
-    font-size: 14px;
+    font-size: 18px;
     color: #ffcc00;
   }
   
   .review-text {
-    font-size: 12px;
+    font-size: 15px;
     color: #555;
     margin: 5px 0;
   }

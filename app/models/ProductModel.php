@@ -181,6 +181,26 @@ class ProductModel extends Model
 
     }
 
-   
+    // Danh mục sản phẩm liên quan ở product detail
+    public function get_relatedProducts($name_product){
+        $sql = "SELECT p.product_id, p.name AS product_name, pt.product_type_id, pt.image, pt.priceOld, pt.priceCurrent, pt.discount_price
+        FROM products p
+        JOIN product_type pt 
+            ON p.product_id = pt.product_id
+            AND pt.product_type_id = (
+                SELECT MIN(pt2.product_type_id)
+                FROM product_type pt2
+                WHERE pt2.product_id = p.product_id
+            )
+        WHERE p.name LIKE ?
+        ORDER BY pt.discount_price DESC
+        LIMIT 10";
+        $params = ["%$name_product%"];
+        $result = $this->fetchAll($sql, $params);
+        if(!$result){
+            return false;
+        }
+        return $result;
+    }
 
 }

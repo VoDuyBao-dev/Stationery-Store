@@ -21,12 +21,7 @@ class Product extends Controller
 
     }
 
-    public function testroixoa(){
-        $categories = $this->productModel->getCategories();
-        $this->data['categories'] = $categories;
-        $this->render("products/testspdanhchoban", $this->data);
-
-    }
+   
     
     public function TrangChu(){
         $outstanding_products = $this->productModel->get_BestSellingProducts();
@@ -84,7 +79,7 @@ class Product extends Controller
 
         // Lấy product tương ứng
         $product = $this->productModel->get_product($id_product);
-
+       
         // lấy tất cả product_type của product đó và lấy 1 product_type mặc định và tất cả hình ảnh của product đó
         $images_product = $this->productModel->getAll_imageOfProduct($id_product);
         $product_types = $this->productModel->getAll_productType_ofProduct($id_product);
@@ -100,12 +95,21 @@ class Product extends Controller
         if(!$images_product){
             Logger::logError("Lỗi không lấy được hình ảnh của sản phẩm có id_product: ".$id_product);
         }
+        $name_product = trim(strtolower($product['product_name']));
+        $name_product = explode(' ', $name_product)[0];
+
+        $products_related = $this->productModel->get_relatedProducts($name_product);
+        if(!$products_related){
+            Logger::logError("Lỗi không lấy được sản phẩm liên quan đến sản phẩm có id_product: ".$id_product);
+        }
+
 
         $this->data = [
             'images_product' => $images_product,
             'product' => $product,
             'product_types' => $product_types,
             'default_product_type' => $default_product_type,
+            'products_related' => $products_related
         ];
        
         $description = $this->data['product']['description'];
@@ -163,6 +167,14 @@ class Product extends Controller
         
     }
 
-    // Tới đoạn lấy đc đổi tượng rồi
+    // Danh mục sản phẩm liên quan ở product detail
+    public function get_relatedProducts(){
+
+    }
+
+    public function sanpham()
+    {
+        $this->render("products/ProductCategory");
+    }
 
 }

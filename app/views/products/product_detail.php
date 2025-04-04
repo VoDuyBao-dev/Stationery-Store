@@ -4,17 +4,21 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vở viết kẻ ngang nhiều hình siêu ngộ nghĩnh</title>
-    <link type="text/css" rel="stylesheet" href="<?php echo _WEB_ROOT;?>/public/assets/clients/css/users/Thongtinchitiet.css" />
+    <link type="text/css" rel="stylesheet" href="<?php echo _WEB_ROOT;?>/public/assets/clients/css/users/products/Thongtinchitiet.css" />
     <style>
       menu{
         float:left
       }
       main{
-        margin-top: 150px ;
-        margin-left: 250px;
+        margin: 150px 0 0 280px;
       }
     </style>
     <script>
+     
+    function viewProduct(product_name ,id_product, id_product_type) {
+        window.location.href = "thong-tin-sp/" + encodeURIComponent(product_name) +'/'+ id_product +'/' + id_product_type;
+    }
+    
 function changeProductType(productTypeId) {
     fetch("/ss2/getProductType?product_type_id=" + productTypeId)
     .then(response => response.json())
@@ -351,7 +355,7 @@ $product_type_id = $default_product_type['product_type_id'] ?? null;
 
     <div
       style="
-        width: 100%;
+        width: 95%;
         height: 5px;
         margin-top: 100px;
         background-color:rgb(105, 22, 59);
@@ -366,67 +370,26 @@ $product_type_id = $default_product_type['product_type_id'] ?? null;
         </div>
         <div class="block-product">
           <div class="product-featured-swiper">
-            <div class="product-block">
+
+           <?php if(!empty($products_related)):?>
+            <?php foreach($products_related as $product):?> 
+            <div class="product-block" onclick="event.preventDefault(); viewProduct('<?= $product['product_name'] ?>', <?= $product['product_id'] ?>, <?= $product['product_type_id'] ?>)">
               <div class="product-block-item">
-                <a href="#"><img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/but.webp" alt="Vở viết" /></a>
+                
+                  <img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/products/<?= $product['image'] ?>" alt="Vở viết" />
               </div>
               <div class="product-info">
-                <a href="#">Vở viết kẻ ngang nhiều hình ngộ nghĩnh</a>
+                <p><?= $product['product_name']?></p>
                 <div class="product-price">
-                  <span class="price">12.000₫</span>
-                  <span class="old-price">41.000₫</span>
+                  <span class="price"><?= $product['priceCurrent']?>0₫</span>
+                  <span class="old-price"><?= $product['priceOld']?>0₫</span>
                 </div>
               </div>
             </div>
-            <div class="product-block">
-                <div class="product-block-item">
-                  <a href="#"><img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/but.webp" alt="Vở viết" /></a>
-                </div>
-                <div class="product-info">
-                  <a href="#">Vở viết kẻ ngang nhiều hình ngộ nghĩnh</a>
-                  <div class="product-price">
-                    <span class="price">12.000₫</span>
-                    <span class="old-price">41.000₫</span>
-                  </div>
-                </div>
-              </div>
-              <div class="product-block">
-                <div class="product-block-item">
-                  <a href="#"><img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/but.webp" alt="Vở viết" /></a>
-                </div>
-                <div class="product-info">
-                  <a href="#">Vở viết kẻ ngang nhiều hình ngộ nghĩnh</a>
-                  <div class="product-price">
-                    <span class="price">12.000₫</span>
-                    <span class="old-price">41.000₫</span>
-                  </div>
-                </div>
-              </div>
-              
-            <div class="product-block">
-              <div class="product-block-item">
-                <a href="#"><img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/but.webp" alt="Hộp bút" /></a>
-              </div>
-              <div class="product-info">
-                <a href="#">Hộp đựng văn phòng phẩm</a>
-                <div class="product-price">
-                  <span class="price">15.000₫</span>
-                  <span class="old-price">25.000₫</span>
-                </div>
-              </div>
-            </div>
-            <div class="product-block">
-              <div class="product-block-item">
-                <a href="#"><img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/but.webp" alt="Sổ tay" /></a>
-              </div>
-              <div class="product-info">
-                <a href="#">Sổ tay cá nhân</a>
-                <div class="product-price">
-                  <span class="price">28.000₫</span>
-                  <span class="old-price">45.000₫</span>
-                </div>
-              </div>
-            </div>
+            <?php endforeach;?> 
+            <?php endif;?>
+            
+            
           </div>
         </div>
         <div class="view-more">
@@ -435,7 +398,8 @@ $product_type_id = $default_product_type['product_type_id'] ?? null;
         </div>
       </div>
     </section>
-</main>
     <?php require_once _DIR_ROOT . "/app/views/blocks/footer.php"; ?>
+</main>
+    
   </body>
 </html>

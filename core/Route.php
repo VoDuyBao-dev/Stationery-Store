@@ -13,7 +13,7 @@ class Route
         $url = trim($url, '/');
 
         $handleUrl = $url;
-        echo $handleUrl;
+     
 
 //        Neu $routes bên config khác rỗng thì duyệt qua toàn bộ các key để so sánh xem có key nào khớp
 // với đường dẫn không

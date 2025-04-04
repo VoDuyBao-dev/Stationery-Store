@@ -20,9 +20,23 @@ $routes['thong-tin-sp'] = 'product/productDetail';
 $routes['getProductType'] = 'product/getProductType';
 
 
+
+$routes['thanh-toan'] = 'user/payment';
+$routes['sanpham'] = 'product/sanpham';
+$routes['phan-hoi'] = 'user/reply';
+$routes['kqtim-kiem'] = 'user/search';
+$routes['notfound'] = 'user/notfound';
 //trang client_layout
 $routes['client_layout'] = 'dashboard/index';
+
+//trang admin_layout
 $routes['admin_layout'] = 'dashboard/home';
+$routes['register'] = 'user/register';
+$routes['signin'] = 'user/signin';
+$routes['otp'] = 'user/nhap_otp';
+
+
+
 
 $routes['san-pham'] = 'product/index';
 $routes['nha_cung_cap'] = 'Categorie';

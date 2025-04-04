@@ -4,10 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thanh toán</title>
-    <link rel="stylesheet" href="../css/Thanhtoan.css">
+    <link type="text/css" rel="stylesheet" href="<?php echo _WEB_ROOT;?>/public/assets/clients/css/users/payment/Payment.css"/>
+
 </head>
+    
 <body>
-    <div class="container">
+    <header>
+    <?php  require_once _DIR_ROOT . "/app/views/blocks/header.php";?>
+    </header>
+    <div class="main-container">
         <!-- Phần nhập thông tin -->
         <div class="checkout-left">
             <div class="logo">Stationery</div>
@@ -54,19 +59,19 @@
         <div class="checkout-right">
     <h2>Đơn hàng (4 sản phẩm)</h2>
     <div class="cart-item">
-        <img src="../img/but.webp" alt="Bút đánh dấu">
+        <img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/but.webp" alt="Bút đánh dấu">
         <p>Màu Sắc Bút Đánh Dấu Hai Đầu</p>
         <p>Số lượng: <input type="number" value="1" min="1"></p>
         <span>72.000đ</span>
     </div>
     <div class="cart-item">
-        <img src="../img/but.webp" alt="Sổ tay mini">
+        <img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/but.webp" alt="Sổ tay mini">
         <p>Sổ tay mini hoạt hình dễ thương</p>
         <p>Số lượng: <input type="number" value="1" min="1"></p>
         <span>38.000đ</span>
     </div>
     <div class="cart-item">
-        <img src="../img/but.webp" alt="Sổ tay mini">
+        <img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/but.webp" alt="Sổ tay mini">
         <p>Sổ tay mini hoạt hình dễ thương</p>
         <p>Số lượng: <input type="number" value="1" min="1"></p>
         <span>38.000đ</span>
@@ -84,5 +89,6 @@
     <button class="checkout-btn">ĐẶT HÀNG</button>
     </div>
     </div>
+    <?php  require_once _DIR_ROOT . "/app/views/blocks/footer.php";?>
 </body>
 </html>

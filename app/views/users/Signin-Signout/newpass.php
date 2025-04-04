@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nhập mật khẩu mới</title>
     <link type="text/css" rel="stylesheet"
-          href="<?php echo _WEB_ROOT; ?>/public/assets/clients/css/users/Signin-Signup.css"/>
+          href="<?php echo _WEB_ROOT; ?>/public/assets/clients/css/users/Signin-Signout/Signin-Signup.css"/>
     <script type="text/javascript" src=" <?php echo _WEB_ROOT; ?>/public/assets/clients/js/users/Signin-Signup.js"></script>
       
 

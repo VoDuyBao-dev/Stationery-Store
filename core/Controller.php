@@ -24,7 +24,12 @@ class Controller
         extract($data); // Chuyển các key trong mảng thành biến
         if (file_exists(_DIR_ROOT . "/app/views/" . $view . ".php")) {
             require_once _DIR_ROOT . "/app/views/" . $view . ".php";
+            
+        }else{
+            echo "sai url";
         }
+
+        
     }
 
     public function getValue_ofArrayParams($params)
