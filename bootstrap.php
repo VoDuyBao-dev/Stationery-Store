@@ -64,3 +64,4 @@ if (!empty($config['database'])) {
 // Load database xong mới tới load model
 require_once "core/Model.php"; //Load base Model
 require_once "core/Controller.php"; //Load base controller
+

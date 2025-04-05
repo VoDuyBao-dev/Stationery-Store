@@ -25,6 +25,9 @@ $routes['view_cart'] = 'product/view_cart';
 $routes['deleteAll_cart'] = 'product/deleteAll_cart';
 $routes['deleteIdProduct_inCart'] = 'product/deleteIdProduct_inCart';
 
+// Chức năng admin
+$routes['manage_users'] = 'AdminManageUser/listuser';
+
 
 
 $routes['thanh-toan'] = 'user/payment';
@@ -37,9 +40,9 @@ $routes['client_layout'] = 'dashboard/index';
 
 //trang admin_layout
 $routes['admin_layout'] = 'dashboard/home';
-$routes['register'] = 'user/register';
-$routes['signin'] = 'user/signin';
-$routes['otp'] = 'user/nhap_otp';
+
+
+
 
 
 
