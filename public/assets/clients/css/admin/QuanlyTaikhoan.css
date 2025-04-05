@@ -1,0 +1,122 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 20px;
+  }
+  .container {
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  h2 {
+    text-align: left;
+    background-color: #609edb;
+    color: white;
+    padding: 15px;
+    margin: -20px -20px 20px -20px;
+    border-radius: 8px 8px 0 0;
+  }
+  .btn-group {
+    margin-bottom: 15px;
+  }
+  .btn {
+    padding: 8px 12px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 14px;
+    margin-right: 5px;
+    color: white;
+  }
+  .btn-green {
+    background-color: #5ec576;
+  }
+  .btn-red {
+    background-color: #dc3545;
+  }
+  .btn-gray {
+    background-color: #6c757d;
+  }
+  .btn:hover {
+    opacity: 0.8;
+  }
+  /* nút search */
+  .search-box {
+    position: relative;
+    display: inline-block;
+  }
+
+  .search-box input {
+    padding: 8px 12px;
+    width: 220px;
+    border: 2px solid #7b9cc0;
+    border-radius: 20px;
+    outline: none;
+  }
+
+  .search-box input:focus {
+    border-color: #0056b3;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  }
+  /* Bảng sản phẩm */
+  .product-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+  }
+  .product-table th,
+  .product-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+  }
+  .product-table th {
+    background-color: #609edb;
+    color: white;
+  }
+  .product-table img {
+    width: 80px;
+    height: auto;
+    border-radius: 5px;
+  }
+  .badge {
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: white;
+    font-size: 12px;
+  }
+  .in-stock {
+    background-color: #77cf8b;
+  }
+  .out-stock {
+    background-color: #df5f6c;
+  }
+  .action-btn {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 12px;
+  }
+  .edit {
+    background-color: #dcd6c5;
+  }
+  .delete {
+    background-color: #e06471;
+    color: white;
+  }
+  .search-box {
+    text-align: right;
+    margin-bottom: 15px;
+  }
+  input[type="text"] {
+    padding: 5px;
+    width: 200px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
