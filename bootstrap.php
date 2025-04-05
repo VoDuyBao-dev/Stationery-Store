@@ -2,6 +2,7 @@
 // đường dẫn đến dự án
 define('_DIR_ROOT', __DIR__);
 
+
 // Đường dẫn BASE URL
 define('_BASE_URL', 'http://localhost/Stationery-Store');
 

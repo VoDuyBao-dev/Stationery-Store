@@ -206,12 +206,11 @@ document.addEventListener("DOMContentLoaded", function () {
     const productContainer = document.querySelector(".tab-1 .product-list");
 
     function loadProducts(categoryId) {
-        console.log("Fetching sản phẩm với category ID:", categoryId);
+      
 
         fetch(`/<?= _NAME_PROJECT?>/product/getProducts_ofCategory?category_id=${categoryId}`)
             .then(response => response.text()) // Chuyển về text trước để kiểm tra lỗi
             .then(text => {
-                console.log("Raw JSON:", text);
                 return JSON.parse(text);
             })
             .then(data => {

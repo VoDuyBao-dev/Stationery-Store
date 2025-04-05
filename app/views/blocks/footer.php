@@ -7,7 +7,7 @@
     <link type="text/css" rel="stylesheet" 
         href="<?php echo _WEB_ROOT; ?>/public/assets/clients/css/blocks/footer.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 <body>
 <footer>

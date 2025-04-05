@@ -91,7 +91,7 @@ class ProductModel extends Model
     }
 
     public function get_product($id_product){
-        $sql = "SELECT p.name as product_name, p.description, b.name as brand_name 
+        $sql = "SELECT p.product_id, p.name as product_name, p.description, b.name as brand_name 
             FROM products p
             join brands b on p.brand_id = b.brand_id
             WHERE product_id = ?";

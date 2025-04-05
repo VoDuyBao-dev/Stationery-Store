@@ -19,6 +19,12 @@ $routes['thong-tin-sp'] = 'product/productDetail';
 // API response
 $routes['getProductType'] = 'product/getProductType';
 
+// Gio hang
+$routes['add_cart'] = 'product/add_cart';
+$routes['view_cart'] = 'product/view_cart';
+$routes['deleteAll_cart'] = 'product/deleteAll_cart';
+$routes['deleteIdProduct_inCart'] = 'product/deleteIdProduct_inCart';
+
 
 
 $routes['thanh-toan'] = 'user/payment';
