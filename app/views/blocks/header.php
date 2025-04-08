@@ -110,14 +110,15 @@
     </div>
     
 </header>
-<div class="breadcrumb-banner">
-    <div class="container">
-        <p><a href="<?php echo _WEB_ROOT; ?>/ ">Trang chủ</a> / <span>Loading...</span> / <h2>Loading...</h2></p>
+    <div class="breadcrumb-banner">
+        <div class="container">
+            <p><a href="<?php echo _WEB_ROOT; ?>/ ">Trang chủ</a> / <span>Loading...</span> / <h2>Loading...</h2></p>
+        </div>
     </div>
-</div>
 <div>
 <button id="backToTop" onclick="scrollToTop()"><i class="fas fa-arrow-up"></i></button>
 <button id="chat"><a href="#"><i class="fas fa-envelope"></i></a></button>
 </div>
+
 </body>
 </html>

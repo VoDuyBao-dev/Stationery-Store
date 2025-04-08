@@ -29,5 +29,9 @@ class Product extends Controller
         $this->render("layouts/client_layout", $this->data);
     }
 
+    public function sanpham()
+    {
+        $this->render("products/ProductCategory");
+    }
 
 }

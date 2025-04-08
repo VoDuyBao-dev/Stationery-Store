@@ -4,14 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vở viết kẻ ngang nhiều hình siêu ngộ nghĩnh</title>
-    <link type="text/css" rel="stylesheet" href="<?php echo _WEB_ROOT;?>/public/assets/clients/css/users/Thongtinchitiet.css" />
+    <link type="text/css" rel="stylesheet" href="<?php echo _WEB_ROOT;?>/public/assets/clients/css/users/products/Thongtinchitiet.css" />
     <style>
       menu{
         float:left
       }
       main{
-        margin-top: 150px ;
-        margin-left: 250px;
+        margin: 150px 0 0 280px;
       }
     </style>
   </head>
@@ -322,7 +321,7 @@
 
     <div
       style="
-        width: 100%;
+        width: 95%;
         height: 5px;
         margin-top: 100px;
         background-color:rgb(105, 22, 59);
@@ -406,7 +405,8 @@
         </div>
       </div>
     </section>
-</main>
     <?php require_once _DIR_ROOT . "/app/views/blocks/footer.php"; ?>
+</main>
+    
   </body>
 </html>

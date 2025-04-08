@@ -27,8 +27,9 @@
                 </ul>
             </li>
 
-            <li><a href="<?php echo _BASE_URL; ?>/beginChat"><i class="far fa-comment-dots"></i> Chat <span> </span></a></li>
-            <li><a href="<?php echo _BASE_URL; ?>/admin/transport"><i class="fas fa-shipping-fast"></i> Phương thức vận chuyển</a></li>
+            <li><a href="#"><i class="far fa-gem"></i> Chương trình khuyến mãi <span> </span></a></li>
+
+            <li><a href="#"><i class="far fa-comment-dots"></i> Chat <span> </span></a></li>
         </ul>
     </div>
 </body>
