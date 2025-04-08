@@ -111,8 +111,7 @@ class Chat extends Controller
                 'created_at' => date("Y-m-d H:i:s"),
             ];
             print_r($data);
-            $chatModel = new ChatModel();
-            $chatModel->sendMessage(...array_values($data));
+            $this->chatModel->sendMessage(...array_values($data));
 
             header("Location:" . _BASE_URL . "/chat/" . $receiver_id);
         }

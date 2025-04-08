@@ -12,26 +12,51 @@ class TransportModel extends Model
     // Lấy thông tin phương thức vận chuyển theo ID
     public function getTransportById($id)
     {
-        return $this->fetch("SELECT * FROM $this->table WHERE transport_id = ?", [$id]);
+        $result = $this->fetch("SELECT * FROM $this->table WHERE transport_id = ?", [$id]);
+        return $result ? $result : null;
     }
 
-    // Thêm phương thức vận chuyển mới
+
     public function addTransport($data)
     {
+        // Kiểm tra xem tên phương thức vận chuyển đã tồn tại chưa
+        $exists = $this->fetch("SELECT * FROM $this->table WHERE name = ?", [$data['name']]);
+
+        if ($exists) {
+            return false; // Tên đã tồn tại, không thêm nữa
+        }
+
         $sql = "INSERT INTO $this->table (name, price) VALUES (?, ?)";
         return $this->execute($sql, array_values($data));
     }
 
-    // Cập nhật phương thức vận chuyển
+
     public function updateTransport($id, $data)
     {
+        // Kiểm tra ID có tồn tại không
+        $exists = $this->fetch("SELECT * FROM $this->table WHERE transport_id = ?", [$id]);
+        if (!$exists) {
+            return false; // Không có ID này, không thể cập nhật
+        }
+
+        // Kiểm tra xem tên mới có bị trùng không
+        $duplicate = $this->fetch("SELECT * FROM $this->table WHERE name = ? AND transport_id != ?", [$data['name'], $id]);
+        if ($duplicate) {
+            return false; // Tên đã tồn tại, không cập nhật
+        }
+
         $sql = "UPDATE $this->table SET name=?, price=? WHERE transport_id=?";
         return $this->execute($sql, array_merge(array_values($data), [$id]));
     }
 
-    // Xóa phương thức vận chuyển
     public function deleteTransport($id)
     {
+        // Kiểm tra ID có tồn tại không
+        $exists = $this->fetch("SELECT * FROM $this->table WHERE transport_id = ?", [$id]);
+        if (!$exists) {
+            return false; // ID không tồn tại, không thể xóa
+        }
+
         return $this->execute("DELETE FROM $this->table WHERE transport_id = ?", [$id]);
     }
 }

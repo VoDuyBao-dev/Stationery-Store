@@ -19,14 +19,13 @@ function closeForm(formId) {
 function submitAdd() {
     const name = document.getElementById('addName').value;
     const price = document.getElementById('addPrice').value;
-
     if (!name || !price) {
         alert('Vui lòng nhập đầy đủ thông tin!');
         return;
     }
 
     // Gửi dữ liệu thêm mới đến server
-    fetch('<?php echo _BASE_URL; ?>/admin/transportHandler', {
+    fetch(`${BASE_URL}/admin/transportHandler`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ action: 'add', name, price })
@@ -34,8 +33,12 @@ function submitAdd() {
         .then(response => response.json())
         .then(data => {
             alert(data.message);
-            if (data.success) location.reload();
+            if (data.success) {
+                document.getElementById('form-add').style.display = 'none';
+                location.reload();
+            }
         });
+
 }
 
 function submitEdit() {
@@ -49,23 +52,29 @@ function submitEdit() {
     }
 
     // Gửi dữ liệu chỉnh sửa đến server
-    fetch('<?php echo _BASE_URL; ?>/admin/transportHandler', {
+    fetch(`${BASE_URL}/admin/transportHandler`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ action: 'edit', id, name, price })
     })
-        .then(response => response.json())
+        .then(response => response.text())  // Đọc dữ liệu dưới dạng text
+        .then(text => {
+            console.log("Server response:", text); // In dữ liệu server trả về
+            return JSON.parse(text); // Chuyển sang JSON nếu hợp lệ
+        })
         .then(data => {
             alert(data.message);
             if (data.success) location.reload();
-        });
+        })
+        .catch(error => console.error("Lỗi parse JSON:", error));
+
 }
 
 function submitDelete() {
     const id = document.getElementById('deleteId').value;
 
     // Gửi yêu cầu xóa đến server
-    fetch('<?php echo _BASE_URL; ?>/admin/transportHandler', {
+    fetch(`${BASE_URL}/admin/transportHandler`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ action: 'delete', id })
@@ -73,6 +82,9 @@ function submitDelete() {
         .then(response => response.json())
         .then(data => {
             alert(data.message);
-            if (data.success) location.reload();
+            if (data.success) {
+                document.getElementById('form-delete').style.display = 'none';
+                location.reload();
+            }
         });
 }

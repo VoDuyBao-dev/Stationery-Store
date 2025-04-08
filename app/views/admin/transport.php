@@ -35,6 +35,9 @@
             cursor: pointer;
         }
     </style>
+    <script>
+        const BASE_URL = "<?php echo _BASE_URL; ?>";
+    </script>
 </head>
 
 <body>
@@ -118,6 +121,7 @@
 
 
     <script type="text/javascript" src="<?php echo _WEB_ROOT; ?>/public/assets/clients/js/admin/transport.js"></script>
+
 </body>
 
 </html>
