@@ -98,6 +98,7 @@
             <img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/products/<?= $item['image'];?>" alt="Túi 02 Ruột bút gel Buddies Thiên Long GR-028">
             <div class="cart-item-info">
                 <p><?= $item['product_name']?></p>
+                <p><strong><?= $item['name_product_type_id']?></strong></p>
                 <p><strong><?= $item['priceCurrent']?>0₫</strong></p>
                 <p><strong><?= $item['priceOld']?>0₫</strong></p>
             </div>
@@ -127,9 +128,11 @@
         </div>
        
        
-      
+       
+        <form action="<?= _WEB_ROOT."/thanh-toan"?>" method="GET">
+         <button id="checkout-btn" >Tiến hành đặt hàng</button>
+        </form>
         
-        <button id="checkout-btn">Tiến hành đặt hàng</button>
         <form action="<?= _WEB_ROOT ?>/deleteAll_cart" method="POST">
                  <button id="clear-cart-btn" name="deleteAll_cart">Xóa toàn bộ giỏ hàng</button>
                 </form>

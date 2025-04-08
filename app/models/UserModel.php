@@ -34,6 +34,15 @@ class UserModel extends Model
         return $result ? true : false;
     }
 
+    public function checkIDExists($id)
+    {
+        $sql = "SELECT * FROM $this->_table WHERE user_id = ? ";
+        $params = [$id];
+        $result = $this->fetch($sql, $params);
+
+        return $result ? true : false;
+    }
+
     public function createUser($fullname, $sdt, $email, $password)
     {
 
@@ -108,24 +117,7 @@ class UserModel extends Model
         return $result;
     }
 
-    // public function updateUser($id, $fullname, $sdt, $address)
-    // {
-    //     $sql = "UPDATE $this->_table SET fullname = ?, phone = ?, address = ? WHERE user_id = ?";
-    //     $params = [$fullname, $sdt, $address, $id];
 
-    //     try{
-    //         $affectedRows = $this->execute($sql, $params);
-    //         if ($affectedRows > 0) {
-    //             return true;
-    //         } 
-    //     }catch (Exception $e) {
-    //         Logger::logError("Lỗi khi update user: " . $e->getMessage());
-    //         return false;
-    //     }
-
-       
-        
-    // }
 
     public function lockUser($id)
     {

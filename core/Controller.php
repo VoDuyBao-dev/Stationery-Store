@@ -54,4 +54,13 @@ class Controller
         return false;
 
     }
+
+    public function validateAdmin(){
+        if((!isset($_SESSION['user']) || ($_SESSION['user']['role'] !== 'admin') )){
+            header("Location:" . _WEB_ROOT . "/trang-chu");
+            exit();
+        }
+    }
+
+
 }

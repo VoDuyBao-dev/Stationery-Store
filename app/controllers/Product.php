@@ -165,59 +165,11 @@ class Product extends Controller
         
     }
 
-    public function add_cart()
-{
-    if (isset($_POST['addcart'])) {
-        $product_id = $_POST['product_id'];
-        $product_type_id = $_POST['product_type_id'];
-        $product_name = $_POST['product_name'];
-        $image = $_POST['image'];
-        $priceCurrent = $_POST['priceCurrent'];
-        $priceOld = $_POST['priceOld'];
-        $soluong = 1;
-
-        // Kiểm tra nếu sản phẩm đã có trong giỏ hàng, tăng số lượng
-        if (isset($_SESSION['giohang'][$product_type_id])) {
-            $_SESSION['giohang'][$product_type_id]['quantity'] += 1;
-        } else {
-            $sp = [
-                'product_id' => $product_id,
-                'product_type_id' => $product_type_id,
-                'product_name' => $product_name,
-                'image' => $image,
-                'priceCurrent' => $priceCurrent,
-                'priceOld' => $priceOld,
-                'quantity' => $soluong,
-            ];
-            $_SESSION['giohang'][$product_type_id] = $sp;
-        }
-        Helpers::setFlash('add_cart', 'Thêm sản phẩm vào giỏ hàng thành công!');
-        header("Location:" . _WEB_ROOT . "/thong-tin-sp/".$product_name."/".$product_id."/".$product_type_id);
-        exit;
-    }
-}
-
-    public function view_cart(){
-        $this->render("products/giohang_tamthoi");
+    public function sanpham()
+    {
+        $this->render("products/ProductCategory");
     }
 
-    public function deleteAll_cart(){
-        if(isset($_POST['deleteAll_cart'])){
-           $_SESSION['giohang'] = [];
-           header("Location:" . _WEB_ROOT . "/view_cart");
-            exit;
-        }
-    }
-
-    public function deleteIdProduct_inCart($params){
-        $value_params = $this->getValue_ofArrayParams($params);
-        $id_product_type = $value_params['lastValue'];
-        unset($_SESSION['giohang'][$id_product_type]);
-        if(count($_SESSION['giohang']) > 0){
-            header("Location:" . _WEB_ROOT . "/view_cart");
-        }else{
-            header("Location:" . _WEB_ROOT . "/trang-chu");
-        }
-    }
+    
 
 }

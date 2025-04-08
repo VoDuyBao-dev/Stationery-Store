@@ -22,8 +22,18 @@ $flashSale_products = $flashSale_products ?? [];
 
    
 </script>
+<script>
+  var test = _WEB_ROOT;
+</script>
   </head>
   <body>
+  <header>
+    <?php  require_once _DIR_ROOT . "/app/views/blocks/header.php";?>
+</header>  
+
+<menu>
+    <?php  require_once _DIR_ROOT . "/app/views/blocks/menu.php";?>
+</menu> 
   <?php if ($message = Helpers::getFlash('error_params')): ?>
     <div><?php echo $message; ?></div>
 <?php endif; ?>
@@ -302,6 +312,73 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
     </script>
-
+    <!-- ========= Dịch vụ =========== -->
+    <section class="section-6">
+      <section class="section-service">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6 s-left">
+              <div class="block-title"><h2>Dịch vụ của chúng tôi</h2></div>
+              <div class="block-content">
+                <div class="item">
+                  <div class="icon">
+                    <img
+                      src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/icongiaohang.svg"
+                      alt="Giao hàng nội thành"
+                    />
+                  </div>
+                  <div class="info">
+                    <h3>Giao hàng free nội thành</h3>
+                    <p>Giao free trong nội thành HN và HCMHCM</p>
+                  </div>
+                </div>
+                <div class="item">
+                  <div class="icon">
+                    <img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/icontrahang.svg" alt="Trả hàng trong 24h" />
+                  </div>
+                  <div class="info">
+                    <h3>Trả hàng trong vòng 24h</h3>
+                    <p>Hỗ trợ trả hàng cho khách khi sản phẩm có lỗi</p>
+                  </div>
+                </div>
+                <div class="item">
+                  <div class="icon">
+                    <img
+                      src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/Iconkiemtra.svg"
+                      alt="Kiểm tra hàng khi nhận"
+                    />
+                  </div>
+                  <div class="info">
+                    <h3>Kiểm tra hàng khi nhận hàng</h3>
+                    <p>Khách hàng kiểm tra hàng trước khi nhận</p>
+                  </div>
+                </div>
+                <div class="item">
+                  <div class="icon">
+                    <img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/iconthanhtoan.svg" alt="Thanh toán cod " />
+                  </div>
+                  <div class="info">
+                    <h3>Thanh toán codcod</h3>
+                    <p>Hỗ trợ khách hàng thanh toán cod</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="block-image">
+                <img
+                  src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/giaohang.webp"
+                  alt="giaohang"
+                  width="419"
+                  height="617"
+                  left= "2500"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </section>
+   <?php  require_once _DIR_ROOT . "/app/views/blocks/footer.php";?>
   </body>
 </html>

@@ -99,13 +99,22 @@
                     <button class="cart-button" onclick="checkout()">Thanh toán</button>
                 </div>
             </div>
+           
         <div class="icon user-menu">
             <i class="fas fa-user" id="userIcon"></i>
+            <?php if(isset($_SESSION['user'])): ?>
+                <div class="dropdown-user" id="dropdownUser">
+                <a href="<?php echo _WEB_ROOT . '/dang-xuat'; ?>">Đăng xuất</a>
+            </div>
+            <?php else:?>
+
             <div class="dropdown-user" id="dropdownUser">
                 <a href="<?php echo _WEB_ROOT . '/dang-nhap'; ?>">Đăng nhập</a>
                 <a href="<?php echo _WEB_ROOT . '/dang-ky'; ?>">Đăng ký</a>
             </div>
+            <?php endif;?>
         </div>
+        
 
     </div>
     

@@ -19,10 +19,7 @@ class AdminManageUser extends Controller
         }
 
     }
-    public function index()
-    {
-        $this->render("admin/TaiKhoan");
-    }
+   
 
     public function listuser()
     {

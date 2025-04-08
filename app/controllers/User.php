@@ -1,5 +1,5 @@
 <?php
-
+require_once _DIR_ROOT . '/app/models/TransportModel.php';
 use App\Logger;
 use core\OtpService;
 use core\Helpers;
@@ -26,7 +26,7 @@ class User extends Controller
     public function handle_action_OTP(){
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $action = $_POST['action'] ?? 'default';
-            echo $action;
+           
             $otp = implode('', $_POST['otp']);
             $otpService = new OtpService();
             $otpIsValid = $otpService->isValidOtp($otp);
@@ -46,7 +46,7 @@ class User extends Controller
                 }     
             }else {
                 $messages['error_otp'] = $otpIsValid;
-                $this->render("users/otp", $messages);
+                $this->render("users/Signin-Signout/otp", $messages);
                 return;
             }
             // Xử lý tới đây rồi: chuyền mess vào để hiển thị lỗi và xóa bớt bên xử lý kia
@@ -57,7 +57,7 @@ class User extends Controller
 
     public function nhap_otp()
     {
-        echo "1111";
+       
         $this->render("users/Signin-Signout/otp");
     }
 
@@ -111,6 +111,7 @@ class User extends Controller
             $password = password_hash($password, PASSWORD_DEFAULT);
 
             $_SESSION['register_data'] = compact('fullname', 'sdt', 'email', 'password');
+           
 //            Gửi mã otp
             $otpService = new OtpService();
             try {
@@ -213,6 +214,7 @@ class User extends Controller
 
             }
             $verifyUser = $this->userModel->verifyUser($email, $password);
+           
             if (is_array($verifyUser)) {
                 // Lấy thông tin người dùng
                 $_SESSION['user'] = $verifyUser;
@@ -224,7 +226,7 @@ class User extends Controller
                 if (isset($_SESSION['warning_signin'])) {
                     unset($_SESSION['warning_signin']);
                 }
-                header("Location:" . _WEB_ROOT . "/home");
+                header("Location:" . _WEB_ROOT . "/trang-chu");
                 exit();
             } else {
                 $_SESSION['error'] = $verifyUser;
@@ -238,6 +240,13 @@ class User extends Controller
         
         $this->render("users/Signin-Signout/signin");
     
+    }
+
+    public function signout()
+    {
+        unset($_SESSION['user']);
+        header("Location:" . _WEB_ROOT . "/dang-nhap");
+        exit();
     }
 
 
@@ -314,6 +323,47 @@ class User extends Controller
         $this->render("users/Signin-Signout/newpass");
     }
 
+   // Lấy thông tin người dùng  qua trang thanh toán làm thông tin mặc đinhj
+   public function UserInfor_Payment()
+   {
+        $transportModel = new TransportModel();
+        $listTransport = $transportModel->getAllTransport();
+        $data = [
+            'listTransport' => $listTransport,
+        ];
+        $this->render("users/payment/Payment", $data);
+       
+   }
+
+    // Xử lý form đc thông tin người dùng thanh toán do ajax gửi request lên
+    public function handleUserInfor_Payment()
+    {
+        // Xử lý thông tin người dùng
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $id = $_SESSION['user']['user_id'];
+            $sdt = $_POST['phone'];
+
+            $result = $this->userModel->checkIDExists($id);
+            if (!$result) {
+                // Trả về lỗi nếu có vấn đề với thông tin người dùng
+                ob_clean();
+                echo json_encode(['success' => false, 'error' => 'Không tìm thấy người dùng trong hệ thống!']);
+                exit();
+            }
+
+            $regex = '/^(0|\+84)(\d{9,10})$/';
+            if (!preg_match($regex, $sdt)) {
+                ob_clean();
+                echo json_encode(['success' => false, 'error' => 'Số điện thoại không hợp lệ. Vui lòng kiểm tra lại!']);
+                exit();
+            }
+
+            ob_clean();
+            // Tiếp tục xử lý thông tin nếu không có lỗi
+            echo json_encode(['success' => true]);
+        }
+    }
+
 
     public function home()
     {
@@ -326,97 +376,11 @@ class User extends Controller
         $this->render("products/Thongtinchitiet");
     }
 
-    // public function listuser()
-    // {
-    //     $users = $this->userModel->getAllUsers();
-    //     $usersLock = $this->userModel->getAllUsersLock();
-    //     if(!empty($users)){
-    //         $this->render("users/listuser", ["users" => $users, "usersLock" => $usersLock]);
-    //     }else{
-    //         Logger::logError("Không tìm thấy người dùng nào trong hệ thống!");
-    //         header("Location:" . _WEB_ROOT . "/home");
-    //         exit();
-    //     }
-
-        
-    // }
-
-
-    // public function unlockUser(){
-    //     if(isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST'){
-    //         $id = $_POST['id'] ?? null;
-    //         if($id === null || !is_numeric($id) || $id <= 0){
-    //             $_SESSION['error'] = "ID không hợp lệ!";
-    //             header("Location:" . _WEB_ROOT . "/user/listuser");
-    //             exit();
-    //         }
-    //         $id = (int)$id;
-    
-    //         $user = $this->userModel->getUserById($id);
-    //         if($user === false){
-    //             $_SESSION['error'] = "Không tìm thấy người dùng cần mở khóa!";
-    //             header("Location:" . _WEB_ROOT . "/user/listuser");
-    //             exit();
-    //         }
-    //         $result = $this->userModel->unlockUser($id);
-    //         if($result){
-    //             $_SESSION['message'] = "Mở khóa người dùng thành công!";
-    //             header("Location:" . _WEB_ROOT . "/user/listuser");
-    //             exit();
-    //         }else{
-    //             $_SESSION['error'] = "Xóa người dùng thất bại!";
-    //             header("Location:" . _WEB_ROOT . "/user/listuser");
-    //             exit();
-    //         }
-    //     }
-    //     Logger::logError("Lỗi ở method POST. Không có dữ liệu để mở khóa người dùng!");
-    //     header("Location:" . _WEB_ROOT . "/user/listuser");
-    //     exit();
-       
-    // }
-
-
-    // public function lockUser(){
-    //     if(isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST'){
-    //         $id = $_POST['id'] ?? null;
-    //         if($id === null || !is_numeric($id) || $id <= 0){
-    //             $_SESSION['error'] = "ID không hợp lệ!";
-    //             header("Location:" . _WEB_ROOT . "/user/listuser");
-    //             exit();
-    //         }
-    //         $id = (int)$id;
-    
-    //         $user = $this->userModel->getUserById($id);
-    //         if($user === false){
-    //             $_SESSION['error'] = "Không tìm thấy người dùng cần xóa!";
-    //             header("Location:" . _WEB_ROOT . "/user/listuser");
-    //             exit();
-    //         }
-    //         $result = $this->userModel->lockUser($id);
-    //         if($result){
-    //             $_SESSION['message'] = "Khóa người dùng thành công!";
-    //             header("Location:" . _WEB_ROOT . "/user/listuser");
-    //             exit();
-    //         }else{
-    //             $_SESSION['error'] = "Khóa người dùng thất bại!";
-    //             header("Location:" . _WEB_ROOT . "/user/listuser");
-    //             exit();
-    //         }
-    //     }
-    //     Logger::logError("Lỗi ở method POST. Không có dữ liệu để khóa người dùng!");
-    //     header("Location:" . _WEB_ROOT . "/user/listuser");
-    //     exit();
-       
-    // }
-
+   
    
 
 
-    public function payment()
-    {
-        $this->render("users/payment/Payment");
-    }
-
+    
    public function reply()
     {
         $this->render("users/reply/reply");

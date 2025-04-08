@@ -13,7 +13,7 @@
         <ul class="menu-list">
             <li><a href="#"><i class="fas fa-store"></i> Trang chủ <span> </span></a></li>
 
-            <li><a href="#"><i class="fas fa-user-tag"></i> Quản lý người dùng <span> </span></a></li>
+            <li><a href="<?= _WEB_ROOT."/manage_users"?>"><i class="fas fa-user-tag"></i> Quản lý người dùng <span> </span></a></li>
 
             <li><a href="#"><i class="fas fa-boxes"></i> Quản lý sản phẩm <span> </span></a></li>
 
@@ -32,3 +32,4 @@
     </div>
 </body>
 </html>
+

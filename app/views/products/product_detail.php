@@ -35,7 +35,7 @@ use core\Helpers;
                         console.error(data.error);
                         return;
                     }
-
+                    console.log(data);
                     document.querySelector("h2").innerText = data.name;
                     document.querySelector(".product_code").innerText = data.product_type_id;
                     document.querySelector(".old-price").innerText = data.priceOld.toLocaleString() + "0đ";
@@ -46,6 +46,7 @@ use core\Helpers;
                     document.querySelector(".main-image").src = "<?php echo _WEB_ROOT;?>/public/assets/clients/images/products/" + data.image;
 
                     // Cập nhật product_type_id vào form
+                    document.getElementById('selected_name_product_type_id').value = data.name;
                     document.getElementById('selected_product_type_id').value = data.product_type_id;
                     document.getElementById('selected_image').value = data.image;
                     document.getElementById('selected_priceCurrent').value = data.priceCurrent;
@@ -54,6 +55,7 @@ use core\Helpers;
                 .catch(error => console.error("Lỗi khi tải dữ liệu:", error));
         }
     </script>
+     <script src="<?php echo _WEB_ROOT; ?>/public/assets/clients/js/products/cart.js"></script>
 </head>
 
 <body data-web-root="<?= _WEB_ROOT ?>">
@@ -113,10 +115,12 @@ use core\Helpers;
             <!-- Điều chỉnh số lượng -->
             <label>Số lượng:</label>
             <div class="quantity-control">
-                <button>-</button>
-                <input type="number" value="1" min="1"/>
-                <button>+</button>
+                <button type="button" onclick="giamsoluong_productDetail(this)">-</button>
+                <input  type="number" onkeyup="kiemtrasoluong_productDetail(this)" value="1" min="1" />
+                <button type="button" onclick="tangsoluong_productDetail(this)">+</button>
             </div>
+           
+              
 
             <?php if ($message = Helpers::getFlash('add_cart')): ?>
                   <div><?php echo $message; ?></div>
@@ -124,8 +128,9 @@ use core\Helpers;
             <!-- Nút mua hàng -->
             <div class="buttons">
                 <!-- Thêm vào giỏ hàng -->
-                <form action="<?= _WEB_ROOT ?>/add_cart" method="POST">
-                   
+                <form action="<?= _WEB_ROOT ?>/handle_cart" method="POST">
+                    <input type="hidden" name="product_name_type_id" id="selected_name_product_type_id"
+                    value="<?= $default_product_type['name']; ?>"/>
                     <input type="hidden" name="product_type_id" id="selected_product_type_id"
                            value="<?= $default_product_type['product_type_id']; ?>"/>
                     <input type="hidden" name="product_name" value="<?= $product['product_name']; ?>"/>
@@ -136,14 +141,11 @@ use core\Helpers;
                     <input type="hidden" name="priceOld" id="selected_priceOld"
                            value="<?= $default_product_type['priceOld']; ?>"/>
                     <input type="hidden" name="product_id" value="<?= $product['product_id']; ?>"/>
+                    <input type="hidden" name="quantity" id="hidden-quantity" value="1"/>
 
                     <button class="add-to-cart" type="submit" name="addcart">Thêm vào giỏ hàng</button>
+                    <button class="buy-now" type="submit" name="buynow">Mua ngay</button>
                 </form>
-               
-                
-
-                <button class="buy-now">Mua ngay</button>
-
                
                 
             </div>
