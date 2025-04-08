@@ -1,20 +1,16 @@
-document.addEventListener("DOMContentLoaded", function() {
-    const userIcon = document.getElementById("userIcon");
-    const dropdownUser = document.getElementById("dropdownUser");
+document.addEventListener("DOMContentLoaded", function () {
+    const settingSidebar = document.querySelector(".settingSidebar");
+    const toggleButton = document.querySelector(".settingPanelToggle");
 
-    // Khi click vào icon người dùng
-    userIcon.addEventListener("click", function(event) {
-        event.stopPropagation(); // Ngăn chặn sự kiện lan ra ngoài
-        dropdownUser.classList.toggle("show");
-    });
-
-    // Khi click ra ngoài dropdown thì ẩn menu
-    document.addEventListener("click", function(event) {
-        if (!userIcon.contains(event.target) && !dropdownUser.contains(event.target)) {
-            dropdownUser.classList.remove("show");
-        }
+    // Khi nhấn vào nút settingPanelToggle, toggle class "showSettingPanel"
+    toggleButton.addEventListener("click", function (event) {
+        event.preventDefault(); // Ngăn chặn chuyển trang nếu thẻ <a> có href
+        settingSidebar.classList.toggle("showSettingPanel");
     });
 });
+
+
+
 document.addEventListener("DOMContentLoaded", function () {
     let pageTitle = document.title; // Lấy tiêu đề của trang
     let breadcrumbTitle = document.querySelector(".breadcrumb-banner h2"); // Chọn phần tử tiêu đề trong breadcrumb

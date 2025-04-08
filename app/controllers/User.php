@@ -55,7 +55,7 @@ class User extends Controller
 
     public function nhap_otp()
     {
-        $this->render("users/otp");
+        $this->render("users/Signin-Signout/otp");
     }
 
     public function register()
@@ -101,7 +101,7 @@ class User extends Controller
             }
 
             if (!empty($messages['error_sdt']) || !empty($messages['error_email']) || !empty($messages['error_confirmPassword'])) {
-                $this->render("users/register", $messages);
+                $this->render("users/Signin-Signout/register", $messages);
                 return;
             }
 //            hash password
@@ -126,7 +126,7 @@ class User extends Controller
 
 
         } else {
-            $this->render("users/register");
+            $this->render("users/Signin-Signout/register");
         }
 
     }
@@ -154,7 +154,7 @@ class User extends Controller
             exit();
         } else {
             $messages['$create_user'] = $result;
-            $this->render("users/otp", $messages);
+            $this->render("users/Signin-Signout/otp", $messages);
             return;
         }
 
@@ -233,7 +233,7 @@ class User extends Controller
 
         } 
         
-        $this->render("users/signin");
+        $this->render("users/Signin-Signout/signin");
     
     }
 
@@ -275,7 +275,7 @@ class User extends Controller
             }
            
         }
-        $this->render("users/forgot_pass");
+        $this->render("users/Signin-Signout/forgot_pass");
     }
 
     public function change_password(){
@@ -308,7 +308,7 @@ class User extends Controller
             }
 
         }   
-        $this->render("users/newpass");
+        $this->render("users/Signin-Signout/newpass");
     }
 
 
@@ -320,7 +320,25 @@ class User extends Controller
 
     public function thongtin()
     {
-        $this->render("users/Thongtinchitiet");
+        $this->render("products/Thongtinchitiet");
     }
 
+    public function payment()
+    {
+        $this->render("users/payment/Payment");
+    }
+
+   public function reply()
+    {
+        $this->render("users/reply/reply");
+    }
+
+    public function search()
+    {
+        $this->render("users/search/ketquatimkiem");
+    }
+    public function notfound()
+    {
+        $this->render("users/search/notfound");
+    }
 }

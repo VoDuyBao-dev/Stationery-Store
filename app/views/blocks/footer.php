@@ -13,8 +13,7 @@
 <footer>
     <div class="footer-container">
         <div class="footer-logo">
-            <h2><span>S</span>tationery</h2>
-            <p class="tagline">Lựa chọn số 1 cho bạn</p>
+        <img src="<?php echo _WEB_ROOT; ?>/public/assets/clients/images/logo.png" alt="logo" class="logo-img">
             <p>📍 Trụ sở: Tầng 6 - Tòa nhà Landmark 81 Bình Thạnh, Hồ Chí Minh</p>
             <p>📞 Tổng đài: <strong>19006750</strong></p>
             <p>📧 Email: <strong>stationery@gmail.com</strong></p>

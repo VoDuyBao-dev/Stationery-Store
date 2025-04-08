@@ -10,8 +10,8 @@ body {
     padding: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     margin: 150px 30px;
-    position: absolute;
-    /* z-index: 1000; */
+    position: fixed;
+    z-index: 999;
 }
 
 .menu-list {
@@ -94,9 +94,9 @@ body {
     background-color: #f9f9f9;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    position: absolute;
+    position: fixed;
     padding: 10px;
-    /* z-index: 1; */
+    z-index: 999;
 }
 
 .featured h3 {
