@@ -2,10 +2,9 @@ body {
     font-family: Arial, sans-serif;
     background-color: #f8f8f8;
     margin: 0;
-    padding: 20px;
 }
 
-.container {
+.order-container {
     background: white;
     padding: 20px;
     border-radius: 8px;
@@ -21,6 +20,7 @@ h2 {
     display: flex;
     border-bottom: 2px solid #ddd;
     margin-bottom: 10px;
+    color: gray;
 }
 
 .tab {
@@ -119,12 +119,7 @@ th {
     color: #888;
 }
 
-/* Phân trang */
-.footer {
-    display: flex;
-    align-items: center;
-    margin-top: 10px;
-}
+
 
 select {
     margin: 0 10px;

@@ -14,6 +14,7 @@ $routes['dang-nhap'] = 'user/signin';
 $routes['dang-xuat'] = 'user/signout';
 $routes['forgot_pass'] = 'user/forgot_pass';
 $routes['change_password'] = 'user/change_password';
+$routes['chinh-sua-thong-tin'] = 'user/chinhsua';
 // trang chu
 $routes['trang-chu'] = 'product/TrangChu';
 // test chi tiet san phampham
@@ -29,6 +30,12 @@ $routes['deleteIdProduct_inCart'] = 'cart/deleteIdProduct_inCart';
 
 // Chức năng admin
 $routes['manage_users'] = 'AdminManageUser/listuser';
+$routes['qlnguoi_dung'] = 'AdminManageUser/nguoidung';
+$routes['qlsp'] = 'AdminManageUser/qlsp';
+$routes['sale'] = 'AdminManageUser/khuyenmai';
+$routes['taosp'] = 'AdminManageUser/taosp';
+$routes['daxuly'] = 'AdminManageUser/done';
+$routes['canxuly'] = 'AdminManageUser/canxuly';
 
 
 

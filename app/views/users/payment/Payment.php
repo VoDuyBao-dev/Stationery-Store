@@ -94,7 +94,7 @@
         <p>Phí vận chuyển: <span>-</span></p>
         <p><strong>Tổng cộng: 110.000đ</strong></p>
     </div>
-    <button class="checkout-btn">ĐẶT HÀNG</button>
+    <button class="checkout-btn"> <a href="<?php echo _WEB_ROOT . '/thanh-toan'; ?>">ĐẶT HÀNG</a></button>
     </div>
     </div>
     <?php  require_once _DIR_ROOT . "/app/views/blocks/footer.php";?>
