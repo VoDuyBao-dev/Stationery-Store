@@ -5,7 +5,7 @@ require_once _DIR_ROOT . '/app/models/OrderModel.php';
 
 class OrderService
 {
-    public function processOrder($paymentMethod, $postData){
+    public function processOrder($paymentMethod, $postData, $payment_id){
        
         $cart = $_SESSION['giohang'] ?? [];
         if(empty($cart)) {
@@ -25,11 +25,12 @@ class OrderService
         $orderModel = new OrderModel();
         var_dump($orderModel);
         // order_id
-        $order_id = $orderModel->createOrder($user_id, $totalPrice, $payment_method);
+        $order_id = $orderModel->createOrder($user_id, $totalPrice, $payment_method, $payment_id);
 
         if(!is_numeric($order_id)){
-            ob_clean();
-            return ['success' => false, 'message' => $order_id]; // trả về thông báo lỗi
+            header("Location:" . _WEB_ROOT . "/thanh-toan?success=false&message=".urlencode($order_id));
+            exit;
+            
         }
 
       
@@ -58,15 +59,19 @@ class OrderService
                         
                         );
             if ($resul !== true) {
-                ob_clean();
-                return ['success' => false, 'message' => 'Lưu chi tiết đơn hàng thất bại!'];
+                $message = "Lưu chi tiết đơn hàng thất bại!";
+                header("Location:" . _WEB_ROOT . "/thanh-toan?success=false&message=". urlencode($message));
+                exit;
+                
             }
         }
 
-
         unset($_SESSION['giohang']);
-        ob_clean();
-        return ['success' => true, 'message' => 'Đặt hàng thành công! và orderID: '. $order_id];
+
+        $message = "Đặt hàng thành công. Cảm ơn bạn đã mua hàng";
+        header("Location:" . _WEB_ROOT . "/thanh-toan?success=true&message=". urlencode($message));
+        exit;
+       
     }
 
 }

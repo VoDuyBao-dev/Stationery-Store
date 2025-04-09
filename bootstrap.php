@@ -29,6 +29,7 @@ $web_root = $web_root . $folder;
 define('_WEB_ROOT', $web_root);
 
 
+
 // Tự đông load configs
 // $configs_dir = scandir('configs');
 // //check xem dir configs có khác rỗng không
@@ -69,5 +70,6 @@ require_once "core/Controller.php"; //Load base controller
 
 // Load OrderService
 require_once "app/services/OrderService.php"; 
+require_once "app/services/VNPayPaymentProcessing.php";
 
 

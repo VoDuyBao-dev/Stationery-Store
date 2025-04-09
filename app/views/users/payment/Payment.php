@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thanh toán</title>
     <link type="text/css" rel="stylesheet" href="<?php echo _WEB_ROOT;?>/public/assets/clients/css/users/payment/Payment.css"/>
-    
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
     
 <body>
@@ -49,10 +49,19 @@
     <label for="cod">Thanh toán khi nhận hàng (COD)</label>
 
     <input type="radio" id="bank" name="payment" value="bank">
-    <label for="bank">Chuyển khoản ngân hàng</label>
+    <label for="bank">Thanh toán qua VNPay</label>
 
     <input type="radio" id="ewallet" name="payment" value="ewallet">
     <label for="ewallet">Thanh toán qua MoMo</label>
+    <div id="momo-options" style="display: none; margin-left: 20px; margin-top: 10px;">
+    <!-- option của momo -->
+    <input type="radio" id="momo_qr" name="momo_method" value="qr">
+    <label for="momo_qr">Quét mã QR</label><br>
+
+    <input type="radio" id="momo_bank" name="momo_method" value="bank">
+    <label for="momo_bank">Thẻ ngân hàng</label>
+</div>
+
 </div>
             
         </div>
@@ -80,7 +89,8 @@
     <div class="total">
         <p>Tạm tính: <span><?= $tongtien;?>đ</span></p>
         <p>Phí vận chuyển: <span>-</span></p>
-        <p><strong>Tổng cộng: <?= $tongtien;?>đ</strong></p>
+        <!-- Nhớ sửa số tiền ít nhất phải là hàng nghìn -->
+        <p><strong id="total-amount">Tổng cộng: <?= $tongtien;?>000đ</strong></p>
     </div>
     <button class="checkout-btn" type="button" id="checkout-btn">ĐẶT HÀNG</button>
 
@@ -92,5 +102,6 @@
        
     </script>
    <script src="<?php echo _WEB_ROOT; ?>/public/assets/clients/js/payment/payment.js"></script>
+   
 </body>
 </html>

@@ -1,3 +1,26 @@
+document.addEventListener('DOMContentLoaded', function () {
+    const momoOption = document.getElementById('ewallet');
+    const momoExtra = document.getElementById('momo-options');
+    const momoQR = document.getElementById('momo_qr'); //  lấy input Quét mã QR
+    const paymentRadios = document.querySelectorAll('input[name="payment"]');
+
+    paymentRadios.forEach(radio => {
+        radio.addEventListener('change', function () {
+            if (momoOption.checked) {
+                momoExtra.style.display = 'block';
+                momoQR.checked = true; //  tự động chọn QR khi chọn MoMo
+            } else {
+                momoExtra.style.display = 'none';
+            }
+        });
+    });
+});
+
+function isValidPhone(phone) {
+    
+    var phoneRegex = /^(0|\+84)(\d{9,10})$/; 
+    return phoneRegex.test(phone);
+}
 
 // Hàm kiểm tra và gửi form
 function validateAndSubmit(event) {
@@ -36,11 +59,7 @@ function validateAndSubmit(event) {
     event.preventDefault(); // Ngừng việc gửi form mặc định, vì đã gửi qua AJAX
 }
 
-function isValidPhone(phone) {
-    
-    var phoneRegex = /^(0|\+84)(\d{9,10})$/; 
-    return phoneRegex.test(phone);
-}
+
 
  // Gắn hàm validateAndSubmit() vào sự kiện click của nút "ĐẶT HÀNG"
 document.getElementById('checkout-btn').addEventListener('click', validateAndSubmit);
@@ -49,13 +68,35 @@ function submitBothForms() {
     // Lấy dữ liệu từ form người dùng
     var userFormData = new FormData(document.getElementById('checkout-form'));
    
+    // Lấy giá trị tổng tiền và xử lý
+    var totalElement = document.getElementById('total-amount').innerText;
+    var amount = totalElement.split(':')[1].trim().replace('đ', '').trim();
+
+    // Thêm số tiền vào FormData
+    userFormData.append("tongtien", amount);
+
     // Thu thập dữ liệu từ phương thức vận chuyển và phương thức thanh toán
     var shippingMethod = document.getElementById("shipping").value;  // Phương thức vận chuyển
     var paymentMethod = document.querySelector("input[name='payment']:checked") ? document.querySelector("input[name='payment']:checked").value : null; // Phương thức thanh toán
 
+    
+    // Nếu là thanh toán qua VNPay, thêm redirect=1 để thỏa mãn $_POST['redirect'] của VNPay service
+    if (paymentMethod === 'bank') {
+        userFormData.append("redirect", "1");
+    }
+
+    // Thêm phương thức MOMO nếu được chọn
+    if (paymentMethod === 'ewallet') {
+        var momoMethod = document.querySelector("input[name='momo_method']:checked") ? 
+            document.querySelector("input[name='momo_method']:checked").value : null;
+
+        userFormData.append("momo_method", momoMethod);
+    } 
+    // Thêm dữ liệu phương thức thanh toán vào FormData
+    userFormData.append("payment", paymentMethod);
     // Thêm dữ liệu phương thức vận chuyển và thanh toán vào FormData
     userFormData.append("shipping", shippingMethod);
-    userFormData.append("payment", paymentMethod);
+    
     console.log(userFormData);
     // Tạo đối tượng XMLHttpRequest để gửi dữ liệu đến UserController
     var xhr = new XMLHttpRequest();
@@ -74,10 +115,10 @@ function submitBothForms() {
                 paymentXhr.onload = function () {
                     if (paymentXhr.status === 200) {
                         var paymentResponse = JSON.parse(paymentXhr.responseText); // Giả sử bạn trả về JSON từ PaymentController
-
-                        if (paymentResponse.success) {
-                            alert('Đặt hàng thành công!');
-                        } else {
+                        if (paymentResponse.success && paymentMethod === 'bank') {
+                            window.location.href = paymentResponse.data; // Redirect to VNPay
+                        }
+                        else {
                             alert('Lỗi: ' + paymentResponse.message);
                         }
                     } else {
@@ -97,3 +138,34 @@ function submitBothForms() {
     xhr.send(userFormData); // Gửi dữ liệu người dùng
 }
 
+// Tách riêng phần xử lý URL parameters 
+function checkPaymentStatus() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const success = urlParams.get('success');
+    const message = urlParams.get('message');
+
+    if (message) {
+        if (success === 'true') {
+            Swal.fire({
+                title: 'Thành công!',
+                text: decodeURIComponent(message)+ ' ❤️',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = _WEB_ROOT + '/trang-chu';
+                }
+            });
+        } else {
+            Swal.fire({
+                title: 'Thất bại!',
+                text: decodeURIComponent(message),
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        }
+    }
+}
+
+// Gọi hàm kiểm tra khi trang load xong
+window.onload = checkPaymentStatus;
