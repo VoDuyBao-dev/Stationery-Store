@@ -21,28 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
         breadcrumbSpan.textContent = pageTitle; // Cập nhật breadcrumb navigation
     }
 });
-function updateCart(id, quantity) {
-    fetch('cart.php', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-        body: `update_id=${id}&new_quantity=${quantity}`
-    }).then(() => location.reload());
-}
-function removeItem(id) {
-    fetch('cart.php', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-        body: `remove_id=${id}`
-    }).then(() => location.reload());
-}
 
-function checkout() {
-    alert('Thanh toán thành công!');
-}
-
-function toggleCart() {
-    document.getElementById("cartPanel").classList.toggle("active");
-}
 
 
 window.onscroll = function () {
@@ -58,5 +37,22 @@ window.onscroll = function () {
 function scrollToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
+//cập nhật số lượng thông báo
+document.addEventListener("DOMContentLoaded", function () {
+    function updateNotifications() {
+        fetch("/api/get-notifications") // API lấy số lượng thông báo
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("wishlist-count").textContent = data.wishlist;
+                document.getElementById("message-count").textContent = data.messages;
+            })
+            .catch(error => console.error("Lỗi khi tải thông báo:", error));
+    }
 
+    // Cập nhật mỗi 10 giây
+    setInterval(updateNotifications, 3000);
+    
+    // Gọi ngay khi tải trang
+    updateNotifications();
+});
 

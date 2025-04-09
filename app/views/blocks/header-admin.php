@@ -1,28 +1,3 @@
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Header-admin Stationery</title>
-    <link type="text/css" rel="stylesheet" 
-            href="<?php echo _WEB_ROOT; ?>/public/assets/clients/css/blocks/header.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap">
-    <script type="text/javascript" src="<?php echo _WEB_ROOT; ?>/public/assets/clients/js/blocks/header.js"></script>
-
-    <script type="text/javascript" src="<?php echo _WEB_ROOT;?>/public/assets/clients/js/admin/app.min.js"></script>
-  <!-- JS Libraies -->
-  <script type="text/javascript" src="<?php echo _WEB_ROOT;?>/public/assets/clients/js/admin/apexcharts.min.js"></script>
-  <!-- Page Specific JS File -->
-  <script type="text/javascript"  src="<?php echo _WEB_ROOT;?>/public/assets/clients/js/admin/index.js"></script>
-  <!-- Template JS File -->
-  <script type="text/javascript"  src="<?php echo _WEB_ROOT;?>/public/assets/clients/js/admin/scripts.js"></script>
-  <!-- Custom JS File -->
-  <script type="text/javascript"  src="<?php echo _WEB_ROOT;?>/public/assets/clients/js/admin/custom.js"></script>
-        
-</head>
-<body>
-    
 <header class="header">
     <div class="logo">
         <div class="logo-text">
@@ -41,8 +16,8 @@
     </div>
 
     <div class="icons">
-        <div class="icon"><i class="fas fa-heart"></i><span class="badge">2</span></div>
-        <div class="icon"><a href="#"><i class="far fa-envelope"></i><span class="badge">1</span></a></div>
+        <div class="icon"><a href="#"><i class="far fa-envelope"></i><span class="badge" id="message-count">1</span></a></div>
+
         <div class="icon user-menu">
             <i class="fas fa-user" id="userIcon"></i>
             <div class="dropdown-user">
@@ -86,6 +61,3 @@
           </div>
         </div>
 </div>
-
-</body>
-</html>

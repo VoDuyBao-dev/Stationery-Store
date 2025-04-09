@@ -1,8 +1,5 @@
 body {
     font-family: Arial, sans-serif;
-    justify-content: center;
-    align-items: flex-start;
-    height: 100%;
     background-color: #f4f4f9;
 }
 
@@ -42,8 +39,8 @@ h2 {
     border-color: #007bff;
 }
 
-button {
-    background-color: #007bff;
+.otp-button {
+    background-color:#d2a765;
     color: #fff;
     border: none;
     padding: 10px;
@@ -54,8 +51,9 @@ button {
     font-size: 16px;
 }
 
-button:hover {
-    background-color: #0056b3;
+.otp-button:hover {
+    background-color:#cca467;
+    color: black;
 }
 
 .error-message {
@@ -69,6 +67,8 @@ button:hover {
     border: 1px solid #ccc;
     padding: 8px 16px;
     margin-top: 10px;
+    font-size: 16px;
+    width: 100%;
     cursor: pointer;
     transition: background-color 0.3s ease;
     border-radius: 5px;
