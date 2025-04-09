@@ -5,11 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Nhập OTP</title>
 
-    <link rel="stylesheet" src="<?= _WEB_ROOT; ?>/public/assets/clients/css/users/Signin-Signout/otp.css"/>
-</head>
-<body>
+    <link rel="stylesheet" href="<?= _WEB_ROOT; ?>/public/assets/clients/css/users/Signin-Signout/otp.css"/>
+    <link type="text/css" rel="stylesheet" href="<?php echo _WEB_ROOT; ?>/public/assets/clients/css/blocks/header.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap">
+    <link type="text/css" rel="stylesheet" 
+        href="<?php echo _WEB_ROOT; ?>/public/assets/clients/css/blocks/footer.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
+
+    <script type="text/javascript" src="<?php echo _WEB_ROOT; ?>/public/assets/clients/js/blocks/header.js"></script>
+</head>
 <?php  require_once _DIR_ROOT . "/app/views/blocks/header.php";?>
+<body>
+    
 <div class="otp-container">
     <h2>Xác thực OTP</h2>
 
@@ -32,7 +40,7 @@
             <?php endfor; ?>
         </div>
 
-        <button type="submit" name="submit">Xác nhận</button>
+        <button type="submit" name="submit" class="otp-button">Xác nhận</button>
 
     </form>
     <!-- Nút Gửi lại mã OTP -->
@@ -42,7 +50,7 @@
     <div id="resendMessage" class="success-message" style="display: none;"></div>
 
 </div>
-<?php  require_once _DIR_ROOT . "/app/views/blocks/footer.php";?>
+
 <script>
     // Tự động chuyển sang ô tiếp theo khi nhập
     document.querySelectorAll('.otp-inputs input').forEach((input, index, inputs) => {
@@ -109,6 +117,10 @@
 
 </script>
 
+    <?php  require_once _DIR_ROOT . "/app/views/blocks/footer.php";?>
+
+
+  
 </body>
 </html>
 

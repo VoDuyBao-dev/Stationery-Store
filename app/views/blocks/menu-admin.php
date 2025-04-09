@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menu-admin</title>
-    <link type="text/css" rel="stylesheet" href="<?php echo _WEB_ROOT;?>/public/assets/clients/css/blocks/menu.css"/>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"></script>
+    
 </head>
 <body>
 <header></header>
@@ -25,7 +24,7 @@
                 </ul>
             </li>
 
-            <li><a href="#"><i class="far fa-gem"></i> Chương trình khuyến mãi <span> </span></a></li>
+            <li><a href="#"><i class="far fa-gem"></i> Khuyến mãi <span> </span></a></li>
 
             <li><a href="#"><i class="far fa-comment-dots"></i> Chat <span> </span></a></li>
         </ul>
