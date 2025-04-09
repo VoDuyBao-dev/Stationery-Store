@@ -4,16 +4,43 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Quản lý Đơn hàng - Cần xử lý</title>
-    <link rel="stylesheet" href="qldh_canxuly.css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+    <link rel="stylesheet" href="<?php echo _WEB_ROOT; ?>/public/assets/clients/css/admin/orders/donhang.css"/>
+    <link type="text/css" rel="stylesheet" href="<?php echo _WEB_ROOT; ?>/public/assets/clients/css/blocks/header.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap">
+    <link type="text/css" rel="stylesheet" href="<?php echo _WEB_ROOT;?>//public/assets/clients/css/blocks/menu.css">
+    <link type="text/css" rel="stylesheet" 
+        href="<?php echo _WEB_ROOT; ?>/public/assets/clients/css/blocks/footer.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+
+    <script type="text/javascript" src="<?php echo _WEB_ROOT; ?>/public/assets/clients/js/blocks/header.js"></script>
+    <script type="text/javascript"
+    src="<?php echo _WEB_ROOT; ?>/public/assets/clients/js/admin/orders/donhang.js"></script>
+    <style>
+        menu {
+            float: left;
+        }
+        main{
+            margin-top: 120px;
+            margin-left: 280px;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
+<header>
+    <?php  require_once _DIR_ROOT . "/app/views/blocks/header-admin.php";?>
+  </header>  
+
+  <menu>
+    <?php  require_once _DIR_ROOT . "/app/views/blocks/menu-admin.php";?>
+  </menu> 
+  <main>
+    <div class="order-container">
         <h2>Quản lý đơn hàng - Cần xử lý</h2>
 
         <div class="tabs">
-            <button class="tab active" id="tab-can-xu-ly">Cần xử lý (<span id="count-can-xu-ly">0</span>)</button>
-            <button class="tab" id="tab-da-xu-ly">Đã xử lý (<span id="count-da-xu-ly">0</span>)</button>
+            <button class="tab active" id="tab-can-xu-ly" onclick="redirectTo('<?php echo _WEB_ROOT . '/canxuly'; ?>')">Cần xử lý (<span id="count-can-xu-ly">0</span>)</button>
+            <button class="tab" id="tab-da-xu-ly" onclick="redirectTo('<?php echo _WEB_ROOT . '/daxuly'; ?>')">Đã xử lý (<span id="count-da-xu-ly">0</span>)</button>
         </div>
 
         <div class="actions">
@@ -137,6 +164,7 @@
             </div>
         </div>
     </div>
-    <script src="qldh_canxuly.js"></script>
+    <?php  require_once _DIR_ROOT . "/app/views/blocks/footer.php";?>
+    </main>
 </body>
 </html>

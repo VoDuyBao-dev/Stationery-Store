@@ -4,10 +4,36 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tạo mới sản phẩm</title>
-    <link rel="stylesheet" href="/css/TaoSp.css" />
+    <link rel="stylesheet" href="<?php echo _WEB_ROOT; ?>/public/assets/clients/css/admin/products/TaoSp.css" />
+    <link type="text/css" rel="stylesheet" href="<?php echo _WEB_ROOT; ?>/public/assets/clients/css/blocks/header.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap">
+    <link type="text/css" rel="stylesheet" href="<?php echo _WEB_ROOT;?>//public/assets/clients/css/blocks/menu.css">
+    <link type="text/css" rel="stylesheet" 
+        href="<?php echo _WEB_ROOT; ?>/public/assets/clients/css/blocks/footer.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+
+    <script type="text/javascript" src="<?php echo _WEB_ROOT; ?>/public/assets/clients/js/blocks/header.js"></script>
+    <style>
+        menu {
+            float: left;
+        }
+        main{
+            margin-top: 120px;
+            margin-left: 280px;
+        }
+    </style>
   </head>
   <body>
-    <div class="container">
+  <header>
+    <?php  require_once _DIR_ROOT . "/app/views/blocks/header-admin.php";?>
+  </header>  
+
+  <menu>
+    <?php  require_once _DIR_ROOT . "/app/views/blocks/menu-admin.php";?>
+  </menu> 
+  <main>
+    <div class="taosp-container">
       <div class="header_1">
         <a href="/duong-dan-den-trang-danh-sach-san-pham">
           <h1>Danh sách sản phẩm / Thêm sản phẩm</h1>
@@ -82,5 +108,7 @@
         </form>
       </div>
     </div>
+    <?php  require_once _DIR_ROOT . "/app/views/blocks/footer.php";?>
+    </main>
   </body>
 </html>

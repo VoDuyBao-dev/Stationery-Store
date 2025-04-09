@@ -4,11 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quản lý Khuyến mãi</title>
-    <link rel="stylesheet" href="sale.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="<?php echo _WEB_ROOT; ?>/public/assets/clients/css/admin/sales/sale.css">
+    <link type="text/css" rel="stylesheet" href="<?php echo _WEB_ROOT; ?>/public/assets/clients/css/blocks/header.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap">
+    <link type="text/css" rel="stylesheet" href="<?php echo _WEB_ROOT;?>//public/assets/clients/css/blocks/menu.css">
+    <link type="text/css" rel="stylesheet" 
+        href="<?php echo _WEB_ROOT; ?>/public/assets/clients/css/blocks/footer.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+
+    <script type="text/javascript" src="<?php echo _WEB_ROOT; ?>/public/assets/clients/js/blocks/header.js"></script>
+    <style>
+        menu {
+            float: left;
+        }
+        main{
+            margin-top: 120px;
+            margin-left: 280px;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
+<header>
+    <?php  require_once _DIR_ROOT . "/app/views/blocks/header-admin.php";?>
+  </header>  
+
+  <menu>
+    <?php  require_once _DIR_ROOT . "/app/views/blocks/menu-admin.php";?>
+  </menu> 
+  <main>
+
+    <div class="sale-container">
         <h2>Quản lý Khuyến mãi</h2>
 
         <div id="promotion-actions">
@@ -124,7 +150,8 @@
         </div>
     </div>
 </div>
-
-    <script src="sale.js"></script>
+<?php  require_once _DIR_ROOT . "/app/views/blocks/footer.php";?>
+</main>
+    <script src="<?php echo _WEB_ROOT; ?>/public/assets/clients/js/admin/sales/sale.js"></script>
 </body>
 </html>

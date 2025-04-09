@@ -16,7 +16,7 @@
     </div>
 
     <div class="icons">
-        <div class="icon" onclick="toggleCart()"><i class="fas fa-shopping-basket"></i><span class="badge">1</span></div>
+        <div class="icon"><a href="<?php echo _WEB_ROOT . '/view_cart'; ?>"> <i class="fas fa-shopping-basket"></i><span class="badge">1</span></a></div>
         <div class="icon user-menu">
             <i class="fas fa-user" id="userIcon"></i>
             <div class="dropdown-user" id="dropdownUser">

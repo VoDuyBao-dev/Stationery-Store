@@ -3,13 +3,12 @@
   }
   body {
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; /* Bộ font chữ hiện đại */
-    margin: 20px;
     background-color: #f4f7f6; 
     color: #333; /* Chữ tối màu để dễ đọc */
   }
   
   /* === Khung chứa & Tiêu đề === */
-  .container {
+  .users-container {
     max-width: 1100px; /* Giới hạn chiều rộng để dễ đọc hơn trên màn hình lớn */
     margin: 30px auto; /* Căn giữa khung chứa */
     background-color: #fff; /* Nền trắng cho nội dung chính */
@@ -17,7 +16,7 @@
     border-radius: 10px; /* Góc bo tròn */
     box-shadow: 0 2px 10px rgba(67, 0, 0, 0.1); /* Hiệu ứng đổ bóng nhẹ */
   }
-  h2 {
+  h1 {
     font-size: 35px;
     text-align: left;
     background-color: #609edb; /* Tiêu đề màu xanh đậm */

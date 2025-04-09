@@ -93,7 +93,7 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     position: fixed;
     padding: 10px;
-    z-index: 999;
+    z-index: 998;
 }
 
 .featured h3 {
