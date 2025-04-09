@@ -64,7 +64,7 @@
                     <?php endif; ?>
                 </div>
 
-                <form action="<?php echo _BASE_URL; ?>/chat/sendMessage" method="POST">
+                <form action="<?php echo _BASE_URL; ?>/sendMessage" method="POST">
                     <div class="input">
                         <input type="hidden" name="receiver_id" value="<?php echo $receiver_id; ?>">
                         <input type="hidden" id="stickerInput" name="sticker_id" value="1"> <!-- Input ẩn cho sticker -->
