@@ -6,12 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Nhập OTP</title>
 
-    <link rel="stylesheet" src="<?= _WEB_ROOT; ?>/public/assets/clients/css/users/Signin-Signout/otp.css" />
+    <link rel="stylesheet" href="<?= _WEB_ROOT; ?>/public/assets/clients/css/users/Signin-Signout/otp.css" />
 </head>
 
 <body>
 
-    <?php require_once _DIR_ROOT . "/app/views/blocks/header.php"; ?>
+
     <div class="otp-container">
         <h2>Xác thực OTP</h2>
 
@@ -44,7 +44,7 @@
         <div id="resendMessage" class="success-message" style="display: none;"></div>
 
     </div>
-    <?php require_once _DIR_ROOT . "/app/views/blocks/footer.php"; ?>
+
     <script>
         // Tự động chuyển sang ô tiếp theo khi nhập
         document.querySelectorAll('.otp-inputs input').forEach((input, index, inputs) => {

@@ -21,7 +21,6 @@ class UserModel extends Model
         $result = $this->fetch($sql, $params);
 
         return $result ? true : false;
-
     }
 
     public function createUser($fullname, $sdt, $email, $password)
@@ -36,7 +35,6 @@ class UserModel extends Model
         } else {
             return "Đăng ký thất bại!";
         }
-
     }
 
     public function verifyUser($email, $input_password)
@@ -49,7 +47,6 @@ class UserModel extends Model
             } else {
                 return "Email hoặc mật khẩu không đúng!";
             }
-
         } else {
             return "Tài khoản không tồn tại!";
         }
@@ -66,5 +63,4 @@ class UserModel extends Model
             return "Đổi mật khẩu thất bại!";
         }
     }
-
 }
