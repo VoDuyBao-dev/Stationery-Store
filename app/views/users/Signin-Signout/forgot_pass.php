@@ -7,14 +7,22 @@
     <link type="text/css" rel="stylesheet" 
       href=" <?php echo _WEB_ROOT; ?>//public/assets/clients/css/users/Signin-Signout/Signin-Signup.css"/>
       <script type="text/javascript" src=" <?php echo _WEB_ROOT; ?>/public/assets/clients/js/users/Signin-Signup.js"></script>
+      <link type="text/css" rel="stylesheet" href="<?php echo _WEB_ROOT; ?>/public/assets/clients/css/blocks/header.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap">
+    <link type="text/css" rel="stylesheet" 
+        href="<?php echo _WEB_ROOT; ?>/public/assets/clients/css/blocks/footer.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+
+    <script type="text/javascript" src="<?php echo _WEB_ROOT; ?>/public/assets/clients/js/blocks/header.js"></script>
 
 </head>
 <body>
-<?php  require_once _DIR_ROOT . "/app/views/blocks/header-admin.php";?>
+<?php  require_once _DIR_ROOT . "/app/views/blocks/header.php";?>
 <div class="container">
     <div class="tabs">
-        <div class="tab active" onclick="redirectTo('signin.php')">Đăng nhập</div>
-        <div class="tab" onclick="redirectTo('register.php')">Đăng ký</div>
+        <div class="tab active" onclick="redirectTo('<?php echo _WEB_ROOT . '/dang-nhap'; ?>')">Đăng nhập</div>
+        <div class="tab" onclick="redirectTo('<?php echo _WEB_ROOT . '/dang-ky'; ?>')">Đăng ký</div>
     </div>
 
     <div class="form-container active">

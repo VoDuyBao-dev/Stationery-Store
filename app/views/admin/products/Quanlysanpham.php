@@ -4,10 +4,38 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Danh Sách Sản Phẩm</title>
+    <link type="text/css" rel="stylesheet" href="<?php echo _WEB_ROOT; ?>/public/assets/clients/css/blocks/header.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap">
+    <link type="text/css" rel="stylesheet" href="<?php echo _WEB_ROOT;?>//public/assets/clients/css/blocks/menu.css">
+    <link type="text/css" rel="stylesheet" 
+        href="<?php echo _WEB_ROOT; ?>/public/assets/clients/css/blocks/footer.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="<?php echo _WEB_ROOT; ?>/public/assets/clients/css/admin/products/Quanlysanpham.css">
+
+
+    <script type="text/javascript" src="<?php echo _WEB_ROOT; ?>/public/assets/clients/js/blocks/header.js"></script>
+    <style>
+        menu {
+            float: left;
+        }
+        main{
+            margin-top: 120px;
+            margin-left: 280px;
+        }
+    </style>
   </head>
+
   <body>
-    <div class="container">
-      <h2>Danh Sách Sản Phẩm</h2>
+  <header>
+    <?php  require_once _DIR_ROOT . "/app/views/blocks/header-admin.php";?>
+  </header>  
+
+  <menu>
+    <?php  require_once _DIR_ROOT . "/app/views/blocks/menu-admin.php";?>
+  </menu> 
+  <main>
+    <div class="product-container">
+      <h1>Danh Sách Sản Phẩm</h1>
 
       <!-- Các nút chức năng -->
       <div class="btn-group">
@@ -43,7 +71,7 @@
             <td>Bút bi Thiên Long</td>
             <td><img src="/img/but.webp" alt="Bút bi" /></td>
             <td>100</td>
-            <td><span class="badge in-stock">Còn hàng</span></td>
+            <td><span class="product-badge in-stock">Còn hàng</span></td>
             <td>5.000 đ</td>
             <td>4.000 đ</td>
             <td>Bút viết</td>
@@ -58,7 +86,7 @@
             <td>Sổ tay A5</td>
             <td><img src="/img/but.webp" alt="Sổ tay" /></td>
             <td>50</td>
-            <td><span class="badge in-stock">Còn hàng</span></td>
+            <td><span class="product-badge in-stock">Còn hàng</span></td>
             <td>25.000 đ</td>
             <td>20.000 đ</td>
             <td>Sổ tay</td>
@@ -74,7 +102,7 @@
             <td>Thước kẻ 30cm</td>
             <td><img src="/img/but.webp" alt="Thước kẻ" /></td>
             <td>0</td>
-            <td><span class="badge out-stock">Hết hàng</span></td>
+            <td><span class="product-badge out-stock">Hết hàng</span></td>
             <td>10.000 đ</td>
             <td>9.000 đ</td>
             <td>Dụng cụ học tập</td>
@@ -89,7 +117,7 @@
             <td>Thước kẻ 30cm</td>
             <td><img src="/img/but.webp" alt="Thước kẻ" /></td>
             <td>0</td>
-            <td><span class="badge out-stock">Hết hàng</span></td>
+            <td><span class="product-badge out-stock">Hết hàng</span></td>
             <td>10.000 đ</td>
             <td>8.000 đ</td>
             <td>Dụng cụ học tập</td>
@@ -102,5 +130,7 @@
         </tbody>
       </table>
     </div>
+    <?php  require_once _DIR_ROOT . "/app/views/blocks/footer.php";?>
+    </main>
   </body>
 </html>
