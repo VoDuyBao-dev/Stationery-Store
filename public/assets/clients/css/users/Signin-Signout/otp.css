@@ -1,8 +1,5 @@
 body {
     font-family: Arial, sans-serif;
-    justify-content: center;
-    align-items: flex-start;
-    height: 100%;
     background-color: #f4f4f9;
 }
 
@@ -14,7 +11,7 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin: 150px 600px 50px 600px;
     text-align: center;
-    width: 320px;
+    width: 420px;
 }
 
 h2 {
@@ -29,8 +26,8 @@ h2 {
 }
 
 .otp-inputs input {
-    width: 40px;
-    height: 40px;
+    width: 70px;
+    height: 60px;
     text-align: center;
     font-size: 20px;
     border: 1px solid #ccc;
@@ -42,8 +39,8 @@ h2 {
     border-color: #007bff;
 }
 
-button {
-    background-color: #007bff;
+.otp-button {
+    background-color:#d2a765;
     color: #fff;
     border: none;
     padding: 10px;
@@ -54,8 +51,9 @@ button {
     font-size: 16px;
 }
 
-button:hover {
-    background-color: #0056b3;
+.otp-button:hover {
+    background-color:#cca467;
+    color: black;
 }
 
 .error-message {
@@ -69,6 +67,8 @@ button:hover {
     border: 1px solid #ccc;
     padding: 8px 16px;
     margin-top: 10px;
+    font-size: 16px;
+    width: 100%;
     cursor: pointer;
     transition: background-color 0.3s ease;
     border-radius: 5px;

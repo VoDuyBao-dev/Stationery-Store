@@ -318,8 +318,13 @@ class User extends Controller
     {
         $this->render("users/search/ketquatimkiem");
     }
+
     public function notfound()
     {
         $this->render("users/search/notfound");
+    }
+
+    public function chinhsua(){
+        $this->render("users/setting/chinhsuathongtin");
     }
 }
