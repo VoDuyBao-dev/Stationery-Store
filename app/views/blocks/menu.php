@@ -44,10 +44,3 @@
         <li><a href="<?php echo _WEB_ROOT . '/phan-hoi'; ?>"><img src="<?php echo _WEB_ROOT; ?> /public/assets/clients/images/lienhe.jpg" alt=""> Liên hệ</a></li>
     </ul>
 </div>
-
-<<<<<<< HEAD
-    </body>
-
-    </html>
-    =======
-    >>>>>>> main

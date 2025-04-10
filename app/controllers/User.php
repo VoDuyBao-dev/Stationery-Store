@@ -208,6 +208,10 @@ class User extends Controller
                 if (isset($_SESSION['warning_signin'])) {
                     unset($_SESSION['warning_signin']);
                 }
+                if ($verifyUser['role'] == 'admin') {
+                    header("Location:" . _WEB_ROOT . "/admin_layout");
+                    exit();
+                }
                 header("Location:" . _WEB_ROOT . "/home");
                 exit();
             } else {
@@ -324,7 +328,14 @@ class User extends Controller
         $this->render("users/search/notfound");
     }
 
-    public function chinhsua(){
+    public function chinhsua()
+    {
         $this->render("users/setting/chinhsuathongtin");
+    }
+    public function signout()
+    {
+        unset($_SESSION['user']);
+        header("Location:" . _WEB_ROOT . "/dang-nhap");
+        exit();
     }
 }

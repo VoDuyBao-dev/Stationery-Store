@@ -20,7 +20,7 @@ class Order_details
             cost DECIMAL(10,2) NOT NULL,       -- giá sản phẩm
             quantity INT NOT NULL,             -- số lượng sản phẩm
             coupon_id INT NULL,           -- mã giảm giá
-            transport_id INT NOT NULL,
+            transport_id VARCHAR(50) NOT NULL,
             price DECIMAL(10,2) NOT NULL,      -- giá sau khi giảm giá
             FOREIGN KEY (order_id) REFERENCES orders(order_id) ON DELETE CASCADE,
             FOREIGN KEY (product_type_id) REFERENCES product_type(product_type_id) ON DELETE CASCADE,
@@ -43,8 +43,8 @@ class Order_details
     {
         $sql = "INSERT INTO order_details (order_id, product_type_id,tenDonHang, phone, address,  ghiChu, cost, quantity, coupon_id, transport_id, price) VALUES (?, ?, ?, ?, ?, ?, ?, ?,?,?, ?)";
         $data = [
-            [1, 100001, "don hang 1", "0762358945", "dia chi", "hien tai khogn co ghi chu", 100000, 1, 2, 1, 115000],
-            [2, 100002, "don hang 2", "0258946712", "khognbietnx", "kh co", 200000, 2, 3, 2, 185000]
+            [1, 100001, "don hang 1", "0762358945", "dia chi", "hien tai khogn co ghi chu", 100000, 1, 2, 'express', 115000],
+            [2, 100002, "don hang 2", "0258946712", "khognbietnx", "kh co", 200000, 2, 3, 'standard', 185000]
         ];
 
 

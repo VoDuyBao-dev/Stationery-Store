@@ -16,7 +16,7 @@ class Coupons
             start_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             end_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             status ENUM('0', '1') NOT NULL DEFAULT '1',   -- 1 : còn hạn ,  0: hết hạn
-            code VARCHAR(255) NOT NULL,                      -- mã giảm giá
+            code VARCHAR(10) NOT NULL,                      -- mã giảm giá
             CHECK(discount BETWEEN 0 AND 100 AND price_min > 0)
 
         )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
@@ -31,33 +31,30 @@ class Coupons
         }
     }
 
-    private function randomString($length = 6)
-    {
-        $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-        $s = '';
-        $maxIndex = strlen($characters) - 1;
+    // private function randomString($length = 6)
+    // {
+    //     $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    //     $s = '';
+    //     $maxIndex = strlen($characters) - 1;
 
-        for ($i = 0; $i < $length; $i++) {
-            $s .= $characters[random_int(0, $maxIndex)];
-        }
+    //     for ($i = 0; $i < $length; $i++) {
+    //         $s .= $characters[random_int(0, $maxIndex)];
+    //     }
 
-        return $s;
-    }
+    //     return $s;
+    // }
 
     public function seed()
     {
-        $sql = "INSERT INTO coupons (price_min, discount, code) VALUES (?, ?, ?)";
+        $sql = "INSERT INTO coupons(code, price_min, discount) VALUES (?, ?, ?)";
         $data = [
-            [1, 0],             // Giá từ o-200 nghìn thì kh giảm
-            [200000, 10],
-            [300000, 20]
+            ['LUAH7M', 1, 0],             // Giá từ o-200 nghìn thì kh giảm
+            ['BQVSWG', 200000, 10],
+            ['BQVS30', 300000, 20]
         ];
 
         foreach ($data as $params) {
             try {
-                $random_code = $this->randomString();
-                array_push($params, $random_code);
-
                 $this->db->execute($sql, $params);
                 echo "Dữ liệu mẫu cho bảng `coupons` đã được tạo thành công!\n";
             } catch (mysqli_sql_exception $e) {

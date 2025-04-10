@@ -202,10 +202,6 @@ $flashSale_products = $flashSale_products ?? [];
               <button>Xem thêm</button>
             </div>
           </div>
-          <div class="swiper-pagination">
-            <button>Xem thêm</button>
-          </div>
-        </div>
         </div>
         </div>
       </section>

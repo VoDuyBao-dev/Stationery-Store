@@ -19,14 +19,15 @@ class Chat extends Controller
 
     public function beginChat()
     {
-        $currentUserId = $_SESSION['user_id'] ?? 2; // Người dùng hiện tại phải là admin
-        $role = $_SESSION['role'] ?? 'admin'; // Lấy role của user hiện tại (admin hoặc user)
+        $currentUserId = $_SESSION['user']['user_id']; // Người dùng hiện tại phải là admin
+        // $role = $_SESSION['user']['role'] ?? 'admin'; // Lấy role của user hiện tại (admin hoặc user)
+        $role = 'admin';
         if ($role != 'admin') {
             header("HTTP/1.0 404 Not Found");
             echo "Không tìm thấy trang.";
             exit();
         }
-        $userInfo = $this->chatModel->getUserInfo(2);
+
         $chatList = $this->chatModel->getChatList($currentUserId, $role);
         $allSticker = $this->chatModel->getAllStickers();
         $this->render('mess/chat', [
@@ -34,7 +35,6 @@ class Chat extends Controller
             'role' => $role,
             'admin_id' => 2,
             'allSticker' => $allSticker,
-            'userInfo' => $userInfo,
             'messages' => []
         ]);
     }
@@ -42,37 +42,21 @@ class Chat extends Controller
     // Hiển thị trang chat
     public function detail($user_id)
     {
-        $user_id = (int)$user_id;
-        $currentUserId = $_SESSION['user_id'] ?? 2; // ID của user đang đăng nhập
-        $role = $_SESSION['role'] ?? 'admin'; // Lấy role của user hiện tại (admin hoặc user)
+        $receiverId = (int)$user_id;
+        $sender_id = $_SESSION['user']['user_id']; // ID của user đang đăng nhập
+        // $sender_id = 2; // ID của user đang đăng nhập (admin)
+        $role = $_SESSION['user']['role']; // Lấy role của user hiện tại (admin hoặc user)
 
-        // Nếu user đang chat với admin, thì adminId là userId và ngược lại
-        if ($role === 'admin') {
-            $adminId = $currentUserId;
-            $receiverId = $user_id;
-        } else {
-            $adminId = $user_id;
-            $receiverId = $currentUserId;
-        }
-        $messages = $this->chatModel->getMessages($adminId, $receiverId);
-        // print_r($messages);
+        $messages = $this->chatModel->getMessages($sender_id, $receiverId);
 
-        $userInfo = $this->chatModel->getUserInfo($receiverId);
-        if (!$userInfo) {
-            $userInfo = ['name' => 'Unknown', 'avatar' => 'default.jpg'];
-        }
-        // print_r($userInfo);
-        // $key = array_keys($userInfo);
-        // print_r($key);
         if ($role == "admin") {
-            $chatList = $this->chatModel->getChatList($adminId, $role);
+            $chatList = $this->chatModel->getChatList($sender_id, $role);
         } else $chatList = "";
 
         $allSticker = $this->chatModel->getAllStickers();
         $this->render('mess/chat', [
             'messages' => $messages,         // all cột của bảng trùng với id gửi và nhận.
-            'userInfo' => $userInfo,         // Thông tin người nhận(bảng users)
-            'admin_id' => $adminId,          // người gửi
+            'sender_id' => $sender_id,          // người gửi
             'receiver_id' => $receiverId,    // người nhận
             'chatList' => $chatList,
             'role' => $role,
@@ -85,10 +69,10 @@ class Chat extends Controller
     {
         // Lấy thông tin từ session và POST
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $sender_id = $_SESSION['user_id'] ?? 2;
-            $receiver_id = $_POST['receiver_id'] ?? 1;
+            $sender_id = $_SESSION['user']['user_id'];
+            $receiver_id = $_POST['receiver_id'];
             $message = trim($_POST['message'] ?? '');
-            $sticker_id = $_POST['sticker_id'] ?? 1;
+            $sticker_id = $_POST['sticker_id'];
             echo $_POST['sticker_id'] . "dday af noi debug <br>";
             // Kiểm tra tính hợp lệ của ID người nhận
             if (!is_numeric($receiver_id) || $receiver_id <= 0) {
@@ -104,15 +88,13 @@ class Chat extends Controller
                 die("Tin nhắn hoặc sticker không được để trống.");
             }
             $data = [
-                'sender_id' => 2,
-                'receiver_id' => (int)$receiver_id,
+                'sender_id' => $sender_id,
+                'receiver_id' => $receiver_id,
                 'message' => $message,
-                'sticker_id' => (int)$sticker_id,  // Lưu sticker nếu có
+                'sticker_id' => $sticker_id,  // Lưu sticker nếu có
                 'created_at' => date("Y-m-d H:i:s"),
             ];
-            print_r($data);
             $this->chatModel->sendMessage(...array_values($data));
-
             header("Location:" . _BASE_URL . "/chat/" . $receiver_id);
         }
     }

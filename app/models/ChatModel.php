@@ -38,14 +38,6 @@ class ChatModel extends Model
         }
     }
 
-    // Lấy thông tin người dùng
-    public function getUserInfo($user_id)
-    {
-        $sql = "SELECT user_id, fullname, email, phone
-                    FROM users 
-                    WHERE user_id = ?";
-        return $this->fetch($sql, [$user_id]);
-    }
 
     // Lấy danh sách tất cả người dùng (chỉ dành cho admin)
     public function getAllUsers($user_id)

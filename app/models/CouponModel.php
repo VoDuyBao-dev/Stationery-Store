@@ -35,4 +35,18 @@ class CouponModel extends Model
     {
         return $this->execute("DELETE FROM $this->table WHERE coupon_id = ?", [$id]);
     }
+
+    // code cho mã giảm giá
+    public function randomString($length = 6)
+    {
+        $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        $s = '';
+        $maxIndex = strlen($characters) - 1;
+
+        for ($i = 0; $i < $length; $i++) {
+            $s .= $characters[random_int(0, $maxIndex)];
+        }
+
+        return $s;
+    }
 }

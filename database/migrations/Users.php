@@ -33,8 +33,8 @@ class Users
     {
         $sql = "INSERT INTO users (fullname, email, password, phone, address, role) VALUES(?, ?, ?, ?, ?, ?)";
         $data = [
-            ["nameUser", "emailUser@gmail.com", "passwordUser", "phoneUser", "addressUser", "user"],
-            ["nameAdmin", "emailAdmin@gmail.com", "passwordAdmin", "phoneAdmin", "addressAdmin", "admin"]
+            ["nameUser", "emailuser@gmail.com", "pu", "phoneUser", "addressUser", "user"],
+            ["nameAdmin", "emailadmin@gmail.com", "pa", "phoneAdmin", "addressAdmin", "admin"]
         ];
         foreach ($data as $params) {
             try {

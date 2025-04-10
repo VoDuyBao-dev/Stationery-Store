@@ -34,7 +34,6 @@ $routes['deleteIdProduct_inCart'] = 'cart/deleteIdProduct_inCart';
 $routes['manage_users'] = 'AdminManageUser/listuser';
 $routes['qlnguoi_dung'] = 'AdminManageUser/nguoidung';
 $routes['qlsp'] = 'AdminManageUser/qlsp';
-$routes['sale'] = 'AdminManageUser/khuyenmai';
 $routes['taosp'] = 'AdminManageUser/taosp';
 $routes['daxuly'] = 'AdminManageUser/done';
 $routes['canxuly'] = 'AdminManageUser/canxuly';
@@ -67,6 +66,12 @@ $routes['trang-chu'] = 'home';
 $routes['^chat/([0-9]+)$'] = 'chat/detail/$1';
 $routes['beginChat'] = 'chat/beginChat';
 $routes['sendMessage'] = 'chat/sendMessage';
+// Trang khuyến mãi
+$routes['sale'] = 'Coupon/khuyenmai';
+$routes['store'] = 'Coupon/store';
+$routes['update'] = 'Coupon/update';
+$routes['destroy'] = 'Coupon/destroy';
+
 
 $routes['admin/search'] = 'search';
 $routes['admin/transport'] = 'transport/index';
