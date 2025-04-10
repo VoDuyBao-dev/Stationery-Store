@@ -26,7 +26,7 @@ function isValidPhone(phone) {
 function validateAndSubmit(event) {
     // Kiểm tra nếu không có phương thức thanh toán được chọn
     var paymentMethod = document.querySelector("input[name='payment']:checked");
-
+   
     var fullname = document.getElementById("fullname").value.trim();
     var phone = document.getElementById("phone").value.trim();
 
@@ -50,6 +50,12 @@ function validateAndSubmit(event) {
     if (!paymentMethod) {
         // Nếu không có gì được chọn, hiển thị thông báo lỗi
         alert('Bạn phải chọn phương thức thanh toán!');
+        event.preventDefault(); // Ngừng việc gửi form
+        return false;
+    }
+
+    if(countCart === 0){
+        alert('Giỏ hàng của bạn đang trống!');
         event.preventDefault(); // Ngừng việc gửi form
         return false;
     }
@@ -114,15 +120,51 @@ function submitBothForms() {
                 
                 paymentXhr.onload = function () {
                     if (paymentXhr.status === 200) {
-                        var paymentResponse = JSON.parse(paymentXhr.responseText); // Giả sử bạn trả về JSON từ PaymentController
-                        if (paymentResponse.success && paymentMethod === 'bank') {
-                            window.location.href = paymentResponse.data; // Redirect to VNPay
-                        }
-                        else {
-                            alert('Lỗi: ' + paymentResponse.message);
+                        var paymentResponse = JSON.parse(paymentXhr.responseText);
+                        
+                        if (paymentMethod === 'bank') {
+                            // Xử lý thanh toán VNPay
+                            if (paymentResponse.success) {
+                                window.location.href = paymentResponse.data; // Chuyển hướng đến cổng thanh toán VNPay
+                            } else {
+                                Swal.fire({
+                                    title: 'Thất bại!',
+                                    text: paymentResponse.message,
+                                    icon: 'error',
+                                    confirmButtonText: 'Đóng'
+                                });
+                            }
+                        } else if(paymentMethod === 'cod') {
+                            // Xử lý thanh toán COD 
+                            if (paymentResponse.success) {
+                                window.location.href = paymentResponse.redirect; // Chuyển hướng đến trang kết quả
+                            } else {
+                                Swal.fire({
+                                    title: 'Thất bại!',
+                                    text: paymentResponse.message,
+                                    icon: 'error',
+                                    confirmButtonText: 'Đóng'
+                                });
+                            }
+                        } else if (paymentMethod === 'ewallet') {
+                            if (paymentResponse.success) {
+                                window.location.href = paymentResponse.data; // Chuyển hướng đến trang thanh toán MoMo
+                            } else {
+                                Swal.fire({
+                                    title: 'Thất bại!',
+                                    text: paymentResponse.message,
+                                    icon: 'error',
+                                    confirmButtonText: 'Đóng'
+                                });
+                            }
                         }
                     } else {
-                        alert('Lỗi gửi yêu cầu thanh toán');
+                        Swal.fire({
+                            title: 'Lỗi!',
+                            text: 'Không thể gửi yêu cầu thanh toán. Vui lòng thử lại sau.',
+                            icon: 'error',
+                            confirmButtonText: 'Đóng'
+                        });
                     }
                 };
                 

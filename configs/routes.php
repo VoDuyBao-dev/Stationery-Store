@@ -36,9 +36,19 @@ $routes['manage_users'] = 'AdminManageUser/listuser';
 $routes['thanh-toan'] = 'user/UserInfor_Payment';
 // // Xử lý form đc thông tin người dùng thanh toán do ajax gửi request lên
 $routes['handleUserInfor_Payment'] = 'user/handleUserInfor_Payment';
+
 // Xử lý form thông tin phương thức thanh toán và vận chuyển do ajax gửi request lên
 $routes['processPayment'] = 'payment/initPayment';
+
+// thanh toán VNPAY
 $routes['handleVNPayCallback'] = 'payment/handleVNPayCallback';
+
+// thanh toán Momo
+$routes['handleMomoRedirect'] = 'MomoController/handleMomoRedirect';
+$routes['handleMomoIPN'] = 'MomoController/handleMomoIPN';
+$routes['handleMomoCallback'] = 'payment/handleMomoCallback';
+
+
 
 // 1cái page not found
 $routes['sanpham'] = 'product/sanpham';

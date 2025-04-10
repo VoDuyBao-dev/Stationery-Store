@@ -55,10 +55,10 @@
     <label for="ewallet">Thanh toán qua MoMo</label>
     <div id="momo-options" style="display: none; margin-left: 20px; margin-top: 10px;">
     <!-- option của momo -->
-    <input type="radio" id="momo_qr" name="momo_method" value="qr">
+    <input type="radio" id="momo_qr" name="momo_method" value="momo_qr">
     <label for="momo_qr">Quét mã QR</label><br>
 
-    <input type="radio" id="momo_bank" name="momo_method" value="bank">
+    <input type="radio" id="momo_bank" name="momo_method" value="momo_bank">
     <label for="momo_bank">Thẻ ngân hàng</label>
 </div>
 
@@ -99,6 +99,7 @@
     <?php  require_once _DIR_ROOT . "/app/views/blocks/footer.php";?>
     <script>
         const _WEB_ROOT = "<?php echo _WEB_ROOT; ?>";
+        const countCart = <?php echo count($_SESSION['giohang'] ?? []); ?>;
        
     </script>
    <script src="<?php echo _WEB_ROOT; ?>/public/assets/clients/js/payment/payment.js"></script>

@@ -71,5 +71,6 @@ require_once "core/Controller.php"; //Load base controller
 // Load OrderService
 require_once "app/services/OrderService.php"; 
 require_once "app/services/VNPayPaymentProcessing.php";
+require_once "app/services/MomoPaymentProcessing.php";
 
 

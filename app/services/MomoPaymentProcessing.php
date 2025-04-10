@@ -1,11 +1,18 @@
 <?php
 require_once _DIR_ROOT . '/configs/ConfigLoader.php';
 
-class MomoPaymentProcessing extends Controller
+class MomoPaymentProcessing
 {
+    private  $paymentInfor;
+   
     public function __construct()
     {
+        $this->paymentInfor = new PaymentInformationModel();
         header('Content-type: text/html; charset=utf-8');
+    }
+
+    public function savePaymentInformation($information_json) {
+        return $this->paymentInfor->saveTransaction($information_json);
     }
     
     private function execPostRequest($url, $data)
@@ -28,7 +35,7 @@ class MomoPaymentProcessing extends Controller
     }
 
     // Hàm xử lý thanh toán MoMo QR code
-    public function processPayment_QRCode()
+    public function confirmMomo_QR()
     {
         
         $configMomo = ConfigLoader::load(_DIR_ROOT . '/configs/configMomo.json');
@@ -41,10 +48,10 @@ class MomoPaymentProcessing extends Controller
         $secretKey = $configMomo['secretKey'];
        
         $orderInfo = "Thanh toán qua MoMo QR code";
-        $amount = "100000";
-        $orderId = time() ."";
-        $redirectUrl = _WEB_ROOT."/thanh-toan";
-        $ipnUrl = _WEB_ROOT."/thanh-toan";
+        $amount = $_POST['tongtien'];
+        $orderId = time() . "";
+        $redirectUrl = _WEB_ROOT."/MomoController/handleMoMo_Redirect";
+        $ipnUrl = _WEB_ROOT."/MomoController/handleMoMo_IPN";
         $extraData = "";
 
         $requestId = time() . "";
@@ -71,16 +78,17 @@ class MomoPaymentProcessing extends Controller
             'signature' => $signature);
         $result = $this->execPostRequest($endpoint, json_encode($data));
         $jsonResult = json_decode($result, true);  // decode json
-        //Just a example, please check more in there
-
-       // Chuyển hướng người dùng đến URL thanh toán của MoMo
        
-        header('Location: ' . $jsonResult['payUrl']);
-          
+        // Trả về response để JavaScript xử lý redirect Chuyển hướng người dùng đến URL thanh toán của MoMo
+        return [
+            'success' => isset($jsonResult['payUrl']),
+            'data' => $jsonResult['payUrl'] ?? null,
+            'message' => isset($jsonResult['payUrl']) ? 'Success' : 'Không thể tạo URL thanh toán MoMo'
+        ];
     }
 
     // Hàm xử lý thanh toán MoMo ATM
-    public function processPayment_ATM()
+    public function confirmMomo_ATM()
     {
         $configMomo = ConfigLoader::load(_DIR_ROOT . '/configs/configMomo.json');
 
@@ -91,10 +99,10 @@ class MomoPaymentProcessing extends Controller
         $secretKey = $configMomo['secretKey'];
        
         $orderInfo = "Thanh toán qua MoMo ATM";
-        $amount = "100000";
+        $amount = $_POST['tongtien'];
         $orderId = time() ."";
-        $redirectUrl = _WEB_ROOT."/thanh-toan";
-        $ipnUrl = _WEB_ROOT."/thanh-toan";
+        $redirectUrl = _WEB_ROOT."/MomoController/handleMoMo_Redirect";
+        $ipnUrl = _WEB_ROOT."/MomoController/handleMoMo_IPN";
         $extraData = "";
         $requestId = time() . "";
         $requestType = "payWithATM";
@@ -118,26 +126,17 @@ class MomoPaymentProcessing extends Controller
         $result = $this->execPostRequest($endpoint, json_encode($data));
         $jsonResult = json_decode($result, true);  // decode json
 
-        //Just a example, please check more in there
-
-        header('Location: ' . $jsonResult['payUrl']);
-          
+        
+        return [
+            'success' => isset($jsonResult['payUrl']),
+            'data' => $jsonResult['payUrl'] ?? null,
+            'message' => isset($jsonResult['payUrl']) ? 'Success' : 'Không thể tạo URL thanh toán MoMo'
+        ];
+            
     }
 
-
     
 
 
-   
-
-
-   
-    
-    
-
-
-        
-    
-        
 }
 ?>

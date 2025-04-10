@@ -10,25 +10,31 @@
 </head>
 <body>
 <form class="" method="POST" target="_blank" enctype="application/x-www-form-urlencoded"
-    action="<?php echo _WEB_ROOT . '/MomoPaymentProcessing/processPayment_QRCode'; ?>">
-<input type="submit" name="momo" value="thanh toán momo QR code"/>
+    action="<?php echo _WEB_ROOT . '/MomoPaymentProcessing/confirmMomo_QR'; ?>">
+<input type="submit" name="payUrl" value="thanh toán tesst trang"/>
 </form>
+
+
+
+
 
 <form class="" method="POST" target="_blank" enctype="application/x-www-form-urlencoded"
-    action="<?php echo _WEB_ROOT . '/MomoPaymentProcessing/processPayment_ATM'; ?>">
-<input type="submit" name="momo" value="thanh toán momo ATM"/>
+    action="<?php echo _WEB_ROOT . '/MomoPaymentProcessing/PayMomo_ATM'; ?>">
+<input type="submit" name="payUrl" value="thanh toán momo ATM"/>
 </form>
+<?php if(isset($_SESSION['testData_IPNmomo'])){
+   $test = $_SESSION['testData_IPNmomo'];
+   unset($_SESSION['testData_IPNmomo']);
+   
+   echo "$test";
+}else{
+    echo "No";
+} ;?>
 
-<form action="<?php echo _WEB_ROOT . '/payment/testvnpay'; ?>" method="POST">
-    <input type="hidden" name="tongtien" value="100000" id="selectedAmountInput" />
-
-    <button type="submit" name="redirect">
-        Thanh toán Vnpay
-    </button>
 
    
 
-</form>
+
 
 
 

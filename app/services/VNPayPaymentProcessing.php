@@ -30,7 +30,7 @@ class VNPayPaymentProcessing
         $expire = date('YmdHis', strtotime('+15 minutes', strtotime($startTime)));
 
         //thanh toan bang vnpay
-        $vnp_TxnRef = time() . ""; //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
+        $vnp_TxnRef = time() . ""; 
         $vnp_OrderInfo = 'Thanh toán đơn hàng đặt tại web';
         $vnp_OrderType = 'billpayment';
 
@@ -86,12 +86,7 @@ class VNPayPaymentProcessing
                     'message' => 'success',
                     'data' => $vnp_Url
                 );
-        // if (isset($_POST['redirect'])) {
-        //     header('Location: ' . $vnp_Url);
-        //     die();
-        // } else {
-        //     print_r($returnData);
-        // }
+        
     }
 
 
