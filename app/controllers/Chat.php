@@ -20,8 +20,7 @@ class Chat extends Controller
     public function beginChat()
     {
         $currentUserId = $_SESSION['user']['user_id']; // Người dùng hiện tại phải là admin
-        // $role = $_SESSION['user']['role'] ?? 'admin'; // Lấy role của user hiện tại (admin hoặc user)
-        $role = 'admin';
+        $role = $_SESSION['user']['role']; // Người dùng hiện tại phải là admin
         if ($role != 'admin') {
             header("HTTP/1.0 404 Not Found");
             echo "Không tìm thấy trang.";
@@ -30,12 +29,21 @@ class Chat extends Controller
 
         $chatList = $this->chatModel->getChatList($currentUserId, $role);
         $allSticker = $this->chatModel->getAllStickers();
+
+        $information = [
+            'user_id' => 0,
+            'fullname' => '',
+            'email' => '',
+            'phone' => ''
+        ];
+
         $this->render('mess/chat', [
             'chatList' => $chatList,
             'role' => $role,
             'admin_id' => 2,
             'allSticker' => $allSticker,
-            'messages' => []
+            'messages' => [],
+            'information' => $information
         ]);
     }
 
@@ -44,39 +52,46 @@ class Chat extends Controller
     {
         $receiverId = (int)$user_id;
         $sender_id = $_SESSION['user']['user_id']; // ID của user đang đăng nhập
-        // $sender_id = 2; // ID của user đang đăng nhập (admin)
-        $role = $_SESSION['user']['role']; // Lấy role của user hiện tại (admin hoặc user)
+        $role = $_SESSION['user']['role'] == "admin" ? "admin" : "user"; // Lấy role của người nhận
 
         $messages = $this->chatModel->getMessages($sender_id, $receiverId);
 
-        if ($role == "admin") {
+        if ($_SESSION['user']['role'] == "admin") {
             $chatList = $this->chatModel->getChatList($sender_id, $role);
         } else $chatList = "";
 
+        $information = $this->chatModel->getUsers($receiverId);
+        // if (!$information) {
+        //     header("Location:" . _BASE_URL . "/beginChat");
+        //     exit;
+        // }
+
         $allSticker = $this->chatModel->getAllStickers();
         $this->render('mess/chat', [
-            'messages' => $messages,         // all cột của bảng trùng với id gửi và nhận.
+            'messages' => $messages,         // Tất cả tin nhắn giữa 2 người
             'sender_id' => $sender_id,          // người gửi
             'receiver_id' => $receiverId,    // người nhận
             'chatList' => $chatList,
-            'role' => $role,
-            'allSticker' => $allSticker
+            'role' => $role,                // quyền của người nhận hiện tại (admin hoặc user)
+            'allSticker' => $allSticker,
+            'information' => $information, // thông tin người nhận
         ]);
     }
 
 
     public function sendMessage()
     {
+
         // Lấy thông tin từ session và POST
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $sender_id = $_SESSION['user']['user_id'];
             $receiver_id = $_POST['receiver_id'];
             $message = trim($_POST['message'] ?? '');
             $sticker_id = $_POST['sticker_id'];
-            echo $_POST['sticker_id'] . "dday af noi debug <br>";
             // Kiểm tra tính hợp lệ của ID người nhận
             if (!is_numeric($receiver_id) || $receiver_id <= 0) {
-                die("Lỗi: ID người nhận không hợp lệ.");
+                header("Location:" . _BASE_URL . "/beginChat");
+                exit;
             }
 
             if ($sender_id <= 0) {

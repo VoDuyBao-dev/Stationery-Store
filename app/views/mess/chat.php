@@ -19,8 +19,8 @@
                     <?php foreach ($chatList as $oneUser) : ?>
                         <li>
                             <a href="<?php echo _BASE_URL; ?>/chat/<?php echo $oneUser['user_id']; ?>">
-                                <div class="avatar"><img src="<?php echo _BASE_URL; ?>/public/assets/clients/images/<?php echo ($role == 'admin') ? 'admin_avatar.png' : 'user_avatar.png'; ?>" alt=""></div>
-                                <?php echo htmlspecialchars($oneUser['user_id']) . htmlspecialchars($oneUser['fullname']); ?>
+                                <div class="avatar"><img src="<?php echo _BASE_URL; ?>/public/assets/clients/images/<?php echo ($role == 'user') ? 'admin_avatar.png' : 'user_avatar.png'; ?>" alt=""></div>
+                                <?php echo htmlspecialchars($oneUser['fullname']); ?>
                             </a>
                         </li>
                     <?php endforeach; ?>
@@ -38,7 +38,7 @@
                                 <div class="message_right">
                                     <div class="avatar"><img src="<?php echo _BASE_URL; ?>/public/assets/clients/images/<?php echo ($role == 'admin') ? 'admin_avatar.png' : 'user_avatar.png'; ?>" alt=""></div>
                                     <div class="content">
-                                        <div class="name"><?php echo $_SESSION['user']['fullname'] ?></div>
+                                        <div class="name"><?php echo ($_SESSION['user']['role'] == $role ? $information['fullname'] : $_SESSION['user']['fullname']); ?></div>
                                         <div class="text"> <?php if ($msg['sticker_id'] != 1) : ?>
                                                 <img src="<?php echo _BASE_URL; ?>/public/assets/clients/images/sticker/<?php echo htmlspecialchars($msg['sticker_id']); ?>.png" class="sticker-img">
                                             <?php else : ?>
@@ -50,9 +50,9 @@
                                 </div>
                             <?php else : ?>
                                 <div class="message_left">
-                                    <div class="avatar"><img src="<?php echo _BASE_URL; ?>/public/assets/clients/images/<?php echo ($role == 'admin') ? 'admin_avatar.png' : 'user_avatar.png'; ?>" alt=""></div>
+                                    <div class="avatar"><img src="<?php echo _BASE_URL; ?>/public/assets/clients/images/<?php echo ($role == 'user') ? 'admin_avatar.png' : 'user_avatar.png'; ?>" alt=""></div>
                                     <div class="content">
-                                        <div class="name"><?php echo $_SESSION['user']['fullname'] ?></div>
+                                        <div class="name"><?php echo ($_SESSION['user']['role'] == $role ? $information['fullname'] : $_SESSION['user']['fullname']); ?></div>
                                         <div class="text"> <?php if ($msg['sticker_id'] != 1) : ?>
                                                 <img src="<?php echo _BASE_URL; ?>/public/assets/clients/images/sticker/<?php echo htmlspecialchars($msg['sticker_id']); ?>.png" class="sticker-img">
                                             <?php else : ?>
@@ -87,10 +87,10 @@
 
             <div class="information">
                 <h2>Thông tin chi tiết</h2>
-                <div class="avatar"><img src="<?php echo _BASE_URL; ?>/public/assets/clients/images/<?php echo ($role == 'admin') ? 'admin_avatar.png' : 'user_avatar.png'; ?>" alt=""></div>
-                <div class="name"><?php echo htmlspecialchars($_SESSION['user']['fullname']); ?></div>
-                <div class="email"><?php echo htmlspecialchars($_SESSION['user']['email']); ?></div>
-                <div class="phone"><?php echo htmlspecialchars($_SESSION['user']['phone']); ?></div>
+                <div class="avatar"><img src="<?php echo _BASE_URL; ?>/public/assets/clients/images/<?php echo ($role == 'user') ? 'admin_avatar.png' : 'user_avatar.png'; ?>" alt=""></div>
+                <div class="name"><?php echo $information['fullname']; ?></div>
+                <div class="email"><?php echo $information['email']; ?></div>
+                <div class="phone"><?php echo $information['phone']; ?></div>
             </div>
         <?php } ?>
     </div>

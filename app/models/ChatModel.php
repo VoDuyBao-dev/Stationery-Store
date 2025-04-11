@@ -38,18 +38,24 @@ class ChatModel extends Model
         }
     }
 
-
     // Lấy danh sách tất cả người dùng (chỉ dành cho admin)
     public function getAllUsers($user_id)
     {
         $sql = "SELECT user_id, fullname FROM users where user_id != $user_id ";
         return $this->fetchAll($sql);
     }
+
+    public function getUsers($user_id)
+    {
+        return $this->fetch("SELECT * FROM users WHERE user_id = ?", [$user_id]);
+    }
+
     public function getAllStickers()
     {
         $sql = "SELECT * from $this->table_stickers";
         return $this->fetchAll($sql);
     }
+
     public function getSticker($sticker_id)
     {
         $sql = "SELECT * from $this->table_stickers where sticker_id = $sticker_id ";
