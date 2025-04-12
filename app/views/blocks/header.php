@@ -37,5 +37,5 @@
 </div>
 <div>
     <button id="backToTop" onclick="scrollToTop()"><i class="fas fa-arrow-up"></i></button>
-    <button id="chat"><a href="<?php echo _BASE_URL; ?>/chat/2"><i class="fas fa-envelope"></i></a></button>
+    <button id="chat"><a href="<?php echo _BASE_URL; ?>/chat/1"><i class="fas fa-envelope"></i></a></button>
 </div>

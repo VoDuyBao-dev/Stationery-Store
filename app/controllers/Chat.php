@@ -40,7 +40,7 @@ class Chat extends Controller
         $this->render('mess/chat', [
             'chatList' => $chatList,
             'role' => $role,
-            'admin_id' => 2,
+            'admin_id' => 1,
             'allSticker' => $allSticker,
             'messages' => [],
             'information' => $information
@@ -50,6 +50,10 @@ class Chat extends Controller
     // Hiển thị trang chat
     public function detail($user_id)
     {
+        if (!isset($_SESSION['user'])) {
+            header("Location:" . _BASE_URL . "/dang-nhap");
+            exit;
+        }
         $receiverId = (int)$user_id;
         $sender_id = $_SESSION['user']['user_id']; // ID của user đang đăng nhập
         $role = $_SESSION['user']['role'] == "admin" ? "admin" : "user"; // Lấy role của người nhận
@@ -89,18 +93,24 @@ class Chat extends Controller
             $message = trim($_POST['message'] ?? '');
             $sticker_id = $_POST['sticker_id'];
             // Kiểm tra tính hợp lệ của ID người nhận
-            if (!is_numeric($receiver_id) || $receiver_id <= 0) {
+            if ($_SESSION['user']['role'] == 'admin' and (!is_numeric($receiver_id) || $receiver_id <= 0)) {
                 header("Location:" . _BASE_URL . "/beginChat");
+                exit;
+            }
+            if (!is_numeric($receiver_id) || $receiver_id <= 0) {
+                header("Location:" . _BASE_URL . "/chat/" . $receiver_id);
                 exit;
             }
 
             if ($sender_id <= 0) {
-                die("Bạn cần đăng nhập để gửi tin nhắn.");
+                header("Location:" . _BASE_URL . "/dang-nhap");
+                exit;
             }
 
             // Kiểm tra nội dung tin nhắn hoặc sticker
             if (empty($message) && empty($sticker_id)) {
-                die("Tin nhắn hoặc sticker không được để trống.");
+                header("Location:" . _BASE_URL . "/chat/" . $receiver_id);
+                exit;
             }
             $data = [
                 'sender_id' => $sender_id,
