@@ -25,8 +25,11 @@ class AdminManageUser extends Controller
     {
         $users = $this->adminModel->getAllUsers();
         $usersLock = $this->adminModel->getAllUsersLock();
-    
-        $this->render("admin/TaiKhoan", ["users" => $users, "usersLock" => $usersLock]);
+        $data = [
+            "users" => $users, 
+            "usersLock" => $usersLock
+        ];
+        $this->render("admin/customers/Taikhoan", $data);
     }
 
 
@@ -100,6 +103,25 @@ class AdminManageUser extends Controller
        
     }
 
+    public function done()  {
+        $this->render("admin/orders/daxuly", []);
+    }
+
+    public function canxuly()  {
+        $this->render("admin/orders/qldh_canxuly", []);
+    }
+
+    public function khuyenmai()  {
+        $this->render("admin/sales/sale", []);
+    }
+
+    public function taosp()  {
+        $this->render("admin/products/Taosp", []);
+    }
+
+    public function qlsp()  {
+        $this->render("admin/products/Quanlysanpham", []);
+    }
 }
 ?>
 

@@ -4,24 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stationery - Admin</title>
-    
+    <!--header css  -->
+    <link type="text/css" rel="stylesheet" href="<?php echo _WEB_ROOT; ?>/public/assets/clients/css/blocks/header.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap">
+    <!-- menu css -->
+    <link type="text/css" rel="stylesheet" href="<?php echo _WEB_ROOT;?>/public/assets/clients/css/blocks/menu.css"/>
+    <!-- footer css -->
+    <link type="text/css" rel="stylesheet" href="<?php echo _WEB_ROOT; ?>/public/assets/clients/css/blocks/footer.css">
+    <!-- main css -->
   <link type="text/css" rel="stylesheet" href="<?php echo _WEB_ROOT;?>/public/assets/clients/css/admin/app.min.css"/>
-  <!-- Template CSS -->
   <link type="text/css" rel="stylesheet" href="<?php echo _WEB_ROOT;?>/public/assets/clients/css/admin/styles.css"/>
   <link type="text/css" rel="stylesheet" href=".<?php echo _WEB_ROOT;?>/public/assets/clients/css/admin/components.css"/>
-  <!-- Custom style CSS -->
   <link type="text/css" rel="stylesheet" href="<?php echo _WEB_ROOT;?>/public/assets/clients/css/admin/custom.css"/>
-  <!-- <link rel='shortcut icon' type='image/x-icon' href='../static/image/favicon.ico' /> -->
-    <!-- General JS Scripts -->
+ <!-- main js -->
   <script type="text/javascript" src="<?php echo _WEB_ROOT;?>/public/assets/clients/js/admin/app.min.js"></script>
-  <!-- JS Libraies -->
   <script type="text/javascript" src="<?php echo _WEB_ROOT;?>/public/assets/clients/js/admin/apexcharts.min.js"></script>
-  <!-- Page Specific JS File -->
   <script type="text/javascript"  src="<?php echo _WEB_ROOT;?>/public/assets/clients/js/admin/index.js"></script>
-  <!-- Template JS File -->
   <script type="text/javascript"  src="<?php echo _WEB_ROOT;?>/public/assets/clients/js/admin/scripts.js"></script>
-  <!-- Custom JS File -->
   <script type="text/javascript"  src="<?php echo _WEB_ROOT;?>/public/assets/clients/js/admin/custom.js"></script>
+  <!-- header js -->
+  <script type="text/javascript" src="<?php echo _WEB_ROOT;?>/public/assets/clients/js/blocks/header.js"></script>
     <style>
         main{
             margin-left: 280px;

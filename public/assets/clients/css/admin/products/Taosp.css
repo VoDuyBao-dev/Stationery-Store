@@ -5,10 +5,13 @@
   padding: 0;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
+body {
+  background-color: #e5e6e68b;
+}
 
 /* Container */
-.container {
-  max-width: 70%;
+.taosp-container {
+  max-width: 95%;
   margin: 40px auto;
   padding: 20px;
   background-color: #fff;

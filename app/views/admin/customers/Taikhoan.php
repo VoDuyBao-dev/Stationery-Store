@@ -7,12 +7,40 @@ use core\Helpers;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Danh sách User</title>
-    <link rel="stylesheet" href="<?php echo _WEB_ROOT; ?>/public/assets/clients/css/admin/Taikhoan.css">
+    <link rel="stylesheet" href="<?php echo _WEB_ROOT; ?>/public/assets/clients/css/admin/customers/Taikhoan.css">
+    <link type="text/css" rel="stylesheet" href="<?php echo _WEB_ROOT; ?>/public/assets/clients/css/blocks/header.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap">
+    <link type="text/css" rel="stylesheet" href="<?php echo _WEB_ROOT;?>//public/assets/clients/css/blocks/menu.css">
+    <link type="text/css" rel="stylesheet" 
+        href="<?php echo _WEB_ROOT; ?>/public/assets/clients/css/blocks/footer.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+
+    <script type="text/javascript" src="<?php echo _WEB_ROOT; ?>/public/assets/clients/js/blocks/header.js"></script>
+    <style>
+        menu {
+            float: left;
+        }
+        main{
+            margin-top: 120px;
+            margin-left: 280px;
+        }
+    </style>
     <script src="<?php echo _WEB_ROOT;?>/public/assets/clients/js/admin/taikhoan.js"></script>
   </head>
   <body>
-    <h2>Danh sách User</h2>
-    <?php if ($message = Helpers::getFlash('error')): ?>
+  <header>
+    <?php  require_once _DIR_ROOT . "/app/views/blocks/header-admin.php";?>
+  </header>  
+
+  <menu>
+    <?php  require_once _DIR_ROOT . "/app/views/blocks/menu-admin.php";?>
+  </menu> 
+<main>
+
+    <h1>Danh sách User</h1>
+
+<?php if ($message = Helpers::getFlash('error')): ?>
                 <div class="error-message"><?php echo $message; ?></div>
                
             <?php endif; ?>
@@ -20,7 +48,6 @@ use core\Helpers;
                 <div class="success-message"><?php echo $message; ?></div>
                
             <?php endif; ?>
-
     <div class="search-container">
       <input
         type="text"
@@ -103,5 +130,9 @@ use core\Helpers;
         
       </tbody>
     </table>
+  
+    <?php  require_once _DIR_ROOT . "/app/views/blocks/footer.php";?>
+
+</main>
   </body>
 </html>

@@ -141,7 +141,7 @@ class User extends Controller
         $result = false;
 
         $data = $_SESSION['register_data'];
-        $result = $this->userModel->createUser(
+        $result = $this->userModel->insertUser(
             $data['fullname'],
             $data['sdt'],
             $data['email'],
@@ -198,6 +198,14 @@ class User extends Controller
 
     public function signin()
     {
+        // Tạo đường dẫn để đi đến trang đăng nhập của google.
+        $googleService = new GoogleAuthService();
+        $client = $googleService->getClient();
+        $url = $client->createAuthUrl();
+        
+        $data = [
+            'url' => $url
+        ];
 
         if (isset($_POST['submit-signin'])) {
             $email = strtolower(htmlspecialchars(trim($_POST['email'])));
@@ -216,17 +224,28 @@ class User extends Controller
             $verifyUser = $this->userModel->verifyUser($email, $password);
            
             if (is_array($verifyUser)) {
+                //Nếu có cảnh báo đăng nhập quá số lần thì xóa khi nhập đúng mật khẩu
+                if (isset($_SESSION['warning_signin'])) {
+                    unset($_SESSION['warning_signin']);
+                }
+                // Kiểm tra tài khoản có bị khóa không
+                if($verifyUser['status'] == 0){
+                    $_SESSION['error'] = "Tài khoản của bạn đã bị khóa do hoạt động bất thường!";
+                    header("Location: " . _WEB_ROOT . "/dang-nhap");
+                    exit();
+                }
                 // Lấy thông tin người dùng
                 $_SESSION['user'] = $verifyUser;
 //                reset bộ đếm dăng nhập sai
                 $_SESSION['signin_incorrect'] = 0;
                 // xóa session old email
                 unset($_SESSION['old_email']);
-//                Nếu có cảnh báo đăng nhập quá số lần thì xóa khi đăng nhập thành công
-                if (isset($_SESSION['warning_signin'])) {
-                    unset($_SESSION['warning_signin']);
+
+                if($verifyUser['role'] == 'admin'){
+                    header("Location:" . _WEB_ROOT . "/admin_layout");
+                    exit();
                 }
-                header("Location:" . _WEB_ROOT . "/trang-chu");
+                header("Location:" . _WEB_ROOT);
                 exit();
             } else {
                 $_SESSION['error'] = $verifyUser;
@@ -238,9 +257,11 @@ class User extends Controller
 
         } 
         
-        $this->render("users/Signin-Signout/signin");
+        $this->render("users/Signin-Signout/signin", $data);
     
     }
+
+    
 
     public function signout()
     {

@@ -1,11 +1,11 @@
 body {
-    font-family: Arial, sans-serif;
     background-color: #f8f9fa;
     margin: 0;
-    padding: 20px;
+    font-family: Arial, sans-serif;
+  
   }
-  .container {
-    width: 90%;
+  .product-container {
+    width: 95%;
     max-width: 1200px;
     margin: auto;
     background: white;
@@ -13,7 +13,7 @@ body {
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
-  h2 {
+  h1 {
     text-align: left;
     background-color: #609edb;
     color: white;
@@ -84,7 +84,7 @@ body {
     height: auto;
     border-radius: 5px;
   }
-  .badge {
+  .product-badge {
     padding: 5px 10px;
     border-radius: 5px;
     color: white;

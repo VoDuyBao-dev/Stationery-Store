@@ -6,6 +6,15 @@
     <title>Thanh toán</title>
     <link type="text/css" rel="stylesheet" href="<?php echo _WEB_ROOT;?>/public/assets/clients/css/users/payment/Payment.css"/>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link type="text/css" rel="stylesheet" href="<?php echo _WEB_ROOT; ?>/public/assets/clients/css/blocks/header.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap">
+    <link type="text/css" rel="stylesheet" 
+        href="<?php echo _WEB_ROOT; ?>/public/assets/clients/css/blocks/footer.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+
+    <script type="text/javascript" src="<?php echo _WEB_ROOT; ?>/public/assets/clients/js/blocks/header.js"></script>
+
 </head>
     
 <body>
@@ -77,7 +86,7 @@
         <img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/products/<?= $item['image'];?>" alt="<?= $item['name_product_type_id']?>">
         <p><?= $item['product_name']?></p>
         <p><strong><?= $item['name_product_type_id']?></strong></p>
-        <p>Số lượng: <input type="number" value="<?= $item['quantity'] ?>" min="1"></p>
+        <p>Số lượng: <?= $item['quantity'] ?></p>
         <span><?= $tt;?>đ</span>
     </div>
     <?php endforeach;?>

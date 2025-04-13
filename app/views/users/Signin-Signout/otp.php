@@ -6,10 +6,18 @@
     <title>Nhập OTP</title>
 
     <link rel="stylesheet" href="<?= _WEB_ROOT; ?>/public/assets/clients/css/users/Signin-Signout/otp.css"/>
+    <link type="text/css" rel="stylesheet" href="<?php echo _WEB_ROOT; ?>/public/assets/clients/css/blocks/header.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap">
+    <link type="text/css" rel="stylesheet" 
+        href="<?php echo _WEB_ROOT; ?>/public/assets/clients/css/blocks/footer.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+
+    <script type="text/javascript" src="<?php echo _WEB_ROOT; ?>/public/assets/clients/js/blocks/header.js"></script>
 </head>
+<?php  require_once _DIR_ROOT . "/app/views/blocks/header.php";?>
 <body>
-
-
+    
 <div class="otp-container">
     <h2>Xác thực OTP</h2>
 
@@ -32,7 +40,7 @@
             <?php endfor; ?>
         </div>
 
-        <button type="submit" name="submit">Xác nhận</button>
+        <button type="submit" name="submit" class="otp-button">Xác nhận</button>
 
     </form>
     <!-- Nút Gửi lại mã OTP -->
@@ -109,6 +117,10 @@
 
 </script>
 
+    <?php  require_once _DIR_ROOT . "/app/views/blocks/footer.php";?>
+
+
+  
 </body>
 </html>
 

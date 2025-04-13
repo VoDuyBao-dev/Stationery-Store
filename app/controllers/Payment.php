@@ -138,12 +138,4 @@ class Payment extends Controller
         }
     }
 
-    public function testMomo()
-    {
-        $this->render("users/payment/testthanhtoanMomo");
-        
-    }
-
-
-
 }

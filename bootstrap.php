@@ -64,13 +64,23 @@ if (!empty($config['database'])) {
     }
 }
 
+// Load api google
+require_once "app/libraries/google-api-php-client/vendor/autoload.php";
+
+
 // Load database xong mới tới load model
 require_once "core/Model.php"; //Load base Model
 require_once "core/Controller.php"; //Load base controller
 
-// Load OrderService
+// load file config của google
+require_once "configs/google_client.php";
+
+// Load all Service
 require_once "app/services/OrderService.php"; 
 require_once "app/services/VNPayPaymentProcessing.php";
 require_once "app/services/MomoPaymentProcessing.php";
+// load google service
+require_once "app/services/GoogleAuthService.php";
+
 
 

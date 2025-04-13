@@ -4,85 +4,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Giỏ hàng</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #f8f8f8;
-        }
-        .cart-container {
-            width: 60%;
-            margin: auto;
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        h2 {
-            text-align: left;
-        }
-        .cart-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border-bottom: 1px solid #ddd;
-            padding: 15px 0;
-        }
-        .cart-item img {
-            width: 50px;
-            height: 50px;
-            margin-right: 10px;
-        }
-        .cart-item-info {
-            flex-grow: 1;
-        }
-        .cart-item-controls {
-            display: flex;
-            align-items: center;
-        }
-        .cart-item-controls button {
-            border: none;
-            padding: 5px 10px;
-            cursor: pointer;
-            background-color: #ddd;
-            margin: 0 5px;
-        }
-        .cart-item-controls button:hover {
-            background-color: #bbb;
-        }
-        .cart-total {
-            display: flex;
-            justify-content: space-between;
-            font-size: 18px;
-            padding: 20px 0;
-        }
-        #checkout-btn, #clear-cart-btn {
-            width: 100%;
-            padding: 10px;
-            background-color: #1a73e8;
-            color: white;
-            border: none;
-            cursor: pointer;
-            font-size: 16px;
-            border-radius: 5px;
-            margin-top: 10px;
-        }
-        #checkout-btn:hover, #clear-cart-btn:hover {
-            background-color: #135abc;
-        }
-        #clear-cart-btn {
-            background-color: #d9534f;
-        }
-    </style>
+   
+    <link rel="stylesheet" href="<?php echo _WEB_ROOT; ?>/public/assets/clients/css/users/products/giohang.css">
+    <link type="text/css" rel="stylesheet" href="<?php echo _WEB_ROOT; ?>/public/assets/clients/css/blocks/header.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap">
+    <link type="text/css" rel="stylesheet" href="<?php echo _WEB_ROOT;?>//public/assets/clients/css/blocks/menu.css">
+    <link type="text/css" rel="stylesheet" 
+        href="<?php echo _WEB_ROOT; ?>/public/assets/clients/css/blocks/footer.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+
+    <script type="text/javascript" src="<?php echo _WEB_ROOT; ?>/public/assets/clients/js/blocks/header.js"></script>
     <script>
         const _WEB_ROOT = "<?php echo _WEB_ROOT; ?>";
        
     </script>
    <script src="<?php echo _WEB_ROOT; ?>/public/assets/clients/js/products/cart.js"></script>
+   <style>
+        menu {
+            float: left;
+        }
+        main{
+            margin-top: 120px;
+            margin-left: 280px;
+        }
+    </style>
 </head>
 <body>
-    
+<header>
+    <?php  require_once _DIR_ROOT . "/app/views/blocks/header.php";?>
+  </header>  
+
+  <menu>
+    <?php  require_once _DIR_ROOT . "/app/views/blocks/menu.php";?>
+  </menu> 
+  <main>
     <div class="cart-container">
         <h2>Giỏ hàng</h2>
         
@@ -122,26 +78,26 @@
         <?php endif;?>
         </div>
 
-        <div >
+        <div class="total">
             <span>Tổng tiền:</span>
             <span id="tong-tien"><?= $tongtien;?>₫</span>
         </div>
        
        
-       
+       <div class="setbutton">
         <form action="<?= _WEB_ROOT."/thanh-toan"?>" method="GET">
-         <button id="checkout-btn" >Tiến hành đặt hàng</button>
+         <button id="checkout-btn" >Đặt hàng</button>
         </form>
         
         <form action="<?= _WEB_ROOT ?>/deleteAll_cart" method="POST">
                  <button id="clear-cart-btn" name="deleteAll_cart">Xóa toàn bộ giỏ hàng</button>
                 </form>
-        
+        </div>
+
     </div>
     <?php  require_once _DIR_ROOT . "/app/views/blocks/footer.php";?>
-  
+</main>  
     
 </body>
 </html>
 
-<!-- Tới đoạn gửi jq đến backend rồirồi phút thứ 29 -->

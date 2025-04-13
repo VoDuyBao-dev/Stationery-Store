@@ -1,15 +1,7 @@
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menu</title>
-    <link type="text/css" rel="stylesheet" 
-        href="<?php echo _WEB_ROOT;?>//public/assets/clients/css/blocks/menu.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"></script>
-</head>
-<body>
-    <header></header>
+
+
+
+
     <div class="menu">
         <ul class="menu-list">
             <li><a href="#"><i class="fas fa-compass-drafting"></i> Bút <span>&gt;</span></a>
@@ -53,9 +45,7 @@
             <li><a href="#"><img src="<?php echo _WEB_ROOT; ?> /public/assets/clients/images/banchay.jpg" alt=""> Sản phẩm bán chạy nhất</a></li>
             <li><a href="#"><img src="<?php echo _WEB_ROOT; ?> /public/assets/clients/images/noibat.jpg" alt=""> Sản phẩm nổi bật</a></li>
             <li><a href="#"><img src="<?php echo _WEB_ROOT; ?> /public/assets/clients/images/feedback.jpg" alt=""> Phản hồi</a></li>
-            <li><a href="#"><img src="<?php echo _WEB_ROOT; ?> /public/assets/clients/images/lienhe.jpg" alt=""> Liên hệ</a></li>
+            <li><a href="<?php echo _WEB_ROOT . '/phan-hoi'; ?>"><img src="<?php echo _WEB_ROOT; ?> /public/assets/clients/images/lienhe.jpg" alt=""> Liên hệ</a></li>
         </ul>
     </div>
-    
-</body>
-</html>
+

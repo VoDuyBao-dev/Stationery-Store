@@ -1,5 +1,6 @@
 <?php
-$routes['default_controller'] = 'home';
+// trang chu
+$routes['trang-chu'] = 'product/index';
 
 // Đường dẫn ảo trỏ đến đường dẫn thật
 // đường dẫn ảo là key còn đường dẫn thật là value
@@ -12,11 +13,21 @@ $routes['register_user'] = 'user/registerUser';
 $routes['resend-otp'] = 'user/resendOTP';
 $routes['dang-nhap'] = 'user/signin';
 
+// xử lí đăng nhập bằng google
+$routes['handleLogin_google'] = 'GoogleController/handleLogin_google';
+
+
 $routes['dang-xuat'] = 'user/signout';
 $routes['forgot_pass'] = 'user/forgot_pass';
 $routes['change_password'] = 'user/change_password';
-// trang chu
-$routes['trang-chu'] = 'product/TrangChu';
+
+$routes['chinh-sua-thong-tin'] = 'user/chinhsua';
+// Lấy các sản phẩm tùy vào lưaj chọn danh mục ở Văn phòng phẩm cho bạn ở trang chủ
+$routes['getProductsBy_category'] = 'product/getProductsBy_category';
+
+
+
+
 // test chi tiet san phampham
 $routes['thong-tin-sp'] = 'product/productDetail';
 // API response
@@ -50,27 +61,24 @@ $routes['handleMomoCallback'] = 'payment/handleMomoCallback';
 
 
 
+$routes['qlsp'] = 'AdminManageUser/qlsp';
+$routes['sale'] = 'AdminManageUser/khuyenmai';
+$routes['taosp'] = 'AdminManageUser/taosp';
+$routes['daxuly'] = 'AdminManageUser/done';
+$routes['canxuly'] = 'AdminManageUser/canxuly';
+
 // 1cái page not found
-$routes['sanpham'] = 'product/sanpham';
+$routes['all_product'] = 'product/sanpham';
 $routes['phan-hoi'] = 'user/reply';
 $routes['kqtim-kiem'] = 'user/search';
 $routes['notfound'] = 'user/notfound';
-//trang client_layout
-$routes['client_layout'] = 'dashboard/index';
+
+
 
 //trang admin_layout
 $routes['admin_layout'] = 'dashboard/home';
 
 
-
-
-
-
-
-$routes['san-pham'] = 'product/index';
-$routes['nha_cung_cap'] = 'Categorie';
-
-
-
-
 ?>
+
+<!-- sửa sản phẩm dành cho bạn, quản lý user vs giỏ hàng -->

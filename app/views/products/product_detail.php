@@ -7,18 +7,25 @@ use core\Helpers;
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Vở viết kẻ ngang nhiều hình siêu ngộ nghĩnh</title>
-    <link type="text/css" rel="stylesheet"
-          href="<?php echo _WEB_ROOT; ?>/public/assets/clients/css/users/products/Thongtinchitiet.css"/>
-    <style>
-        menu {
-            float: left
-        }
 
-        main {
-            margin: 150px 0 0 280px;
-        }
+    <link type="text/css" rel="stylesheet" href="<?php echo _WEB_ROOT;?>/public/assets/clients/css/users/products/Thongtinchitiet.css" />
+    <link type="text/css" rel="stylesheet" href="<?php echo _WEB_ROOT; ?>/public/assets/clients/css/blocks/header.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap">
+    <link type="text/css" rel="stylesheet" href="<?php echo _WEB_ROOT;?>//public/assets/clients/css/blocks/menu.css">
+    <link type="text/css" rel="stylesheet" 
+        href="<?php echo _WEB_ROOT; ?>/public/assets/clients/css/blocks/footer.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+
+    <script type="text/javascript" src="<?php echo _WEB_ROOT; ?>/public/assets/clients/js/blocks/header.js"></script>
+    <style>
+      menu{
+        float:left
+      }
+      main{
+        margin: 150px 0 0 280px;
+      }
     </style>
-     
     <script>
         const BASE_URL = "<?php echo _WEB_ROOT; ?>"; // Đường dẫn gốc của trang web
         function viewProduct(product_name, id_product, id_product_type) {
@@ -28,7 +35,8 @@ use core\Helpers;
         }
 
         function changeProductType(productTypeId) {
-            fetch("/ss2/getProductType?product_type_id=" + productTypeId)
+            // chu ý chỗ này
+            fetch("/<?= _NAME_PROJECT?>/getProductType?product_type_id=" + productTypeId)
                 .then(response => response.json())
                 .then(data => {
                     if (data.error) {
@@ -116,7 +124,7 @@ use core\Helpers;
             <label>Số lượng:</label>
             <div class="quantity-control">
                 <button type="button" onclick="giamsoluong_productDetail(this)">-</button>
-                <input  type="number" onkeyup="kiemtrasoluong_productDetail(this)" value="1" min="1" />
+                <input  type="number" onkeyup="kiemtrasoluong_productDetail(this)" value="1" min="1" readonly/>
                 <button type="button" onclick="tangsoluong_productDetail(this)">+</button>
             </div>
            
