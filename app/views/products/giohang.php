@@ -19,6 +19,7 @@
         const _WEB_ROOT = "<?php echo _WEB_ROOT; ?>";
        
     </script>
+     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
    <script src="<?php echo _WEB_ROOT; ?>/public/assets/clients/js/products/cart.js"></script>
    <style>
         menu {
@@ -60,7 +61,7 @@
             </div>
             <div class="cart-item-controls">
                 <button type="button" onclick="giamsoluong(this)">-</button>
-                <input type="text" value="<?= $item['quantity'] ?>" onkeyup="kiemtrasoluong(this)" >
+                <input type="text" value="<?= $item['quantity'] ?>" onkeyup="validateQuantity(this)" >
                 <button type="button" onclick="tangsoluong(this)">+</button>
             </div>
             <input type="hidden" value="<?= $item['product_type_id']?>" class="product-type-id">
@@ -78,7 +79,7 @@
         <?php endif;?>
         </div>
 
-        <div class="total">
+        <div  class="total">
             <span>Tổng tiền:</span>
             <span id="tong-tien"><?= $tongtien;?>₫</span>
         </div>

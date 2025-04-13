@@ -2,60 +2,66 @@
 
 class Capnhatsoluong extends Controller
 {
-   // Nhận post bên cart.js và đổi số lượng sản phẩm theo yêu cầu của khách hàng
-// trả về đoạn html để js render thẳng luôn
-public function capnhat_soluong()
-{
-    $product_type_id = $_POST['product_type_id'];
-    $quantity = $_POST['quantity'];
+    public function capnhat_soluong()
+    {
+        if (!isset($_POST['product_type_id']) || !isset($_POST['quantity'])) {
+            echo json_encode(['error' => 'Dữ liệu không hợp lệ']);
+            exit;
+        }
 
-    if (isset($_SESSION['giohang'][$product_type_id])) {
+        $product_type_id = $_POST['product_type_id'];
+        $quantity = (int)$_POST['quantity'];
+
+        if (!isset($_SESSION['giohang'][$product_type_id])) {
+            echo json_encode(['error' => 'Sản phẩm không tồn tại trong giỏ hàng']);
+            exit;
+        }
+
+        // Cập nhật số lượng
         $_SESSION['giohang'][$product_type_id]['quantity'] = $quantity;
-        $item = $_SESSION['giohang'][$product_type_id];
 
-        $tt = $item['quantity'] * $item['priceCurrent'];
-
-        // Tính lại tổng tiền toàn giỏ
+        // Tính lại tổng tiền
         $tongtien = 0;
         $html_cart = '';
+
         foreach ($_SESSION['giohang'] as $item) {
-         $tt = $item['quantity'] * $item['priceCurrent'];
-         $tongtien += $tt;
-     
-         $html_cart .= '
-             <div class="cart-item">
-                 <img src="' . _WEB_ROOT . '/public/assets/clients/images/products/' . $item['image'] . '">
-                 <div class="cart-item-info">
-                     <p>' . $item['product_name'] . '</p>
-                     <p><strong>' . $item['priceCurrent'] . '₫</strong></p>
-                     <p><strong>' . $item['priceOld'] . '₫</strong></p>
-                 </div>
-                 <div class="cart-item-controls">
-                     <button type="button" onclick="giamsoluong(this)">-</button>
-                     <input type="text" value="' . $item['quantity'] . '" onkeyup="capNhatSoLuong(this)">
-                     <button type="button" onclick="tangsoluong(this)">+</button>
-                 </div>
-                 <input type="hidden" value="' . $item['product_type_id'] . '" class="product-type-id">
-                 <a href="' . _WEB_ROOT . '/deleteIdProduct_inCart/' . $item['product_name'] . '/' . $item['product_id'] . '/' . $item['product_type_id'] . '">❌</a>
-             </div>
-             <div class="cart-total">
-                 <span>Thành tiền:</span>
-                 <span>' . $tt . '₫</span>
-             </div>';
-     }
+            $thanhtien = $item['quantity'] * $item['priceCurrent'];
+            $tongtien += $thanhtien;
+
+            // HTML cho mỗi item
+            $html_cart .= '
+            <div class="cart-item">
+                <img src="' . _WEB_ROOT . '/public/assets/clients/images/products/' . htmlspecialchars($item['image']) . '" 
+                     alt="' . htmlspecialchars($item['product_type_id']) . '">
+                <div class="cart-item-info">
+                    <p>' . htmlspecialchars($item['product_name']) . '</p>
+                    <p><strong>' . htmlspecialchars($item['name_product_type_id']) . '</strong></p>
+                    <p><strong>' . number_format((float)$item['priceCurrent']) . '₫</strong></p>
+                    <p><strong>' . number_format((float)$item['priceOld']) . '₫</strong></p>
+                </div>
+                <div class="cart-item-controls">
+                    <button type="button" onclick="giamsoluong(this)">-</button>
+                    <input type="text" value="' . (int)$item['quantity'] . '" onkeyup="validateQuantity(this)">
+                    <button type="button" onclick="tangsoluong(this)">+</button>
+                </div>
+                <input type="hidden" value="' . htmlspecialchars($item['product_type_id']) . '" class="product-type-id">
+                <a href="' . _WEB_ROOT . '/deleteIdProduct_inCart/' . 
+                    urlencode($item['product_name']) . '/' . 
+                    (int)$item['product_id'] . '/' . 
+                    urlencode($item['product_type_id']) . '">❌</a>
+            </div>
+            <div class="cart-total">
+                <span>Thành tiền:</span>
+                <span>' . number_format((float)$thanhtien) . '₫</span>
+            </div>';
+        }
 
         ob_clean();
         echo json_encode([
+            'success' => true,
             'html_cart' => $html_cart,
             'tongtien' => $tongtien
         ]);
+        exit;
     }
 }
-
-
-}
-
-
-
-
-?>
