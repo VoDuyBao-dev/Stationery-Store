@@ -106,16 +106,6 @@ class AdminManageUser extends Controller
         $this->render("admin/customers/Taikhoan", []);
     }
 
-    public function done()
-    {
-        $this->render("admin/orders/daxuly", []);
-    }
-
-    public function canxuly()
-    {
-        $this->render("admin/orders/qldh_canxuly", []);
-    }
-
 
 
     public function taosp()

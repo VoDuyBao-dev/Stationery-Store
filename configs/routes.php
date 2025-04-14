@@ -35,8 +35,7 @@ $routes['manage_users'] = 'AdminManageUser/listuser';
 $routes['qlnguoi_dung'] = 'AdminManageUser/nguoidung';
 $routes['qlsp'] = 'AdminManageUser/qlsp';
 $routes['taosp'] = 'AdminManageUser/taosp';
-$routes['daxuly'] = 'AdminManageUser/done';
-$routes['canxuly'] = 'AdminManageUser/canxuly';
+
 
 
 
@@ -63,15 +62,22 @@ $routes['nha_cung_cap'] = 'Categorie';
 
 $routes['trang-chu'] = 'home';
 
+
+// Chat giữa admin và khách hàng
 $routes['^chat/([0-9]+)$'] = 'chat/detail/$1';
 $routes['beginChat'] = 'chat/beginChat';
 $routes['sendMessage'] = 'chat/sendMessage';
 // Trang khuyến mãi
 $routes['sale'] = 'Coupon/khuyenmai';
 $routes['store'] = 'Coupon/store';
+$routes['^update/([0-9]+)$'] = 'Coupon/show/$1';
 $routes['update'] = 'Coupon/update';
 $routes['destroy'] = 'Coupon/destroy';
-
+// Trang quản lý đơn hàng của admin (xác nhận đơn hàng, giao hàng, đã giao thành công, bị hủy)
+$routes['canxuly'] = 'AdminProduct/canxuly';
+$routes['^detailOrder/([0-9]+)$'] = 'AdminProduct/detailOrder/$1';
+$routes['daxuly'] = 'AdminProduct/done';
+$routes['destroyOrder'] = 'AdminProduct/destroy';
 
 $routes['admin/search'] = 'search';
 $routes['admin/transport'] = 'transport/index';

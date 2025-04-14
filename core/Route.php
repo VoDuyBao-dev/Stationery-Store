@@ -7,7 +7,6 @@ class Route
     {
         global $routes;
         unset($routes['default_controller']);
-        echo '<br>';
         //       lấy url và xử lý thành key để so sánh
         $url = trim($url, '/');
         $handleUrl = $url;
@@ -18,6 +17,7 @@ class Route
             foreach ($routes as $key => $value) {
                 if (preg_match('~' . $key . '~is', $url)) {
                     $handleUrl = preg_replace('~' . $key . '~is', $value, $url);
+                    break; // ✅ Quan trọng: Dừng sau khi tìm thấy match đầu tiên
                 }
             }
         }

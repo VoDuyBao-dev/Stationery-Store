@@ -19,7 +19,6 @@ document.addEventListener("DOMContentLoaded", function () {
     // Mở modal Thêm
     if (addBtn) {
         addBtn.addEventListener("click", function () {
-
             addModal.style.display = "flex";
         });
     }
@@ -30,16 +29,31 @@ document.addEventListener("DOMContentLoaded", function () {
             addModal.style.display = "none";
         });
     });
-
     // Mở modal Sửa
-    editBtns.forEach(function (btn) {
-        btn.addEventListener("click", function () {
-            const couponId = this.dataset.id;
-            document.getElementById("edit-coupon-id").value = couponId;
-            editModal.style.display = "flex";
-            // TODO: điền dữ liệu khuyến mãi vào form nếu cần
+    editBtns.forEach(button => {
+        button.addEventListener('click', function () {
+            const couponId = this.dataset.id;  // Lấy coupon_id từ data-id của button
+            // Gửi yêu cầu AJAX để lấy dữ liệu chi tiết của coupon
+            fetch(`${baseURL}/update/` + couponId)
+                .then(response => response.json())
+                .then(data => {
+                    // Điền dữ liệu vào các trường form
+                    document.getElementById('edit-coupon-id').value = data.coupon_id;  // Trường coupon_id
+                    document.getElementById('price_min').value = data.price_min;  // Trường price_min
+                    document.getElementById('discount').value = data.discount;    // Trường discount
+                    document.getElementById('start_date').value = data.start_date; // Trường start_date
+                    document.getElementById('end_date').value = data.end_date;    // Trường end_date
+                    document.getElementById('status').value = data.status;        // Trường status
+                    document.getElementById('code').value = data.code;            // Trường code
+                    // Hiển thị modal (hoặc form sửa)
+                    document.getElementById('editModal').style.display = 'flex';
+                })
+                .catch(error => {
+                    console.error('Có lỗi xảy ra:', error);
+                });
         });
     });
+
 
     // Đóng modal Sửa
     editCloseBtns.forEach(function (btn) {
@@ -60,10 +74,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Đóng modal Xác nhận xóa
     if (cancelDeleteBtn) {
-        cancelDeleteBtn.addEventListener("click", function () {
+        cancelDeleteBtn.addEventListener("click", function (e) {
+            e.preventDefault(); // Ngăn gửi form
             deleteModal.style.display = "none";
         });
     }
+
+
 
     // Đóng modal khi click ra ngoài nội dung
     window.addEventListener("click", function (event) {

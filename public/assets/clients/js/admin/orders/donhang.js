@@ -1,169 +1,157 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const addModal = document.getElementById('myModal');
-    const editModal = document.getElementById('editModal');
-    const viewModal = document.getElementById('viewModal');
-    const confirmDeleteModal = document.getElementById('confirmDeleteModal');
-    const addBtn = document.getElementById('add-order-btn');
-    const closeBtns = document.querySelectorAll('.close');
-    const cancelAddBtn = document.getElementById('cancel-btn');
-    const cancelEditBtn = document.getElementById('edit-cancel-btn');
-    const cancelDeleteBtn = document.getElementById('cancelDeleteBtn');
-    const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
-    const addForm = document.getElementById('order-form');
-    const editForm = document.getElementById('edit-order-form');
-    const tbody = document.querySelector('#order-table tbody');
-    const orderDetails = document.getElementById('order-details');
+document.addEventListener("DOMContentLoaded", function () {
+    const addOrderBtn = document.getElementById("add-order-btn");
+    const modal = document.getElementById("myModal");
+    const editModal = document.getElementById("editModal");
+    const viewModal = document.getElementById("viewModal");
 
-    let currentEditingRow = null;
-    let rowToDelete = null; // Biến để lưu trữ hàng cần xóa
+    const closeButtons = document.querySelectorAll(".modal .close");
+    const cancelBtn = document.getElementById("cancel-btn");
 
-    function updateCount() {
-        const count = tbody.querySelectorAll('tr').length - (tbody.querySelector('.no-data') ? 1 : 0);
-        document.getElementById('count-can-xu-ly').textContent = count;
+    const editForm = document.getElementById("edit-order-form");
+    const orderForm = document.getElementById("order-form");
+
+    const editCancelBtn = document.getElementById("edit-cancel-btn");
+
+    if (editCancelBtn) {
+        editCancelBtn.addEventListener("click", function () {
+            hideAllModals();
+        });
     }
 
-    addBtn.onclick = () => addModal.style.display = 'flex';
-    cancelAddBtn.onclick = () => addModal.style.display = 'none';
-    cancelEditBtn.onclick = () => editModal.style.display = 'none';
-    cancelDeleteBtn.onclick = () => confirmDeleteModal.style.display = 'none';
-    closeBtns.forEach(btn => btn.onclick = () => {
-        addModal.style.display = 'none';
-        editModal.style.display = 'none';
-        viewModal.style.display = 'none';
-        confirmDeleteModal.style.display = 'none';
+    // Mở modal thêm đơn hàng mới
+    addOrderBtn.addEventListener("click", function () {
+        modal.style.display = "flex";
     });
 
-    window.onclick = e => {
-        if (e.target === addModal) addModal.style.display = 'none';
-        if (e.target === editModal) editModal.style.display = 'none';
-        if (e.target === viewModal) viewModal.style.display = 'none';
-        if (e.target === confirmDeleteModal) confirmDeleteModal.style.display = 'none';
-    };
+    // Đóng modal khi click nút đóng hoặc hủy
+    closeButtons.forEach(function (btn) {
+        btn.addEventListener("click", function () {
+            hideAllModals();
+        });
+    });
 
-    addForm.onsubmit = (e) => {
-        e.preventDefault();
+    if (cancelBtn) {
+        cancelBtn.addEventListener("click", function () {
+            hideAllModals();
+        });
+    }
 
-        const ma = addForm.ma.value.trim();
-        const ngay = addForm.ngay.value;
-        const nguoi = addForm.nguoi.value.trim();
-        const tong = addForm.tong.value.trim();
-        const thanhtoan = addForm.thanhtoan.value.trim();
-        const vanchuyen = addForm.vanchuyen.value.trim();
 
-        if (!ma) return alert("Mã đơn hàng không được để trống");
+    document.querySelectorAll('.view-btn').forEach(btn => {
+        btn.addEventListener('click', function () {
+            const orderId = this.dataset.id;
 
-        const row = document.createElement('tr');
-        row.innerHTML = `
-            <td>${ma}</td>
-            <td>${ngay}</td>
-            <td>${nguoi}</td>
-            <td>${tong}</td>
-            <td>${thanhtoan}</td>
-            <td>${vanchuyen}</td>
-            <td style="text-align:center">
-                <i class="fas fa-edit edit-order" style="cursor: pointer;"></i>
-                <i class="fas fa-minus delete-order" style="cursor: pointer; color: black;"></i>
-            </td>
-            <td style="text-align:center">
-                <button class="view-order">Xem thêm</button>
-            </td>
-        `;
+            fetch(`${baseURL}/detailOrder/${orderId}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (!data || data.length === 0) {
+                        alert("Không có dữ liệu chi tiết đơn hàng.");
+                        return;
+                    }
 
-        const noData = tbody.querySelector('.no-data');
-        if (noData) noData.remove();
+                    const tbody = document.getElementById('order-details-table-body');
+                    tbody.innerHTML = '';
 
-        tbody.appendChild(row);
-        addModal.style.display = 'none';
-        addForm.reset();
-        updateCount();
-    };
+                    data.forEach((detail, index) => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td><input type="text" value="${index + 1}" readonly></td>
+                            <td><input type="text" value="${detail.tenDonHang}" readonly></td>
+                            <td><input type="text" value="${detail.phone}" readonly></td>
+                            <td><input type="text" value="${detail.address}" readonly></td>
+                            <td><textarea readonly>${detail.ghiChu || ''}</textarea></td>
+                            <td><input type="text" value="${detail.name}" readonly></td>
+                            <td><input type="text" value="${Number(detail.priceCurrent).toLocaleString()}₫" readonly></td>
+                            <td><input type="text" value="${detail.quantity}" readonly></td>
+                            <td><input type="text" value="${Number(detail.cost).toLocaleString()}₫" readonly></td>
+                            <td><input type="text" value="${Number(detail.price).toLocaleString()}₫" readonly></td>
+                            <td><input type="text" value="${Number(detail.total_price).toLocaleString()}₫" readonly></td>
+                        `;
+                        tbody.appendChild(row);
+                    });
 
-    tbody.addEventListener('click', e => {
-        const target = e.target;
-        const row = target.closest('tr');
+                    // Hiển thị nút sửa nếu trangThaiGiao === 0
+                    const trangThaiGiao = data[0].trangThaiGiao ?? 1;
+                    const editBtn = document.getElementById('editOrderBtn');
+                    if (trangThaiGiao == 0) {
+                        editBtn.style.display = 'inline-block';
+                        editBtn.onclick = function () {
+                            window.location.href = `${baseURL}/adminproduct/edit/${orderId}`;
+                        };
+                    } else {
+                        editBtn.style.display = 'none';
+                    }
 
-        if (target.classList.contains('view-order')) {
-            const cells = row.querySelectorAll('td');
-            orderDetails.innerHTML = `
-                <p><strong>Mã đơn hàng:</strong> ${cells[0].textContent}</p>
-                <p><strong>Ngày đặt hàng:</strong> ${cells[1].textContent}</p>
-                <p><strong>Người nhận:</strong> ${cells[2].textContent}</p>
-                <p><strong>Tổng hóa đơn:</strong> ${cells[3].textContent}</p>
-                <p><strong>Phương thức thanh toán:</strong> ${cells[4].textContent}</p>
-                <p><strong>Phương thức vận chuyển:</strong> ${cells[5].textContent}</p>
-            `;
-            viewModal.style.display = 'flex';
-        }
+                    document.getElementById('viewModal').style.display = 'flex';
+                })
+                .catch(error => {
+                    console.error('Lỗi khi lấy chi tiết đơn hàng:', error);
+                    alert("Không thể lấy chi tiết đơn hàng. Vui lòng thử lại.");
+                });
+        });
+    });
 
-        if (target.classList.contains('delete-order')) {
-            rowToDelete = row; // Lưu trữ hàng cần xóa
-            confirmDeleteModal.style.display = 'flex'; // Hiển thị modal xác nhận
-        }
 
-        if (target.classList.contains('edit-order')) {
-            currentEditingRow = row;
-            const cells = row.querySelectorAll('td');
-            editForm['edit-ma'].value = cells[0].textContent;
-            editForm['edit-ngay'].value = cells[1].textContent;
-            editForm['edit-nguoi'].value = cells[2].textContent;
-            editForm['edit-tong'].value = cells[3].textContent;
-            editForm['edit-thanhtoan'].value = cells[4].textContent;
-            editForm['edit-vanchuyen'].value = cells[5].textContent;
-            editModal.style.display = 'flex';
+
+    // Đóng modal khi click bên ngoài
+    window.addEventListener("click", function (event) {
+        if (event.target.classList.contains("modal")) {
+            hideAllModals();
         }
     });
 
-    confirmDeleteBtn.onclick = () => {
-        if (rowToDelete) {
-            rowToDelete.remove();
-            if (tbody.querySelectorAll('tr').length === 0) {
-                tbody.innerHTML = `<tr><td colspan="8" class="no-data">Không có bản ghi nào</td></tr>`;
-            }
-            updateCount();
-            confirmDeleteModal.style.display = 'none'; // Ẩn modal sau khi xóa
-            rowToDelete = null; // Reset biến
-        }
+    // Xử lý click "Sửa"
+    const editButtons = document.querySelectorAll(".edit-btn");
+    editButtons.forEach(function (button) {
+        button.addEventListener("click", function () {
+            const orderId = button.getAttribute("data-id");
+            // TODO: Gọi API hoặc lấy dữ liệu đơn hàng từ biến toàn cục nếu có
+            fillEditForm(orderId); // Giả định bạn sẽ làm phần này
+            editModal.style.display = "flex";
+        });
+    });
+
+
+
+    // Xử lý submit form thêm đơn hàng
+    if (orderForm) {
+        orderForm.addEventListener("submit", function (e) {
+            e.preventDefault();
+            // TODO: Gửi dữ liệu lên server (AJAX hoặc form action)
+            alert("Thêm đơn hàng mới!");
+            hideAllModals();
+        });
+    }
+
+    // Xử lý submit form sửa đơn hàng
+    if (editForm) {
+        editForm.addEventListener("submit", function (e) {
+            e.preventDefault();
+            // TODO: Gửi dữ liệu cập nhật lên server
+            alert("Cập nhật đơn hàng thành công!");
+            hideAllModals();
+        });
+    }
+
+    // Hàm đóng tất cả các modal
+    function hideAllModals() {
+        if (modal) modal.style.display = "none";
+        if (editModal) editModal.style.display = "none";
+        if (viewModal) viewModal.style.display = "none";
     };
 
-    editForm.onsubmit = (e) => {
-        e.preventDefault();
-
-        if (!currentEditingRow) return;
-
-        const ma = editForm['edit-ma'].value.trim();
-        const ngay = editForm['edit-ngay'].value;
-        const nguoi = editForm['edit-nguoi'].value.trim();
-        const tong = editForm['edit-tong'].value.trim();
-        const thanhtoan = editForm['edit-thanhtoan'].value.trim();
-        const vanchuyen = editForm['edit-vanchuyen'].value.trim();
-
-        if (!ma) return alert("Mã đơn hàng không được để trống");
-
-        currentEditingRow.innerHTML = `
-            <td>${ma}</td>
-            <td>${ngay}</td>
-            <td>${nguoi}</td>
-            <td>${tong}</td>
-            <td>${thanhtoan}</td>
-            <td>${vanchuyen}</td>
-            <td style="text-align:center">
-                <i class="fas fa-edit edit-order" style="cursor: pointer;"></i>
-                <i class="fas fa-minus delete-order" style="cursor: pointer; color: red;"></i>
-            </td>
-            <td style="text-align:center">
-                <button class="view-order">Xem thêm</button>
-            </td>
-        `;
-
-        editModal.style.display = 'none';
-        editForm.reset();
-        currentEditingRow = null;
+    // Điều hướng tab
+    window.redirectTo = function (url) {
+        window.location.href = url;
     };
 
-    updateCount();
+    // Hàm này nên được hoàn thiện khi có dữ liệu cụ thể từ PHP hoặc API
+    function fillEditForm(orderId) {
+        // TODO: AJAX lấy dữ liệu chi tiết đơn hàng theo orderId và fill vào form
+        console.log("Fill dữ liệu cho đơn hàng ID: " + orderId);
+        // Ví dụ:
+        // document.getElementById("edit-ma").value = orderId;
+        // document.getElementById("edit-ngay").value = "2024-04-13";
+        // ...
+    };
 });
-
-function redirectTo(page) {
-    window.location.href = page; // Chuyển hướng đến trang login.php hoặc register.php
-
-}

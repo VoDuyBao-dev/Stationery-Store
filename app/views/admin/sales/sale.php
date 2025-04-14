@@ -122,15 +122,15 @@
                             <label for="code">Mã giảm giá:</label>
                             <input type="text" id="code" name="code" value="<?php echo $coupon['code'] ?>" readonly>
                             <label for="price_min">Giá tối thiểu:</label>
-                            <input type="number" name="price_min" value="<?php echo $coupon['price_min'] ?>" required>
+                            <input type="number" name="price_min" id="price_min" value="<?php echo $coupon['price_min'] ?>" required>
                             <label for="discount">Giảm (%):</label>
-                            <input type="number" name="discount" value="<?php echo $coupon['discount'] ?>" required min="0" max="100">
+                            <input type="number" name="discount" id="discount" value="<?php echo $coupon['discount'] ?>" required min="0" max="100">
                             <label for="start_date">Ngày bắt đầu:</label>
-                            <input type="date" name="start_date" value="<?php echo date('Y-m-d', strtotime($coupon['start_date'])); ?>">
+                            <input type="date" name="start_date" id="start_date" value="<?php echo date('Y-m-d', strtotime($coupon['start_date'])); ?>">
                             <label for="end_date">Ngày kết thúc:</label>
-                            <input type="date" name="end_date" value="<?php echo date('Y-m-d', strtotime($coupon['end_date'])); ?>">
+                            <input type="date" name="end_date" id="end_date" value="<?php echo date('Y-m-d', strtotime($coupon['end_date'])); ?>">
                             <label for="status">Trạng thái:</label>
-                            <select id="status" name="status">
+                            <select id="status" name="status" id="status">
                                 <option value="1">Đang áp dụng</option>
                                 <option value="0">Hết hạn</option>
                             </select>
@@ -150,7 +150,7 @@
                     <h3>Bạn có chắc chắn muốn xóa khuyến mãi này?</h3>
                     <div class="form-actions">
                         <input type="hidden" name="coupon_id" id="delete-coupon-id">
-                        <button id="cancelDeleteBtn" class="cancel-btn">Hủy</button>
+                        <button id="cancelDeleteBtn" class="cancel-btn" type="button">Hủy</button>
                         <button id="confirmDeleteBtn" type='submit'>Xóa</button>
                     </div>
                 </div>
@@ -158,6 +158,9 @@
         </div>
         <?php require_once _DIR_ROOT . "/app/views/blocks/footer.php"; ?>
     </main>
+    <script>
+        const baseURL = "<?php echo _BASE_URL; ?>";
+    </script>
     <script src="<?php echo _WEB_ROOT; ?>/public/assets/clients/js/admin/sales/sale.js"></script>
 </body>
 

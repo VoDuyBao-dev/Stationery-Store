@@ -22,7 +22,6 @@ class Coupon extends Controller
     public function khuyenmai()
     {
         $coupons = $this->couponModel->getAllCoupons();
-
         $this->render("admin/sales/sale",  ['coupons' => $coupons]);
     }
 
@@ -62,6 +61,10 @@ class Coupon extends Controller
             header('Location: ' . _BASE_URL . '/sale');
             exit;
         }
+        if ($_POST['start_date'] < date('Y-m-d H:i:s') || $_POST['end_date'] < date('Y-m-d H:i:s')) {
+            header('Location: ' . _BASE_URL . '/sale');
+            exit;
+        }
         $data = [
             'price_min' => $_POST['price_min'],
             'discount' => $_POST['discount'],
@@ -73,6 +76,29 @@ class Coupon extends Controller
         $this->couponModel->addCoupon($data);
         header('Location: ' . _BASE_URL . '/sale');
     }
+
+    public function show($id)
+    {
+        // Lấy dữ liệu coupon từ model
+        $coupon = $this->couponModel->getCouponById($id);
+
+        // Đảm bảo $coupon không phải là null hoặc không hợp lệ
+        if ($coupon === null) {
+            // Nếu không tìm thấy coupon, trả về lỗi 404 hoặc thông báo lỗi
+            http_response_code(404);
+            echo json_encode(['error' => 'Coupon not found']);
+        } else {
+            // Đặt header JSON trước khi trả về dữ liệu
+            header('Content-Type: application/json');
+
+            // Trả về dữ liệu JSON
+            echo json_encode($coupon);
+        }
+
+        // Dừng thực thi tiếp theo
+        exit();
+    }
+
 
     // Cập nhật mã giảm giá
     public function update()
@@ -110,7 +136,10 @@ class Coupon extends Controller
             header('Location: ' . _BASE_URL . '/sale');
             exit;
         }
-
+        if ($_POST['start_date'] < date('Y-m-d H:i:s') || $_POST['end_date'] < date('Y-m-d H:i:s')) {
+            header('Location: ' . _BASE_URL . '/sale');
+            exit;
+        }
 
         $data = [
             'price_min' => $_POST['price_min'],

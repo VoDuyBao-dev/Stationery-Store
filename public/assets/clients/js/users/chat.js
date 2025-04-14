@@ -24,25 +24,25 @@ document.querySelector("form").onsubmit = function () {
 };
 
 
-document.getElementById('chatForm').addEventListener('submit', function (e) {
-    e.preventDefault(); // Ngăn form gửi thông thường
+// document.getElementById('chatForm').addEventListener('submit', function (e) {
+//     e.preventDefault(); // Ngăn form gửi thông thường
 
-    const formData = new FormData(this);
+//     const formData = new FormData(this);
 
-    fetch('<?php echo _BASE_URL; ?>/chat/sendMessage', {
-        method: 'POST',
-        body: formData
-    })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                // Thêm tin nhắn mới vào giao diện
-                const chatBox = document.getElementById('chatBox');
-                chatBox.innerHTML += `<div>${data.message}</div>`;
-                document.getElementById('message').value = ''; // Xóa nội dung tin nhắn
-            } else {
-                alert(data.error);
-            }
-        })
-        .catch(error => console.error('Lỗi:', error));
-});
+//     fetch('<?php echo _BASE_URL; ?>/chat/sendMessage', {
+//         method: 'POST',
+//         body: formData
+//     })
+//         .then(response => response.json())
+//         .then(data => {
+//             if (data.success) {
+//                 // Thêm tin nhắn mới vào giao diện
+//                 const chatBox = document.getElementById('chatBox');
+//                 chatBox.innerHTML += `<div>${data.message}</div>`;
+//                 document.getElementById('message').value = ''; // Xóa nội dung tin nhắn
+//             } else {
+//                 alert(data.error);
+//             }
+//         })
+//         .catch(error => console.error('Lỗi:', error));
+// });
