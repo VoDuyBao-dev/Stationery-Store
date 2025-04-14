@@ -34,18 +34,23 @@ $flashSale_products = $flashSale_products ?? [];
             margin-left: 280px;
         }
     </style>
-
     <title>Trang chủ</title>
+   
+
   </head>
   <body>
   <header>
     <?php  require_once _DIR_ROOT . "/app/views/blocks/header.php";?>
-  </header>  
+</header>  
 
-  <menu>
+<menu>
+
     <?php  require_once _DIR_ROOT . "/app/views/blocks/menu.php";?>
-  </menu> 
-  <main>
+</menu> 
+<main>
+
+
+
   <?php if ($message = Helpers::getFlash('error_params')): ?>
     <div><?php echo $message; ?></div>
 <?php endif; ?>
@@ -115,17 +120,18 @@ $flashSale_products = $flashSale_products ?? [];
       <div class="container">
         <div class="block-title">
           <h2>
-            <a href="" title="Flash sale"
-              ><img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/fs.png" alt="fash-sale"
-            /></a>
+           
+              <img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/fs.png" alt="fash-sale"
+            />
           </h2>
         </div>
         <div class="block-product">
-
-           <!-- list Sản phẩm flash sale -->
+        
+          <!-- list Sản phẩm flash sale -->
         <?php if (!empty($flashSale_products)): ?>
           <?php foreach($flashSale_products as $product):?>
-            <div class="product-card">
+          
+          <div class="product-card">
             <img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/products/<?= $product['image'] ?>" alt="Hộp bút" />
             <div class="product-name"><?= $product['product_name'] ?></div>
             <div class="price">
@@ -140,6 +146,10 @@ $flashSale_products = $flashSale_products ?? [];
     <div><?php echo $message; ?></div>
 <?php endif; ?>
     <?php endif; ?>
+
+    
+
+        </div>
         <div class="fa-solid fa-arrow-left"></div>
         <div class="fa-solid fa-arrow-right"></div>
       </div>
@@ -148,12 +158,12 @@ $flashSale_products = $flashSale_products ?? [];
     <section class="section-4">
       <div class="container">
         <div class="block-title">
-          <h2><a href="spnb">Sản phẩm nổi bật</a></h2>
+          <h2> Sản phẩm nổi bật</h2>
         </div>
         <div class="block-product">
           <div class="product-featured-swiper">
-          <!-- List Sản phẩm  -->
-          <?php if (!empty($outstanding_products)): ?>
+            <!-- List Sản phẩm  -->
+            <?php if (!empty($outstanding_products)): ?>
              <?php foreach($outstanding_products as $product):?>
               <div class="product-block" onclick="viewProduct('<?= $product['product_name'] ?>',<?= $product['product_id'] ?>,<?= $product['product_type_id'] ?> )" style="cursor: pointer;">
                 <div class="product-block-item">
@@ -172,9 +182,10 @@ $flashSale_products = $flashSale_products ?? [];
               <?php if ($message = Helpers::getFlash('empty_outstanding_products')): ?>
                   <div><?php echo $message; ?></div>
               <?php endif; ?>
-                  <?php endif; ?>  
+                  <?php endif; ?>
+            
           </div>
-        </div> 
+        </div>
         <div class="swiper-pagination">
           <span
             class="swiper-pagination-bullet swiper-pagination-bullet-active"
@@ -191,9 +202,9 @@ $flashSale_products = $flashSale_products ?? [];
         <div class="container">
           <div class="content">
             <div class="block-title clearfix">
-              <h2>Văn phòng phẩm cho bạn</h2>
-              <ul class="tab-menu">
-              <?php foreach ($categories as $index => $category): ?>
+            <h2>Văn phòng phẩm cho bạn</h2>
+    <ul class="tab-menu">
+    <?php foreach ($categories as $index => $category): ?>
         <li class="tabs-title <?= $index === 0 ? 'active' : '' ?>" 
             data-tab="tab<?= $index + 1 ?>" 
             data-id="<?= $category['category_id'] ?>">
@@ -201,10 +212,11 @@ $flashSale_products = $flashSale_products ?? [];
         </li>
     <?php endforeach; ?>
 </ul>
-            </div> 
-            <div class="tab-1 tab-content current">
-              <div class="product-list">
-                <!-- Các sản phẩm sẽ được hiển thị ở đây sau khi JS xử lý -->
+            </div>
+
+            <div class="tab-1 tab-content current" id="tab1">
+    <div class="product-list">
+        <!-- Các sản phẩm sẽ được hiển thị ở đây sau khi JS xử lý -->
     </div>
 </div>
               <div class="swiper-pagination">
@@ -215,7 +227,108 @@ $flashSale_products = $flashSale_products ?? [];
         </div>
       </section>
     </section>
-    <script type="text/javascript" src="<?php echo _WEB_ROOT;?>/public/assets/client/js/TrangChu.js"></script>
+    <script>
+document.addEventListener("DOMContentLoaded", function () {
+    const tabs = document.querySelectorAll(".tabs-title");
+    const productContainer = document.querySelector(".tab-1 .product-list");
+
+    function loadProducts(categoryId) {
+      
+
+        fetch(`/<?=_NAME_PROJECT?>/getProductsBy_category?category_id=${categoryId}`)
+            .then(response => response.text()) // Chuyển về text trước để kiểm tra lỗi
+            .then(text => {
+                return JSON.parse(text);
+            })
+            .then(data => {
+                console.log("Dữ liệu nhận được:", data);
+
+                productContainer.innerHTML = ""; // Xóa nội dung cũ
+
+                if (!Array.isArray(data)) {
+                    productContainer.innerHTML = `<p>Lỗi: Dữ liệu không hợp lệ!</p>`;
+                    return;
+                }
+
+                if (data.length === 0) {
+                    productContainer.innerHTML = `<p>Không có sản phẩm nào.</p>`;
+                    return;
+                }
+
+                data.forEach(product => {
+                    let productDiv = document.createElement("div");
+                    productDiv.classList.add("product");
+
+                    let productLink = document.createElement("a");
+                    productLink.href = `<?php echo _WEB_ROOT;?>/thong-tin-sp/${product.product_name}/${product.product_id}/${product.product_type_id}`;
+
+                    let productImage = document.createElement("img");
+                    productImage.src = `<?php echo _WEB_ROOT;?>/public/assets/clients/images/products/${product.image || 'default.jpg'}`;
+                    productImage.alt = product.product_name;
+                    productImage.width = 150;
+                    productImage.height = 150;
+
+                    productLink.appendChild(productImage);
+
+                    let productInfo = document.createElement("div");
+                    productInfo.classList.add("product-info");
+
+                    let productName = document.createElement("a");
+                    productName.href = `<?php echo _WEB_ROOT;?>/thong-tin-sp/${product.product_name}/${product.product_id}/${product.product_type_id}`;
+                    productName.innerText = product.product_name;
+
+                    let priceContainer = document.createElement("div");
+                    priceContainer.classList.add("product-price");
+
+                    let price = document.createElement("span");
+                    price.classList.add("price");
+                    price.innerText = product.priceCurrent ? product.priceCurrent + "₫" : "Liên hệ";
+
+                    priceContainer.appendChild(price);
+
+                    if (product.priceOld) {
+                        let oldPrice = document.createElement("span");
+                        oldPrice.classList.add("old-price");
+                        oldPrice.innerText = product.priceOld + "₫";
+                        priceContainer.appendChild(oldPrice);
+                    }
+
+                    productInfo.appendChild(productName);
+                    productInfo.appendChild(priceContainer);
+
+                    productDiv.appendChild(productLink);
+                    productDiv.appendChild(productInfo);
+
+                    productContainer.appendChild(productDiv);
+                });
+
+                document.querySelector(".tab-1").classList.add("current");
+            })
+            .catch(error => {
+                console.error("Lỗi:", error);
+                productContainer.innerHTML = `<p>Lỗi tải dữ liệu!</p>`;
+            });
+    }
+
+    tabs.forEach(tab => {
+        tab.addEventListener("click", function () {
+            tabs.forEach(t => t.classList.remove("active"));
+            document.querySelectorAll(".tab-content").forEach(c => c.classList.remove("current"));
+
+            this.classList.add("active");
+
+            let categoryId = this.getAttribute("data-id");
+            loadProducts(categoryId);
+        });
+    });
+
+    // Kích hoạt tab đầu tiên khi tải trang
+    if (tabs.length > 0) {
+        tabs[0].click();
+    }
+});
+
+    </script>
     <!-- ========= Dịch vụ =========== -->
     <section class="section-6">
       <section class="section-service">
@@ -283,8 +396,7 @@ $flashSale_products = $flashSale_products ?? [];
         </div>
       </section>
     </section>
-    <!-- ========== Footer ========== -->
-    <?php  require_once _DIR_ROOT . "/app/views/blocks/footer.php";?>
-  </main>
+   <?php  require_once _DIR_ROOT . "/app/views/blocks/footer.php";?>
+   </main>
   </body>
 </html>

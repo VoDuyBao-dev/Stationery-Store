@@ -28,6 +28,8 @@ class Database
                     $types .= 's';
                 } elseif (is_float($param)) {
                     $types .= 'd';
+                }else {
+                    $types .= 's'; // mặc định chuỗi
                 }
             }
             $stmt->bind_param($types, ...$params);
@@ -85,6 +87,12 @@ class Database
             throw $e;
         }
     }
+
+    public function getInsertId()
+    {
+        return $this->conn->insert_id;
+    }
+
 
     public function close()
     {

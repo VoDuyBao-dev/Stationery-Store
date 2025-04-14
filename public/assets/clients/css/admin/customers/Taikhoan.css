@@ -163,3 +163,26 @@
     text-align: center;
     width: 110px; /* Chiều rộng cố định cho Hành động */
   }
+  .success-message {
+    background-color: #d4edda; /* Xanh lá nhạt */
+    color: #155724; /* Xanh lá đậm */
+    padding: 12px;
+    border: 1px solid #c3e6cb;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.error-message {
+    background-color: #f8d7da; /* Đỏ nhạt */
+    color: #721c24; /* Đỏ đậm */
+    padding: 12px;
+    border: 1px solid #f5c6cb;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+}
