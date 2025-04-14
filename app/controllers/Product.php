@@ -167,9 +167,26 @@ class Product extends Controller
 
     public function sanpham()
     {
-        $this->render("products/ProductCategory");
-    }
+        $allProduct = $this->productModel->getAll_Product();
+        if(!$allProduct){
+            Helpers::setFlash("message", "Không có sản phẩm!");
+            header("Location:" . _WEB_ROOT . "/all_product");
+            exit();
 
-    
+        }
+        $data = [
+            'allProduct' => $allProduct
+        ];
+        $this->render("products/ProductCategory", $data);
+    }
+    // tới lấy hết sản pham h render rea thôi
+    public function search()
+    {
+        $this->render("users/search/ketquatimkiem");
+    }
+    public function notfound()
+    {
+        $this->render("users/search/notfound");
+    }
 
 }

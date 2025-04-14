@@ -203,4 +203,32 @@ class ProductModel extends Model
         return $result;
     }
 
+    // lấy tất cả sản phẩm để hiển thị trong trang all product
+    public function getAll_Product(){
+        $sql = "
+            SELECT 
+                p.product_id,
+                p.name AS product_name,
+                pt.product_type_id,
+                pt.image,
+                pt.priceOld,
+                pt.priceCurrent,
+                pt.discount_price
+            FROM products p
+            JOIN (
+                SELECT * FROM product_type
+                WHERE product_type_id IN (
+                    SELECT MIN(product_type_id)
+                    FROM product_type
+                    GROUP BY product_id
+                )
+            ) pt ON p.product_id = pt.product_id
+            ORDER BY  p.name ASC;
+            ";
+
+        $result = $this->fetchAll($sql);
+        
+        return $result;
+        
+    }
 }

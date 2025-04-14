@@ -21,7 +21,7 @@ $routes['dang-xuat'] = 'user/signout';
 $routes['forgot_pass'] = 'user/forgot_pass';
 $routes['change_password'] = 'user/change_password';
 
-$routes['chinh-sua-thong-tin'] = 'user/chinhsua';
+$routes['chinh-sua-thong-tin'] = 'user/editInfomation';
 // Lấy các sản phẩm tùy vào lưaj chọn danh mục ở Văn phòng phẩm cho bạn ở trang chủ
 $routes['getProductsBy_category'] = 'product/getProductsBy_category';
 
@@ -67,11 +67,11 @@ $routes['taosp'] = 'AdminManageUser/taosp';
 $routes['daxuly'] = 'AdminManageUser/done';
 $routes['canxuly'] = 'AdminManageUser/canxuly';
 
-// 1cái page not found
+
 $routes['all_product'] = 'product/sanpham';
 $routes['phan-hoi'] = 'user/reply';
-$routes['kqtim-kiem'] = 'user/search';
-$routes['notfound'] = 'user/notfound';
+$routes['kqtim-kiem'] = 'product/search';
+$routes['notfound'] = 'product/notfound';
 
 
 

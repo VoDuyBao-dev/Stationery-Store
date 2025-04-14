@@ -170,7 +170,13 @@ class UserModel extends Model
        
     }
 
-    
+    public function updateInformation($fullname, $sdt, $address, $id){
+        $sql = "UPDATE users SET fullname = ?, phone = ?, address = ? WHERE user_id = ?";
+        $params = [$fullname,$sdt,$address,$id];
+
+        $affectedRows = $this->execute($sql, $params);
+        return $affectedRows>0;
+    }
 
 
 }
