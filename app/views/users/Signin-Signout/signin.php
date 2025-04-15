@@ -65,6 +65,11 @@ use core\Helpers;
             <button type="submit" name="submit-signin" class="btn">Đăng nhập</button>
 
         </form>
+
+        
+    </div>
+    <div>
+    <a href="<?= $url ?? ''?>">Đăng nhập với google</a>
     </div>
 
 

@@ -84,21 +84,21 @@
                                         case '2':
                                             echo 'Đã hủy';
                                             break;
-                                        case '3':
-                                            echo 'Đã giao';
-                                            break;
                                         default:
                                             echo 'Không xác định';
                                     } ?></td>
+                                <!--Trạng thái 0: chờ xác nhận nên có thể sửa thôn tin đơn hàng.
+                                tráng thái 1: đang giao hàng nên có thể hủy
+                                trạng thái 2: đã hủy nên có thể xóa 
+                                vì là giao diện cho đơn cần xử lí nên không có trạng thái 3(đã giao thành công)-->
                                 <?php if ($order['trangThaiGiao'] == 0) : ?>
                                     <td><button class="edit-btn" data-id="<?php echo $order['order_id']; ?>">Sửa</button></td>
                                 <?php elseif ($order['trangThaiGiao'] == 1) : ?>
-                                    <td><button class="delete-btn" data-id="<?php echo $order['order_id']; ?>">Xóa</button></td>
+                                    <td><button class="huy-bn" data-id="<?php echo $order['order_id']; ?>">Hủy đơn</button></td>
                                 <?php else: ?>
-                                    <td><button style="background-color: gray; color: #e0dada; opacity: 0.4; cursor: not-allowed;" disabled>Xóa</button></td>
+                                    <td><button class="delete-btn" data-id="<?php echo $order['order_id']; ?>">Xóa</button></td>
                                 <?php endif; ?>
-                                <td><button class="view-btn" data-id="<?php echo $order['order_id']; ?>">Xem chi tiết</button></td>
-
+                                <td><button class="viewOrderDetail-btn" data-id="<?php echo $order['order_id']; ?>">Xem chi tiết</button></td>
                             </tr>
                         <?php endforeach; ?>
                     <?php endif; ?>
@@ -141,36 +141,6 @@
                     </form>
                 </div>
             </div>
-
-
-            <!-- Modal hiển thị chi tiết đơn hàng -->
-            <div id="viewModal" style="display: none;">
-                <table id="order-table">
-                    <thead>
-                        <tr>
-                            <th>STT</th>
-                            <th>Tên đơn hàng</th>
-                            <th>SĐT</th>
-                            <th>Địa chỉ</th>
-                            <th>Ghi chú</th>
-                            <th>Sản phẩm</th>
-                            <th>Giá sản phẩm</th>
-                            <th>Số lượng</th>
-                            <th>Giá</th>
-                            <th>Giá vận chuyển</th>
-                            <th>Giá cuối cùng</th>
-                        </tr>
-                    </thead>
-                    <tbody id="order-details-table-body"></tbody>
-                </table>
-
-                <!-- Nút Sửa sẽ được hiển thị nếu trạng thái giao là 0 -->
-                <div style="text-align: right; margin-top: 10px;">
-                    <button id="editOrderBtn" style="display: none;">Sửa</button>
-                    <button onclick="document.getElementById('viewModal').style.display='none'">Đóng</button>
-                </div>
-            </div>
-
 
             <!-- Sủa thông tin đơn hàng -->
             <div id="editModal" class="modal">
@@ -221,6 +191,72 @@
                     </div>
                 </div>
             </div>
+
+
+            <!-- Modal hiển thị chi tiết đơn hàng -->
+            <div id="viewDetailModal" class="modal">
+                <span class="close">&times;</span>
+                <table id="orderDetailtable">
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Tên đơn hàng</th>
+                            <th>SĐT</th>
+                            <th>Địa chỉ</th>
+                            <th>Ghi chú</th>
+                            <th>Sản phẩm</th>
+                            <th>Giá sản phẩm</th>
+                            <th>Số lượng</th>
+                            <th>Giá </th>
+                            <th>Giá vận chuyển</th>
+                            <th>Giá cuối cùng</th>
+                        </tr>
+                    </thead>
+                    <tbody id="order-details-table-body"></tbody>
+                </table>
+
+                <!-- Nút Sửa sẽ được hiển thị nếu trạng thái giao là 0 -->
+                <div style="text-align: right; margin-bottom: 10px;">
+                    <button id="xacNhan" value="">Xác nhận</button>
+                </div>
+            </div>
+
+
+            <!-- Sửa chi tiết đơn hàng -->
+            <div id="editDetailModal" class="modal">
+                <span class="close">&times;</span>
+                <form id="editOrderDetailForm" method="POST" action="<?php echo _WEB_ROOT ?>/updateOrderDetail">
+                    <input type="hidden" name="order_detail_id" id="edit_order_detail_id">
+                    <input type="hidden" name="order_id" id="edit_order_id">
+
+                    <label>Tên đơn hàng:</label>
+                    <input type="text" name="tenDonHang" id="edit_tenDonHang" required><br>
+
+                    <label>Số điện thoại:</label>
+                    <input type="text" name="phone" id="edit_phone" required><br>
+
+                    <label>Địa chỉ:</label>
+                    <input type="text" name="address" id="edit_address" required><br>
+
+                    <label>Ghi chú:</label>
+                    <textarea name="ghiChu" id="edit_ghiChu"></textarea><br>
+
+                    <label>Giá sản phẩm:</label>
+                    <input type="number" name="edit_priceCurrent" id="edit_priceCurrent" step="0.01" readonly><br>
+
+                    <label>Số lượng:</label>
+                    <input type="number" name="quantity" id="edit_quantity" required><br>
+
+                    <label>Phương thức vận chuyển:</label>
+                    <select name="transport_id" id="edit_transport_id" required></select><br>
+
+                    <button type="submit">Cập nhật</button>
+                </form>
+            </div>
+
+
+
+
         </div>
         <?php require_once _DIR_ROOT . "/app/views/blocks/footer.php"; ?>
     </main>

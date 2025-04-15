@@ -26,8 +26,11 @@ class AdminManageUser extends Controller
     {
         $users = $this->adminModel->getAllUsers();
         $usersLock = $this->adminModel->getAllUsersLock();
-
-        $this->render("admin/customers/Taikhoan", ["users" => $users, "usersLock" => $usersLock]);
+        $data = [
+            "users" => $users,
+            "usersLock" => $usersLock
+        ];
+        $this->render("admin/customers/Taikhoan", $data);
     }
 
 
@@ -99,11 +102,6 @@ class AdminManageUser extends Controller
         Logger::logError("Lỗi ở method POST. Không có dữ liệu để khóa người dùng!");
         header("Location:" . _WEB_ROOT . "/manage_users");
         exit();
-    }
-
-    public function nguoidung()
-    {
-        $this->render("admin/customers/Taikhoan", []);
     }
 
 

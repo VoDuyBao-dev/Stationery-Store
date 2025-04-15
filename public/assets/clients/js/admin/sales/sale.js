@@ -34,7 +34,8 @@ document.addEventListener("DOMContentLoaded", function () {
         button.addEventListener('click', function () {
             const couponId = this.dataset.id;  // Lấy coupon_id từ data-id của button
             // Gửi yêu cầu AJAX để lấy dữ liệu chi tiết của coupon
-            fetch(`${baseURL}/update/` + couponId)
+            console.log(`${baseURL}/show/` + couponId);
+            fetch(`${baseURL}/show/` + couponId)
                 .then(response => response.json())
                 .then(data => {
                     // Điền dữ liệu vào các trường form

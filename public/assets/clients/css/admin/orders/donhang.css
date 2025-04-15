@@ -2,6 +2,8 @@ body {
     font-family: Arial, sans-serif;
     background-color: #f9f9f9;
     margin: 0;
+    box-sizing: border-box;
+    padding: 0;
 }
 
 .order-container {
@@ -148,12 +150,7 @@ select {
     width: 50%;
 }
 
-.form-actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-    margin-top: 20px;
-}
+
 
 .close {
     color: #aaa;
@@ -167,4 +164,182 @@ select {
     color: black;
     text-decoration: none;
     cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Modal nền */
+#viewDetailModal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    justify-content: center;
+    align-items: center;
+    overflow: auto;
+    padding: 20px;
+}
+
+
+/* Bảng hiển thị đơn hàng */
+#orderDetailtable {
+    border-collapse: collapse;
+    background-color: white;
+    margin-top: 20px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+}
+
+#orderDetailtable th,
+#orderDetailtable td {
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    text-align: center;
+}
+
+#orderDetailtable th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+
+/* Input và textarea readonly */
+#orderDetailtable input[readonly],
+#orderDetailtable textarea[readonly] {
+    border: none;
+    background-color: transparent;
+    width: 100%;
+    resize: none;
+    font-size: 14px;
+    text-align: center;
+}
+
+/* Button chung */
+#xacNhan {
+    padding: 8px 16px;
+    margin: 5px;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    font-size: 14px;
+    float: right;
+    margin-top: 15px;
+    background-color: #2e7d32;
+}
+
+
+#xacNhan:hover {
+    background-color: #1b5e20;
+}
+
+/* Nút sửa cho từng sản phẩm */
+.edit-item-btn {
+    background-color: #ca955f;
+    color: white;
+}
+
+.edit-item-btn:hover {
+    background-color: #a76846;
+}
+
+
+
+
+
+/* Nội dung modal */
+#editDetailModal form {
+    background-color: #fff;
+    margin: auto;
+    padding: 30px;
+    border-radius: 12px;
+    width: 500px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    position: relative;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Nút đóng */
+#editDetailModal .close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#editDetailModal .close:hover {
+    color: #000;
+}
+
+/* Các label và input */
+#editDetailModal label {
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 6px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+#editDetailModal input[type="text"],
+#editDetailModal input[type="number"],
+#editDetailModal textarea,
+#editDetailModal select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+/* Textarea height */
+#editDetailModal textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+/* Nút submit */
+#editDetailModal button[type="submit"] {
+    margin-top: 20px;
+    padding: 10px 18px;
+    background-color: #2e86de;
+    border: none;
+    color: white;
+    font-size: 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s;
+}
+
+
+/* Animation mở modal */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }

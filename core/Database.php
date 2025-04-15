@@ -15,6 +15,7 @@ class Database
     public function query($sql, $params = [])
     {
         $stmt = $this->conn->prepare($sql);
+
         if (!$stmt) {
             Logger::logError("Lỗi khi chuẩn bị truy vấn!" . $this->conn->error);
             throw new \Exception("Lỗi khi chuẩn bị truy vấn");
@@ -28,6 +29,8 @@ class Database
                     $types .= 's';
                 } elseif (is_float($param)) {
                     $types .= 'd';
+                } else {
+                    $types .= 's'; // mặc định chuỗi
                 }
             }
             // gán dữ liệu vào phần value() của câu lệnh SQL
@@ -35,6 +38,7 @@ class Database
         }
 
         $stmt->execute();
+
         return $stmt;
     }
 
@@ -86,6 +90,12 @@ class Database
             throw $e;
         }
     }
+
+    public function getInsertId()
+    {
+        return $this->conn->insert_id;
+    }
+
 
     public function close()
     {

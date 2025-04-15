@@ -79,6 +79,7 @@ class Coupon extends Controller
 
     public function show($id)
     {
+        $id = $id[0];
         // Lấy dữ liệu coupon từ model
         $coupon = $this->couponModel->getCouponById($id);
 

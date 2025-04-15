@@ -54,12 +54,10 @@ class Chat extends Controller
             header("Location:" . _BASE_URL . "/dang-nhap");
             exit;
         }
-        $receiverId = (int)$user_id;
+        $receiverId = $user_id[0];
         $sender_id = $_SESSION['user']['user_id']; // ID của user đang đăng nhập
-        $role = $_SESSION['user']['role'] == "admin" ? "admin" : "user"; // Lấy role của người nhận
-
+        $role = $_SESSION['user']['role']; // Lấy role của người nhận
         $messages = $this->chatModel->getMessages($sender_id, $receiverId);
-
         if ($_SESSION['user']['role'] == "admin") {
             $chatList = $this->chatModel->getChatList($sender_id, $role);
         } else $chatList = "";

@@ -74,7 +74,8 @@
                                 <td><?php echo $order['created_at']; ?></td>
                                 <td><?php echo $order['fullname']; ?></td>
                                 <td><?php echo $order['updated_at']; ?></td>
-                                <td><button class="delete-btn" data-id="<?= $order['order_id'] ?>">Xóa</button></td>
+                                <td><button class="delete-btn" data-id="<?= $order['order_id'] ?>">Xem chi tiết</button></td>
+                                <!-- vì đơn hàng đã hoàn thành nên không nên xóa để có dữ liệu làm báo cáo doanh thu -->
                             </tr>
                         <?php endforeach; ?>
                     <?php endif; ?>

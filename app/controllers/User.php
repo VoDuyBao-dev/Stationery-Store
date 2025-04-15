@@ -1,5 +1,7 @@
 <?php
+require_once _DIR_ROOT . '/app/models/TransportModel.php';
 
+use App\Logger;
 use core\OtpService;
 use core\Helpers;
 
@@ -16,7 +18,7 @@ class User extends Controller
                 throw new Exception("Lỗi trong quá trình tạo đối tượng");
             }
         } catch (Exception $e) {
-            header("Location:" . _BASE_URL . "/app/errors/loichung.php?message=" . urlencode($e->getMessage()));
+            header("Location:" . _WEB_ROOT . "/app/errors/loichung.php?message=" . urlencode($e->getMessage()));
             exit;
         }
     }
@@ -25,6 +27,7 @@ class User extends Controller
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $action = $_POST['action'] ?? 'default';
+
             $otp = implode('', $_POST['otp']);
             $otpService = new OtpService();
             $otpIsValid = $otpService->isValidOtp($otp);
@@ -38,12 +41,12 @@ class User extends Controller
                         $this->change_password();
                         break;
                     default:
-                        header("Location:" . _BASE_URL . "/app/errors/loichung.php?message=Action không hợp lệ! $action");
+                        header("Location:" . _WEB_ROOT . "/app/errors/loichung.php?message=Action không hợp lệ! $action");
                         exit();
                 }
             } else {
                 $messages['error_otp'] = $otpIsValid;
-                $this->render("users/otp", $messages);
+                $this->render("users/Signin-Signout/otp", $messages);
                 return;
             }
             // Xử lý tới đây rồi: chuyền mess vào để hiển thị lỗi và xóa bớt bên xử lý kia
@@ -54,6 +57,7 @@ class User extends Controller
 
     public function nhap_otp()
     {
+
         $this->render("users/Signin-Signout/otp");
     }
 
@@ -105,6 +109,7 @@ class User extends Controller
             $password = password_hash($password, PASSWORD_DEFAULT);
 
             $_SESSION['register_data'] = compact('fullname', 'sdt', 'email', 'password');
+
             //            Gửi mã otp
             $otpService = new OtpService();
             try {
@@ -129,7 +134,7 @@ class User extends Controller
         $result = false;
 
         $data = $_SESSION['register_data'];
-        $result = $this->userModel->createUser(
+        $result = $this->userModel->insertUser(
             $data['fullname'],
             $data['sdt'],
             $data['email'],
@@ -142,7 +147,7 @@ class User extends Controller
             unset($_SESSION["otp"]);
             unset($_SESSION['register_data']);
             Helpers::setFlash('success', 'Đăng ký thành công!');
-            header("Location:" . _BASE_URL . "/dang-nhap");
+            header("Location:" . _WEB_ROOT . "/dang-nhap");
             exit();
         } else {
             $messages['$create_user'] = $result;
@@ -182,6 +187,14 @@ class User extends Controller
 
     public function signin()
     {
+        // Tạo đường dẫn để đi đến trang đăng nhập của google.
+        $googleService = new GoogleAuthService();
+        $client = $googleService->getClient();
+        $url = $client->createAuthUrl();
+
+        $data = [
+            'url' => $url
+        ];
 
         if (isset($_POST['submit-signin'])) {
             $email = strtolower(htmlspecialchars(trim($_POST['email'])));
@@ -197,22 +210,30 @@ class User extends Controller
                 exit();
             }
             $verifyUser = $this->userModel->verifyUser($email, $password);
+
             if (is_array($verifyUser)) {
+                //Nếu có cảnh báo đăng nhập quá số lần thì xóa khi nhập đúng mật khẩu
+                if (isset($_SESSION['warning_signin'])) {
+                    unset($_SESSION['warning_signin']);
+                }
+                // Kiểm tra tài khoản có bị khóa không
+                if ($verifyUser['status'] == 0) {
+                    $_SESSION['error'] = "Tài khoản của bạn đã bị khóa do hoạt động bất thường!";
+                    header("Location: " . _WEB_ROOT . "/dang-nhap");
+                    exit();
+                }
                 // Lấy thông tin người dùng
                 $_SESSION['user'] = $verifyUser;
                 //                reset bộ đếm dăng nhập sai
                 $_SESSION['signin_incorrect'] = 0;
                 // xóa session old email
                 unset($_SESSION['old_email']);
-                //                Nếu có cảnh báo đăng nhập quá số lần thì xóa khi đăng nhập thành công
-                if (isset($_SESSION['warning_signin'])) {
-                    unset($_SESSION['warning_signin']);
-                }
+
                 if ($verifyUser['role'] == 'admin') {
                     header("Location:" . _WEB_ROOT . "/admin_layout");
                     exit();
                 }
-                header("Location:" . _WEB_ROOT . "/home");
+                header("Location:" . _WEB_ROOT . "/trang-chu");
                 exit();
             } else {
                 $_SESSION['error'] = $verifyUser;
@@ -223,7 +244,16 @@ class User extends Controller
             }
         }
 
-        $this->render("users/Signin-Signout/signin");
+        $this->render("users/Signin-Signout/signin", $data);
+    }
+
+
+
+    public function signout()
+    {
+        unset($_SESSION['user']);
+        header("Location:" . _WEB_ROOT . "/dang-nhap");
+        exit();
     }
 
 
@@ -277,7 +307,7 @@ class User extends Controller
             $hashPassword = password_hash($newPassword, PASSWORD_DEFAULT);
 
             if (!isset($_SESSION['email'])) {
-                header("Location:" . _BASE_URL . "/app/errors/loichung.php?message=Không tìm thấy tài khoản cần đổi password!");
+                header("Location:" . _WEB_ROOT . "/app/errors/loichung.php?message=Không tìm thấy tài khoản cần đổi password!");
                 exit();
             }
             $result = $this->userModel->changePassword($_SESSION['email'], $hashPassword);
@@ -296,6 +326,46 @@ class User extends Controller
         $this->render("users/Signin-Signout/newpass");
     }
 
+    // Lấy thông tin người dùng  qua trang thanh toán làm thông tin mặc đinhj
+    public function UserInfor_Payment()
+    {
+        $transportModel = new TransportModel();
+        $listTransport = $transportModel->getAllTransport();
+        $data = [
+            'listTransport' => $listTransport,
+        ];
+        $this->render("users/payment/Payment", $data);
+    }
+
+    // Xử lý form đc thông tin người dùng thanh toán do ajax gửi request lên
+    public function handleUserInfor_Payment()
+    {
+        // Xử lý thông tin người dùng
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $id = $_SESSION['user']['user_id'];
+            $sdt = $_POST['phone'];
+
+            $result = $this->userModel->checkIDExists($id);
+            if (!$result) {
+                // Trả về lỗi nếu có vấn đề với thông tin người dùng
+                ob_clean();
+                echo json_encode(['success' => false, 'error' => 'Không tìm thấy người dùng trong hệ thống!']);
+                exit();
+            }
+
+            $regex = '/^(0|\+84)(\d{9,10})$/';
+            if (!preg_match($regex, $sdt)) {
+                ob_clean();
+                echo json_encode(['success' => false, 'error' => 'Số điện thoại không hợp lệ. Vui lòng kiểm tra lại!']);
+                exit();
+            }
+
+            ob_clean();
+            // Tiếp tục xử lý thông tin nếu không có lỗi
+            echo json_encode(['success' => true]);
+        }
+    }
+
 
     public function home()
     {
@@ -308,10 +378,10 @@ class User extends Controller
         $this->render("products/Thongtinchitiet");
     }
 
-    public function payment()
-    {
-        $this->render("users/payment/Payment");
-    }
+
+
+
+
 
     public function reply()
     {
@@ -331,11 +401,5 @@ class User extends Controller
     public function chinhsua()
     {
         $this->render("users/setting/chinhsuathongtin");
-    }
-    public function signout()
-    {
-        unset($_SESSION['user']);
-        header("Location:" . _WEB_ROOT . "/dang-nhap");
-        exit();
     }
 }

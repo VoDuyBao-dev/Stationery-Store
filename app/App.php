@@ -39,9 +39,9 @@ class App
     {
         $url = $this->getUrl();
 
-
         //        xử lý route
         $url = $this->__routes->handRoute($url);
+
 
         //        Tách url thành dạng mảng theo dấu '/'
         //      array_filter  sẽ loại bỏ các phần tử rỗng trong mảng.
@@ -92,8 +92,8 @@ class App
             //  và truyền các tham số cho nó dưới dạng mảng.
             //        http://localhost/home/index/123/456/789
             //        $controller = new Home(); // Khởi tạo đối tượng HomeController
-            //$controller->index(123, 456, 789); // Gọi phương thức index với tham số 123, 456, 789
-            call_user_func_array([$this->__controller, $this->__action], $this->__params);
+            //$controller->index([123, 456, 789]); // Gọi phương thức index với tham số 123, 456, 789
+            call_user_func_array([$this->__controller, $this->__action], [$this->__params]);
         } else {
             $this->loadError();
         }
@@ -103,7 +103,4 @@ class App
     {
         require_once "errors/$name.php";
     }
-
-    //    Hàm ghi log
-
 }
