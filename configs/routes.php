@@ -44,9 +44,12 @@ $routes['manage_users'] = 'AdminManageUser/listuser';
 
 
 
-$routes['thanh-toan'] = 'user/UserInfor_Payment';
+$routes['thanh-toan'] = 'user/getTransport_Payment';
 // // Xử lý form đc thông tin người dùng thanh toán do ajax gửi request lên
 $routes['handleUserInfor_Payment'] = 'user/handleUserInfor_Payment';
+
+// xử lý giá vận chuyển và coupon và tổng tiền phải thanh toán do ajax gửi request lên
+$routes['calculateTotal'] = 'payment/calculateTotal';
 
 // Xử lý form thông tin phương thức thanh toán và vận chuyển do ajax gửi request lên
 $routes['processPayment'] = 'payment/initPayment';
@@ -60,17 +63,19 @@ $routes['handleMomoIPN'] = 'MomoController/handleMomoIPN';
 $routes['handleMomoCallback'] = 'payment/handleMomoCallback';
 
 
-
 $routes['qlsp'] = 'AdminManageUser/qlsp';
 $routes['sale'] = 'AdminManageUser/khuyenmai';
 $routes['taosp'] = 'AdminManageUser/taosp';
 $routes['daxuly'] = 'AdminManageUser/done';
 $routes['canxuly'] = 'AdminManageUser/canxuly';
 
-
+// xong
 $routes['all_product'] = 'product/sanpham';
+
 $routes['phan-hoi'] = 'user/reply';
-$routes['kqtim-kiem'] = 'product/search';
+// xong
+$routes['kqtim-kiem'] = 'product/resultSearch';
+// bỏ trang not found này
 $routes['notfound'] = 'product/notfound';
 
 

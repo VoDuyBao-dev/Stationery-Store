@@ -342,12 +342,12 @@ class User extends Controller
                 exit();
             }
 
-        }   
+        }  
         $this->render("users/Signin-Signout/newpass");
     }
 
-   // Lấy thông tin người dùng  qua trang thanh toán làm thông tin mặc đinhj
-   public function UserInfor_Payment()
+   // Lấy thông tin vận chuyển  qua trang thanh toán 
+   public function getTransport_Payment()
    {
         $transportModel = new TransportModel();
         $listTransport = $transportModel->getAllTransport();
@@ -403,7 +403,7 @@ class User extends Controller
                 Helpers::setFlash('error_sdt', 'Số điện thoại không hợp lệ!');
                 $hasError = true;
             }else{
-                $checkSDT = $this->userModel->checkSDTExists($sdt);
+                $checkSDT = $this->userModel->checkSDTExists2($sdt, $user_id);
                 if($checkSDT === true){
                     Helpers::setFlash('error_address', 'Số điện thoại này đã được đăng ký.');
                     $hasError = true;

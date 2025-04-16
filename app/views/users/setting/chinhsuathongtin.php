@@ -32,21 +32,21 @@ $user = $_SESSION['user'] ?? "";
     
   <form action="<?php echo _WEB_ROOT;?>/chinh-sua-thong-tin" method="POST" id="profileForm">
     <label for="name">Họ và tên</label>
-    <input type="text" id="name" name="name" value="<?= htmlspecialchars($user['fullname']) ?>" placeholder="Nhập họ và tên" disabled required>
+    <input type="text" id="name" name="name" value="<?= htmlspecialchars($user['fullname']) ?>" placeholder="Nhập họ và tên" required>
 
     <label for="phone">Số điện thoại</label>
-    <input type="text" id="phone" name="phone" value="<?= htmlspecialchars($user['phone']) ?>" placeholder="Nhập số điện thoại" disabled required>
+    <input type="text" id="phone" name="phone" value="<?= htmlspecialchars($user['phone']) ?>" placeholder="Nhập số điện thoại" required>
 
     <?php if ($message = Helpers::getFlash('error_sdt')): ?>
     <div class="success-message"><?php echo $message; ?></div>
 <?php endif; ?>
 
     <label for="email">Email</label>
-    <input type="email" id="email" name="email" value="<?= htmlspecialchars($user['email']) ?>" readonly>
+    <input type="email" id="email" name="email" value="<?= htmlspecialchars($user['email']) ?>" disabled   readonly>
 
 
     <label for="address">Địa chỉ</label>  
-    <input type="text" id="address" name="address" value="<?= htmlspecialchars($user['address']) ?>" placeholder="Nhập địa chỉ" disabled required>
+    <input type="text" id="address" name="address" value="<?= htmlspecialchars($user['address']) ?>" placeholder="Nhập địa chỉ" required>
 
     <?php if ($message = Helpers::getFlash('error_address')): ?>
     <div class="success-message"><?php echo $message; ?></div>
@@ -54,19 +54,17 @@ $user = $_SESSION['user'] ?? "";
 
     <input type="hidden" name="user_id" value="<?=$user['user_id'] ?>">
     <div class="button-group">
-      <button type="button" onclick="enableEdit()" id="editBtn"  class="form-button">Sửa thông tin</button>
-      <button type="submit" name='submit' id="saveBtn" style="display: none;"  class="form-button">Lưu thay đổi</button>
+      <button type="submit" name="submit" id="editBtn"  class="form-button">Cập nhật thông tin</button>
+      
     </div>
   </form>
 </div>
 
 <script>
   function enableEdit() {
-    const fields = document.querySelectorAll('#profileForm input');
-    fields.forEach(field => field.disabled = false);
 
     document.getElementById('editBtn').style.display = 'none';
-    document.getElementById('saveBtn').style.display = 'inline-block';
+    document.getElementById('profileForm').style.display = 'inline-block';
   }
 </script>
 

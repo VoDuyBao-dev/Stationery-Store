@@ -1,5 +1,5 @@
 <?php
-
+use core\Helpers;
 class Capnhatsoluong extends Controller
 {
     public function capnhat_soluong()
@@ -35,9 +35,10 @@ class Capnhatsoluong extends Controller
                      alt="' . htmlspecialchars($item['product_type_id']) . '">
                 <div class="cart-item-info">
                     <p>' . htmlspecialchars($item['product_name']) . '</p>
+                   
                     <p><strong>' . htmlspecialchars($item['name_product_type_id']) . '</strong></p>
-                    <p><strong>' . number_format((float)$item['priceCurrent']) . '₫</strong></p>
-                    <p><strong>' . number_format((float)$item['priceOld']) . '₫</strong></p>
+                    <p><strong>' .  Helpers::format_currency($item['priceCurrent']) . '</strong></p>
+                    <p><strong>' .  Helpers::format_currency($item['priceOld'])  . '</strong></p>
                 </div>
                 <div class="cart-item-controls">
                     <button type="button" onclick="giamsoluong(this)">-</button>
@@ -52,7 +53,7 @@ class Capnhatsoluong extends Controller
             </div>
             <div class="cart-total">
                 <span>Thành tiền:</span>
-                <span>' . number_format((float)$thanhtien) . '₫</span>
+                <span>' .  Helpers::format_currency($thanhtien)  . '</span>
             </div>';
         }
 

@@ -1,3 +1,6 @@
+<?php
+use core\Helpers;
+?>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -52,12 +55,13 @@
             $tongtien += $tt;?>
           
             <div class="cart-item">
-            <img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/products/<?= $item['image'];?>" alt="Túi 02 Ruột bút gel Buddies Thiên Long GR-028">
+            <img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/products/<?= $item['image'];?>" alt="<?= $item['product_name']?>">
             <div class="cart-item-info">
                 <p><?= $item['product_name']?></p>
                 <p><strong><?= $item['name_product_type_id']?></strong></p>
-                <p><strong><?= $item['priceCurrent']?>0₫</strong></p>
-                <p><strong><?= $item['priceOld']?>0₫</strong></p>
+                
+                <p><strong><?= Helpers::format_currency($item['priceCurrent']); ?></strong></p>
+                <p><strong><?= Helpers::format_currency($item['priceOld']); ?></strong></p>
             </div>
             <div class="cart-item-controls">
                 <button type="button" onclick="giamsoluong(this)">-</button>
@@ -70,7 +74,7 @@
             
             <div class="cart-total">
             <span>thành tiền:</span>
-            <span><?= $tt;?>₫</span>
+            <span><?= Helpers::format_currency($tt); ?></span>
 
         </div>
 
@@ -81,7 +85,7 @@
 
         <div  class="total">
             <span>Tổng tiền:</span>
-            <span id="tong-tien"><?= $tongtien;?>₫</span>
+            <span id="tong-tien"><?= Helpers::format_currency($tongtien); ?></span>
         </div>
        
        

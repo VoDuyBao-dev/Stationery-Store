@@ -1,20 +1,22 @@
   <header class="header">
     <div class="logo">
         <div class="logo-img">
-            <a href="<?php echo _WEB_ROOT; ?>/ "><img src="<?php echo _WEB_ROOT; ?> /public/assets/clients/images/logo.png" ></i></a>
+            <a href="<?php echo _WEB_ROOT; ?>/trang-chu"><img src="<?php echo _WEB_ROOT; ?> /public/assets/clients/images/logo.png" ></i></a>
         </div>
     </div>
 
     <div class="search-bar">
-        <input type="text" placeholder="Tìm kiếm sản phẩm...">
-        <button><i class="fas fa-search"></i></button>
+        <form action="<?php echo _WEB_ROOT; ?>/kqtim-kiem" method="GET">
+            <input type="text" name="keyword" placeholder="Tìm kiếm sản phẩm...">
+            <button type="submit"><i class="fas fa-search"></i></button>
+        </form>
+        
     </div>
 
     <div class="hotline">
         <i class="fab fa-whatsapp"></i>
         <span><b>Hotline:</b> 19006750</span>
     </div>
-
     <div class="icons">
         <div class="icon"><a href="<?php echo _WEB_ROOT . '/view_cart'; ?>"> <i class="fas fa-shopping-basket"></i><span class="badge">1</span></a></div>
         <div class="icon user-menu">

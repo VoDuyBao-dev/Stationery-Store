@@ -77,6 +77,7 @@ require_once "configs/google_client.php";
 
 // Load all Service
 require_once "app/services/OrderService.php"; 
+require_once "app/services/CouponService.php"; 
 require_once "app/services/VNPayPaymentProcessing.php";
 require_once "app/services/MomoPaymentProcessing.php";
 // load google service

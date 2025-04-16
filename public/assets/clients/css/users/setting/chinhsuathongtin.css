@@ -66,15 +66,6 @@ body {
     background: #dab071;
   }
   
-  #saveBtn {
-    background: #28a745;
-    color: white;
-  }
-  
-  #saveBtn:hover {
-    background: #1e7e34;
-  }
-  
   .button-group {
     display: flex;
     justify-content: center;
