@@ -46,10 +46,10 @@ use core\Helpers;
                     console.log(data);
                     document.querySelector("h2").innerText = data.name;
                     document.querySelector(".product_code").innerText = data.product_type_id;
-                    document.querySelector(".old-price").innerText = data.priceOld.toLocaleString() + "0đ";
+                    document.querySelector(".old-price").innerText = parseInt(data.priceOld).toLocaleString('vi-VN') + "₫";
                     document.querySelector(".price").innerHTML =
-                        data.priceCurrent.toLocaleString() + "0đ" +
-                        `<span class="old-price">${data.priceOld.toLocaleString()}0đ</span>`;
+                    parseInt(data.priceCurrent).toLocaleString('vi-VN') + "₫" +
+                    `<span class="old-price">${parseInt(data.priceOld).toLocaleString('vi-VN')}₫</span>`;
                     document.querySelector(".status").innerText = data.stock_quantity > 0 ? "Còn hàng" : "Hết hàng";
                     document.querySelector(".main-image").src = "<?php echo _WEB_ROOT;?>/public/assets/clients/images/products/" + data.image;
 
@@ -93,8 +93,9 @@ use core\Helpers;
         <!-- Thông tin sản phẩm -->
         <div class="product-info">
             <h2><?= $product['product_name']; ?></h2>
-            <p class="price"><?= $default_product_type['priceCurrent']; ?>0đ <span
-                        class="old-price"><?= $default_product_type['priceOld']; ?>0đ</span></p>
+            <p class="price"><?= Helpers::format_currency($default_product_type['priceCurrent']); ?> <span
+                        class="old-price"><?= Helpers::format_currency($default_product_type['priceOld']); ?></span></p>
+                        
             <p></p>
             <p><strong>Mã sản phẩm:</strong> <span
                         class="product_code"><?= $default_product_type['product_type_id']; ?></span></p>
@@ -443,8 +444,9 @@ use core\Helpers;
                                     <div class="product-info">
                                         <p><?= $product['product_name'] ?></p>
                                         <div class="product-price">
-                                            <span class="price"><?= $product['priceCurrent'] ?>0₫</span>
-                                            <span class="old-price"><?= $product['priceOld'] ?>0₫</span>
+                                        
+                                            <span class="price"> <?= Helpers::format_currency($product['priceCurrent']); ?></span>
+                                            <span class="old-price"><?= Helpers::format_currency($product['priceOld']); ?></span>
                                         </div>
                                     </div>
                                 </div>

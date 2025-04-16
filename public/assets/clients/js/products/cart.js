@@ -76,7 +76,7 @@ function capNhatSoLuong(productTypeId, quantity) {
 
 // Hàm format số
 function number_format(number) {
-    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 }
 
 function tangsoluong(button) {

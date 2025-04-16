@@ -127,7 +127,10 @@ class ProductModel extends Model
     }
 
     public function getAll_imageOfProduct($id_product){
-        $sql = "SELECT * FROM product_images where product_id = ?";
+        $sql = "SELECT pi.image_url
+            FROM product_images pi
+            JOIN product_type pt ON pi.product_type_id = pt.product_type_id
+            WHERE pt.product_id = ?";
         $params = [$id_product];
         $result = $this->fetchAll($sql, $params);
         if(!$result){
@@ -203,4 +206,79 @@ class ProductModel extends Model
         return $result;
     }
 
+    // lấy tất cả sản phẩm để hiển thị trong trang all product
+    public function getSortedProducts($sort) {
+        $orderBy = 'product_name ASC'; // mặc định
+    
+        switch ($sort) {
+            case 'name-desc':
+                $orderBy = 'product_name DESC';
+                break;
+            case 'price-asc':
+                $orderBy = 'pt.priceCurrent ASC';
+                break;
+            case 'price-desc':
+                $orderBy = 'pt.priceCurrent DESC';
+                break;
+            case 'newest':
+                $orderBy = 'pt.created_at DESC';
+                break;
+        }
+    
+        $sql = "
+            SELECT 
+                p.product_id,
+                p.name AS product_name,
+                pt.product_type_id,
+                pt.image,
+                pt.priceOld,
+                pt.priceCurrent,
+                pt.discount_price,
+                pt.created_at
+            FROM products p
+            JOIN (
+                SELECT * FROM product_type
+                WHERE product_type_id IN (
+                    SELECT MIN(product_type_id)
+                    FROM product_type
+                    GROUP BY product_id
+                )
+            ) pt ON p.product_id = pt.product_id
+            ORDER BY $orderBy;
+            ";
+
+        $result = $this->fetchAll($sql);
+
+        return $result;
+    }
+
+    public function searchProduct($keySearch){
+       
+        $sql = "
+                SELECT 
+                    p.product_id,
+                    p.name AS product_name,
+                    pt.product_type_id,
+                    pt.image,
+                    pt.priceOld,
+                    pt.priceCurrent,
+                    pt.discount_price
+                FROM products p
+                JOIN product_type pt ON pt.product_type_id = (
+                    SELECT pt2.product_type_id
+                    FROM product_type pt2
+                    WHERE pt2.product_id = p.product_id
+                    ORDER BY pt2.created_at DESC, pt2.product_type_id DESC
+                    LIMIT 1
+                )
+                WHERE p.name LIKE CONCAT('%', ?, '%')
+                ";
+
+        $params = [$keySearch];
+        $result = $this->fetchAll($sql, $params);
+        return $result;
+    }
+
+    
+    
 }

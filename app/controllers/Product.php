@@ -167,9 +167,39 @@ class Product extends Controller
 
     public function sanpham()
     {
-        $this->render("products/ProductCategory");
+        $sort = $_GET['sort'] ?? 'name-asc'; // mặc định
+        $allProduct = $this->productModel->getSortedProducts($sort);
+        
+        if(!$allProduct){
+            Helpers::setFlash("message", "Không có sản phẩm!");
+            header("Location:" . _WEB_ROOT . "/all_product");
+            exit();
+
+        }
+        $data = [
+            'allProduct' => $allProduct
+        ];
+        $this->render("products/ProductCategory", $data);
     }
 
-    
+
+    public function resultSearch()
+    {
+        if(isset($_GET['keyword'])){
+           $keySearch = htmlspecialchars(trim($_GET['keyword']));
+           $getProduct_Search = $this->productModel->searchProduct($keySearch);
+           $data = [
+            'getProduct_Search' => $getProduct_Search
+           ];
+           $this->render("users/search/ketquatimkiem", $data);
+           return;
+        }
+        $this->render("users/search/ketquatimkiem");
+    }
+
+    public function notfound()
+    {
+        $this->render("users/search/notfound");
+    }
 
 }
