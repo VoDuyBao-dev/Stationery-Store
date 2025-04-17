@@ -2,6 +2,7 @@
     <div class="logo">
         <div class="logo-img">
             <a href="<?php echo _WEB_ROOT; ?>/trang-chu"><img src="<?php echo _WEB_ROOT; ?> /public/assets/clients/images/logo.png" ></i></a>
+            <a href="<?php echo _WEB_ROOT; ?>/trang-chu "><img src="<?php echo _WEB_ROOT; ?> /public/assets/clients/images/logo.png" ></i></a>
         </div>
     </div>
 
@@ -23,7 +24,7 @@
             
             <?php if(isset($_SESSION['user'])): ?>
                 <i class="fas fa-user" id="userIcon"></i>
-                <p>Xin chào <?= $_SESSION['user']['fullname'] ?? ""?></p>
+                <p>Xin chào, <?= $_SESSION['user']['fullname'] ?? ""?> !</p>
                 <div class="dropdown-user" id="dropdownUser">
                 <a href="<?php echo _WEB_ROOT . '/dang-xuat'; ?>">Đăng xuất</a>
             </div>

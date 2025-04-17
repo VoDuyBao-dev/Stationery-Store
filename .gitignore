@@ -43,4 +43,9 @@ uploads/
 # Các tệp hệ thống của Git
 .git/
 
+<<<<<<< HEAD
+# database
+database.PHP
+=======
 configs/database.php
+>>>>>>> main

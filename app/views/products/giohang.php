@@ -44,7 +44,7 @@ use core\Helpers;
   </menu> 
   <main>
     <div class="cart-container">
-        <h2>Giỏ hàng</h2>
+        <h1>Giỏ hàng</h1>
         
             <!-- san pham -->
             <div id="cart">
@@ -57,11 +57,10 @@ use core\Helpers;
             <div class="cart-item">
             <img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/products/<?= $item['image'];?>" alt="<?= $item['product_name']?>">
             <div class="cart-item-info">
-                <p><?= $item['product_name']?></p>
-                <p><strong><?= $item['name_product_type_id']?></strong></p>
-                
-                <p><strong><?= Helpers::format_currency($item['priceCurrent']); ?></strong></p>
-                <p><strong><?= Helpers::format_currency($item['priceOld']); ?></strong></p>
+                <p><strong><?= $item['product_name']?></strong></p>
+                <p style="font-style: italic;"><?= $item['name_product_type_id']?></p>
+                <p style="color: red; font-size: 16px;"><?= $item['priceCurrent']?>0₫</p>
+                <p style="color: grey; text-decoration: line-through; font-size: 14px;"><?= $item['priceOld']?>0₫</p>
             </div>
             <div class="cart-item-controls">
                 <button type="button" onclick="giamsoluong(this)">-</button>
@@ -69,12 +68,12 @@ use core\Helpers;
                 <button type="button" onclick="tangsoluong(this)">+</button>
             </div>
             <input type="hidden" value="<?= $item['product_type_id']?>" class="product-type-id">
-            <a href="<?= _WEB_ROOT."/deleteIdProduct_inCart/".$item['product_name']."/".$item['product_id']."/".$item['product_type_id']?>">❌</a>
+            <a href="<?= _WEB_ROOT."/deleteIdProduct_inCart/".$item['product_name']."/".$item['product_id']."/".$item['product_type_id']?>"><i class="fas fa-trash-alt"></i></a>
         </div>
             
             <div class="cart-total">
-            <span>thành tiền:</span>
-            <span><?= Helpers::format_currency($tt); ?></span>
+            <span>Tạm tính: </span>
+            <span><?= $tt;?>₫</span>
 
         </div>
 

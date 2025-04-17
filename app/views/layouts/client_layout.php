@@ -36,7 +36,7 @@ $flashSale_products = $flashSale_products ?? [];
             float: left;
         }
         main{
-            margin-top: 120px;
+            margin-top: 100px;
             margin-left: 280px;
         }
     </style>
