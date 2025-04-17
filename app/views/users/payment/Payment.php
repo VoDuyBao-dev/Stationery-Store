@@ -1,3 +1,6 @@
+<?php
+use core\Helpers;
+?>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -43,10 +46,11 @@
                 <input type="text" name="address_detail" placeholder="Địa chỉ (Cụ thể)">
                 <textarea name="note" placeholder="Ghi chú (tuỳ chọn)"></textarea>
               
-                
+
             </form>
             <label for="shipping">Phương thức vận chuyển:</label>
     <select id="shipping">
+    <option value="none">Chọn phương thức thanh toán</option>
         <?php foreach($listTransport as $trans):?>
         <option value="<?= $trans['transport_id']?>"><?= $trans['name']?></option>
         <?php endforeach;?>
@@ -87,20 +91,24 @@
         <p><?= $item['product_name']?></p>
         <p><strong><?= $item['name_product_type_id']?></strong></p>
         <p>Số lượng: <?= $item['quantity'] ?></p>
-        <span><?= $tt;?>đ</span>
+       
+        <span> <?= Helpers::format_currency($tt); ?></span>
     </div>
     <?php endforeach;?>
-   
+    <?php
+    // Xử lí phí vận chuyển và giảm giá
+    
+    ?>
     <div class="discount-container">
         <input type="text" class="discount-input" placeholder="Nhập mã giảm giá">
         <button class="apply-btn">Áp dụng</button>
     </div>
     <div class="total">
-        <p>Tạm tính: <span><?= $tongtien;?>đ</span></p>
-        <p>Phí vận chuyển: <span>-</span></p>
-        <!-- Nhớ sửa số tiền ít nhất phải là hàng nghìn -->
-        <p><strong id="total-amount">Tổng cộng: <?= $tongtien;?>000đ</strong></p>
-    </div>
+        <p>Tổng tiền hàng: <span id="subtotal-amount"><?= Helpers::format_currency($tongtien); ?></span></p>
+        <p>Phí vận chuyển: <span id="shipping-amount">-</span></p>
+        <p>Giảm giá: <span id="discount-amount">-</span></p>
+        <p><strong id="total-amount">Tổng thanh toán: <?= Helpers::format_currency($tongtien); ?></strong></p>
+</div>
     <button class="checkout-btn" type="button" id="checkout-btn">ĐẶT HÀNG</button>
 
     </div>

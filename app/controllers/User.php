@@ -162,6 +162,8 @@ class User extends Controller
             return;
         }
 
+        
+
 
     }
 
@@ -340,12 +342,12 @@ class User extends Controller
                 exit();
             }
 
-        }   
+        }  
         $this->render("users/Signin-Signout/newpass");
     }
 
-   // Lấy thông tin người dùng  qua trang thanh toán làm thông tin mặc đinhj
-   public function UserInfor_Payment()
+   // Lấy thông tin vận chuyển  qua trang thanh toán 
+   public function getTransport_Payment()
    {
         $transportModel = new TransportModel();
         $listTransport = $transportModel->getAllTransport();
@@ -386,33 +388,74 @@ class User extends Controller
     }
 
 
-    public function home()
+    public function editInfomation()
     {
-        $this->render("users/index");
-    }
+        if(isset($_POST['submit'])){
+            $name = htmlspecialchars(trim($_POST['name'] ?? ''));
+            $sdt = htmlspecialchars(trim($_POST['phone'] ?? ''));
+            $address = htmlspecialchars(trim($_POST['address'] ?? '')) ;
+            $user_id = htmlspecialchars(trim($_POST['user_id'] ?? ''));
+            $hasError = false;
+            
+
+            $regex = '/^(0|\+84)(\d{9,10})$/';
+            if (!preg_match($regex, $sdt)) {
+                Helpers::setFlash('error_sdt', 'Số điện thoại không hợp lệ!');
+                $hasError = true;
+            }else{
+                $checkSDT = $this->userModel->checkSDTExists2($sdt, $user_id);
+                if($checkSDT === true){
+                    Helpers::setFlash('error_address', 'Số điện thoại này đã được đăng ký.');
+                    $hasError = true;
+                }
+            }
 
 
-    public function thongtin()
-    {
-        $this->render("products/Thongtinchitiet");
+            if (empty($address)) {
+                Helpers::setFlash('error_address', 'Vui lòng nhập địa chỉ.');
+                $hasError = true;
+                
+            } elseif (strlen($address) < 5 || strlen($address) > 255) {
+                Helpers::setFlash('error_address', 'Địa chỉ phải từ 5 đến 255 ký tự.');
+                $hasError = true;
+                
+            } 
+
+            if( $hasError === true){
+                $this->render("users/setting/chinhsuathongtin");
+                return;
+            }
+
+            // đúng hết thì cập nhật thông tin
+            $updateInfo = $this->userModel->updateInformation($name, $sdt, $address, $user_id);
+            if(!$updateInfo){
+                Helpers::setFlash('notification', ['type' => 'error', 'message' => 'Cập nhật thông tin người dùng thất bại!']);
+                $this->render("users/setting/chinhsuathongtin");
+                return;
+            }
+            // cập nhật session:
+            $newInfo = $this->userModel->getUserById($user_id);
+            if(!$newInfo){
+                Logger::logError("Không lấy được người dùng vừa cập nhật thông tin");
+            }else{
+                $_SESSION['user'] = $newInfo;
+            }
+
+            Helpers::setFlash('notification', ['type' => 'success', 'message' => 'Cập nhật thông tin người dùng thành công!']);
+            header("Location: " . _WEB_ROOT . "/chinh-sua-thong-tin");
+            exit();
+
+        }
+        $this->render("users/setting/chinhsuathongtin");
     }
+   
+
+
     
    public function reply()
     {
         $this->render("users/reply/reply");
     }
 
-    public function search()
-    {
-        $this->render("users/search/ketquatimkiem");
-    }
-    public function notfound()
-    {
-        $this->render("users/search/notfound");
-    }
-    
-    public function chinhsua()
-    {
-        $this->render("users/setting/chinhsuathongtin");
-    }
+   
 }
