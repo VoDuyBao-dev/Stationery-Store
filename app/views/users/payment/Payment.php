@@ -133,6 +133,7 @@
             wardSelect.innerHTML = '<option value="">Chọn Phường/Xã</option>';
 
             if (districtCode) {
+                
                 fetch(`https://provinces.open-api.vn/api/d/${districtCode}?depth=2`)
                     .then(res => res.json())
                     .then(data => {
