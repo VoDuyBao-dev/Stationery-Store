@@ -16,7 +16,7 @@ class OrderService
         $coupon_id = $_SESSION['coupon_id'] ?? null;
         unset($_SESSION['coupon_id']);
         $orderModel = new OrderModel();
-        $order_id = $orderModel->createOrder($user_id, $totalPrice, $paymentMethod, $payment_id, $coupon_id);
+        $order_id = $orderModel->createOrder($user_id, $totalPrice, $paymentMethod, $payment_id, $coupon_id, $postData['shipping']);
 
         if(!is_numeric($order_id)){
             return [
@@ -42,7 +42,6 @@ class OrderService
                 $ghichu,
                 $item['priceCurrent'],
                 $item['quantity'],
-                $postData['shipping'],
                 $item['priceCurrent'] * $item['quantity']
             );
             

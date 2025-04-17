@@ -81,37 +81,14 @@ use core\Helpers;
 <menu><?php  require_once _DIR_ROOT . "/app/views/blocks/menu.php"; ?></menu>
 <main>
     <div class="container">
-        <div class="filter-container">
-            <span>Sắp xếp:</span>
-            <a href="<?php echo _WEB_ROOT; ?>/productByCategory?category=<?php echo urlencode($getCategory); ?>&sub=<?php echo urlencode($subProduct); ?>&sort=name-asc" 
-               class="filter-button <?= ($_GET['sort'] ?? '') === 'name-asc' ? 'active' : '' ?>">
-               Tên A → Z
-            </a>
-            <a href="<?php echo _WEB_ROOT; ?>/productByCategory?category=<?php echo urlencode($getCategory); ?>&sub=<?php echo urlencode($subProduct); ?>&sort=name-desc" 
-               class="filter-button <?= ($_GET['sort'] ?? '') === 'name-desc' ? 'active' : '' ?>">
-               Tên Z → A
-            </a>
-            <a href="<?php echo _WEB_ROOT; ?>/productByCategory?category=<?php echo urlencode($getCategory); ?>&sub=<?php echo urlencode($subProduct); ?>&sort=price-asc" 
-               class="filter-button <?= ($_GET['sort'] ?? '') === 'price-asc' ? 'active' : '' ?>">
-               Giá tăng dần
-            </a>
-            <a href="<?php echo _WEB_ROOT; ?>/productByCategory?category=<?php echo urlencode($getCategory); ?>&sub=<?php echo urlencode($subProduct); ?>&sort=price-desc" 
-               class="filter-button <?= ($_GET['sort'] ?? '') === 'price-desc' ? 'active' : '' ?>">
-               Giá giảm dần
-            </a>
-            <a href="<?php echo _WEB_ROOT; ?>/productByCategory?category=<?php echo urlencode($getCategory); ?>&sub=<?php echo urlencode($subProduct); ?>&sort=newest" 
-               class="filter-button <?= ($_GET['sort'] ?? '') === 'newest' ? 'active' : '' ?>">
-               Hàng mới
-            </a>
-        </div>
-        
+       
         <div class="product-list">
         <?php if ($message = Helpers::getFlash('error')): ?>
     <div class="success-message"><?php echo $message; ?></div>
 <?php endif; ?>
 
-            <?php if(count($allProduct)> 0) :?>
-                <?php foreach($allProduct as $product):?>
+            <?php if(count($products_bestSeller)> 0) :?>
+                <?php foreach($products_bestSeller as $product):?>
             <div class="product">
             
                 <img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/products/<?= $product['image'];?>" alt="<?= $product['image'];?>">

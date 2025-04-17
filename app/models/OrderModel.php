@@ -7,12 +7,12 @@ class OrderModel extends Model
     private $_table_orders = 'orders';
     
 
-    public function createOrder($user_id, $total_price,$payment_method, $payment_id, $coupon_id)
+    public function createOrder($user_id, $total_price,$payment_method, $payment_id, $coupon_id, $transport_id)
     {
        
 
-        $sql = "INSERT INTO $this->_table_orders (user_id, total_price, payment_method, payment_id, coupon_id) VALUES (?, ?, ?, ?, ?)";
-        $params = [$user_id, $total_price, $payment_method, $payment_id, $coupon_id];
+        $sql = "INSERT INTO $this->_table_orders (user_id, total_price, payment_method, payment_id, coupon_id, transport_id) VALUES (?, ?, ?, ?, ?, ?)";
+        $params = [$user_id, $total_price, $payment_method, $payment_id, $coupon_id, $transport_id];
         
         try{
             $affectedRows = $this->execute($sql, $params);

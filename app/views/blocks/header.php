@@ -25,6 +25,7 @@
                 <i class="fas fa-user" id="userIcon"></i>
                 <p>Xin chào <?= $_SESSION['user']['fullname'] ?? ""?></p>
                 <div class="dropdown-user" id="dropdownUser">
+                <a href="<?php echo _WEB_ROOT . '/chinh-sua-thong-tin'; ?>">Chỉnh sửa thông tin</a>
                 <a href="<?php echo _WEB_ROOT . '/dang-xuat'; ?>">Đăng xuất</a>
             </div>
             <?php else:?>
@@ -42,7 +43,7 @@
 </header>
     <div class="breadcrumb-banner">
         <div class="container">
-            <p><a href="<?php echo _WEB_ROOT; ?>/ ">Trang chủ</a> / <span>Loading...</span> / <h2>Loading...</h2></p>
+            <p><a href="<?php echo _WEB_ROOT; ?>/trang-chu ">Trang chủ</a> / <span>Loading...</span> / <h2>Loading...</h2></p>
         </div>
     </div>
 <div>

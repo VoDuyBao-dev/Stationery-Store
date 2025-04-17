@@ -5,10 +5,10 @@ class OrderDetailModel extends Model
     
     private $_table_orderDetails = 'order_details';
 
-    public function createOrderDetail($order_id, $product_type_id,$tenDonHang,$phone,$address,$ghiChu,$cost, $quantity, $transport_id, $price)
+    public function createOrderDetail($order_id, $product_type_id,$tenDonHang,$phone,$address,$ghiChu,$cost, $quantity, $price)
     {
-        $sql = "INSERT INTO $this->_table_orderDetails (order_id, product_type_id,tenDonHang,phone,address,ghiChu,cost, quantity, transport_id, price) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        $params = [$order_id, $product_type_id,$tenDonHang,$phone,$address,$ghiChu,$cost, $quantity, $transport_id, $price];
+        $sql = "INSERT INTO $this->_table_orderDetails (order_id, product_type_id,tenDonHang,phone,address,ghiChu,cost, quantity, price) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $params = [$order_id, $product_type_id,$tenDonHang,$phone,$address,$ghiChu,$cost, $quantity, $price];
         
         try{
             $affectedRows = $this->execute($sql, $params);

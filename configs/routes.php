@@ -70,7 +70,9 @@ $routes['daxuly'] = 'AdminManageUser/done';
 $routes['canxuly'] = 'AdminManageUser/canxuly';
 
 // xong
-$routes['all_product'] = 'product/sanpham';
+$routes['productByCategory'] = 'product/productByCategory';
+// sản phẩm bán chạy ở danh mục nổi bật
+$routes['allBestSelling'] = 'product/allBestSelling';
 
 $routes['phan-hoi'] = 'user/reply';
 // xong
