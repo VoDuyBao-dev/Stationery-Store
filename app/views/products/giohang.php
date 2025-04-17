@@ -59,8 +59,9 @@ use core\Helpers;
             <div class="cart-item-info">
                 <p><strong><?= $item['product_name']?></strong></p>
                 <p style="font-style: italic;"><?= $item['name_product_type_id']?></p>
-                <p style="color: red; font-size: 16px;"><?= $item['priceCurrent']?>0₫</p>
-                <p style="color: grey; text-decoration: line-through; font-size: 14px;"><?= $item['priceOld']?>0₫</p>
+               
+                <p style="color: red; font-size: 16px;"> <?= Helpers::format_currency($item['priceCurrent']); ?></p>
+                <p style="color: grey; text-decoration: line-through; font-size: 14px;"> <?= Helpers::format_currency($item['priceOld']); ?></p>
             </div>
             <div class="cart-item-controls">
                 <button type="button" onclick="giamsoluong(this)">-</button>
@@ -73,7 +74,7 @@ use core\Helpers;
             
             <div class="cart-total">
             <span>Tạm tính: </span>
-            <span><?= $tt;?>₫</span>
+            <span><?= Helpers::format_currency($tt); ?></span>
 
         </div>
 

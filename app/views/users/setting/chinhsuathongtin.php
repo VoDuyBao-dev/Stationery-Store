@@ -32,18 +32,6 @@ $user = $_SESSION['user'] ?? "";
     
   <form action="<?php echo _WEB_ROOT;?>/chinh-sua-thong-tin" method="POST" id="profileForm">
     <label for="name">Họ và tên</label>
-<<<<<<< HEAD
-    <input type="text" id="name" name="name" value="<?= htmlspecialchars($user['name']) ?>"  required>
-
-    <label for="phone">Số điện thoại</label>
-    <input type="text" id="phone" name="phone" value="<?= htmlspecialchars($user['phone']) ?>" required>
-
-    <label for="email">Email</label>
-    <input type="email" id="email" name="email" value="<?= htmlspecialchars($user['email']) ?>" disabled readonly>
-
-    <label for="address">Địa chỉ</label>
-    <input type="text" id="address" name="address" placeholder="Nhập địa chỉ" required>
-=======
     <input type="text" id="name" name="name" value="<?= htmlspecialchars($user['fullname']) ?>" placeholder="Nhập họ và tên" required>
 
     <label for="phone">Số điện thoại</label>
@@ -56,7 +44,6 @@ $user = $_SESSION['user'] ?? "";
     <label for="email">Email</label>
     <input type="email" id="email" name="email" value="<?= htmlspecialchars($user['email']) ?>" disabled   readonly>
 
->>>>>>> bad4a40b9b25beca09f4563b540fc206f9c6fa8b
 
     <label for="address">Địa chỉ</label>  
     <input type="text" id="address" name="address" value="<?= htmlspecialchars($user['address']) ?>" placeholder="Nhập địa chỉ" required>
@@ -67,18 +54,12 @@ $user = $_SESSION['user'] ?? "";
 
     <input type="hidden" name="user_id" value="<?=$user['user_id'] ?>">
     <div class="button-group">
-<<<<<<< HEAD
-      <button type="button" id="editBtn"  class="form-button">Cập nhật thông tin</button>
-=======
       <button type="submit" name="submit" id="editBtn"  class="form-button">Cập nhật thông tin</button>
->>>>>>> bad4a40b9b25beca09f4563b540fc206f9c6fa8b
       
     </div>
   </form>
 </div>
 
-<<<<<<< HEAD
-=======
 <script>
   function enableEdit() {
 
@@ -99,7 +80,6 @@ Swal.fire({
 </script>
 <?php endif; ?>
 
->>>>>>> bad4a40b9b25beca09f4563b540fc206f9c6fa8b
 <?php  require_once _DIR_ROOT . "/app/views/blocks/footer.php";?>
 </body>
 </html>

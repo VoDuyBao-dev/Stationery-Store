@@ -2,7 +2,7 @@
     <div class="logo">
         <div class="logo-img">
             <a href="<?php echo _WEB_ROOT; ?>/trang-chu"><img src="<?php echo _WEB_ROOT; ?> /public/assets/clients/images/logo.png" ></i></a>
-            <a href="<?php echo _WEB_ROOT; ?>/trang-chu "><img src="<?php echo _WEB_ROOT; ?> /public/assets/clients/images/logo.png" ></i></a>
+            
         </div>
     </div>
 

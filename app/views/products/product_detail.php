@@ -34,8 +34,16 @@ use core\Helpers;
            
         }
 
-        function changeProductType(productTypeId) {
-            // chu ý chỗ này
+        function changeProductType(productTypeId, buttonElement) {
+            // Remove active class from all buttons
+            document.querySelectorAll('.color-options button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Add active class to clicked button
+            buttonElement.classList.add('active');
+
+            // Fetch and update product data
             fetch("/<?= _NAME_PROJECT?>/getProductType?product_type_id=" + productTypeId)
                 .then(response => response.json())
                 .then(data => {
@@ -113,11 +121,13 @@ use core\Helpers;
             <div class="color-options">
                 <?php
                 foreach ($product_types as $type) {
-                    $activeClass = ($type['product_type_id'] == $product_type_id) ? "class='active'" : "";
-                    echo "<button $activeClass onclick='changeProductType(" . $type['product_type_id'] . ")'>" . $type['name'] . "</button>";
+                    $activeClass = ($type['product_type_id'] == $product_type_id) ? "active" : "";
+                    echo "<button class='{$activeClass}' 
+                          onclick='changeProductType(" . $type['product_type_id'] . ", this)'>" 
+                          . $type['name'] . 
+                          "</button>";
                 }
                 ?>
-
             </div>
 
 
