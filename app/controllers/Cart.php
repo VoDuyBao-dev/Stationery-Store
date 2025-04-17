@@ -73,7 +73,7 @@ class Cart extends Controller
     }
     
     public function view_cart(){
-        $this->render("products/giohang_tamthoi");
+        $this->render("products/giohang");
     }
 
     public function deleteAll_cart(){

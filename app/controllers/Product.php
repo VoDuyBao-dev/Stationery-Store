@@ -23,7 +23,7 @@ class Product extends Controller
 
    
     
-    public function TrangChu(){
+    public function index(){
         $outstanding_products = $this->productModel->get_BestSellingProducts();
         $flashSale_products = $this->productModel->get_ProductsFlashSale();
         $categories = $this->productModel->getCategories();
@@ -49,7 +49,7 @@ class Product extends Controller
             Helpers::setFlash('empty_categories', 'Không có thể loại sản phẩm nào!');
         }
 
-        $this->render("products/TrangChu", $this->data);
+        $this->render("layouts/client_layout", $this->data);
 
     }
 
@@ -141,7 +141,7 @@ class Product extends Controller
     }
 
     // Lấy các sản phẩm tùy vào lưaj chọn danh mục ở Văn phòng phẩm cho bạn ở trang chủ
-    public function getProducts_ofCategory(){
+    public function getProductsBy_category(){
         if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['category_id'])) {
            $category_id = $_GET['category_id'] ?? "";
            $category = $this->productModel->checkCategoryExists($category_id);
@@ -164,20 +164,12 @@ class Product extends Controller
         }
         
     }
-    
-    public function detail()
-    {
-        $this->data["content"] = "products/detail";
-
-        $this->render("layouts/client_layout", $this->data);
-    }
 
     public function sanpham()
     {
         $this->render("products/ProductCategory");
     }
+
     
 
 }
-  
-

@@ -1,7 +1,7 @@
   <header class="header">
     <div class="logo">
         <div class="logo-img">
-            <a href="<?php echo _WEB_ROOT; ?>/ "><img src="<?php echo _WEB_ROOT; ?> /public/assets/clients/images/logo.png" ></i></a>
+            <a href="<?php echo _WEB_ROOT; ?>/trang-chu "><img src="<?php echo _WEB_ROOT; ?> /public/assets/clients/images/logo.png" ></i></a>
         </div>
     </div>
 
@@ -18,12 +18,22 @@
     <div class="icons">
         <div class="icon"><a href="<?php echo _WEB_ROOT . '/view_cart'; ?>"> <i class="fas fa-shopping-basket"></i><span class="badge">1</span></a></div>
         <div class="icon user-menu">
-            <i class="fas fa-user" id="userIcon"></i>
+            
+            <?php if(isset($_SESSION['user'])): ?>
+                <i class="fas fa-user" id="userIcon"></i>
+                <p>Xin chào, <?= $_SESSION['user']['fullname'] ?? ""?> !</p>
+                <div class="dropdown-user" id="dropdownUser">
+                <a href="<?php echo _WEB_ROOT . '/dang-xuat'; ?>">Đăng xuất</a>
+            </div>
+            <?php else:?>
+                <i class="fas fa-user-cog" id="userIcon"></i>
             <div class="dropdown-user" id="dropdownUser">
                 <a href="<?php echo _WEB_ROOT . '/dang-nhap'; ?>">Đăng nhập</a>
                 <a href="<?php echo _WEB_ROOT . '/dang-ky'; ?>">Đăng ký</a>
             </div>
+            <?php endif;?>
         </div>
+        
 
     </div>
     

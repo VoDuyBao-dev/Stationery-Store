@@ -31,33 +31,24 @@ $user = [
   <h1>Thông tin cá nhân</h1>
   <form action="<?php echo _WEB_ROOT;?>/app/users/setting/update_profile.php" method="POST" id="profileForm">
     <label for="name">Họ và tên</label>
-    <input type="text" id="name" name="name" value="<?= htmlspecialchars($user['name']) ?>" disabled required>
+    <input type="text" id="name" name="name" value="<?= htmlspecialchars($user['name']) ?>"  required>
 
     <label for="phone">Số điện thoại</label>
-    <input type="text" id="phone" name="phone" value="<?= htmlspecialchars($user['phone']) ?>" disabled required>
+    <input type="text" id="phone" name="phone" value="<?= htmlspecialchars($user['phone']) ?>" required>
 
     <label for="email">Email</label>
-    <input type="email" id="email" name="email" value="<?= htmlspecialchars($user['email']) ?>" readonly>
+    <input type="email" id="email" name="email" value="<?= htmlspecialchars($user['email']) ?>" disabled readonly>
 
     <label for="address">Địa chỉ</label>
-    <input type="text" id="address" name="address" placeholder="Nhập địa chỉ" disabled required>
+    <input type="text" id="address" name="address" placeholder="Nhập địa chỉ" required>
 
     <div class="button-group">
-      <button type="button" onclick="enableEdit()" id="editBtn"  class="form-button">Sửa thông tin</button>
-      <button type="submit" id="saveBtn" style="display: none;"  class="form-button">Lưu thay đổi</button>
+      <button type="button" id="editBtn"  class="form-button">Cập nhật thông tin</button>
+      
     </div>
   </form>
 </div>
 
-<script>
-  function enableEdit() {
-    const fields = document.querySelectorAll('#profileForm input');
-    fields.forEach(field => field.disabled = false);
-
-    document.getElementById('editBtn').style.display = 'none';
-    document.getElementById('saveBtn').style.display = 'inline-block';
-  }
-</script>
 <?php  require_once _DIR_ROOT . "/app/views/blocks/footer.php";?>
 </body>
 </html>

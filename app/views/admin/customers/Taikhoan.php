@@ -1,3 +1,6 @@
+<?php
+use core\Helpers;
+?>
 <!DOCTYPE html>
 <html lang="vi">
   <head>
@@ -23,6 +26,7 @@
             margin-left: 280px;
         }
     </style>
+    <script src="<?php echo _WEB_ROOT;?>/public/assets/clients/js/admin/taikhoan.js"></script>
   </head>
   <body>
   <header>
@@ -36,10 +40,19 @@
 
     <h1>Danh sách User</h1>
 
+<?php if ($message = Helpers::getFlash('error')): ?>
+                <div class="error-message"><?php echo $message; ?></div>
+               
+            <?php endif; ?>
+            <?php if ($message = Helpers::getFlash('message')): ?>
+                <div class="success-message"><?php echo $message; ?></div>
+               
+            <?php endif; ?>
     <div class="search-container">
       <input
         type="text"
         id="searchInput"
+        onkeyup="searchUser()"
         placeholder="Tìm kiếm người dùng..."
       />
     </div>
@@ -57,96 +70,64 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>1</td>
-          <td>User Three</td>
-          <td>1234567892</td>
-          <td>user3@example.com</td>
-          <td>Address Three</td>
-          <td><span class="status status-active"></span> Hoạt động</td>
-          <td><button class="action-button">Khóa</button></td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>User Five</td>
-          <td>1234567894</td>
-          <td>user5@example.com</td>
-          <td>Address Five</td>
-          <td><span class="status status-active"></span> Hoạt động</td>
-          <td><button class="action-button">Khóa</button></td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>User Six</td>
-          <td>1234567895</td>
-          <td>user6@example.com</td>
-          <td>Address Six</td>
-          <td><span class="status status-active"></span> Hoạt động</td>
-          <td><button class="action-button">Khóa</button></td>
-        </tr>
-        <tr>
-          <td>4</td>
-          <td>User Seven</td>
-          <td>1234567896</td>
-          <td>user7@example.com</td>
-          <td>Address Seven</td>
-          <td><span class="status status-active"></span> Hoạt động</td>
-          <td><button class="action-button">Khóa</button></td>
-        </tr>
-        <tr>
-          <td>5</td>
-          <td>User Eight</td>
-          <td>1234567897</td>
-          <td>user8@example.com</td>
-          <td>Address Eight</td>
-          <td><span class="status status-active"></span> Hoạt động</td>
-          <td><button class="action-button">Khóa</button></td>
-        </tr>
-        <tr>
-          <td>6</td>
-          <td>User Nine</td>
-          <td>1234567898</td>
-          <td>user9@example.com</td>
-          <td>Address Nine</td>
-          <td><span class="status status-active"></span> Hoạt động</td>
-          <td><button class="action-button">Khóa</button></td>
-        </tr>
-        <tr>
-          <td>7</td>
-          <td>User Ten</td>
-          <td>1234567899</td>
-          <td>user10@example.com</td>
-          <td>Address Ten</td>
-          <td><span class="status status-active"></span> Hoạt động</td>
-          <td><button class="action-button">Khóa</button></td>
-        </tr>
-        <tr>
-          <td>8</td>
-          <td>User One</td>
-          <td>1234567890</td>
-          <td>user1@example.com</td>
-          <td>Address One</td>
-          <td><span class="status status-locked"></span> Bị khóa</td>
-          <td><button class="action-button">Mở khóa</button></td>
-        </tr>
-        <tr>
-          <td>9</td>
-          <td>User Two</td>
-          <td>1234567891</td>
-          <td>user2@example.com</td>
-          <td>Address Two</td>
-          <td><span class="status status-locked"></span> Bị khóa</td>
-          <td><button class="action-button">Mở khóa</button></td>
-        </tr>
-        <tr>
-          <td>10</td>
-          <td>User Four</td>
-          <td>1234567893</td>
-          <td>user4@example.com</td>
-          <td>Address Four</td>
-          <td><span class="status status-locked"></span> Bị khóa</td>
-          <td><button class="action-button">Mở khóa</button></td>
-        </tr>
+        <?php $i = 1;?>
+      <?php 
+        if($users === false){
+            echo '<tr><td colspan="7">Không có tài khoản nào trong trạng thái hoạt động!</td></tr>';
+        } else {
+            
+            // Hiển thị danh sách tài khoản đang hoạt động
+            foreach ($users as $user) {
+        ?>
+                <tr>
+                    <td><?php echo $i++; ?></td>
+                    <td><?php echo htmlspecialchars($user['fullname']); ?></td>
+                    <td><?php echo htmlspecialchars($user['phone']); ?></td>
+                    <td><?php echo htmlspecialchars($user['email']); ?></td>
+                    <td><?php echo htmlspecialchars($user['address']); ?></td>
+                    <td><span class="status status-active"></span> Hoạt động</td>
+                    <td>
+                    <form action="<?= _WEB_ROOT; ?>/AdminManageUser/lockUser" method="POST" style="display: inline;">
+                        <input type="hidden" name="id" value="<?= $user['user_id']; ?>">
+                        <button type="submit" class="action-button" onclick="return confirm('Bạn có chắc chắn muốn khóa tài khoản này không?')">Khóa</button>
+                    </form>
+                    </td>
+                    
+                </tr>
+        <?php
+            }
+        }
+        ?>
+        
+        <?php 
+        if($usersLock === false){
+            echo '<tr><td colspan="7">Không có tài khoản nào trong trạng thái bị khóa!</td></tr>';
+        } else {
+          
+            // Hiển thị danh sách tài khoản đang hoạt động
+            foreach ($usersLock as $userLock) {
+        ?>
+                <tr>
+                    <td><?php echo $i++; ?></td>
+                    <td><?php echo htmlspecialchars($userLock['fullname']); ?></td>
+                    <td><?php echo htmlspecialchars($userLock['phone']); ?></td>
+                    <td><?php echo htmlspecialchars($userLock['email']); ?></td>
+                    <td><?php echo htmlspecialchars($userLock['address']); ?></td>
+                    <td><span class="status status-locked"></span> Bị khóa</td>
+                    <td>
+                    <form action="<?= _WEB_ROOT; ?>/AdminManageUser/unlockUser" method="POST" style="display: inline;">
+                        <input type="hidden" name="id" value="<?= $userLock['user_id']; ?>">
+                        <button type="submit" class="action-button" onclick="return confirm('Bạn có chắc chắn muốn mở khóa tài khoản này không?')">Mở khóa</button>
+                    </form>
+                    </td>
+                    
+                </tr>
+        <?php
+            }
+        }
+        ?>
+        
+        
       </tbody>
     </table>
   

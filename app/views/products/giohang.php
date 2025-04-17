@@ -19,6 +19,7 @@
         const _WEB_ROOT = "<?php echo _WEB_ROOT; ?>";
        
     </script>
+     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
    <script src="<?php echo _WEB_ROOT; ?>/public/assets/clients/js/products/cart.js"></script>
    <style>
         menu {
@@ -40,7 +41,7 @@
   </menu> 
   <main>
     <div class="cart-container">
-        <h2>Giỏ hàng</h2>
+        <h1>Giỏ hàng</h1>
         
             <!-- san pham -->
             <div id="cart">
@@ -51,24 +52,24 @@
             $tongtien += $tt;?>
           
             <div class="cart-item">
-            <img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/products/<?= $item['image'];?>" alt="Túi 02 Ruột bút gel Buddies Thiên Long GR-028">
+            <img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/products/<?= $product['image'] ?>" alt="Túi 02 Ruột bút gel Buddies Thiên Long GR-028">
             <div class="cart-item-info">
-                <p><?= $item['product_name']?></p>
-                <p><strong><?= $item['name_product_type_id']?></strong></p>
-                <p><strong><?= $item['priceCurrent']?>0₫</strong></p>
-                <p><strong><?= $item['priceOld']?>0₫</strong></p>
+                <p><strong><?= $item['product_name']?></strong></p>
+                <p style="font-style: italic;"><?= $item['name_product_type_id']?></p>
+                <p style="color: red; font-size: 16px;"><?= $item['priceCurrent']?>0₫</p>
+                <p style="color: grey; text-decoration: line-through; font-size: 14px;"><?= $item['priceOld']?>0₫</p>
             </div>
             <div class="cart-item-controls">
                 <button type="button" onclick="giamsoluong(this)">-</button>
-                <input type="text" value="<?= $item['quantity'] ?>" onkeyup="kiemtrasoluong(this)" >
+                <input type="text" value="<?= $item['quantity'] ?>" onkeyup="validateQuantity(this)" >
                 <button type="button" onclick="tangsoluong(this)">+</button>
             </div>
             <input type="hidden" value="<?= $item['product_type_id']?>" class="product-type-id">
-            <a href="<?= _WEB_ROOT."/deleteIdProduct_inCart/".$item['product_name']."/".$item['product_id']."/".$item['product_type_id']?>">❌</a>
+            <a href="<?= _WEB_ROOT."/deleteIdProduct_inCart/".$item['product_name']."/".$item['product_id']."/".$item['product_type_id']?>"><i class="fas fa-trash-alt"></i></a>
         </div>
             
             <div class="cart-total">
-            <span>thành tiền:</span>
+            <span>Tạm tính: </span>
             <span><?= $tt;?>₫</span>
 
         </div>
@@ -78,7 +79,7 @@
         <?php endif;?>
         </div>
 
-        <div class="total">
+        <div  class="total">
             <span>Tổng tiền:</span>
             <span id="tong-tien"><?= $tongtien;?>₫</span>
         </div>
@@ -101,4 +102,3 @@
 </body>
 </html>
 
-<!-- Tới đoạn gửi jq đến backend rồirồi phút thứ 29 -->

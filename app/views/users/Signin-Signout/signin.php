@@ -65,6 +65,13 @@ use core\Helpers;
             <button type="submit" name="submit-signin" class="btn">Đăng nhập</button>
 
         </form>
+
+        
+    </div>
+
+    <!-- Đăng nhập bằng tài khoản google -->
+    <div>
+    <button id="google-btn"><a href="<?= $url ?? ''?>"><i class="fab fa-google-plus"></i>Đăng nhập bằng Google </a></button>
     </div>
 
 
