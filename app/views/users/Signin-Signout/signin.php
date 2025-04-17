@@ -68,7 +68,11 @@ use core\Helpers;
 
         
     </div>
-
+<div id="login-with">
+    <div class="line"></div>
+    <div class="or">Hoặc</div>
+    <div class="line"></div>
+</div>
     <!-- Đăng nhập bằng tài khoản google -->
     <div>
     <button id="google-btn"><a href="<?= $url ?? ''?>"><i class="fab fa-google-plus"></i>Đăng nhập bằng Google </a></button>
