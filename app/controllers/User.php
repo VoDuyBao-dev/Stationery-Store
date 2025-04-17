@@ -247,7 +247,7 @@ class User extends Controller
                     header("Location:" . _WEB_ROOT . "/admin_layout");
                     exit();
                 }
-                header("Location:" . _WEB_ROOT);
+                header("Location:" . _WEB_ROOT. "/trang-chu");
                 exit();
             } else {
                 $_SESSION['error'] = $verifyUser;

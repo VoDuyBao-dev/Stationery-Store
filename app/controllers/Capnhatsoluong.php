@@ -34,11 +34,11 @@ class Capnhatsoluong extends Controller
                 <img src="' . _WEB_ROOT . '/public/assets/clients/images/products/' . htmlspecialchars($item['image']) . '" 
                      alt="' . htmlspecialchars($item['product_type_id']) . '">
                 <div class="cart-item-info">
-                    <p>' . htmlspecialchars($item['product_name']) . '</p>
+                    <p><strong>' . htmlspecialchars($item['product_name']) . '</strong></p>
                    
-                    <p><strong>' . htmlspecialchars($item['name_product_type_id']) . '</strong></p>
-                    <p><strong>' .  Helpers::format_currency($item['priceCurrent']) . '</strong></p>
-                    <p><strong>' .  Helpers::format_currency($item['priceOld'])  . '</strong></p>
+                    <p style="font-style: italic;">' . htmlspecialchars($item['name_product_type_id']) . '</p>
+                    <p style="color: red; font-size: 16px;">' .  Helpers::format_currency($item['priceCurrent']) . '</p>
+                    <p style="color: grey; text-decoration: line-through; font-size: 14px;">' .  Helpers::format_currency($item['priceOld'])  . '</p>
                 </div>
                 <div class="cart-item-controls">
                     <button type="button" onclick="giamsoluong(this)">-</button>
@@ -49,11 +49,11 @@ class Capnhatsoluong extends Controller
                 <a href="' . _WEB_ROOT . '/deleteIdProduct_inCart/' . 
                     urlencode($item['product_name']) . '/' . 
                     (int)$item['product_id'] . '/' . 
-                    urlencode($item['product_type_id']) . '">❌</a>
+                    urlencode($item['product_type_id']) . '"><i class="fas fa-trash-alt"></i></a>
             </div>
             <div class="cart-total">
-                <span>Thành tiền:</span>
-                <span>' .  Helpers::format_currency($thanhtien)  . '</span>
+                <span>Tạm tính:</span>
+                <span>' . number_format((float)$thanhtien) . '₫</span>
             </div>';
         }
 
