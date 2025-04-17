@@ -116,7 +116,7 @@
     border: 3px solid #e50000; /* Đường viền màu đỏ */
     border-radius: 15px; /* Bo tròn góc */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
-    max-width: 70%; /* Giới hạn chiều rộng */
+    max-width: 80%; /* Giới hạn chiều rộng */
     margin: auto; /* Căn giữa trên trang */
     position: relative;
   }
@@ -134,7 +134,7 @@
     justify-content: center; /* Căn giữa */
     gap: 20px; /* Khoảng cách giữa các sản phẩm */
     flex-wrap: nowrap; /* Không xuống hàng */
-    overflow-x: auto; /* Cho phép cuộn ngang */
+    overflow-x: hidden; /* Cho phép cuộn ngang */
     padding: 20px 0; /* Khoảng cách trên và dưới */
     scroll-behavior: smooth; /* Cuộn mượt */
   }

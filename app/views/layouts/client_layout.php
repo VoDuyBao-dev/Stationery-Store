@@ -1,30 +1,51 @@
+<?php
+use core\Helpers;
+$outstanding_products = $outstanding_products ?? [];
+$flashSale_products = $flashSale_products ?? [];
+?>
+
 <!DOCTYPE html>
 <html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stationery</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link type="text/css" rel="stylesheet" href="<?php echo _WEB_ROOT; ?>/public/assets/clients/css/users/TrangChu.css">
-    <link
-      type="text/css"
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-    />
-    <link rel="stylesheet" href="<?php echo _WEB_ROOT; ?>/public/assets/clients/css/blocks/header.css" />
+    <link type="text/css" rel="stylesheet" href="<?php echo _WEB_ROOT; ?>/public/assets/clients/css/blocks/header.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap">
+    <link type="text/css" rel="stylesheet" href="<?php echo _WEB_ROOT;?>//public/assets/clients/css/blocks/menu.css">
+    <link type="text/css" rel="stylesheet" 
+        href="<?php echo _WEB_ROOT; ?>/public/assets/clients/css/blocks/footer.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    
+
     <script type="text/javascript" src="<?php echo _WEB_ROOT; ?>/public/assets/clients/js/blocks/header.js"></script>
+    <script>
+      function viewProduct(product_name ,id_product, id_product_type) {
+          window.location.href = "thong-tin-sp/" + encodeURIComponent(product_name) +'/'+ id_product +'/' + id_product_type;
+      }
+      var test = _WEB_ROOT;
+
+      function formatCurrencyVND(amount) {
+        return new Intl.NumberFormat('vi-VN').format(amount) + '₫';
+      }
+
+    </script>
     <style>
         menu {
             float: left;
         }
         main{
-            margin-top: 120px;
+            margin-top: 100px;
             margin-left: 280px;
         }
     </style>
-</head>
+    <title>Trang chủ</title>
+   
 
-<body>
-<header>
+  </head>
+  <body>
+  <header>
     <?php  require_once _DIR_ROOT . "/app/views/blocks/header.php";?>
 </header>  
 
@@ -32,6 +53,12 @@
     <?php  require_once _DIR_ROOT . "/app/views/blocks/menu.php";?>
 </menu> 
 <main>
+
+
+
+  <?php if ($message = Helpers::getFlash('error_params')): ?>
+    <div><?php echo $message; ?></div>
+<?php endif; ?>
     <!-- ========== Slider ========== -->
     <section class="section-1">
       <div class="home-slider">
@@ -89,80 +116,45 @@
         </div>
       </div>
     </section>
+    <!-- Hiển thị lỗi xem chi tiết sản phẩm -->
+<?php if ($message = Helpers::getFlash('error')): ?>
+    <div class="error-message"><?php echo $message; ?></div>
+<?php endif; ?>
     <!-- ========== Flash Sale ==========  -->
     <section class="section-3">
       <div class="container">
         <div class="block-title">
           <h2>
-            <a href="" title="Flash sale"
-              ><img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/fs.png" alt="fash-sale"
-            /></a>
+           
+              <img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/fs.png" alt="fash-sale"
+            />
           </h2>
         </div>
         <div class="block-product">
-          <!-- Sản phẩm 1 -->
+        
+          <!-- list Sản phẩm flash sale -->
+        <?php if (!empty($flashSale_products)): ?>
+          <?php foreach($flashSale_products as $product):?>
+          
           <div class="product-card">
-            <img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/Cap.jpg" alt="Hộp bút" />
-            <div class="product-name">Hộp đựng văn phòng phẩm</div>
+            <img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/products/<?= $product['image'] ?>" alt="<?= $product['product_name'] ?>" />
+            <div class="product-name"><?= $product['product_name'] ?></div>
             <div class="price">
-              15.000₫ <span class="old-price">25.000₫</span>
+            
+            <?= Helpers::format_currency($product['priceCurrent']); ?> <span class="old-price"><?= Helpers::format_currency($product['priceOld']); ?></span>
             </div>
-            <button class="buy-button">Xem ngay </button>
+            <button class="buy-button" onclick="viewProduct('<?= $product['product_name'] ?>',<?= $product['product_id'] ?>,<?= $product['product_type_id'] ?> )" >Xem ngay </button>
+           
           </div>
-          <!-- Sản phẩm 2 -->
-          <div class="product-card">
-            <img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/Cap.jpg" alt="Hộp bút" />
-            <div class="product-name">Hộp đựng văn phòng phẩm</div>
-            <div class="price">
-              15.000₫ <span class="old-price">25.000₫</span>
-            </div>
-            <button class="buy-button">Xem ngay </button>
-          </div>
-          <!-- Sản phẩm 3 -->
-          <div class="product-card">
-            <img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/Cap.jpg" alt="Hộp bút" />
-            <div class="product-name">Hộp đựng văn phòng phẩm</div>
-            <div class="price">
-              15.000₫ <span class="old-price">25.000₫</span>
-            </div>
-            <button class="buy-button">Xem ngay </button>
-          </div>
-          <!-- Sản phẩm 4 -->
-          <div class="product-card">
-            <img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/Cap.jpg" alt="Hộp bút" />
-            <div class="product-name">Hộp đựng văn phòng phẩm</div>
-            <div class="price">
-              15.000₫ <span class="old-price">25.000₫</span>
-            </div>
-            <button class="buy-button">Xem ngay </button>
-          </div>
-          <!-- Sản phẩm 5-->
-          <div class="product-card">
-            <img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/Cap.jpg" alt="Hộp bút" />
-            <div class="product-name">Hộp đựng văn phòng phẩm</div>
-            <div class="price">
-              15.000₫ <span class="old-price">25.000₫</span>
-            </div>
-            <button class="buy-button">Xem ngay </button>
-          </div>
-          <!-- Sản phẩm 6 -->
-          <div class="product-card">
-            <img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/Cap.jpg" alt="Hộp bút" />
-            <div class="product-name">Hộp đựng văn phòng phẩm</div>
-            <div class="price">
-              15.000₫ <span class="old-price">25.000₫</span>
-            </div>
-            <button class="buy-button">Xem ngay </button>
-          </div>
-              <!-- Sản phẩm 7 -->
-                <div class="product-card">
-            <img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/Cap.jpg" alt="Hộp bút" />
-            <div class="product-name">Hộp đựng văn phòng phẩm</div>
-            <div class="price">
-              15.000₫ <span class="old-price">25.000₫</span>
-            </div>
-            <button class="buy-button">Xem ngay </button>
-          </div>
+          <?php endforeach;?>
+            <?php else: ?>
+              <?php if ($message = Helpers::getFlash('empty_flashSale_products')): ?>
+    <div><?php echo $message; ?></div>
+<?php endif; ?>
+    <?php endif; ?>
+
+    
+
         </div>
         <div class="fa-solid fa-arrow-left"></div>
         <div class="fa-solid fa-arrow-right"></div>
@@ -172,75 +164,33 @@
     <section class="section-4">
       <div class="container">
         <div class="block-title">
-          <h2><a href="spnb">Sản phẩm nổi bật</a></h2>
+          <h2> Sản phẩm nổi bật</h2>
         </div>
         <div class="block-product">
           <div class="product-featured-swiper">
-            <!-- Sản phẩm 1 -->
-            <div class="product-block">
-              <div class="product-block-item">
-                <a href="#"><img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/Cap.jpg" alt="Vở viết" /></a>
-              </div>
-              <div class="product-info">
-                <a href="#">Vở viết kẻ ngang nhiều hình ngộ nghĩnh</a>
-                <div class="product-price">
-                  <span class="price">12.000₫</span>
-                  <span class="old-price">41.000₫</span>
+            <!-- List Sản phẩm  -->
+            <?php if (!empty($outstanding_products)): ?>
+             <?php foreach($outstanding_products as $product):?>
+              <div class="product-block" onclick="viewProduct('<?= $product['product_name'] ?>',<?= $product['product_id'] ?>,<?= $product['product_type_id'] ?> )" style="cursor: pointer;">
+                <div class="product-block-item">
+                  <img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/products/<?= $product['image'] ?>" alt="Vở viết" />
+                </div>
+                <div class="product-info">
+                  <span><?= $product['product_name'] ?></span>
+                  <div class="product-price">
+                  
+                    <span class="price"><?= Helpers::format_currency($product['price']); ?></span>
+                    <span class="old-price"><?= Helpers::format_currency($product['price_old']); ?></span>
+                  </div>
                 </div>
               </div>
-            </div>
-            <!-- Sản phẩm 2 -->
-            <div class="product-block">
-              <div class="product-block-item">
-                <a href="#"><img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/Cap.jpg" alt="Vở viết" /></a>
-              </div>
-              <div class="product-info">
-                <a href="#">Vở viết kẻ ngang nhiều hình ngộ nghĩnh</a>
-                <div class="product-price">
-                  <span class="price">12.000₫</span>
-                  <span class="old-price">41.000₫</span>
-                </div>
-              </div>
-            </div>
-            <!-- Sản phẩm 3-->
-            <div class="product-block">
-              <div class="product-block-item">
-                <a href="#"><img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/Cap.jpg" alt="Vở viết" /></a>
-              </div>
-              <div class="product-info">
-                <a href="#">Vở viết kẻ ngang nhiều hình ngộ nghĩnh</a>
-                <div class="product-price">
-                  <span class="price">12.000₫</span>
-                  <span class="old-price">41.000₫</span>
-                </div>
-              </div>
-            </div>
-            <!-- Sản phẩm 4 -->
-            <div class="product-block">
-              <div class="product-block-item">
-                <a href="#"><img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/Cap.jpg" alt="Vở viết" /></a>
-              </div>
-              <div class="product-info">
-                <a href="#">Vở viết kẻ ngang nhiều hình ngộ nghĩnh</a>
-                <div class="product-price">
-                  <span class="price">12.000₫</span>
-                  <span class="old-price">41.000₫</span>
-                </div>
-              </div>
-            </div>
-            <!-- Sản phẩm 5 -->
-            <div class="product-block">
-              <div class="product-block-item">
-                <a href="#"><img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/Cap.jpg" alt="Vở viết" /></a>
-              </div>
-              <div class="product-info">
-                <a href="#">Vở viết kẻ ngang nhiều hình ngộ nghĩnh</a>
-                <div class="product-price">
-                  <span class="price">12.000₫</span>
-                  <span class="old-price">41.000₫</span>
-                </div>
-              </div>
-            </div>
+            <?php endforeach;?>
+            <?php else: ?>
+              <?php if ($message = Helpers::getFlash('empty_outstanding_products')): ?>
+                  <div><?php echo $message; ?></div>
+              <?php endif; ?>
+                  <?php endif; ?>
+            
           </div>
         </div>
         <div class="swiper-pagination">
@@ -259,124 +209,23 @@
         <div class="container">
           <div class="content">
             <div class="block-title clearfix">
-              <h2>Văn phòng phẩm cho bạn</h2>
-              <ul class="tab-menu">
-                <li class="tabs-title active" data-tab="tab1">
-                  <span>Sách</span>
-                </li>
-                <li class="tabs-title" data-tab="tab2"><span>Vở</span></li>
-                <li class="tabs-title" data-tab="tab3"><span>Bút</span></li>
-                <li class="tabs-title" data-tab="tab4"><span>Bút màu</span></li>
-              </ul>
+            <h2>Văn phòng phẩm cho bạn</h2>
+    <ul class="tab-menu">
+    <?php foreach ($categories as $index => $category): ?>
+        <li class="tabs-title <?= $index === 0 ? 'active' : '' ?>" 
+            data-tab="tab<?= $index + 1 ?>" 
+            data-id="<?= $category['category_id'] ?>">
+            <span><?= htmlspecialchars($category['name']) ?></span>
+        </li>
+    <?php endforeach; ?>
+</ul>
             </div>
 
-            <div class="tab-1 tab-content current">
-              <div class="product-list">
-                <!-- Sản phẩm 1 -->
-                <div class="product-block-item">
-                  <a href="#"
-                    ><img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/Cap.jpg" alt="Sổ tay dễ thương"
-                  /></a>
-                  <div class="product-info">
-                    <a href="#">Sổ dễ thương</a>
-                    <div class="product-price">
-                      <span class="price">28.000đ</span>
-                      <span class="old-price">35.000đ</span>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Sản phẩm 2 -->
-                <div class="product-block-item">
-                  <a href="#"><img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/Cap.jpg" alt="Sổ bìa cứng" /></a>
-                  <div class="product-info">
-                    <a href="#">Sổ bìa cứng</a>
-                    <div class="product-price">
-                      <span class="price">40.000đ</span>
-                      <span class="old-price">50.000đ</span>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Sản phẩm 3 -->
-                <div class="product-block-item">
-                  <a href="#"><img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/Cap.jpg" alt="Sổ da cao cấp" /></a>
-                  <div class="product-info">
-                    <a href="#">Sổ da cao cấp</a>
-                    <div class="product-price">
-                      <span class="price">100.000đ</span>
-                      <span class="old-price">120.000đ</span>
-                    </div>
-                  </div>
-                </div>
-
-                 <!-- Sản phẩm 4 -->
-                 <div class="product-block-item">
-                  <a href="#"
-                    ><img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/Cap.jpg" alt="Sổ tay dễ thương"
-                  /></a>
-                  <div class="product-info">
-                    <a href="#">Sổ dễ thương</a>
-                    <div class="product-price">
-                      <span class="price">28.000đ</span>
-                      <span class="old-price">35.000đ</span>
-                    </div>
-                  </div>
-                </div>
-                <!-- Sản phẩm 5 -->
-                <div class="product-block-item">
-                  <a href="#"
-                    ><img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/Cap.jpg" alt="Sổ tay dễ thương"
-                  /></a>
-                  <div class="product-info">
-                    <a href="#">Sổ dễ thương</a>
-                    <div class="product-price">
-                      <span class="price">28.000đ</span>
-                      <span class="old-price">35.000đ</span>
-                    </div>
-                  </div>
-                </div>
-                 <!-- Sản phẩm 6 -->
-                 <div class="product-block-item">
-                  <a href="#"
-                    ><img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/Cap.jpg" alt="Sổ tay dễ thương"
-                  /></a>
-                  <div class="product-info">
-                    <a href="#">Sổ dễ thương</a>
-                    <div class="product-price">
-                      <span class="price">28.000đ</span>
-                      <span class="old-price">35.000đ</span>
-                    </div>
-                  </div>
-                </div>
-                 <!-- Sản phẩm 7 -->
-                 <div class="product-block-item">
-                  <a href="#"
-                    ><img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/Cap.jpg" alt="Sổ tay dễ thương"
-                  /></a>
-                  <div class="product-info">
-                    <a href="#">Sổ dễ thương</a>
-                    <div class="product-price">
-                      <span class="price">28.000đ</span>
-                      <span class="old-price">35.000đ</span>
-                    </div>
-                  </div>
-                </div>
-                 <!-- Sản phẩm 88 -->
-                 <div class="product-block-item">
-                  <a href="#"
-                    ><img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/Cap.jpg" alt="Sổ tay dễ thương"
-                  /></a>
-                  <div class="product-info">
-                    <a href="#">Sổ dễ thương</a>
-                    <div class="product-price">
-                      <span class="price">28.000đ</span>
-                      <span class="old-price">35.000đ</span>
-                    </div>
-                  </div>
-                </div>
-            </div>
-            </div>
+            <div class="tab-1 tab-content current" id="tab1">
+    <div class="product-list">
+        <!-- Các sản phẩm sẽ được hiển thị ở đây sau khi JS xử lý -->
+    </div>
+</div>
               <div class="swiper-pagination">
                 <button>Xem thêm</button>
               </div>
@@ -385,6 +234,108 @@
         </div>
       </section>
     </section>
+    <script>
+document.addEventListener("DOMContentLoaded", function () {
+    const tabs = document.querySelectorAll(".tabs-title");
+    const productContainer = document.querySelector(".tab-1 .product-list");
+
+    function loadProducts(categoryId) {
+      
+
+        fetch(`/<?=_NAME_PROJECT?>/getProductsBy_category?category_id=${categoryId}`)
+            .then(response => response.text()) // Chuyển về text trước để kiểm tra lỗi
+            .then(text => {
+                return JSON.parse(text);
+            })
+            .then(data => {
+                console.log("Dữ liệu nhận được:", data);
+
+                productContainer.innerHTML = ""; // Xóa nội dung cũ
+
+                if (!Array.isArray(data)) {
+                    productContainer.innerHTML = `<p>Lỗi: Dữ liệu không hợp lệ!</p>`;
+                    return;
+                }
+
+                if (data.length === 0) {
+                    productContainer.innerHTML = `<p>Không có sản phẩm nào.</p>`;
+                    return;
+                }
+
+                data.forEach(product => {
+                    let productDiv = document.createElement("div");
+                    productDiv.classList.add("product");
+
+                    let productLink = document.createElement("a");
+                    productLink.href = `<?php echo _WEB_ROOT;?>/thong-tin-sp/${product.product_name}/${product.product_id}/${product.product_type_id}`;
+
+                    let productImage = document.createElement("img");
+                    productImage.src = `<?php echo _WEB_ROOT;?>/public/assets/clients/images/products/${product.image || 'default.jpg'}`;
+                    productImage.alt = product.product_name;
+                    productImage.width = 150;
+                    productImage.height = 150;
+
+                    productLink.appendChild(productImage);
+
+                    let productInfo = document.createElement("div");
+                    productInfo.classList.add("product-info");
+
+                    let productName = document.createElement("a");
+                    productName.href = `<?php echo _WEB_ROOT;?>/thong-tin-sp/${product.product_name}/${product.product_id}/${product.product_type_id}`;
+                    productName.innerText = product.product_name;
+
+                    let priceContainer = document.createElement("div");
+                    priceContainer.classList.add("product-price");
+
+                    let price = document.createElement("span");
+                    price.classList.add("price");
+                    price.innerText = product.priceCurrent ? formatCurrencyVND(product.priceCurrent) : "Liên hệ";
+
+                    priceContainer.appendChild(price);
+
+                    if (product.priceOld) {
+                        let oldPrice = document.createElement("span");
+                        oldPrice.classList.add("old-price");
+                        oldPrice.innerText = formatCurrencyVND(product.priceOld);
+                        priceContainer.appendChild(oldPrice);
+                    }
+
+                    productInfo.appendChild(productName);
+                    productInfo.appendChild(priceContainer);
+
+                    productDiv.appendChild(productLink);
+                    productDiv.appendChild(productInfo);
+
+                    productContainer.appendChild(productDiv);
+                });
+
+                document.querySelector(".tab-1").classList.add("current");
+            })
+            .catch(error => {
+                console.error("Lỗi:", error);
+                productContainer.innerHTML = `<p>Lỗi tải dữ liệu!</p>`;
+            });
+    }
+
+    tabs.forEach(tab => {
+        tab.addEventListener("click", function () {
+            tabs.forEach(t => t.classList.remove("active"));
+            document.querySelectorAll(".tab-content").forEach(c => c.classList.remove("current"));
+
+            this.classList.add("active");
+
+            let categoryId = this.getAttribute("data-id");
+            loadProducts(categoryId);
+        });
+    });
+
+    // Kích hoạt tab đầu tiên khi tải trang
+    if (tabs.length > 0) {
+        tabs[0].click();
+    }
+});
+
+    </script>
     <!-- ========= Dịch vụ =========== -->
     <section class="section-6">
       <section class="section-service">
@@ -452,9 +403,7 @@
         </div>
       </section>
     </section>
-
-    <?php  require_once _DIR_ROOT . "/app/views/blocks/footer.php";?>
-</main>
-
-</body>
+   <?php  require_once _DIR_ROOT . "/app/views/blocks/footer.php";?>
+   </main>
+  </body>
 </html>

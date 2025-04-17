@@ -1,13 +1,13 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const settingSidebar = document.querySelector(".settingSidebar");
-    const toggleButton = document.querySelector(".settingPanelToggle");
+// document.addEventListener("DOMContentLoaded", function () {
+//     const settingSidebar = document.querySelector(".settingSidebar");
+//     const toggleButton = document.querySelector(".settingPanelToggle");
 
-    // Khi nhấn vào nút settingPanelToggle, toggle class "showSettingPanel"
-    toggleButton.addEventListener("click", function (event) {
-        event.preventDefault(); // Ngăn chặn chuyển trang nếu thẻ <a> có href
-        settingSidebar.classList.toggle("showSettingPanel");
-    });
-});
+//     // Khi nhấn vào nút settingPanelToggle, toggle class "showSettingPanel"
+//     toggleButton.addEventListener("click", function (event) {
+//         event.preventDefault(); // Ngăn chặn chuyển trang nếu thẻ <a> có href
+//         settingSidebar.classList.toggle("showSettingPanel");
+//     });
+// });
 
 
 
@@ -21,28 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
         breadcrumbSpan.textContent = pageTitle; // Cập nhật breadcrumb navigation
     }
 });
-function updateCart(id, quantity) {
-    fetch('cart.php', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-        body: `update_id=${id}&new_quantity=${quantity}`
-    }).then(() => location.reload());
-}
-function removeItem(id) {
-    fetch('cart.php', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-        body: `remove_id=${id}`
-    }).then(() => location.reload());
-}
 
-function checkout() {
-    alert('Thanh toán thành công!');
-}
-
-function toggleCart() {
-    document.getElementById("cartPanel").classList.toggle("active");
-}
 
 
 window.onscroll = function () {

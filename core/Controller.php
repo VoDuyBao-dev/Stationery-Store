@@ -24,6 +24,47 @@ class Controller
         extract($data); // Chuyển các key trong mảng thành biến
         if (file_exists(_DIR_ROOT . "/app/views/" . $view . ".php")) {
             require_once _DIR_ROOT . "/app/views/" . $view . ".php";
+
+        } else {
+            echo "sai url";
         }
+
+
     }
+
+    public function getValue_ofArrayParams($params)
+    {
+        $count_valueParams = count($params);
+        if ($count_valueParams >= 3) {
+            // Lọc ra các giá trị số
+            $numericValues = array_filter($params, 'is_numeric');
+            // đưa mảng về đúng định dạng
+            $numericValues = array_values($numericValues);
+
+            $secondLastValue = $params[count($params) - 2];
+            // Lấy giá trị cuối
+            $lastValue = end($params);
+            $value = [
+                'secondLastValue' => $secondLastValue,
+                'lastValue' => $lastValue
+            ];
+
+            return $value;
+        }
+        return false;
+
+    }
+
+    public function validateAdmin(){
+        if((!isset($_SESSION['user']) || ($_SESSION['user']['role'] !== 'admin') )){
+            header("Location:" . _WEB_ROOT. "/trang-chu");
+            exit();
+        }
+
+
+    }
+
+    
+
+
 }

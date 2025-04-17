@@ -15,4 +15,8 @@ class Helpers {
         }
         return null;
     }
+
+    public static function format_currency($amount) {
+        return number_format($amount, 0, ',', '.') . '₫';
+    }
 }
