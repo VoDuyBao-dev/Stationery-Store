@@ -24,8 +24,8 @@
     <div class="main-container">
         <!-- Phần nhập thông tin -->
         <div class="checkout-left">
-            <div class="logo">Stationery</div>
-            <h2>Thông tin nhận hàng</h2>
+            <div class="logo-text">Stationery</div>
+            <h1>Thông tin nhận hàng</h1>
             <form action="<?php echo _WEB_ROOT . '/dang-ky'; ?>" method="POST" id="checkout-form">
                 <input type="text" id="fullname" name="fullname" value="<?= htmlspecialchars($_SESSION['user']['fullname'] ?? '') ?>" placeholder="Họ và tên" required>
                 <input type="tel" id="phone" name="phone" value="<?= htmlspecialchars($_SESSION['user']['phone'] ?? '') ?>" placeholder="Số điện thoại (tuỳ chọn)" required>
@@ -77,7 +77,7 @@
         
         <!-- Phần tóm tắt đơn hàng -->
         <div class="checkout-right">
-    <h2>Đơn hàng (<?= count($_SESSION['giohang'])?> sản phẩm)</h2>
+    <h1>Đơn hàng (<?= count($_SESSION['giohang'])?> sản phẩm)</h1>
     <?php $tongtien = 0;?>
     <?php foreach($_SESSION['giohang'] as $item):
             $tt = $item['quantity']* $item['priceCurrent'];

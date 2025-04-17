@@ -95,6 +95,12 @@ a{
     font-size: 26px;
     cursor: pointer;
 }
+.icon p{
+    display: inline;
+    font-size: 14px;
+    align-self: start;
+    color: #f5f0ea !important;
+}
 
 .badge {
     position: absolute;

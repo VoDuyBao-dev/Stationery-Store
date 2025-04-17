@@ -127,7 +127,10 @@ class ProductModel extends Model
     }
 
     public function getAll_imageOfProduct($id_product){
-        $sql = "SELECT * FROM product_images where product_id = ?";
+        $sql = "SELECT pi.image_url
+            FROM product_images pi
+            JOIN product_type pt ON pi.product_type_id = pt.product_type_id
+            WHERE pt.product_id = ?";
         $params = [$id_product];
         $result = $this->fetchAll($sql, $params);
         if(!$result){

@@ -4,7 +4,7 @@ body {
     background-color: #f8f8f8;
 }
 .cart-container {
-    width: 95%;
+    width: 100%;
     margin: auto;
     background: white;
     padding: 20px;
@@ -12,7 +12,7 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     margin-bottom: 30px ;
 }
-h2 {
+h1 {
     text-align: left;
     font-size: 24px;
     padding: 10px;
@@ -22,16 +22,31 @@ h2 {
     align-items: center;
     justify-content: space-between;
     border-bottom: 1px solid #ddd;
-    padding: 15px 0;
+    padding: 15px 20px;
+    margin: 10px 20px;
 }
 .cart-item img {
-    width: 50px;
-    height: 50px;
-    margin-right: 10px;
+    width: 120px;
+    height: 120px;
+    margin-right: 40px;
+}
+.cart-item i{
+    font-size: 20px;
+    font-weight: bold;
+    margin-left: 15px;
+}
+.cart-item i:hover{
+    color: #c99747;
+}
+
+.cart-item p {
+    padding: 5px 0;
+    font-size: 16px;
 }
 .cart-item-info {
     flex-grow: 1;
 }
+
 .cart-item-controls {
     display: flex;
     align-items: center;
@@ -46,16 +61,29 @@ h2 {
 .cart-item-controls button:hover {
     background-color: #bbb;
 }
+.cart-item-controls input {
+    width: 40px;
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    padding: 5px;
+}
 .cart-total {
     display: flex;
-    justify-content: space-between;
+    justify-content: right;
     font-size: 18px;
-    padding: 20px 0;
+    padding: 20px 5px;
+}
+.cart-total span {
+    margin-right: 5px;
 }
 .total{
     font-weight: bold;
     font-size: 20px;
     text-align: right;
+    margin-right: 20px;
+    gap: 10px;
 }
 .setbutton{
     display: flex;
@@ -63,20 +91,20 @@ h2 {
     margin: 20px;
 }
 #checkout-btn, #clear-cart-btn {
-    width: 100%;
+    width: 500px;
     padding: 10px;
-    background-color: #6d98dd;
+    background-color:#c99747 ;
     color: white;
     border: none;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 18px;
     border-radius: 5px;
     margin-top: 10px;
 }
-#checkout-btn:hover, #clear-cart-btn:hover {
-    background-color:#c99747;
+#checkout-btn:hover {
+    background-color:#6d98dd;
     color: black;
 }
-#clear-cart-btn {
+#clear-cart-btn:hover{
     background-color: #bc4b47;
 }

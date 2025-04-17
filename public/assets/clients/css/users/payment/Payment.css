@@ -12,7 +12,7 @@ body {
     background-color: #ededed;
     flex-wrap: wrap;
     max-width: 1100px;
-    margin: 100px auto 30px auto;
+    margin: 120px auto 30px auto;
     background: #fff;
     border-radius: 6px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -33,7 +33,7 @@ body {
 }
 
 /* Logo */
-.logo {
+.logo-text {
     font-size: 30px;
     font-weight: bold;
     color: #121212;
@@ -42,7 +42,7 @@ body {
 }
 
 /* Tiêu đề */
-h2 {
+h1 {
     font-size: 16px;
     font-weight: 600;
     color: #000000;
@@ -198,7 +198,7 @@ input[type="radio"]:checked + label::before {
 }
 
 /* Tiêu đề giỏ hàng */
-.checkout-right h2 {
+.checkout-right h1 {
     font-size: 20px;
     font-weight: 700;
     color: #333;

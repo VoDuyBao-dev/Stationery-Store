@@ -245,7 +245,7 @@ class User extends Controller
                     header("Location:" . _WEB_ROOT . "/admin_layout");
                     exit();
                 }
-                header("Location:" . _WEB_ROOT);
+                header("Location:" . _WEB_ROOT. "/trang-chu");
                 exit();
             } else {
                 $_SESSION['error'] = $verifyUser;
@@ -396,11 +396,6 @@ class User extends Controller
     {
         $this->render("products/Thongtinchitiet");
     }
-
-   
-   
-
-
     
    public function reply()
     {
@@ -414,5 +409,10 @@ class User extends Controller
     public function notfound()
     {
         $this->render("users/search/notfound");
+    }
+    
+    public function chinhsua()
+    {
+        $this->render("users/setting/chinhsuathongtin");
     }
 }

@@ -68,8 +68,10 @@ use core\Helpers;
 
         
     </div>
+
+    <!-- Đăng nhập bằng tài khoản google -->
     <div>
-    <a href="<?= $url ?? ''?>">Đăng nhập với google</a>
+    <button id="google-btn"><a href="<?= $url ?? ''?>"><i class="fab fa-google-plus"></i>Đăng nhập bằng Google </a></button>
     </div>
 
 
