@@ -131,7 +131,11 @@ use core\Helpers;
                         class="product_code"><?= $default_product_type['product_type_id']; ?></span></p>
             <p><strong>Tác giả:</strong> <?= $product['brand_name']; ?></p>
             <p><strong>Tình trạng:</strong> <span
-                        class="status" id="stock-status"><?php echo ($default_product_type['stock_quantity'] > 0) ? "Còn hàng" : "Hết hàng"; ?></span>
+            <span class="status" id="stock-status" 
+          style="color: <?php echo ($default_product_type['stock_quantity'] > 0) ? 'green' : 'red'; ?>; 
+                 font-weight: bold;">
+        <?php echo ($default_product_type['stock_quantity'] > 0) ? "Còn hàng" : "Sản phẩm tạm hết hàng"; ?>
+    </span>
             </p>
 
             <?php
@@ -180,14 +184,14 @@ use core\Helpers;
                     <input type="hidden" name="product_id" value="<?= $product['product_id']; ?>"/>
                     <input type="hidden" name="quantity" id="hidden-quantity" value="1"/>
 
-                    <button class="add-to-cart" type="submit" name="addcart" id="add-to-cart-btn">
+                    <button class="add-to-cart" type="submit" name="addcart" id="add-to-cart-btn"
+                    <?= ($default_product_type['stock_quantity'] <= 0) ? 'disabled style="opacity: 0.5;"' : '' ?>>
                         Thêm vào giỏ hàng</button>
-                    <button class="buy-now" type="submit" name="buynow" id="buy-now-btn">
+                    <button class="buy-now" type="submit" name="buynow" id="buy-now-btn"
+                    <?= ($default_product_type['stock_quantity'] <= 0) ? 'disabled style="opacity: 0.5;"' : '' ?>>
                         Mua ngay</button>
                 </form>
-                <?php if($default_product_type['stock_quantity'] <= 0): ?>
-        <p class="out-of-stock">Sản phẩm tạm hết hàng</p>
-    <?php endif; ?>
+                
                
                 
             </div>
