@@ -50,6 +50,7 @@ $flashSale_products = $flashSale_products ?? [];
 </header>  
 
 <menu>
+
     <?php  require_once _DIR_ROOT . "/app/views/blocks/menu.php";?>
 </menu> 
 <main>

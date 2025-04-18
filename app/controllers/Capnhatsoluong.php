@@ -31,8 +31,9 @@ class Capnhatsoluong extends Controller
             // HTML cho mỗi item
             $html_cart .= '
             <div class="cart-item">
+            
                 <img src="' . _WEB_ROOT . '/public/assets/clients/images/products/' . htmlspecialchars($item['image']) . '" 
-                     alt="' . htmlspecialchars($item['product_type_id']) . '">
+                     alt="' . htmlspecialchars($item['product_name']) . '">
                 <div class="cart-item-info">
                     <p><strong>' . htmlspecialchars($item['product_name']) . '</strong></p>
                    
@@ -53,7 +54,7 @@ class Capnhatsoluong extends Controller
             </div>
             <div class="cart-total">
                 <span>Tạm tính:</span>
-                <span>' . number_format((float)$thanhtien) . '₫</span>
+                <span>'. Helpers::format_currency($thanhtien) . '</span>
             </div>';
         }
 

@@ -5,10 +5,10 @@ class ProductModel extends Model
     private $_table_products = 'products';
     private $_table_product_type = 'product_type';
 
-   
+    // -- Lấy danh sách 10 sản phẩm có lượt bán cao nhất
     public function get_BestSellingProducts(){
         $sql = "WITH best_selling_products AS (
-    -- Lấy danh sách 10 sản phẩm có lượt bán cao nhất
+    
                 SELECT p.product_id, 
                     p.name AS product_name, 
                     SUM(od.quantity) AS total_sold
@@ -56,6 +56,13 @@ class ProductModel extends Model
         }
         return $result;
 
+    }
+
+    public function stockQuantityOf_allProducts(){
+        $sql = "SELECT product_type_id,stock_quantity FROM $this->_table_product_type";
+       
+        $result = $this->fetchAll($sql);
+        return $result;
     }
 
     public function get_ProductsFlashSale(){
@@ -207,9 +214,9 @@ class ProductModel extends Model
     }
 
     // lấy tất cả sản phẩm để hiển thị trong trang all product
-    public function getSortedProducts($sort) {
+    public function getSortedProducts($sort, $subProduct) {
         $orderBy = 'product_name ASC'; // mặc định
-    
+        $subProduct = "%$subProduct%";
         switch ($sort) {
             case 'name-desc':
                 $orderBy = 'product_name DESC';
@@ -224,7 +231,7 @@ class ProductModel extends Model
                 $orderBy = 'pt.created_at DESC';
                 break;
         }
-    
+
         $sql = "
             SELECT 
                 p.product_id,
@@ -244,10 +251,11 @@ class ProductModel extends Model
                     GROUP BY product_id
                 )
             ) pt ON p.product_id = pt.product_id
-            ORDER BY $orderBy;
-            ";
-
-        $result = $this->fetchAll($sql);
+            WHERE p.name LIKE ?
+            ORDER BY $orderBy
+        ";
+        $params = [$subProduct];
+        $result = $this->fetchAll($sql, $params);
 
         return $result;
     }
@@ -279,6 +287,80 @@ class ProductModel extends Model
         return $result;
     }
 
+    // lấy sản phẩm bán chạy nhất trong phần danh mục nổi bật
+    public function allBestSelling_product(){
+        $sql = "SELECT 
+                p.product_id,
+                p.name AS product_name,
+                pt.product_type_id,
+                pt.name AS product_type_name,
+                pt.image,
+                pt.priceCurrent,
+                pt.priceOld,
+                pt.stock_quantity,
+                sales.total_sold
+            FROM 
+                (
+                    SELECT 
+                        pt.product_id,
+                        pt.product_type_id,
+                        SUM(od.quantity) AS total_sold
+                    FROM 
+                        order_details od
+                    JOIN 
+                        product_type pt ON od.product_type_id = pt.product_type_id
+                    GROUP BY 
+                        pt.product_type_id, pt.product_id
+                ) AS sales
+            JOIN (
+                SELECT 
+                    product_id,
+                    MAX(total_quantity) AS max_quantity
+                FROM (
+                    SELECT 
+                        pt.product_id,
+                        SUM(od.quantity) AS total_quantity
+                    FROM 
+                        order_details od
+                    JOIN 
+                        product_type pt ON od.product_type_id = pt.product_type_id
+                    GROUP BY 
+                        pt.product_id, pt.product_type_id
+                ) AS sub
+                GROUP BY product_id
+            ) AS best_sellers ON sales.product_id = best_sellers.product_id AND sales.total_sold = best_sellers.max_quantity
+            JOIN 
+                product_type pt ON pt.product_type_id = sales.product_type_id
+            JOIN 
+                products p ON p.product_id = pt.product_id
+            ORDER BY 
+                sales.total_sold DESC";
+        $result = $this->fetchAll($sql);
+        return $result;
+    }
     
+    // Cập nhật số lượng hàng tồn kho sau khi mua
+    public function updateQuantity($newStock_quantity,$product_type_id){
+        $sql = "UPDATE product_type
+                SET stock_quantity = ?
+                WHERE product_type_id = ?";
+        $params = [$newStock_quantity,$product_type_id];
+        try{
+            $affectedRows = $this->execute($sql, $params);
+            if ($affectedRows > 0) {
+                return true;
+            } else {
+                return "Cập nhật số lượng tồn kho thất bại!";
+            }
+        }catch (Exception $e) {
+            // Xử lý lỗi nếu cần thiết
+            return "Lỗi: " . $e->getMessage();
+        }
+    }
+
+    public function getStockQuantity($product_type_id) {
+        $sql = "SELECT stock_quantity FROM product_type WHERE product_type_id = ?";
+        return $this->fetch($sql, [$product_type_id]);
+    }
     
 }

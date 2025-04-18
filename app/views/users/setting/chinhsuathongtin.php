@@ -54,11 +54,31 @@ $user = $_SESSION['user'] ?? "";
 
     <input type="hidden" name="user_id" value="<?=$user['user_id'] ?>">
     <div class="button-group">
-      <button type="button" id="editBtn"  class="form-button">Cập nhật thông tin</button>
+      <button type="submit" name="submit" id="editBtn"  class="form-button">Cập nhật thông tin</button>
       
     </div>
   </form>
 </div>
+
+<script>
+  function enableEdit() {
+
+    document.getElementById('editBtn').style.display = 'none';
+    document.getElementById('profileForm').style.display = 'inline-block';
+  }
+</script>
+
+
+<?php if ($noti = Helpers::getFlash('notification')): ?>
+<script>
+Swal.fire({
+    title: <?= $noti['type'] === 'success' ? "'Thành công!'" : "'Thất bại!'" ?>,
+    text: decodeURIComponent("<?= rawurlencode($noti['message']) ?>"),
+    icon: "<?= $noti['type'] ?>",
+    confirmButtonText: "OK"
+});
+</script>
+<?php endif; ?>
 
 <?php  require_once _DIR_ROOT . "/app/views/blocks/footer.php";?>
 </body>

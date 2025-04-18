@@ -44,7 +44,7 @@ $routes['manage_users'] = 'AdminManageUser/listuser';
 
 
 
-$routes['thanh-toan'] = 'user/getTransport_Payment';
+$routes['thanh-toan'] = 'cart/getTransport_Payment';
 // // Xử lý form đc thông tin người dùng thanh toán do ajax gửi request lên
 $routes['handleUserInfor_Payment'] = 'user/handleUserInfor_Payment';
 
@@ -70,7 +70,9 @@ $routes['daxuly'] = 'AdminManageUser/done';
 $routes['canxuly'] = 'AdminManageUser/canxuly';
 
 // xong
-$routes['all_product'] = 'product/sanpham';
+$routes['productByCategory'] = 'product/productByCategory';
+// sản phẩm bán chạy ở danh mục nổi bật
+$routes['allBestSelling'] = 'product/allBestSelling';
 
 $routes['phan-hoi'] = 'user/reply';
 // xong

@@ -103,6 +103,13 @@
     font-size: 16px;
   }
   
+  .color-options button.active {
+    background-color: #a7895c;
+    color: white;
+  
+    transform: translateY(-2px);
+}
+
   .color-options button:hover {
     background:#a7895c; /* Màu cam cho hiệu ứng hover */
     color: white;

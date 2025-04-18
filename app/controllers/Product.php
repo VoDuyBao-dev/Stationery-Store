@@ -1,4 +1,5 @@
 <?php
+
 use App\Logger;
 use core\Helpers;
 class Product extends Controller
@@ -165,20 +166,26 @@ class Product extends Controller
         
     }
 
-    public function sanpham()
-    {
-        $sort = $_GET['sort'] ?? 'name-asc'; // mặc định
-        $allProduct = $this->productModel->getSortedProducts($sort);
-        
-        if(!$allProduct){
-            Helpers::setFlash("message", "Không có sản phẩm!");
-            header("Location:" . _WEB_ROOT . "/all_product");
-            exit();
+    public function productByCategory() {
+        // Lấy các tham số từ URL
+        $getCategory = trim($_GET['category'] ?? "");
+        $subProduct = trim($_GET['sub'] ?? "");
+        $sort = $_GET['sort'] ?? 'name-asc';
 
+        if(empty($subProduct)){
+            Helpers::setFlash("error", "Không có loại sản phẩm!");
+            $this->render("products/ProductCategory", ['allProduct' => []]);
+            return;
         }
+        // Lấy danh sách sản phẩm đã được sắp xếp
+        $allProduct = $this->productModel->getSortedProducts($sort, $subProduct);
+
         $data = [
-            'allProduct' => $allProduct
+            'allProduct' => $allProduct,
+            'getCategory' => $getCategory,
+            'subProduct' => $subProduct
         ];
+        
         $this->render("products/ProductCategory", $data);
     }
 
@@ -200,6 +207,16 @@ class Product extends Controller
     public function notfound()
     {
         $this->render("users/search/notfound");
+    }
+
+    // lấy sản phẩm bán chạy nhất trong phần danh mục nổi bật
+    public function allBestSelling(){
+        $products = $this->productModel->allBestSelling_product();
+        $data = [
+            'products_bestSeller' => $products
+        ];
+        $this->render("products/products_bestSeller", $data);
+    
     }
 
 }
