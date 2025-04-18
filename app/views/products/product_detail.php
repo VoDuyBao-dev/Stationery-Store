@@ -62,6 +62,27 @@ use core\Helpers;
                     document.querySelector(".status").innerText = data.stock_quantity > 0 ? "Còn hàng" : "Hết hàng";
                     document.querySelector(".main-image").src = "<?php echo _WEB_ROOT;?>/public/assets/clients/images/products/" + data.image;
 
+                    // Cập nhật trạng thái nút mua hàng
+                    const addToCartBtn = document.getElementById('add-to-cart-btn');
+                    const buyNowBtn = document.getElementById('buy-now-btn');
+                    const stockStatus = document.getElementById('stock-status');
+
+                    if (data.stock_quantity <= 0) {
+                        addToCartBtn.disabled = true;
+                        buyNowBtn.disabled = true;
+                        addToCartBtn.style.opacity = '0.5';
+                        buyNowBtn.style.opacity = '0.5';
+                        stockStatus.textContent = 'Sản phẩm tạm hết hàng';
+                        stockStatus.style.color = 'red';
+                    } else {
+                        addToCartBtn.disabled = false;
+                        buyNowBtn.disabled = false;
+                        addToCartBtn.style.opacity = '1';
+                        buyNowBtn.style.opacity = '1';
+                        stockStatus.textContent = 'Còn hàng';
+                        stockStatus.style.color = 'green';
+                    }
+
                     // Cập nhật product_type_id vào form
                     document.getElementById('selected_name_product_type_id').value = data.name;
                     document.getElementById('selected_product_type_id').value = data.product_type_id;
@@ -110,7 +131,7 @@ use core\Helpers;
                         class="product_code"><?= $default_product_type['product_type_id']; ?></span></p>
             <p><strong>Tác giả:</strong> <?= $product['brand_name']; ?></p>
             <p><strong>Tình trạng:</strong> <span
-                        class="status"><?php echo ($default_product_type['stock_quantity'] > 0) ? "Còn hàng" : "Hết hàng"; ?></span>
+                        class="status" id="stock-status"><?php echo ($default_product_type['stock_quantity'] > 0) ? "Còn hàng" : "Hết hàng"; ?></span>
             </p>
 
             <?php
@@ -159,11 +180,9 @@ use core\Helpers;
                     <input type="hidden" name="product_id" value="<?= $product['product_id']; ?>"/>
                     <input type="hidden" name="quantity" id="hidden-quantity" value="1"/>
 
-                    <button class="add-to-cart" type="submit" name="addcart"
-                    <?= ($default_product_type['stock_quantity'] <= 0) ? 'disabled' : '' ?>>
+                    <button class="add-to-cart" type="submit" name="addcart" id="add-to-cart-btn">
                         Thêm vào giỏ hàng</button>
-                    <button class="buy-now" type="submit" name="buynow"
-                    <?= ($default_product_type['stock_quantity'] <= 0) ? 'disabled' : '' ?>>
+                    <button class="buy-now" type="submit" name="buynow" id="buy-now-btn">
                         Mua ngay</button>
                 </form>
                 <?php if($default_product_type['stock_quantity'] <= 0): ?>
