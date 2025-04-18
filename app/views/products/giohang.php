@@ -15,7 +15,7 @@ use core\Helpers;
     <link type="text/css" rel="stylesheet" 
         href="<?php echo _WEB_ROOT; ?>/public/assets/clients/css/blocks/footer.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script type="text/javascript" src="<?php echo _WEB_ROOT; ?>/public/assets/clients/js/blocks/header.js"></script>
     <script>
@@ -23,7 +23,7 @@ use core\Helpers;
        
     </script>
      <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-   <script src="<?php echo _WEB_ROOT; ?>/public/assets/clients/js/products/cart.js"></script>
+   <script src="<?php echo _WEB_ROOT; ?>/public/assets/clients/js/cart/cart.js"></script>
    <style>
         menu {
             float: left;
@@ -98,11 +98,23 @@ use core\Helpers;
                  <button id="clear-cart-btn" name="deleteAll_cart">Xóa toàn bộ giỏ hàng</button>
                 </form>
         </div>
+         <!-- hiển thị thông báo khi số lượng vượtu quá hàng tồn kho -->
+    <?php if ($noti = Helpers::getFlash('notification')): ?>
+<script>
+Swal.fire({
+    title: "Thông báo",
+    html: decodeURIComponent("<?= rawurlencode($noti['message']) ?>"),
+    icon: "<?= $noti['type'] ?>",
+    confirmButtonText: "OK"
+});
+</script>
+<?php endif; ?>
 
     </div>
     <?php  require_once _DIR_ROOT . "/app/views/blocks/footer.php";?>
 </main>  
-    
+   
+
 </body>
 </html>
 

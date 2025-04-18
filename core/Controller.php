@@ -64,6 +64,15 @@ class Controller
 
     }
 
+    public function checkLogin(){
+        if((!isset($_SESSION['user']))){
+            header("Location:" . _WEB_ROOT. "/dang-nhap");
+            exit();
+        }
+
+
+    }
+
     
 
     

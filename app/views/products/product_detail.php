@@ -15,7 +15,8 @@ use core\Helpers;
     <link type="text/css" rel="stylesheet" 
         href="<?php echo _WEB_ROOT; ?>/public/assets/clients/css/blocks/footer.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="<?php echo _WEB_ROOT; ?>/public/assets/clients/js/cart/cart.js"></script>
 
     <script type="text/javascript" src="<?php echo _WEB_ROOT; ?>/public/assets/clients/js/blocks/header.js"></script>
     <style>
@@ -71,7 +72,7 @@ use core\Helpers;
                 .catch(error => console.error("Lỗi khi tải dữ liệu:", error));
         }
     </script>
-     <script src="<?php echo _WEB_ROOT; ?>/public/assets/clients/js/products/cart.js"></script>
+     
 </head>
 
 <body data-web-root="<?= _WEB_ROOT ?>">
@@ -139,11 +140,7 @@ use core\Helpers;
                 <button type="button" onclick="tangsoluong_productDetail(this)">+</button>
             </div>
            
-              
 
-            <?php if ($message = Helpers::getFlash('add_cart')): ?>
-                  <div><?php echo $message; ?></div>
-              <?php endif; ?>
             <!-- Nút mua hàng -->
             <div class="buttons">
                 <!-- Thêm vào giỏ hàng -->
@@ -162,9 +159,16 @@ use core\Helpers;
                     <input type="hidden" name="product_id" value="<?= $product['product_id']; ?>"/>
                     <input type="hidden" name="quantity" id="hidden-quantity" value="1"/>
 
-                    <button class="add-to-cart" type="submit" name="addcart">Thêm vào giỏ hàng</button>
-                    <button class="buy-now" type="submit" name="buynow">Mua ngay</button>
+                    <button class="add-to-cart" type="submit" name="addcart"
+                    <?= ($default_product_type['stock_quantity'] <= 0) ? 'disabled' : '' ?>>
+                        Thêm vào giỏ hàng</button>
+                    <button class="buy-now" type="submit" name="buynow"
+                    <?= ($default_product_type['stock_quantity'] <= 0) ? 'disabled' : '' ?>>
+                        Mua ngay</button>
                 </form>
+                <?php if($default_product_type['stock_quantity'] <= 0): ?>
+        <p class="out-of-stock">Sản phẩm tạm hết hàng</p>
+    <?php endif; ?>
                
                 
             </div>
@@ -475,6 +479,16 @@ use core\Helpers;
         <?php require_once _DIR_ROOT . "/app/views/blocks/footer.php"; ?>
 </main>
 
-
+<!-- Thông báo thêm vào giỏ hàng thành công -->
+<?php if ($noti = Helpers::getFlash('notification')): ?>
+<script>
+Swal.fire({
+    title: <?= $noti['type'] === 'success' ? "'Thành công!'" : "'Thất bại!'" ?>,
+    text: decodeURIComponent("<?= rawurlencode($noti['message']) ?>"),
+    icon: "<?= $noti['type'] ?>",
+    confirmButtonText: "OK"
+});
+</script>
+<?php endif; ?>
 </body>
 </html>

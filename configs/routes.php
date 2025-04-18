@@ -44,7 +44,7 @@ $routes['manage_users'] = 'AdminManageUser/listuser';
 
 
 
-$routes['thanh-toan'] = 'user/getTransport_Payment';
+$routes['thanh-toan'] = 'cart/getTransport_Payment';
 // // Xử lý form đc thông tin người dùng thanh toán do ajax gửi request lên
 $routes['handleUserInfor_Payment'] = 'user/handleUserInfor_Payment';
 

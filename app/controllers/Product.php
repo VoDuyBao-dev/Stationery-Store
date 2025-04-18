@@ -1,4 +1,5 @@
 <?php
+
 use App\Logger;
 use core\Helpers;
 class Product extends Controller

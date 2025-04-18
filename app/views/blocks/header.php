@@ -1,3 +1,13 @@
+<?php
+            $totalQuantity = 0;
+            if(isset($_SESSION['giohang'])) {
+                foreach($_SESSION['giohang'] as $item) {
+                    $totalQuantity += $item['quantity'];
+                }
+            }
+        
+?>
+  
   <header class="header">
     <div class="logo">
         <div class="logo-img">
@@ -19,7 +29,7 @@
         <span><b>Hotline:</b> 19006750</span>
     </div>
     <div class="icons">
-        <div class="icon"><a href="<?php echo _WEB_ROOT . '/view_cart'; ?>"> <i class="fas fa-shopping-basket"></i><span class="badge">1</span></a></div>
+        <div class="icon"><a href="<?php echo _WEB_ROOT . '/view_cart'; ?>"> <i class="fas fa-shopping-basket"></i><span id="cart-count" class="badge"><?= $totalQuantity?></span></a></div>
         <div class="icon user-menu">
             
             <?php if(isset($_SESSION['user'])): ?>

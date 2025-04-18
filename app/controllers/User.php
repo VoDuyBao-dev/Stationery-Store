@@ -346,17 +346,7 @@ class User extends Controller
         $this->render("users/Signin-Signout/newpass");
     }
 
-   // Lấy thông tin vận chuyển  qua trang thanh toán 
-   public function getTransport_Payment()
-   {
-        $transportModel = new TransportModel();
-        $listTransport = $transportModel->getAllTransport();
-        $data = [
-            'listTransport' => $listTransport,
-        ];
-        $this->render("users/payment/Payment", $data);
-       
-   }
+   
 
     // Xử lý form đc thông tin người dùng thanh toán do ajax gửi request lên
     public function handleUserInfor_Payment()
@@ -390,6 +380,7 @@ class User extends Controller
 
     public function editInfomation()
     {
+        $this->checkLogin();
         if(isset($_POST['submit'])){
             $name = htmlspecialchars(trim($_POST['name'] ?? ''));
             $sdt = htmlspecialchars(trim($_POST['phone'] ?? ''));

@@ -58,6 +58,13 @@ class ProductModel extends Model
 
     }
 
+    public function stockQuantityOf_allProducts(){
+        $sql = "SELECT product_type_id,stock_quantity FROM $this->_table_product_type";
+       
+        $result = $this->fetchAll($sql);
+        return $result;
+    }
+
     public function get_ProductsFlashSale(){
         $sql = "SELECT p.product_id, p.name AS product_name, pt.product_type_id, pt.image, pt.priceOld, pt.priceCurrent, pt.discount_price
             FROM products p
@@ -332,5 +339,28 @@ class ProductModel extends Model
         return $result;
     }
     
+    // Cập nhật số lượng hàng tồn kho sau khi mua
+    public function updateQuantity($newStock_quantity,$product_type_id){
+        $sql = "UPDATE product_type
+                SET stock_quantity = ?
+                WHERE product_type_id = ?";
+        $params = [$newStock_quantity,$product_type_id];
+        try{
+            $affectedRows = $this->execute($sql, $params);
+            if ($affectedRows > 0) {
+                return true;
+            } else {
+                return "Cập nhật số lượng tồn kho thất bại!";
+            }
+        }catch (Exception $e) {
+            // Xử lý lỗi nếu cần thiết
+            return "Lỗi: " . $e->getMessage();
+        }
+    }
+
+    public function getStockQuantity($product_type_id) {
+        $sql = "SELECT stock_quantity FROM product_type WHERE product_type_id = ?";
+        return $this->fetch($sql, [$product_type_id]);
+    }
     
 }
