@@ -15,7 +15,6 @@
 
 
     <script type="text/javascript" src="<?php echo _WEB_ROOT; ?>/public/assets/clients/js/blocks/header.js"></script>
-    <script type="text/javascript" src="<?php echo _WEB_ROOT; ?>/public/assets/clients/js/admin/orders/donhang.js"></script>
     <style>
         menu {
             float: left;
@@ -74,7 +73,7 @@
                                 <td><?php echo $order['created_at']; ?></td>
                                 <td><?php echo $order['fullname']; ?></td>
                                 <td><?php echo $order['updated_at']; ?></td>
-                                <td><button class="delete-btn" data-id="<?= $order['order_id'] ?>">Xem chi tiết</button></td>
+                                <td><button class="detail-btn" xem-id="<?= $order['order_id'] ?>">Xem chi tiết</button></td>
                                 <!-- vì đơn hàng đã hoàn thành nên không nên xóa để có dữ liệu làm báo cáo doanh thu -->
                             </tr>
                         <?php endforeach; ?>
@@ -82,7 +81,34 @@
                 </tbody>
             </table>
 
-            <!-- Modal xác nhận xóa -->
+
+            <!-- Modal hiển thị chi tiết đơn hàng -->
+            <div id="viewDetailModal" class="modal">
+                <span class="close" onclick='document.getElementById("viewDetailModal").style.display = "none";'>&times;</span>
+                <table id="orderDetailtable">
+                    <thead>
+                        <tr id="thead_row">
+                            <th>STT</th>
+                            <th>Tên đơn hàng</th>
+                            <th>SĐT</th>
+                            <th>Địa chỉ</th>
+                            <th>Ghi chú</th>
+                            <th>Sản phẩm</th>
+                            <th>Giá sản phẩm</th>
+                            <th>Số lượng</th>
+                            <th>Giá </th>
+                            <th>Giá vận chuyển</th>
+                            <th>Giá cuối cùng</th>
+                        </tr>
+                    </thead>
+                    <tbody id="order-details-table-body"></tbody>
+                </table>
+
+                <!-- Nút Sửa sẽ được hiển thị nếu trạng thái giao là 0 -->
+
+            </div>
+
+            <!-- Modal xác nhận xóa
             <div id="confirmDeleteModal" style="display: none;">
                 <form action="<?php echo _BASE_URL; ?>/destroyOrder" method="POST">
                     <div class="modal-content">
@@ -94,7 +120,7 @@
                         </div>
                     </div>
                 </form>
-            </div>
+            </div> -->
 
             <div class="footer">
                 <span>Bản Ghi Mỗi Trang</span>
@@ -110,6 +136,11 @@
         </div>
         <?php require_once _DIR_ROOT . "/app/views/blocks/footer.php"; ?>
     </main>
+    <script>
+        const baseURL = "<?php echo _BASE_URL; ?>";
+    </script>
+    <script type="text/javascript" src="<?php echo _WEB_ROOT; ?>/public/assets/clients/js/admin/orders/daxuli.js"></script>
+
 </body>
 
 </html>

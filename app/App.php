@@ -42,7 +42,6 @@ class App
         //        xử lý route
         $url = $this->__routes->handRoute($url);
 
-
         //        Tách url thành dạng mảng theo dấu '/'
         //      array_filter  sẽ loại bỏ các phần tử rỗng trong mảng.
         $urlArr = array_filter(explode('/', $url));

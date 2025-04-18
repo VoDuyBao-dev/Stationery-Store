@@ -94,13 +94,18 @@ $routes['^show/([0-9]+)$'] = 'Coupon/show/$1';
 $routes['update'] = 'Coupon/update';
 $routes['destroy'] = 'Coupon/destroy';
 
+
 // Trang quản lý đơn hàng của admin (xác nhận đơn hàng, giao hàng, đã giao thành công, bị hủy)
+$routes['daxuly'] = 'AdminProduct/done';
+
 $routes['canxuly'] = 'AdminProduct/canxuly';       // toàn bộ order có trangThaiGiao != 3
 $routes['^detailOrder/([0-9]+)$'] = 'AdminProduct/detailOrder/$1';     // chi tiết đơn hàng (có nhiều loại sản phẩm)
+$routes['xacnhan'] = 'AdminProduct/xacnhan';                // xác nhận đơn hàng và chuyển sang trạng thái đang giao hàng
+$routes['^viewOrder/([0-9]+)$'] = 'AdminProduct/viewOrder/$1';     // xem chi tiết đơn hàng (có nhiều loại
+$routes['suaDon'] = 'AdminProduct/suaDon';
+$routes['huyDon'] = 'AdminProduct/huyDon';
+$routes['xoaDon'] = 'AdminProduct/xoaDon';            // xóa đơn hàng có trangThaiGiao == 2 (đã hủy)
+
 $routes['^getOrderDetail/([0-9]+)$'] = 'AdminProduct/getOrderDetail/$1';   // hiển thị trang sửa từng loại sản phẩm (từng bản ghi của order_detail)
 $routes['updateOrderDetail'] = 'AdminProduct/updateOrderDetail';            // cập nhật lại đơn hàng (có nhiều loại sản phẩm)
-$routes['destroyOrder'] = 'AdminProduct/destroy';            // xóa đơn hàng có trangThaiGiao == 2 (đã hủy)
-
-$route['^viewOrder/([0-9]+)$'] = 'AdminProduct/viewOrder/$1';     // xem chi tiết đơn hàng (có nhiều loại
-$routes['updateOrder'] = 'AdminProduct/updateOrder';
-$routes['daxuly'] = 'AdminProduct/done';
+$routes['deleteDetail'] = 'AdminProduct/deleteDetail';            // cập nhật lại đơn hàng (có nhiều loại sản phẩm)

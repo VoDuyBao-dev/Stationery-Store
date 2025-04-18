@@ -120,7 +120,7 @@
                         <div class="form-group">
                             <input type="hidden" name="coupon_id" id="edit-coupon-id">
                             <label for="code">Mã giảm giá:</label>
-                            <input type="text" id="code" name="code" value="<?php echo $coupon['code'] ?>" readonly>
+                            <input type="text" id="code" name="code" value="<?php echo $coupon['code'] ?>">
                             <label for="price_min">Giá tối thiểu:</label>
                             <input type="number" name="price_min" id="price_min" value="<?php echo $coupon['price_min'] ?>" required>
                             <label for="discount">Giảm (%):</label>

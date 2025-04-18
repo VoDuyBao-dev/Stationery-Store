@@ -26,7 +26,8 @@ class CouponModel extends Model
     // Cập nhật mã giảm giá
     public function updateCoupon($id, $data)
     {
-        $sql = "UPDATE $this->table SET price_min=?, discount=?, start_date=?, end_date=?, status=? WHERE coupon_id=?";
+        // print_r(array_merge(array_values($data), [$id]));
+        $sql = "UPDATE $this->table SET code = ?,  price_min=?, discount=?, start_date=?, end_date=?, status=? WHERE coupon_id=?";
         return $this->execute($sql, array_merge(array_values($data), [$id]));
     }
 

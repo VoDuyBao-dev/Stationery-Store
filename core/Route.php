@@ -10,7 +10,6 @@ class Route
         //        print_r($routes);
         //       lấy url và xử lý thành key để so sánh
         $url = trim($url, '/');
-
         $handleUrl = $url;
 
 
