@@ -6,7 +6,7 @@
     border-radius: 10px;
     padding: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin: 150px 30px;
+    margin: 120px 30px;
     position: fixed;
     z-index: 999;
 }
@@ -85,7 +85,7 @@
 }
 
 .featured {
-    margin: 380px 30px 500px 30px;
+    margin: 350px 30px 500px 30px;
     width: 240px;
     position: relative;
     background-color: #f9f9f9;

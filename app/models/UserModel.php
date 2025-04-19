@@ -104,7 +104,8 @@ class UserModel extends Model
 
     public function getAllUsers()
     {
-        $sql = "Select * from $this->_table where status = 1 AND role != 'admin'";
+        $sql = "SELECT * FROM $this->_table WHERE status = '1' AND role != 'admin'";
+
         $result = $this->fetchAll($sql);
         if (!$result) {
             return false;
@@ -114,7 +115,7 @@ class UserModel extends Model
 
     public function getAllUsersLock()
     {
-        $sql = "Select * from $this->_table where status = 0";
+        $sql = "Select * from $this->_table where status = '0' AND role != 'admin'";
         $result = $this->fetchAll($sql);
         if (!$result) {
             return false;
@@ -137,7 +138,7 @@ class UserModel extends Model
 
     public function lockUser($id)
     {
-        $sql = "UPDATE users SET status = 0 WHERE user_id = ?";
+        $sql = "UPDATE users SET status = '0' WHERE user_id = ?";
         $params = [$id];
         try {
             $affectedRows = $this->execute($sql, $params);
@@ -152,7 +153,7 @@ class UserModel extends Model
 
     public function unlockUser($id)
     {
-        $sql = "UPDATE users SET status = 1 WHERE user_id = ?";
+        $sql = "UPDATE users SET status = '1' WHERE user_id = ?";
         $params = [$id];
         try {
             $affectedRows = $this->execute($sql, $params);
@@ -163,5 +164,14 @@ class UserModel extends Model
             Logger::logError("Lỗi khi mở khóa user: " . $e->getMessage());
             return false;
         }
+    }
+
+    public function updateInformation($fullname, $sdt, $address, $id)
+    {
+        $sql = "UPDATE users SET fullname = ?, phone = ?, address = ? WHERE user_id = ?";
+        $params = [$fullname, $sdt, $address, $id];
+
+        $affectedRows = $this->execute($sql, $params);
+        return $affectedRows > 0;
     }
 }

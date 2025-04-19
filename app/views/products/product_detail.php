@@ -15,7 +15,8 @@ use core\Helpers;
     <link type="text/css" rel="stylesheet" 
         href="<?php echo _WEB_ROOT; ?>/public/assets/clients/css/blocks/footer.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="<?php echo _WEB_ROOT; ?>/public/assets/clients/js/cart/cart.js"></script>
 
     <script type="text/javascript" src="<?php echo _WEB_ROOT; ?>/public/assets/clients/js/blocks/header.js"></script>
     <style>
@@ -34,8 +35,16 @@ use core\Helpers;
            
         }
 
-        function changeProductType(productTypeId) {
-            // chu ý chỗ này
+        function changeProductType(productTypeId, buttonElement) {
+            // Remove active class from all buttons
+            document.querySelectorAll('.color-options button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Add active class to clicked button
+            buttonElement.classList.add('active');
+
+            // Fetch and update product data
             fetch("/<?= _NAME_PROJECT?>/getProductType?product_type_id=" + productTypeId)
                 .then(response => response.json())
                 .then(data => {
@@ -46,12 +55,33 @@ use core\Helpers;
                     console.log(data);
                     document.querySelector("h2").innerText = data.name;
                     document.querySelector(".product_code").innerText = data.product_type_id;
-                    document.querySelector(".old-price").innerText = data.priceOld.toLocaleString() + "0đ";
+                    document.querySelector(".old-price").innerText = parseInt(data.priceOld).toLocaleString('vi-VN') + "₫";
                     document.querySelector(".price").innerHTML =
-                        data.priceCurrent.toLocaleString() + "0đ" +
-                        `<span class="old-price">${data.priceOld.toLocaleString()}0đ</span>`;
+                    parseInt(data.priceCurrent).toLocaleString('vi-VN') + "₫" +
+                    `<span class="old-price">${parseInt(data.priceOld).toLocaleString('vi-VN')}₫</span>`;
                     document.querySelector(".status").innerText = data.stock_quantity > 0 ? "Còn hàng" : "Hết hàng";
                     document.querySelector(".main-image").src = "<?php echo _WEB_ROOT;?>/public/assets/clients/images/products/" + data.image;
+
+                    // Cập nhật trạng thái nút mua hàng
+                    const addToCartBtn = document.getElementById('add-to-cart-btn');
+                    const buyNowBtn = document.getElementById('buy-now-btn');
+                    const stockStatus = document.getElementById('stock-status');
+
+                    if (data.stock_quantity <= 0) {
+                        addToCartBtn.disabled = true;
+                        buyNowBtn.disabled = true;
+                        addToCartBtn.style.opacity = '0.5';
+                        buyNowBtn.style.opacity = '0.5';
+                        stockStatus.textContent = 'Sản phẩm tạm hết hàng';
+                        stockStatus.style.color = 'red';
+                    } else {
+                        addToCartBtn.disabled = false;
+                        buyNowBtn.disabled = false;
+                        addToCartBtn.style.opacity = '1';
+                        buyNowBtn.style.opacity = '1';
+                        stockStatus.textContent = 'Còn hàng';
+                        stockStatus.style.color = 'green';
+                    }
 
                     // Cập nhật product_type_id vào form
                     document.getElementById('selected_name_product_type_id').value = data.name;
@@ -63,7 +93,7 @@ use core\Helpers;
                 .catch(error => console.error("Lỗi khi tải dữ liệu:", error));
         }
     </script>
-     <script src="<?php echo _WEB_ROOT; ?>/public/assets/clients/js/products/cart.js"></script>
+     
 </head>
 
 <body data-web-root="<?= _WEB_ROOT ?>">
@@ -93,14 +123,19 @@ use core\Helpers;
         <!-- Thông tin sản phẩm -->
         <div class="product-info">
             <h2><?= $product['product_name']; ?></h2>
-            <p class="price"><?= $default_product_type['priceCurrent']; ?>0đ <span
-                        class="old-price"><?= $default_product_type['priceOld']; ?>0đ</span></p>
+            <p class="price"><?= Helpers::format_currency($default_product_type['priceCurrent']); ?> <span
+                        class="old-price"><?= Helpers::format_currency($default_product_type['priceOld']); ?></span></p>
+                        
             <p></p>
             <p><strong>Mã sản phẩm:</strong> <span
                         class="product_code"><?= $default_product_type['product_type_id']; ?></span></p>
             <p><strong>Tác giả:</strong> <?= $product['brand_name']; ?></p>
             <p><strong>Tình trạng:</strong> <span
-                        class="status"><?php echo ($default_product_type['stock_quantity'] > 0) ? "Còn hàng" : "Hết hàng"; ?></span>
+            <span class="status" id="stock-status" 
+          style="color: <?php echo ($default_product_type['stock_quantity'] > 0) ? 'green' : 'red'; ?>; 
+                 font-weight: bold;">
+        <?php echo ($default_product_type['stock_quantity'] > 0) ? "Còn hàng" : "Sản phẩm tạm hết hàng"; ?>
+    </span>
             </p>
 
             <?php
@@ -112,11 +147,13 @@ use core\Helpers;
             <div class="color-options">
                 <?php
                 foreach ($product_types as $type) {
-                    $activeClass = ($type['product_type_id'] == $product_type_id) ? "class='active'" : "";
-                    echo "<button $activeClass onclick='changeProductType(" . $type['product_type_id'] . ")'>" . $type['name'] . "</button>";
+                    $activeClass = ($type['product_type_id'] == $product_type_id) ? "active" : "";
+                    echo "<button class='{$activeClass}' 
+                          onclick='changeProductType(" . $type['product_type_id'] . ", this)'>" 
+                          . $type['name'] . 
+                          "</button>";
                 }
                 ?>
-
             </div>
 
 
@@ -128,11 +165,7 @@ use core\Helpers;
                 <button type="button" onclick="tangsoluong_productDetail(this)">+</button>
             </div>
            
-              
 
-            <?php if ($message = Helpers::getFlash('add_cart')): ?>
-                  <div><?php echo $message; ?></div>
-              <?php endif; ?>
             <!-- Nút mua hàng -->
             <div class="buttons">
                 <!-- Thêm vào giỏ hàng -->
@@ -151,9 +184,14 @@ use core\Helpers;
                     <input type="hidden" name="product_id" value="<?= $product['product_id']; ?>"/>
                     <input type="hidden" name="quantity" id="hidden-quantity" value="1"/>
 
-                    <button class="add-to-cart" type="submit" name="addcart">Thêm vào giỏ hàng</button>
-                    <button class="buy-now" type="submit" name="buynow">Mua ngay</button>
+                    <button class="add-to-cart" type="submit" name="addcart" id="add-to-cart-btn"
+                    <?= ($default_product_type['stock_quantity'] <= 0) ? 'disabled style="opacity: 0.5;"' : '' ?>>
+                        Thêm vào giỏ hàng</button>
+                    <button class="buy-now" type="submit" name="buynow" id="buy-now-btn"
+                    <?= ($default_product_type['stock_quantity'] <= 0) ? 'disabled style="opacity: 0.5;"' : '' ?>>
+                        Mua ngay</button>
                 </form>
+                
                
                 
             </div>
@@ -443,8 +481,9 @@ use core\Helpers;
                                     <div class="product-info">
                                         <p><?= $product['product_name'] ?></p>
                                         <div class="product-price">
-                                            <span class="price"><?= $product['priceCurrent'] ?>0₫</span>
-                                            <span class="old-price"><?= $product['priceOld'] ?>0₫</span>
+                                        
+                                            <span class="price"> <?= Helpers::format_currency($product['priceCurrent']); ?></span>
+                                            <span class="old-price"><?= Helpers::format_currency($product['priceOld']); ?></span>
                                         </div>
                                     </div>
                                 </div>
@@ -463,6 +502,16 @@ use core\Helpers;
         <?php require_once _DIR_ROOT . "/app/views/blocks/footer.php"; ?>
 </main>
 
-
+<!-- Thông báo thêm vào giỏ hàng thành công -->
+<?php if ($noti = Helpers::getFlash('notification')): ?>
+<script>
+Swal.fire({
+    title: <?= $noti['type'] === 'success' ? "'Thành công!'" : "'Thất bại!'" ?>,
+    text: decodeURIComponent("<?= rawurlencode($noti['message']) ?>"),
+    icon: "<?= $noti['type'] ?>",
+    confirmButtonText: "OK"
+});
+</script>
+<?php endif; ?>
 </body>
 </html>

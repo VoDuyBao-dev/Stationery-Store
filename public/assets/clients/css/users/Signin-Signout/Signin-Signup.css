@@ -132,3 +132,45 @@ h4 {
     font-size: 16px;
     font-weight: bold;
 }
+
+#login-with {
+    margin-top: 20px;
+    padding-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.line {
+    flex: 1;
+    height: 1px;
+    background-color: #ccc;
+    text-transform: uppercase;
+}
+
+.or{
+    margin: 0 10px;
+    font-size: 18px;
+    color: #a7895c;
+    font-weight: bold;
+}
+
+#google-btn {
+    background: #e23d3d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    margin-top: 10px;
+    padding: 12px;
+    text-align: center;
+    width: 100%;
+}
+#google-btn:hover {
+    background:#c21919;
+}
+#google-btn i { 
+    margin-right: 10px;
+    font-size: 23px;
+}
+

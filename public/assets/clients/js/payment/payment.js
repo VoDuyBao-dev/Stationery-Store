@@ -26,9 +26,9 @@ function isValidPhone(phone) {
 function validateAndSubmit(event) {
     // Kiểm tra nếu không có phương thức thanh toán được chọn
     var paymentMethod = document.querySelector("input[name='payment']:checked");
-   
     var fullname = document.getElementById("fullname").value.trim();
     var phone = document.getElementById("phone").value.trim();
+    var shippingMethod = document.getElementById("shipping").value;
 
     if(fullname ===""){
         alert('Bạn phải nhập đầy đủ họ tên!');
@@ -47,6 +47,14 @@ function validateAndSubmit(event) {
         event.preventDefault();
         return false;
     }
+
+    if (shippingMethod === "none") {
+        alert('Bạn phải chọn phương thức vận chuyển!');
+        event.preventDefault();
+        return false;
+    }
+
+
     if (!paymentMethod) {
         // Nếu không có gì được chọn, hiển thị thông báo lỗi
         alert('Bạn phải chọn phương thức thanh toán!');
@@ -76,7 +84,11 @@ function submitBothForms() {
    
     // Lấy giá trị tổng tiền và xử lý
     var totalElement = document.getElementById('total-amount').innerText;
-    var amount = totalElement.split(':')[1].trim().replace('đ', '').trim();
+    var amount = totalElement.split(':')[1]
+                             .trim()
+                             .replace(/\./g, '')  // Loại bỏ dấu chấm
+                             .replace('₫', '')
+                             .trim();
 
     // Thêm số tiền vào FormData
     userFormData.append("tongtien", amount);
@@ -121,7 +133,7 @@ function submitBothForms() {
                 paymentXhr.onload = function () {
                     if (paymentXhr.status === 200) {
                         var paymentResponse = JSON.parse(paymentXhr.responseText);
-                        
+                        console.log(paymentResponse);
                         if (paymentMethod === 'bank') {
                             // Xử lý thanh toán VNPay
                             if (paymentResponse.success) {
@@ -211,3 +223,38 @@ function checkPaymentStatus() {
 
 // Gọi hàm kiểm tra khi trang load xong
 window.onload = checkPaymentStatus;
+
+document.getElementById('shipping').addEventListener('change', calculateTotal);
+
+function calculateTotal() {
+    const shippingMethod = document.getElementById('shipping').value;
+
+    fetch(_WEB_ROOT + '/calculateTotal', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: `shipping_method=${shippingMethod}`
+    })
+    .then(response => response.json())
+    .then(data => {
+        if(data.success) {
+            document.getElementById('subtotal-amount').textContent = 
+                formatCurrency(data.data.totalProduct_cost);
+            document.getElementById('shipping-amount').textContent = 
+                formatCurrency(data.data.shipping_fee);
+            document.getElementById('discount-amount').textContent = 
+                `-${formatCurrency(data.data.discount)}`;
+            document.getElementById('total-amount').textContent = 
+                `Tổng thanh toán: ${formatCurrency(data.data.final_total)}`;
+        }
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+function formatCurrency(amount) {
+    return new Intl.NumberFormat('vi-VN', {
+        style: 'currency',
+        currency: 'VND'
+    }).format(amount);
+}

@@ -1,5 +1,5 @@
 <?php
-
+use core\Helpers;
 class Capnhatsoluong extends Controller
 {
     public function capnhat_soluong()
@@ -31,13 +31,15 @@ class Capnhatsoluong extends Controller
             // HTML cho mỗi item
             $html_cart .= '
             <div class="cart-item">
+            
                 <img src="' . _WEB_ROOT . '/public/assets/clients/images/products/' . htmlspecialchars($item['image']) . '" 
-                     alt="' . htmlspecialchars($item['product_type_id']) . '">
+                     alt="' . htmlspecialchars($item['product_name']) . '">
                 <div class="cart-item-info">
-                    <p>' . htmlspecialchars($item['product_name']) . '</p>
-                    <p><strong>' . htmlspecialchars($item['name_product_type_id']) . '</strong></p>
-                    <p><strong>' . number_format((float)$item['priceCurrent']) . '₫</strong></p>
-                    <p><strong>' . number_format((float)$item['priceOld']) . '₫</strong></p>
+                    <p><strong>' . htmlspecialchars($item['product_name']) . '</strong></p>
+                   
+                    <p style="font-style: italic;">' . htmlspecialchars($item['name_product_type_id']) . '</p>
+                    <p style="color: red; font-size: 16px;">' .  Helpers::format_currency($item['priceCurrent']) . '</p>
+                    <p style="color: grey; text-decoration: line-through; font-size: 14px;">' .  Helpers::format_currency($item['priceOld'])  . '</p>
                 </div>
                 <div class="cart-item-controls">
                     <button type="button" onclick="giamsoluong(this)">-</button>
@@ -48,11 +50,11 @@ class Capnhatsoluong extends Controller
                 <a href="' . _WEB_ROOT . '/deleteIdProduct_inCart/' . 
                     urlencode($item['product_name']) . '/' . 
                     (int)$item['product_id'] . '/' . 
-                    urlencode($item['product_type_id']) . '">❌</a>
+                    urlencode($item['product_type_id']) . '"><i class="fas fa-trash-alt"></i></a>
             </div>
             <div class="cart-total">
-                <span>Thành tiền:</span>
-                <span>' . number_format((float)$thanhtien) . '₫</span>
+                <span>Tạm tính:</span>
+                <span>'. Helpers::format_currency($thanhtien) . '</span>
             </div>';
         }
 

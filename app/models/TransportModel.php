@@ -9,9 +9,14 @@ class TransportModel extends Model
     {
         $sql = "Select * from $this->_table";
         $result = $this->fetchAll($sql);
-        if (!$result) {
-            return false;
-        }
+        return $result;
+    }
+
+    public function getTransportById($transport_id)
+    {
+        $sql = "Select price from $this->_table where transport_id = ?";
+        $params = [$transport_id];
+        $result = $this->fetch($sql, $params);
         return $result;
     }
 }

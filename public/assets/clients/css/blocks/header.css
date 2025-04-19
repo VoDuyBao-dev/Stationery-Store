@@ -49,21 +49,24 @@ a{
 }
 
 .search-bar input {
+    flex: 1;
     border: none;
     outline: none;
     padding: 8px;
     width: 100%;
     font-size: 14px;
     color: rgb(0, 0, 0);
+    background-color: none;
     background: rgb(213, 212, 212);
 }
 
-.search-bar button {
+.search-bar i {
     background: none;
     border: none;
     cursor: pointer;
     color: #c9a56d;
 }
+    
 
 /* Hotline */
 .hotline {
@@ -94,6 +97,12 @@ a{
     color: white;
     font-size: 26px;
     cursor: pointer;
+}
+.icon p{
+    display: inline;
+    font-size: 14px;
+    align-self: start;
+    color: #f5f0ea !important;
 }
 
 .badge {
@@ -129,6 +138,7 @@ a{
     overflow: hidden;
     text-align: left;
     z-index: 1000;
+    width: 150px;
 }
 
 /* Khi hover vào user-menu hoặc dropdown-user thì hiện menu */

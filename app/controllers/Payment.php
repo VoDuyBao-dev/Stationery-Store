@@ -1,10 +1,56 @@
 <?php
-
+require_once _DIR_ROOT . '/app/models/TransportModel.php';
 //Kế thừa lại Controller bên core để dùng method của nó
 class Payment extends Controller
 {
    
+    // xử lý giá vận chuyển và coupon và tổng tiền phải thanh toán do ajax gửi request lên
+    public function calculateTotal() {
+        if(!isset($_POST['shipping_method'])) {
+            echo json_encode(['error' => 'Missing shipping method']);
+            return;
+        }
+        
+        // phương thức vận chuyển
+        $shippingMethod = $_POST['shipping_method'];
+       
+        $totalProduct_cost = 0;
     
+        // Tính tổng tiền hàng
+        foreach($_SESSION['giohang'] as $item) {
+            $totalProduct_cost += $item['quantity'] * $item['priceCurrent'];
+        }
+        
+        $transportModel = new TransportModel();
+
+        // Lấy phí vận chuyển
+        $shipping = $transportModel->getTransportById($shippingMethod);
+        $shippingFee = $shipping['price'] ?? 0;
+
+        // Tìm coupon phù hợp
+        $couponService = new CouponService();
+        $coupon = $couponService->getCoupon($totalProduct_cost);
+        $_SESSION['coupon_id'] = $coupon['coupon_id'];
+        $discount = 0;
+        if($coupon) {
+            $discount = ($totalProduct_cost * $coupon['discount']) / 100;
+        }
+    
+        // Tổng thanh toán cuối cùng
+        $finalTotal = $totalProduct_cost + $shippingFee - $discount;
+        $_SESSION['finalTotal'] = $finalTotal;
+        
+        ob_clean();
+        echo json_encode([
+            'success' => true,
+            'data' => [
+                'totalProduct_cost' => $totalProduct_cost,
+                'shipping_fee' => $shippingFee,
+                'discount' => $discount,
+                'final_total' => $finalTotal
+            ]
+        ]);
+    }
 
     public function initPayment()
     {
@@ -75,7 +121,7 @@ class Payment extends Controller
 
     public function handleVNPayCallback()
     {
-        $paymentMethod = 'bank';
+        $paymentMethod = 'vnpay';
         $vnpaySuccess = $_GET['vnpay_success'] ?? null;
         if (isset($vnpaySuccess) && ($vnpaySuccess != 0)) {
             $payment_id = $vnpaySuccess;
@@ -90,7 +136,7 @@ class Payment extends Controller
 
     public function handleMomoCallback()
     {
-        $paymentMethod = 'ewallet';
+        $paymentMethod = 'momo';
         $momoSuccess = $_GET['momo_success'] ?? null;
         if (isset($momoSuccess) && ($momoSuccess != 0)) {
             $payment_id = $momoSuccess;
@@ -109,7 +155,7 @@ class Payment extends Controller
         $orderService = new OrderService();
         $result = $orderService->processOrder($paymentMethod, $orderData, $payment_id);
 
-        if($paymentMethod === 'bank') {
+        if($paymentMethod === 'vnpay') {
             // VNPay callback - sử dụng header redirect
             if($result['success']) {
                 header("Location:" . _WEB_ROOT . "/thanh-toan?success=true&message=" . urlencode($result['message']));
@@ -127,7 +173,7 @@ class Payment extends Controller
                              ($result['success'] ? 'true' : 'false') . 
                              "&message=" . urlencode($result['message'])
             ]);
-        }else if($paymentMethod === 'ewallet') {
+        }else if($paymentMethod === 'momo') {
            
             if($result['success']) {
                 header("Location:" . _WEB_ROOT . "/thanh-toan?success=true&message=" . urlencode($result['message']));

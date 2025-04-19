@@ -19,11 +19,19 @@
         <div class="icon"><a href="<?php echo _BASE_URL; ?>/beginChat"><i class="far fa-envelope"></i><span class="badge" id="message-count">1</span></a></div>
 
         <div class="icon user-menu">
-            <i class="fas fa-user" id="userIcon"></i>
-            <div class="dropdown-user">
-                <a href="<?php echo _WEB_ROOT . '/dang-nhap'; ?>">Đăng nhập</a>
-                <a href="<?php echo _WEB_ROOT . '/dang-ky'; ?>">Đăng ký</a>
-            </div>
+            <?php if (isset($_SESSION['user'])): ?>
+                <i class="fas fa-user" id="userIcon"></i>
+                <p>Xin chào, <?= $_SESSION['user']['fullname'] ?? "" ?> !</p>
+                <div class="dropdown-user" id="dropdownUser">
+                    <a href="<?php echo _WEB_ROOT . '/dang-xuat'; ?>">Đăng xuất</a>
+                </div>
+            <?php else: ?>
+                <i class="fas fa-user-cog" id="userIcon"></i>
+                <div class="dropdown-user" id="dropdownUser">
+                    <a href="<?php echo _WEB_ROOT . '/dang-nhap'; ?>">Đăng nhập</a>
+                    <a href="<?php echo _WEB_ROOT . '/dang-ky'; ?>">Đăng ký</a>
+                </div>
+            <?php endif; ?>
         </div>
 
     </div>

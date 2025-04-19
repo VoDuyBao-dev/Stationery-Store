@@ -1,4 +1,5 @@
 <?php
+
 use App\Logger;
 use core\Helpers;
 class Product extends Controller
@@ -165,11 +166,57 @@ class Product extends Controller
         
     }
 
-    public function sanpham()
-    {
-        $this->render("products/ProductCategory");
+    public function productByCategory() {
+        // Lấy các tham số từ URL
+        $getCategory = trim($_GET['category'] ?? "");
+        $subProduct = trim($_GET['sub'] ?? "");
+        $sort = $_GET['sort'] ?? 'name-asc';
+
+        if(empty($subProduct)){
+            Helpers::setFlash("error", "Không có loại sản phẩm!");
+            $this->render("products/ProductCategory", ['allProduct' => []]);
+            return;
+        }
+        // Lấy danh sách sản phẩm đã được sắp xếp
+        $allProduct = $this->productModel->getSortedProducts($sort, $subProduct);
+
+        $data = [
+            'allProduct' => $allProduct,
+            'getCategory' => $getCategory,
+            'subProduct' => $subProduct
+        ];
+        
+        $this->render("products/ProductCategory", $data);
     }
 
+
+    public function resultSearch()
+    {
+        if(isset($_GET['keyword'])){
+           $keySearch = htmlspecialchars(trim($_GET['keyword']));
+           $getProduct_Search = $this->productModel->searchProduct($keySearch);
+           $data = [
+            'getProduct_Search' => $getProduct_Search
+           ];
+           $this->render("users/search/ketquatimkiem", $data);
+           return;
+        }
+        $this->render("users/search/ketquatimkiem");
+    }
+
+    public function notfound()
+    {
+        $this->render("users/search/notfound");
+    }
+
+    // lấy sản phẩm bán chạy nhất trong phần danh mục nổi bật
+    public function allBestSelling(){
+        $products = $this->productModel->allBestSelling_product();
+        $data = [
+            'products_bestSeller' => $products
+        ];
+        $this->render("products/products_bestSeller", $data);
     
+    }
 
 }
