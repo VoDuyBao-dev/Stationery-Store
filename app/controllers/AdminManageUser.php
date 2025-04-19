@@ -23,10 +23,14 @@ class AdminManageUser extends Controller
 
     public function listuser()
     {
+        $this->validateAdmin();
         $users = $this->adminModel->getAllUsers();
         $usersLock = $this->adminModel->getAllUsersLock();
-    
-        $this->render("admin/customers/Taikhoan", ["users" => $users, "usersLock" => $usersLock]);
+        $data = [
+            "users" => $users, 
+            "usersLock" => $usersLock
+        ];
+        $this->render("admin/customers/Taikhoan", $data);
     }
 
 
@@ -54,7 +58,7 @@ class AdminManageUser extends Controller
                 header("Location:" . _WEB_ROOT . "/manage_users");
                 exit();
             }else{
-                Helpers::setFlash('error', 'Xóa người dùng thất bại!');
+                Helpers::setFlash('error', 'Mở khóa người dùng thất bại!');
                 
                 header("Location:" . _WEB_ROOT . "/manage_users");
                 exit();
@@ -79,7 +83,7 @@ class AdminManageUser extends Controller
     
             $user = $this->adminModel->getUserById($id);
             if($user === false){
-                $_SESSION['error'] = "Không tìm thấy người dùng cần xóa!";
+                $_SESSION['error'] = "Không tìm thấy người dùng cần khóa!";
                 header("Location:" . _WEB_ROOT . "/manage_users");
                 exit();
             }
@@ -98,10 +102,6 @@ class AdminManageUser extends Controller
         header("Location:" . _WEB_ROOT . "/manage_users");
         exit();
        
-    }
-
-    public function nguoidung()  {
-        $this->render("admin/customers/Taikhoan", []);
     }
 
     public function done()  {
@@ -126,9 +126,7 @@ class AdminManageUser extends Controller
 }
 ?>
 
-<?php if ($message = Helpers::getFlash('add_cart')): ?>
-                  <div><?php echo $message; ?></div>
-              <?php endif; ?>
+
             
 
 

@@ -54,4 +54,28 @@ class Controller
         return false;
 
     }
+
+    public function validateAdmin(){
+        if((!isset($_SESSION['user']) || ($_SESSION['user']['role'] !== 'admin') )){
+            header("Location:" . _WEB_ROOT. "/trang-chu");
+            exit();
+        }
+
+
+    }
+
+    public function checkLogin(){
+        if((!isset($_SESSION['user']))){
+            header("Location:" . _WEB_ROOT. "/dang-nhap");
+            exit();
+        }
+
+
+    }
+
+    
+
+    
+
+
 }

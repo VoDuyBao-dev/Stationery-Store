@@ -87,7 +87,7 @@ class App
 //        Xử lý param: unset $urlArr[0] và $urlArr[1] để còn lại các params
 //        Đưa mảng các params về đúng định dạng:
         $this->__params = array_values($urlArr);
-
+       
 //        Kiểm tra xem method trong controller có tồn tại không thì mới gọi func
         if (method_exists($this->__controller, $this->__action)) {
 
@@ -95,8 +95,8 @@ class App
 //  và truyền các tham số cho nó dưới dạng mảng.
 //        http://localhost/home/index/123/456/789
 //        $controller = new Home(); // Khởi tạo đối tượng HomeController
-//$controller->index(123, 456, 789); // Gọi phương thức index với tham số 123, 456, 789
-            call_user_func_array([$this->__controller, $this->__action], $this->__params);
+//$controller->index([123, 456, 789]); // Gọi phương thức index với tham số 123, 456, 789
+            call_user_func_array([$this->__controller, $this->__action], [$this->__params]);
 
         } else {
             $this->loadError();
@@ -111,6 +111,5 @@ class App
 
     }
 
-//    Hàm ghi log
 
 }

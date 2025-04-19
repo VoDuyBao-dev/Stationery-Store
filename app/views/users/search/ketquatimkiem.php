@@ -14,69 +14,36 @@
 
 
     <script type="text/javascript" src="<?php echo _WEB_ROOT; ?>/public/assets/clients/js/blocks/header.js"></script>
+    <script>
+      function viewProduct(product_name ,id_product, id_product_type) {
+        window.location.href = "thong-tin-sp/" + encodeURIComponent(product_name) +'/'+ id_product +'/' + id_product_type;
+      }
+    </script>
 </head>
 <body>
     <?php  require_once _DIR_ROOT . "/app/views/blocks/header.php";?>
     <?php require_once _DIR_ROOT . "/app/views/blocks/menu.php";?>
     <div class="container">
-        <h2>Tìm thấy 4 kết quả với từ khóa "bút"</h2>
+    
+        <?php if(empty($getProduct_Search)):?>
+            <div class="not-found-container">
+        <h2>Rất tiếc, sản phẩm bạn tìm kiếm không tồn tại!</h2>
+        <p>Hãy thử tìm kiếm sản phẩm khác hoặc quay về trang chủ </p>
+    </div>
+            <?php else:?>
+        <h2>Tìm thấy <?php count($getProduct_Search)?> kết quả với từ khóa "<?= $_GET['keyword'] ?? ""?>"</h2>
+        
         <div class="product-list">
+        <?php foreach($getProduct_Search as $product):?>
             <div class="product">
-                <img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/but.webp" alt="Bút xóa giấy">
-                <p class="name">Bút xóa giấy</p>
-                <p class="price"><span class="new">18.000đ</span> <span class="old">53.000đ</span></p>
-                <button class="btn">Xem ngay</button>
+                <img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/products/<?= $product['image'] ?>" alt="<?= $product['product_name'] ?>">
+                <p class="name"><?= $product['product_name'] ?></p>
+                <p class="price"><span class="new"><?= $product['priceCurrent'] ?>đ</span> <span class="old"><?= $product['priceOld'] ?>đ</span></p>
+                <button class="btn" onclick="viewProduct('<?= $product['product_name'] ?>',<?= $product['product_id'] ?>,<?= $product['product_type_id'] ?> )">Xem ngay</button>
             </div>
-            <div class="product">
-                <img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/but.webp" alt="Bút mực nhiều màu">
-                <p class="name">9 cây bút mực nhiều màu sắc xinh xắn</p>
-                <p class="price"><span class="new">44.000đ</span> <span class="old">63.000đ</span></p>
-                <button class="btn">Xem ngay</button>
-            </div>
-            <div class="product">
-                <img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/but.webp" alt="Bút highlight">
-                <p class="name">Bút highlight pastel dạ quang ghi nhớ</p>
-                <p class="price"><span class="new">15.000đ</span> <span class="old">35.000đ</span></p>
-                <button class="btn">Xem ngay</button>
-            </div>
-            <div class="product">
-                <img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/but.webp" alt="Bút đánh dấu">
-                <p class="name">Màu Sắc Bút Đánh Dấu Hai Đầu</p>
-                <p class="price"><span class="new">24.00đ</span> <span class="old">43.000đ</span></p>
-                <button class="btn">Xem ngay</button>
-            </div>
-            <div class="product">
-                <img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/but.webp" alt="Bút xóa giấy">
-                <p class="name">Bút xóa giấy</p>
-                <p class="price"><span class="new">18.000đ</span> <span class="old">53.000đ</span></p>
-                <button class="btn">Xem ngay</button>
-            </div>
-            <div class="product">
-                <img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/but.webp" alt="Bút mực nhiều màu">
-                <p class="name">9 cây bút mực nhiều màu sắc xinh xắn</p>
-                <p class="price"><span class="new">44.000đ</span> <span class="old">63.000đ</span></p>
-                <button class="btn">Xem ngay</button>
-            </div>
-            <div class="product">
-                <img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/but.webp" alt="Bút highlight">
-                <p class="name">Bút highlight pastel dạ quang ghi nhớ</p>
-                <p class="price"><span class="new">15.000đ</span> <span class="old">35.000đ</span></p>
-                <button class="btn">Xem ngay</button>
-            </div>
-            <div class="product">
-                <img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/but.webp" alt="Bút đánh dấu">
-                <p class="name">Màu Sắc Bút Đánh Dấu Hai Đầu</p>
-                <p class="price"><span class="new">24.00đ</span> <span class="old">43.000đ</span></p>
-                <button class="btn">Xem ngay</button>
-            </div>
-            <div class="product">
-                <img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/but.webp" alt="Bút xóa giấy">
-                <p class="name">Bút xóa giấy</p>
-                <p class="price"><span class="new">18.000đ</span> <span class="old">53.000đ</span></p>
-                <button class="btn">Xem ngay</button>
-            </div>
-            
+            <?php endforeach;?>
         </div>
+        <?php endif;?>
         <?php require_once _DIR_ROOT . "/app/views/blocks/footer.php";?>
     </div>
 </body>

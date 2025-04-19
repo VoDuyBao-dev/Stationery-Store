@@ -93,8 +93,8 @@ class OtpService
         // Kiểm tra yêu cầu AJAX
         if ($requestAjax === 'XMLHttpRequest') {
             // ưu tiên dùng email
-            $email = $email ?? $_SESSION['register_data']['email'] ?? $_SESSION['email'] ?? null;
-
+            $email = $_SESSION['register_data']['email'] ?? $email ?? $_SESSION['email'] ?? null;
+           
             if ($email) {
                 try {
 //                    Kiểm tra và xóa mã otp cũ

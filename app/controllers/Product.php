@@ -1,4 +1,5 @@
 <?php
+
 use App\Logger;
 use core\Helpers;
 class Product extends Controller
@@ -23,7 +24,7 @@ class Product extends Controller
 
    
     
-    public function TrangChu(){
+    public function index(){
         $outstanding_products = $this->productModel->get_BestSellingProducts();
         $flashSale_products = $this->productModel->get_ProductsFlashSale();
         $categories = $this->productModel->getCategories();
@@ -49,7 +50,7 @@ class Product extends Controller
             Helpers::setFlash('empty_categories', 'Không có thể loại sản phẩm nào!');
         }
 
-        $this->render("products/TrangChu", $this->data);
+        $this->render("layouts/client_layout", $this->data);
 
     }
 
@@ -141,7 +142,7 @@ class Product extends Controller
     }
 
     // Lấy các sản phẩm tùy vào lưaj chọn danh mục ở Văn phòng phẩm cho bạn ở trang chủ
-    public function getProducts_ofCategory(){
+    public function getProductsBy_category(){
         if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['category_id'])) {
            $category_id = $_GET['category_id'] ?? "";
            $category = $this->productModel->checkCategoryExists($category_id);
@@ -164,20 +165,58 @@ class Product extends Controller
         }
         
     }
-    
-    public function detail()
-    {
-        $this->data["content"] = "products/detail";
 
-        $this->render("layouts/client_layout", $this->data);
+    public function productByCategory() {
+        // Lấy các tham số từ URL
+        $getCategory = trim($_GET['category'] ?? "");
+        $subProduct = trim($_GET['sub'] ?? "");
+        $sort = $_GET['sort'] ?? 'name-asc';
+
+        if(empty($subProduct)){
+            Helpers::setFlash("error", "Không có loại sản phẩm!");
+            $this->render("products/ProductCategory", ['allProduct' => []]);
+            return;
+        }
+        // Lấy danh sách sản phẩm đã được sắp xếp
+        $allProduct = $this->productModel->getSortedProducts($sort, $subProduct);
+
+        $data = [
+            'allProduct' => $allProduct,
+            'getCategory' => $getCategory,
+            'subProduct' => $subProduct
+        ];
+        
+        $this->render("products/ProductCategory", $data);
     }
 
-    public function sanpham()
+
+    public function resultSearch()
     {
-        $this->render("products/ProductCategory");
+        if(isset($_GET['keyword'])){
+           $keySearch = htmlspecialchars(trim($_GET['keyword']));
+           $getProduct_Search = $this->productModel->searchProduct($keySearch);
+           $data = [
+            'getProduct_Search' => $getProduct_Search
+           ];
+           $this->render("users/search/ketquatimkiem", $data);
+           return;
+        }
+        $this->render("users/search/ketquatimkiem");
     }
+
+    public function notfound()
+    {
+        $this->render("users/search/notfound");
+    }
+
+    // lấy sản phẩm bán chạy nhất trong phần danh mục nổi bật
+    public function allBestSelling(){
+        $products = $this->productModel->allBestSelling_product();
+        $data = [
+            'products_bestSeller' => $products
+        ];
+        $this->render("products/products_bestSeller", $data);
     
+    }
 
 }
-  
-
