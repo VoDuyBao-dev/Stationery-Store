@@ -27,16 +27,6 @@ class AdminProduct extends Controller
     // Hiển thị toàn bộ các đơn hàng chờ xác nhận, đang giao hàng, đã hủy
     public function canxuly()
     {
-        // $orderDetails = [];
-        // $id = $_POST['order_id'] ?? null;
-        // if ($id) {
-        //     $orderDetails = $this->orderModel->getAllOrderById($id);
-        //     if (!$orderDetails) {
-        //         header("Location:" . _WEB_ROOT . "/canxuly");
-        //         exit;
-        //     }
-        // }
-
         $orders = $this->orderModel->getAllOrders();
         $this->render("admin/orders/qldh_canxuly", ["orders" => $orders]);
     }
@@ -188,7 +178,7 @@ class AdminProduct extends Controller
             'quantity' => $_POST['quantity'],
             'order_detail_id' => $_POST['order_detail_id']
         ];
-        print_r($data);
+        // print_r($data);
         // lấy giá của loại sản phẩm
         $productTypePrice = $this->orderModel->getProductTypePrice($data['product_type_id']);
 
@@ -198,9 +188,7 @@ class AdminProduct extends Controller
 
         // Sau khi cập nhật xong chi tiết đơn hàng, có thể tính lại tổng giá của đơn hàng
         $this->orderModel->updateTotalPrice($_POST['order_id']);
-        // echo "<script>alert('Cập nhật không thành công! Số lượng không thể nhỏ hơn 0');</script>";
-        // die();
-        // header('Location: ' . _BASE_URL . '/updateOrderDetail/');
+
         header('Location: ' . _BASE_URL . '/canxuly' . '?xem-id=' . $_POST['order_id']);
     }
 }
