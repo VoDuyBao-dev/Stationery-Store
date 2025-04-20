@@ -1,6 +1,6 @@
 <?php
 
-class AdminProductModel extends Model
+class AdminOrderModel extends Model
 {
     public function getAllTransport()
     {

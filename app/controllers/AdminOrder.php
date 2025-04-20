@@ -1,12 +1,12 @@
 <?php
-class AdminProduct extends Controller
+class AdminOrder extends Controller
 {
     private $orderModel;
 
     public function __construct()
     {
         try {
-            $this->orderModel = $this->model('AdminProductModel');
+            $this->orderModel = $this->model('AdminOrderModel');
 
             if (!$this->orderModel) {
                 throw new Exception("Lỗi trong quá trình tạo đối tượng");
