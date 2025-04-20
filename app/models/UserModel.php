@@ -62,10 +62,12 @@ class UserModel extends Model
     }
 
     function insertUser_Google($fullname,$email,$google_id){
-       
-    
-        $sql="INSERT INTO $this->_table(fullname,email,google_id)VALUES(?, ?, ?)";
-        $params = [$fullname,$email,$google_id];
+       // Tạo mật khẩu ngẫu nhiên cho user Google
+       $random_password = bin2hex(random_bytes(16));
+       $hashed_password = password_hash($random_password, PASSWORD_DEFAULT);
+        
+        $sql="INSERT INTO $this->_table(fullname,email,password,google_id)VALUES(?, ?, ?, ?)";
+        $params = [$fullname,$email,$hashed_password,$google_id];
 
         $affectedRows = $this->execute($sql, $params);
         if ($affectedRows > 0) {
