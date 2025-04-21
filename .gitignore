@@ -44,3 +44,7 @@ uploads/
 .git/
 
 configs/database.php
+
+
+database/
+core/Migrate.php

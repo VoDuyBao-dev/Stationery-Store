@@ -1,14 +1,3 @@
-// document.addEventListener("DOMContentLoaded", function () {
-//     const settingSidebar = document.querySelector(".settingSidebar");
-//     const toggleButton = document.querySelector(".settingPanelToggle");
-
-//     // Khi nhấn vào nút settingPanelToggle, toggle class "showSettingPanel"
-//     toggleButton.addEventListener("click", function (event) {
-//         event.preventDefault(); // Ngăn chặn chuyển trang nếu thẻ <a> có href
-//         settingSidebar.classList.toggle("showSettingPanel");
-//     });
-// });
-
 
 
 document.addEventListener("DOMContentLoaded", function () {
