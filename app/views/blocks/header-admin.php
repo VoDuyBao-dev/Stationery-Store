@@ -7,7 +7,7 @@
 
     <div class="search-bar">
         <input type="text" placeholder="Tìm kiếm sản phẩm...">
-        <button><i class="fas fa-search"></i></button>
+        <i class="fas fa-search"></i>
     </div>
 
     <div class="hotline">
