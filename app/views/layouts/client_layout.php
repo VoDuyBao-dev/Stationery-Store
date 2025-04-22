@@ -36,6 +36,7 @@ $flashSale_products = $flashSale_products ?? [];
   <style>
     menu {
       float: left;
+      margin-top: 30px;
     }
 
     main {
