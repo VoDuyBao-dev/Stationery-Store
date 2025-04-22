@@ -12,10 +12,8 @@ define('_BASE_URL', 'http://localhost/Stationery-Store');
 // => http root: http://localhost/Stationery-Store
 if (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') {
     $web_root = 'http://' . $_SERVER['HTTP_HOST'];
-
 } else {
     $web_root = 'http://' . $_SERVER['HTTP_HOST'];
-
 }
 
 // Xử lý để lấy chuỗi '/Stationery-Store'
@@ -51,6 +49,7 @@ require_once "core/Mail.php"; //Load Mail
 
 require_once "core/OtpService.php"; //Load OtpService
 require_once "app/App.php"; //Load App
+require_once __DIR__ . "/core/Connection.php";
 
 
 //Kiểm tra config và load Database
@@ -60,7 +59,6 @@ if (!empty($config['database'])) {
     if (!empty($db_config)) {
         require_once 'core/Connection.php';
         require_once 'core/Database.php';
-
     }
 }
 
@@ -77,12 +75,9 @@ require_once "core/Controller.php"; //Load base controller
 require_once "configs/google_client.php";
 
 // Load all Service
-require_once "app/services/OrderService.php"; 
-require_once "app/services/CouponService.php"; 
+require_once "app/services/OrderService.php";
+require_once "app/services/CouponService.php";
 require_once "app/services/VNPayPaymentProcessing.php";
 require_once "app/services/MomoPaymentProcessing.php";
 // load google service
 require_once "app/services/GoogleAuthService.php";
-
-
-

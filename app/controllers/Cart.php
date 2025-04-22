@@ -1,4 +1,5 @@
 <?php
+
 use App\Logger;
 use core\Helpers;
 
@@ -11,16 +12,15 @@ class Cart extends Controller
     {
         $this->productModel = $this->model('ProductModel');
         $this->transportModel = $this->model('TransportModel');
-
     }
 
     public function handle_cart()
     {
-        if(isset($_POST['addcart']) || isset($_POST['buynow'])) {
+        if (isset($_POST['addcart']) || isset($_POST['buynow'])) {
             $product_type_id = $_POST['product_type_id'];
             // Kiểm tra tồn kho
             $stock = $this->productModel->getStockQuantity($product_type_id);
-            if(!$stock || $stock['stock_quantity'] <= 0) {
+            if (!$stock || $stock['stock_quantity'] <= 0) {
                 Helpers::setFlash('notification', [
                     'type' => 'error',
                     'message' => 'Sản phẩm đã hết hàng!'
@@ -30,15 +30,15 @@ class Cart extends Controller
             }
         }
         if (isset($_POST['addcart'])) {
-           $this->add_cart();
-           exit();
-        }else if (isset($_POST['buynow'])) {
+            $this->add_cart();
+            exit();
+        } else if (isset($_POST['buynow'])) {
             $this->buyNow();
             exit();
         }
-           
     }
-    private function addToCartFromPost(){
+    private function addToCartFromPost()
+    {
         $name_product_type_id = $_POST['product_name_type_id'];
         $product_id = $_POST['product_id'];
         $product_type_id = $_POST['product_type_id'];
@@ -47,7 +47,7 @@ class Cart extends Controller
         $priceCurrent = $_POST['priceCurrent'];
         $priceOld = $_POST['priceOld'];
         $soluong = $_POST['quantity'];
-    
+
         // Kiểm tra nếu sản phẩm đã có trong giỏ hàng, tăng số lượng
         if (isset($_SESSION['giohang'][$product_type_id])) {
             $_SESSION['giohang'][$product_type_id]['quantity'] += $soluong;
@@ -62,7 +62,7 @@ class Cart extends Controller
                 'priceOld' => $priceOld,
                 'quantity' => $soluong,
             ];
-            
+
             $_SESSION['giohang'][$product_type_id] = $sp;
         }
 
@@ -73,7 +73,7 @@ class Cart extends Controller
 
     public function add_cart()
     {
-       
+
         // Xử lý thêm sản phẩm vô giỏ hàng và trả về tên sp để redirect
         $product_name = $this->addToCartFromPost();
         // Mã hóa tên sản phẩm
@@ -81,40 +81,42 @@ class Cart extends Controller
         Helpers::setFlash('notification', ['type' => 'success', 'message' => 'Thêm sản phẩm vào giỏ hàng thành công!']);
         header("Location:" . _WEB_ROOT . "/thong-tin-sp/" . $encoded_product_name . "/" . $_POST['product_id'] . "/" . $_POST['product_type_id']);
         exit;
-        
     }
 
-    public function buyNow(){
-        
+    public function buyNow()
+    {
+
         // Xử lý thêm sản phẩm vô giỏ hàng và trả về tên sp để redirect
         $product_name = $this->addToCartFromPost();
         header("Location:" . _WEB_ROOT . "/thanh-toan");
         exit;
-        
     }
-    
-    public function view_cart(){
+
+    public function view_cart()
+    {
         $this->checkLogin();
         $this->render("products/giohang");
     }
 
-    public function deleteAll_cart(){
+    public function deleteAll_cart()
+    {
         $this->checkLogin();
-        if(isset($_POST['deleteAll_cart'])){
+        if (isset($_POST['deleteAll_cart'])) {
             $_SESSION['giohang'] = [];
             header("Location:" . _WEB_ROOT . "/view_cart");
             exit;
         }
     }
-    
-    public function deleteIdProduct_inCart($params){
+
+    public function deleteIdProduct_inCart($params)
+    {
         $this->checkLogin();
         $value_params = $this->getValue_ofArrayParams($params);
         $id_product_type = $value_params['lastValue'];
         unset($_SESSION['giohang'][$id_product_type]);
-        if(count($_SESSION['giohang']) > 0){
+        if (count($_SESSION['giohang']) > 0) {
             header("Location:" . _WEB_ROOT . "/view_cart");
-        }else{
+        } else {
             header("Location:" . _WEB_ROOT . "/trang-chu");
         }
     }
@@ -122,13 +124,13 @@ class Cart extends Controller
     // Kiểm tra số lượng hàng tồn kho trước khi thanh toán
     // Lấy thông tin vận chuyển  qua trang thanh toán 
     public function getTransport_Payment()
-    {    
-        
+    {
+
         $stockQuantityOf_allProducts = $this->productModel->stockQuantityOf_allProducts();
         $messages = [];
 
         foreach ($_SESSION['giohang'] as $product_type_id => $product) {
-           
+
             $Quantity = (int)$product['quantity'];
             $stockQuantity = 0;
 
@@ -138,7 +140,7 @@ class Cart extends Controller
                     break;
                 }
             }
-           
+
 
             if ($Quantity > $stockQuantity) {
                 // Cập nhật lại số lượng trong giỏ hàng
@@ -168,7 +170,4 @@ class Cart extends Controller
         ];
         $this->render("users/payment/Payment", $data);
     }
-    
-    
 }
-?>

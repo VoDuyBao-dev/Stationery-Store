@@ -7,14 +7,15 @@ class Connection
 
     private function __construct($config)
     {
-//        Kết nối database
-        $this->conn = new mysqli($config['db_host'], $config['user'], $config['pass'], $config['db_name']);
+        //        Kết nối database
+        $this->conn = new mysqli($config['db_host'], $config['user'], $config['pass'], $config['db_name'], $config['port']);
 
         if ($this->conn->connect_error) {
             Logger::logError("Connection failed: " . $this->conn->connect_error);
             throw new \Exception("Connection failed: ");
+        } else {
+            // echo "Connection successfully";
         }
-
     }
 
     public static function getInstance($config)

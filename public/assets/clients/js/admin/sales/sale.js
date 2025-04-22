@@ -1,141 +1,98 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const addPromotionBtn = document.getElementById('add-promotion-btn');
-    const addModal = document.getElementById('addModal');
-    const editModal = document.getElementById('editModal');
-    const confirmDeleteModal = document.getElementById('confirmDeleteModal');
-    const addModalCloseBtns = document.querySelectorAll('.add-modal-close');
-    const editModalCloseBtns = document.querySelectorAll('.edit-modal-close');
-    const promotionForm = document.getElementById('promotion-form');
-    const editPromotionForm = document.getElementById('edit-promotion-form');
-    const promotionTableBody = document.getElementById('promotion-table').querySelector('tbody');
-    const noDataRow = document.getElementById('no-data-row');
-    const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
-    const cancelDeleteBtn = document.getElementById('cancelDeleteBtn');
+document.addEventListener("DOMContentLoaded", function () {
+    // Lấy các modal
+    const addModal = document.getElementById("addModal");
+    const editModal = document.getElementById("editModal");
+    const deleteModal = document.getElementById("confirmDeleteModal");
 
-    let promotions = [];
-    let editingRowIndex = null;
-    let deleteRowIndex = null;
+    // Nút mở modal thêm
+    const addBtn = document.getElementById("add-promotion-btn");
 
-    addModal.style.display = 'none';
-    editModal.style.display = 'none';
-    confirmDeleteModal.style.display = 'none';
+    // Các nút đóng modal
+    const addCloseBtns = document.querySelectorAll(".add-modal-close");
+    const editCloseBtns = document.querySelectorAll(".edit-modal-close");
+    const cancelDeleteBtn = document.getElementById("cancelDeleteBtn");
 
-    addPromotionBtn.addEventListener('click', function () {
-        addModal.style.display = 'flex';
-        promotionForm.reset();
+    // Các nút "Sửa" và "Xóa"
+    const editBtns = document.querySelectorAll(".edit-btn");
+    const deleteBtns = document.querySelectorAll(".delete-btn");
+
+    // Mở modal Thêm
+    if (addBtn) {
+        addBtn.addEventListener("click", function () {
+            addModal.style.display = "flex";
+        });
+    }
+
+    // Đóng modal Thêm
+    addCloseBtns.forEach(function (btn) {
+        btn.addEventListener("click", function () {
+            addModal.style.display = "none";
+        });
     });
-
-    addModalCloseBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            addModal.style.display = 'none';
+    // Mở modal Sửa
+    editBtns.forEach(button => {
+        button.addEventListener('click', function () {
+            const couponId = this.dataset.id;  // Lấy coupon_id từ data-id của button
+            // Gửi yêu cầu AJAX để lấy dữ liệu chi tiết của coupon
+            console.log(`${baseURL}/show/` + couponId);
+            fetch(`${baseURL}/show/` + couponId)
+                .then(response => response.json())
+                .then(data => {
+                    // Điền dữ liệu vào các trường form
+                    document.getElementById('edit-coupon-id').value = data.coupon_id;  // Trường coupon_id
+                    document.getElementById('price_min').value = data.price_min;  // Trường price_min
+                    document.getElementById('discount').value = data.discount;    // Trường discount
+                    document.getElementById('start_date').value = data.start_date; // Trường start_date
+                    document.getElementById('end_date').value = data.end_date;    // Trường end_date
+                    document.getElementById('status').value = data.status;        // Trường status
+                    document.getElementById('code').value = data.code;            // Trường code
+                    // Hiển thị modal (hoặc form sửa)
+                    document.getElementById('editModal').style.display = 'flex';
+                })
+                .catch(error => {
+                    console.error('Có lỗi xảy ra:', error);
+                });
         });
     });
 
-    editModalCloseBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            editModal.style.display = 'none';
+
+    // Đóng modal Sửa
+    editCloseBtns.forEach(function (btn) {
+        btn.addEventListener("click", function () {
+            editModal.style.display = "none";
         });
     });
 
-    window.addEventListener('click', function (event) {
-        if (event.target === addModal) addModal.style.display = 'none';
-        if (event.target === editModal) editModal.style.display = 'none';
-        if (event.target === confirmDeleteModal) confirmDeleteModal.style.display = 'none';
+    // Mở modal Xác nhận xóa
+    deleteBtns.forEach(function (btn) {
+        btn.addEventListener("click", function () {
+            const couponId = this.dataset.id;
+            document.getElementById("delete-coupon-id").value = couponId;
+            deleteModal.style.display = "flex";
+            // TODO: lưu ID cần xóa nếu cần
+        });
     });
 
-    promotionForm.addEventListener('submit', function (event) {
-        event.preventDefault();
-        const formData = new FormData(promotionForm);
-        const newPromotion = {
-            maGiamGia: formData.get('ma-giam-gia'),
-            giaToiThieu: parseFloat(formData.get('gia-toi-thieu')) || 0,
-            giam: parseInt(formData.get('giam')) || 0,
-            ngayBatDau: formData.get('ngay-bat-dau'),
-            ngayKetThuc: formData.get('ngay-ket-thuc'),
-            trangThai: formData.get('trang-thai')
-        };
-        promotions.push(newPromotion);
-        renderPromotions();
-        addModal.style.display = 'none';
-    });
-
-    promotionTableBody.addEventListener('click', function (event) {
-        const row = event.target.closest('tr');
-        const index = parseInt(row.dataset.index);
-
-        if (event.target.classList.contains('delete-promotion')) {
-            deleteRowIndex = index;
-            confirmDeleteModal.style.display = 'flex';
-        } else if (event.target.classList.contains('edit-promotion')) {
-            editingRowIndex = index;
-            populateEditForm(promotions[index]);
-            editModal.style.display = 'flex';
-        }
-    });
-
-    cancelDeleteBtn.addEventListener('click', function () {
-        confirmDeleteModal.style.display = 'none';
-        deleteRowIndex = null;
-    });
-
-    confirmDeleteBtn.addEventListener('click', function () {
-        if (deleteRowIndex !== null) {
-            promotions.splice(deleteRowIndex, 1);
-            renderPromotions();
-            confirmDeleteModal.style.display = 'none';
-            deleteRowIndex = null;
-        }
-    });
-
-    editPromotionForm.addEventListener('submit', function (event) {
-        event.preventDefault();
-        if (editingRowIndex !== null) {
-            const formData = new FormData(editPromotionForm);
-            promotions[editingRowIndex] = {
-                maGiamGia: formData.get('edit-ma-giam-gia'),
-                giaToiThieu: parseFloat(formData.get('edit-gia-toi-thieu')) || 0,
-                giam: parseInt(formData.get('edit-giam')) || 0,
-                ngayBatDau: formData.get('edit-ngay-bat-dau'),
-                ngayKetThuc: formData.get('edit-ngay-ket-thuc'),
-                trangThai: formData.get('edit-trang-thai')
-            };
-            renderPromotions();
-            editModal.style.display = 'none';
-            editingRowIndex = null;
-        }
-    });
-
-    function populateEditForm(promotion) {
-        document.getElementById('edit-ma-giam-gia').value = promotion.maGiamGia;
-        document.getElementById('edit-gia-toi-thieu').value = promotion.giaToiThieu;
-        document.getElementById('edit-giam').value = promotion.giam;
-        document.getElementById('edit-ngay-bat-dau').value = promotion.ngayBatDau;
-        document.getElementById('edit-ngay-ket-thuc').value = promotion.ngayKetThuc;
-        document.getElementById('edit-trang-thai').value = promotion.trangThai;
+    // Đóng modal Xác nhận xóa
+    if (cancelDeleteBtn) {
+        cancelDeleteBtn.addEventListener("click", function (e) {
+            e.preventDefault(); // Ngăn gửi form
+            deleteModal.style.display = "none";
+        });
     }
 
-    function renderPromotions() {
-        promotionTableBody.innerHTML = '';
-        if (promotions.length === 0) {
-            noDataRow.style.display = '';
-        } else {
-            noDataRow.style.display = 'none';
-            promotions.forEach((promotion, index) => {
-                const row = promotionTableBody.insertRow();
-                row.dataset.index = index;
-                row.innerHTML = `
-                    <td>${promotion.maGiamGia}</td>
-                    <td>${promotion.giaToiThieu}</td>
-                    <td>${promotion.giam}%</td>
-                    <td>${promotion.ngayBatDau}</td>
-                    <td>${promotion.ngayKetThuc}</td>
-                    <td>${promotion.trangThai}</td>
-                    <td class="actions">
-                        <i class="fas fa-edit edit-promotion"></i>
-                        <i class="fas fa-minus delete-promotion"></i>
-                    </td>
-                `;
-            });
+
+
+    // Đóng modal khi click ra ngoài nội dung
+    window.addEventListener("click", function (event) {
+        if (event.target === addModal) {
+            addModal.style.display = "none";
         }
-    }
+        if (event.target === editModal) {
+            editModal.style.display = "none";
+        }
+        if (event.target === deleteModal) {
+            deleteModal.style.display = "none";
+        }
+    });
 });
