@@ -1,20 +1,14 @@
 /* ========================== Reset mặc định ========================== */
 
 * {
-  margin: 0;
-  /* Xóa khoảng cách mặc định của tất cả các phần tử */
-  padding: 0;
-  /* Xóa padding mặc định của tất cả các phần tử */
-  box-sizing: border-box;
-  /* Đảm bảo width và height bao gồm cả padding và border */
-  font-family: Arial, sans-serif;
-  /* Đặt font chữ mặc định */
+  margin: 0; /* Xóa khoảng cách mặc định của tất cả các phần tử */
+  padding: 0; /* Xóa padding mặc định của tất cả các phần tử */
+  box-sizing: border-box; /* Đảm bảo width và height bao gồm cả padding và border */
+  font-family: Arial, sans-serif; /* Đặt font chữ mặc định */
 }
-
 body {
   background: #f8f8f8;
 }
-
 /* Flash Sale */
 .section-3 .block-product {
   display: flex;
@@ -26,7 +20,7 @@ body {
   display: none;
 }
 
-.section-3 .fa-arrow-left,
+.section-3 .fa-arrow-left, 
 .section-3 .fa-arrow-right {
   cursor: pointer;
   font-size: 24px;
@@ -35,150 +29,95 @@ body {
 
 /* ========================== Slider ========================== */
 .section-1 {
-  display: flex;
-  /* Sử dụng flexbox để căn giữa */
-  justify-content: center;
-  /* Căn giữa theo chiều ngang */
-  padding: 30px 0;
-  /* Tạo khoảng cách trên và dưới */
+  display: flex; /* Sử dụng flexbox để căn giữa */
+  justify-content: center; /* Căn giữa theo chiều ngang */
+  padding: 30px 0; /* Tạo khoảng cách trên và dưới */
 }
-
 .home-slider {
-  position: relative;
-  /* Định vị để đặt nút điều hướng */
-  width: 90%;
-  /* Chiếm 80% chiều rộng màn hình */
-  max-width: 1100px;
-  /* Giới hạn chiều rộng tối đa */
-  border-radius: 10px;
-  /* Bo tròn viền */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  /* Đổ bóng nhẹ */
+  position: relative; /* Định vị để đặt nút điều hướng */
+  width: 90%; /* Chiếm 80% chiều rộng màn hình */
+  max-width: 1100px; /* Giới hạn chiều rộng tối đa */
+  border-radius: 10px; /* Bo tròn viền */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Đổ bóng nhẹ */
 }
 
 .home-slider img {
-  width: 100%;
-  /* Ảnh chiếm toàn bộ chiều rộng của slider */
-  display: block;
-  /* Đảm bảo không có khoảng trắng dư thừa */
-  border-radius: 10px;
-  /* Bo tròn viền ảnh */
+  width: 100%; /* Ảnh chiếm toàn bộ chiều rộng của slider */
+  display: block; /* Đảm bảo không có khoảng trắng dư thừa */
+  border-radius: 10px; /* Bo tròn viền ảnh */
 }
 
 .home-slider img:hover {
-  transform: scale(1.05);
-  /* Phóng to ảnh khi di chuột vào */
+  transform: scale(1.05); /* Phóng to ảnh khi di chuột vào */
 }
 
 .home-slider button {
-  position: absolute;
-  /* Định vị tuyệt đối trên slider */
-  top: 50%;
-  /* Đặt ở giữa chiều cao slider */
-  transform: translateY(-50%);
-  /* Căn giữa theo chiều dọc */
-  background: rgba(0, 0, 0, 0.5);
-  /* Nền màu đen trong suốt */
-  color: white;
-  /* Màu chữ trắng */
-  border: none;
-  /* Xóa đường viền */
-  padding: 10px;
-  /* Kích thước nút */
-  font-size: 20px;
-  /* Kích thước biểu tượng */
-  cursor: pointer;
-  /* Con trỏ chuột thành dạng chọn được */
-  border-radius: 50%;
-  /* Bo tròn thành hình tròn */
-  transition: background 0.3s;
-  /* Hiệu ứng màu nền */
+  position: absolute; /* Định vị tuyệt đối trên slider */
+  top: 50%; /* Đặt ở giữa chiều cao slider */
+  transform: translateY(-50%); /* Căn giữa theo chiều dọc */
+  background: rgba(0, 0, 0, 0.5); /* Nền màu đen trong suốt */
+  color: white; /* Màu chữ trắng */
+  border: none; /* Xóa đường viền */
+  padding: 10px; /* Kích thước nút */
+  font-size: 20px; /* Kích thước biểu tượng */
+  cursor: pointer; /* Con trỏ chuột thành dạng chọn được */
+  border-radius: 50%; /* Bo tròn thành hình tròn */
+  transition: background 0.3s; /* Hiệu ứng màu nền */
 }
 
 .home-slider button:hover {
-  background: rgba(0, 0, 0, 0.8);
-  /* Tăng độ tối khi hover */
+  background: rgba(0, 0, 0, 0.8); /* Tăng độ tối khi hover */
 }
-
 .home-slider .fa-arrow-left {
-  left: 5px;
-  /* Căn nút mũi tên trái cách mép 10px */
+  left: 5px; /* Căn nút mũi tên trái cách mép 10px */
 }
 
 .home-slider .fa-arrow-right {
-  right: 5px;
-  /* Căn nút mũi tên phải cách mép 10px */
+  right: 5px; /* Căn nút mũi tên phải cách mép 10px */
 }
 
 /* ========================== Danh mục sản phẩm ========================== */
 .section-2 {
-  text-align: center;
-  /* Căn giữa nội dung */
-  padding: 40px 0;
-  /* Tạo khoảng cách trên và dưới */
+  text-align: center; /* Căn giữa nội dung */
+  padding: 40px 0; /* Tạo khoảng cách trên và dưới */
 }
 
 .cate-list {
-  display: flex;
-  /* Sử dụng flexbox để hiển thị danh mục */
-  justify-content: center;
-  /* Căn giữa các mục */
-  gap: 40px;
-  /* Tạo khoảng cách giữa các mục */
-  align-items: center;
-  /* Căn giữa theo chiều dọc */
-  flex-wrap: wrap;
-  /* Xuống hàng khi không đủ chỗ */
+  display: flex; /* Sử dụng flexbox để hiển thị danh mục */
+  justify-content: center; /* Căn giữa các mục */
+  gap: 40px; /* Tạo khoảng cách giữa các mục */
+  align-items: center; /* Căn giữa theo chiều dọc */
+  flex-wrap: wrap; /* Xuống hàng khi không đủ chỗ */
 }
-
 .cate-item {
-  text-align: center;
-  /* Căn giữa nội dung */
-  padding: 10px;
-  /* Tạo khoảng cách bên trong */
+  text-align: center; /* Căn giữa nội dung */
+  padding: 10px; /* Tạo khoảng cách bên trong */
 }
-
 .cate-item .img img {
-  width: 80px;
-  /* Giới hạn chiều rộng ảnh */
-  transition: transform 0.3s;
-  /* Hiệu ứng khi hover */
+  width: 80px; /* Giới hạn chiều rộng ảnh */
+  transition: transform 0.3s; /* Hiệu ứng khi hover */
 }
 
 .cate-item .img img:hover {
-  transform: scale(1.1);
-  /* Phóng to ảnh khi di chuột vào */
+  transform: scale(1.1); /* Phóng to ảnh khi di chuột vào */
 }
 
 .title_cate a {
-  color: black;
-  /* Màu chữ */
-  font-weight: bold;
-  /* In đậm chữ */
-  font-size: 16px;
-  /* Kích thước chữ */
-  text-decoration: none;
-  /* Bỏ gạch chân liên kết */
+  color: black; /* Màu chữ */
+  font-weight: bold; /* In đậm chữ */
+  font-size: 16px; /* Kích thước chữ */
+  text-decoration: none; /* Bỏ gạch chân liên kết */
 }
-
 /* ========================== Flash Sale ========================== */
 .section-3 {
-  padding: 40px 20px;
-  /* Tạo khoảng cách */
-  background: #fff7eb;
-  /* Đặt màu nền */
-  text-align: center;
-  /* Căn giữa nội dung */
-  border: 3px solid #e50000;
-  /* Đường viền màu đỏ */
-  border-radius: 15px;
-  /* Bo tròn góc */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  /* Đổ bóng nhẹ */
-  max-width: 80%;
-  /* Giới hạn chiều rộng */
-  margin: auto;
-  /* Căn giữa trên trang */
+  padding: 40px 20px; /* Tạo khoảng cách */
+  background: #fff7eb; /* Đặt màu nền */
+  text-align: center; /* Căn giữa nội dung */
+  border: 3px solid #e50000; /* Đường viền màu đỏ */
+  border-radius: 15px; /* Bo tròn góc */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
+  max-width: 80%; /* Giới hạn chiều rộng */
+  margin: auto; /* Căn giữa trên trang */
   position: relative;
 }
 
@@ -191,20 +130,13 @@ body {
 }
 
 .block-product {
-  display: flex;
-  /* Hiển thị sản phẩm theo hàng ngang */
-  justify-content: center;
-  /* Căn giữa */
-  gap: 20px;
-  /* Khoảng cách giữa các sản phẩm */
-  flex-wrap: nowrap;
-  /* Không xuống hàng */
-  overflow-x: hidden;
-  /* Cho phép cuộn ngang */
-  padding: 20px 0;
-  /* Khoảng cách trên và dưới */
-  scroll-behavior: smooth;
-  /* Cuộn mượt */
+  display: flex; /* Hiển thị sản phẩm theo hàng ngang */
+  justify-content: center; /* Căn giữa */
+  gap: 20px; /* Khoảng cách giữa các sản phẩm */
+  flex-wrap: nowrap; /* Không xuống hàng */
+  overflow-x: hidden; /* Cho phép cuộn ngang */
+  padding: 20px 0; /* Khoảng cách trên và dưới */
+  scroll-behavior: smooth; /* Cuộn mượt */
 }
 
 .product-card {
@@ -217,38 +149,24 @@ body {
 }
 
 .product-card:hover {
-  transform: translateY(-5px);
-  /* Nâng sản phẩm lên khi hover */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-  /* Đổ bóng nhẹ */
+  transform: translateY(-5px); /* Nâng sản phẩm lên khi hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Đổ bóng nhẹ */
 }
 
 .product-card img {
-  width: 100%;
-  /* Chiếm toàn bộ chiều rộng */
-  border-radius: 8px;
-  /* Bo tròn viền ảnh */
+  width: 100%; /* Chiếm toàn bộ chiều rộng */
+  border-radius: 8px; /* Bo tròn viền ảnh */
 }
-
 .buy-button {
-  background: #e50000;
-  /* Màu nền nút mua */
-  color: white;
-  /* Màu chữ */
-  border: none;
-  /* Bỏ viền */
-  padding: 8px 15px;
-  /* Kích thước nút */
-  border-radius: 20px;
-  /* Bo tròn góc */
-  cursor: pointer;
-  /* Đổi con trỏ chuột */
-  font-size: 12px;
-  /* Kích thước chữ */
-  transition: background 0.3s;
-  /* Hiệu ứng hover */
+  background: #e50000; /* Màu nền nút mua */
+  color: white; /* Màu chữ */
+  border: none; /* Bỏ viền */
+  padding: 8px 15px; /* Kích thước nút */
+  border-radius: 20px; /* Bo tròn góc */
+  cursor: pointer; /* Đổi con trỏ chuột */
+  font-size: 12px; /* Kích thước chữ */
+  transition: background 0.3s; /* Hiệu ứng hover */
 }
-
 .product-name {
   padding-top: 20px;
   text-overflow: ellipsis;
@@ -261,54 +179,40 @@ body {
   display: block;
   font-size: 14px;
 }
-
 .buy-button:hover {
-  background: #c40000;
-  /* Tối màu hơn khi hover */
+  background: #c40000; /* Tối màu hơn khi hover */
 }
-
 .block-product {
   display: flex;
   justify-content: center;
   gap: 20px;
   flex-wrap: nowrap;
   overflow-x: auto;
-  padding: 20px 40px;
-  /* Tạo khoảng cách hai bên */
+  padding: 20px 40px; /* Tạo khoảng cách hai bên */
   scroll-behavior: smooth;
-  position: relative;
-  /* Cho phép mũi tên định vị tuyệt đối */
+  position: relative; /* Cho phép mũi tên định vị tuyệt đối */
 }
-
 .fa-solid {
-  position: absolute;
-  /* Đảm bảo nút được định vị tuyệt đối */
-  top: 50%;
-  /* Đưa về giữa theo chiều dọc */
-  transform: translateY(-50%);
-  /* Dịch chuyển chính xác về giữa */
+  position: absolute; /* Đảm bảo nút được định vị tuyệt đối */
+  top: 50%; /* Đưa về giữa theo chiều dọc */
+  transform: translateY(-50%); /* Dịch chuyển chính xác về giữa */
   background: #e4002b;
   color: white;
-  padding: 17px 12px;
-  /* Điều chỉnh kích thước */
+  padding: 17px 12px; /* Điều chỉnh kích thước */
   border-radius: 50%;
   cursor: pointer;
-  font-size: 12px;
-  /* Kích thước icon */
+  font-size: 12px; /* Kích thước icon */
   transition: background 0.3s;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 50px;
   height: 50px;
-  z-index: 10;
-  /* Đảm bảo hiển thị trên các sản phẩm */
+  z-index: 10; /* Đảm bảo hiển thị trên các sản phẩm */
 }
-
 .fa-solid:hover {
   background: #c90025;
 }
-
 .fa-arrow-left {
   left: -25px;
 }
@@ -316,7 +220,6 @@ body {
 .fa-arrow-right {
   right: -25px;
 }
-
 /* ========================== Sản phẩm nổi bật ========================== */
 .section-4 {
   background: #fff7eb;
@@ -354,7 +257,6 @@ body {
 .product-info a:hover {
   color: #e50000;
 }
-
 .block-title h2,
 a {
   display: block;
@@ -365,42 +267,29 @@ a {
 .block-title a:hover {
   color: #7e6767;
 }
-
 .swiper-pagination {
-  text-align: center;
-  /* Căn giữa các bullet */
-  margin-top: 20px;
-  /* Khoảng cách phía trên */
+  text-align: center; /* Căn giữa các bullet */
+  margin-top: 20px; /* Khoảng cách phía trên */
 }
 
 .swiper-pagination-bullet {
-  width: 12px;
-  /* Chiều rộng của bullet */
-  height: 12px;
-  /* Chiều cao của bullet */
-  background: #ddd;
-  /* Màu nền mặc định */
-  border-radius: 50%;
-  /* Bo tròn để tạo hình tròn */
-  display: inline-block;
-  /* Hiển thị inline */
-  margin: 0 5px;
-  /* Khoảng cách giữa các bullet */
-  cursor: pointer;
-  /* Con trỏ khi hover */
-  transition: background 0.3s ease;
-  /* Hiệu ứng chuyển màu */
+  width: 12px; /* Chiều rộng của bullet */
+  height: 12px; /* Chiều cao của bullet */
+  background: #ddd; /* Màu nền mặc định */
+  border-radius: 50%; /* Bo tròn để tạo hình tròn */
+  display: inline-block; /* Hiển thị inline */
+  margin: 0 5px; /* Khoảng cách giữa các bullet */
+  cursor: pointer; /* Con trỏ khi hover */
+  transition: background 0.3s ease; /* Hiệu ứng chuyển màu */
 }
 
 .swiper-pagination-bullet-active {
-  background: #e50000;
-  /* Màu nền cho bullet đang hoạt động */
+  background: #e50000; /* Màu nền cho bullet đang hoạt động */
 }
 
 /* Hiệu ứng hover cho bullet */
 .swiper-pagination-bullet:hover {
-  background: #c40000;
-  /* Màu nền khi hover */
+  background: #c40000; /* Màu nền khi hover */
 }
 
 /* Sản phẩm của bạn*/
@@ -460,8 +349,7 @@ a {
 
 .product-list {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  /* 4 cột sản phẩm */
+  grid-template-columns: repeat(4, 1fr); /* 4 cột sản phẩm */
   gap: 20px;
   padding: 20px;
 }
@@ -491,8 +379,7 @@ a {
   display: block;
   margin: 10px 0;
   text-decoration: none;
-  text-align: left;
-  /* Căn trái tên sản phẩm */
+  text-align: left; /* Căn trái tên sản phẩm */
 }
 
 .product-info a:hover {
@@ -504,8 +391,7 @@ a {
   font-size: 16px;
   font-weight: bold;
   color: red;
-  text-align: left;
-  /* Căn trái giá tiền */
+  text-align: left; /* Căn trái giá tiền */
 }
 
 .old-price {
@@ -535,7 +421,6 @@ a {
 .swiper-pagination button:hover {
   background: #c29b53;
 }
-
 /* ========================== Dịch vụ ========================== */
 .section-service {
   background-image: url(../img/backgroud.jpg);
@@ -595,100 +480,80 @@ a {
     flex-direction: column;
     text-align: center;
   }
-
   .s-left {
     padding-left: 0;
   }
-
   .block-image {
     text-align: center;
     margin-top: 20px;
-    margin-right: 0;
-    /* Loại bỏ margin-right */
+    margin-right: 0; /* Loại bỏ margin-right */
   }
-
   .item {
     flex-direction: row;
   }
 
   /* Slider */
   .home-slider {
-    width: 95%;
-    /* Tăng chiều rộng slider trên mobile */
+    width: 95%; /* Tăng chiều rộng slider trên mobile */
   }
 
   /* Danh mục sản phẩm */
   .cate-list {
-    gap: 20px;
-    /* Giảm khoảng cách giữa các danh mục */
+    gap: 20px; /* Giảm khoảng cách giữa các danh mục */
   }
 
   .cate-item .img img {
-    width: 60px;
-    /* Giảm kích thước hình ảnh danh mục */
+    width: 60px; /* Giảm kích thước hình ảnh danh mục */
   }
 
   .title_cate a {
-    font-size: 14px;
-    /* Giảm kích thước chữ tiêu đề danh mục */
+    font-size: 14px; /* Giảm kích thước chữ tiêu đề danh mục */
   }
 
   /* Flash Sale */
   .section-3 {
-    max-width: 95%;
-    /* Tăng chiều rộng Flash Sale trên mobile */
+    max-width: 95%; /* Tăng chiều rộng Flash Sale trên mobile */
   }
 
   .product-card {
-    width: 180px;
-    /* Giảm chiều rộng sản phẩm Flash Sale */
+    width: 180px; /* Giảm chiều rộng sản phẩm Flash Sale */
   }
 
   /* Sản phẩm nổi bật */
   .product-featured-swiper {
-    flex-direction: column;
-    /* Xếp chồng sản phẩm nổi bật trên mobile */
+    flex-direction: column; /* Xếp chồng sản phẩm nổi bật trên mobile */
     align-items: center;
   }
 
   .product-block {
-    width: 90%;
-    /* Tăng chiều rộng sản phẩm nổi bật */
+    width: 90%; /* Tăng chiều rộng sản phẩm nổi bật */
   }
 
   /* Sản phẩm của bạn (section-5) */
   .product-list {
-    grid-template-columns: repeat(2, 1fr);
-    /* 2 cột sản phẩm trên mobile */
+    grid-template-columns: repeat(2, 1fr); /* 2 cột sản phẩm trên mobile */
   }
 
   .product-block-item {
-    width: 90%;
-    /* Tăng chiều rộng sản phẩm */
+    width: 90%; /* Tăng chiều rộng sản phẩm */
   }
 
   /* Dịch vụ (section-service) */
   .section-service {
-    height: auto;
-    /* Tự động điều chỉnh chiều cao */
-    padding: 30px 0;
-    /* Thêm padding */
+    height: auto; /* Tự động điều chỉnh chiều cao */
+    padding: 30px 0; /* Thêm padding */
   }
 
   .section-service .block-title h2 {
-    margin-top: 30px;
-    /* Giảm margin-top */
-    margin-bottom: 20px;
-    /* Giảm margin-bottom */
+    margin-top: 30px; /* Giảm margin-top */
+    margin-bottom: 20px; /* Giảm margin-bottom */
   }
 
   .s-left {
-    padding: 0 20px;
-    /* Giảm padding */
+    padding: 0 20px; /* Giảm padding */
   }
 
   .block-image img {
-    width: 90%;
-    /* Điều chỉnh kích thước ảnh dịch vụ */
+    width: 90%; /* Điều chỉnh kích thước ảnh dịch vụ */
   }
 }
