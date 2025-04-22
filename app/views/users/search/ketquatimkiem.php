@@ -27,11 +27,11 @@
     
         <?php if(empty($getProduct_Search)):?>
             <div class="not-found-container">
-        <h2>Rất tiếc, sản phẩm bạn tìm kiếm không tồn tại!</h2>
+        <h1>Rất tiếc, sản phẩm bạn tìm kiếm không tồn tại!</h1>
         <p>Hãy thử tìm kiếm sản phẩm khác hoặc quay về trang chủ </p>
     </div>
             <?php else:?>
-        <h2>Tìm thấy <?php count($getProduct_Search)?> kết quả với từ khóa "<?= $_GET['keyword'] ?? ""?>"</h2>
+        <h3>Tìm thấy <?php count($getProduct_Search)?> kết quả với từ khóa "<?= $_GET['keyword'] ?? ""?>"</h3>
         
         <div class="product-list">
         <?php foreach($getProduct_Search as $product):?>

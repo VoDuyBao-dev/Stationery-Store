@@ -19,7 +19,7 @@
             float: left;
         }
         main{
-            margin-top: 120px;
+            margin-top: 130px;
             margin-left: 280px;
         }
     </style>
