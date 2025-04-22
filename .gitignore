@@ -30,8 +30,7 @@ package-lock.json
 .idea/
 
 # Tệp dựng và biên dịch
-*.min.js
-*.min.css
+
 *.map
 
 # Thư mục uploads (nếu bạn cho phép người dùng tải file lên)

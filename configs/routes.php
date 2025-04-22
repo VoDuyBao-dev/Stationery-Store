@@ -85,7 +85,9 @@ $routes['notfound'] = 'product/notfound';
 //trang admin_layout
 $routes['admin_layout'] = 'dashboard/home';
 
-
+// endpoint trả dữ liệu báo doanh thu cho fetch
+$routes['bao-cao-doanh-thu'] = 'ReportController/getRevenueData';
+// export excel
+$routes['bao-cao-doanh-thu/export'] = 'ReportController/exportExcel';
 ?>
 
-<!-- sửa sản phẩm dành cho bạn, quản lý user vs giỏ hàng -->

@@ -8,4 +8,9 @@ class Dashboard extends Controller
     {
         $this->render("layouts/admin_layout");
     }
+
+    public function testLayoutADmin()
+    {
+        $this->render("layouts/layout_admin_test");
+    }
 }
