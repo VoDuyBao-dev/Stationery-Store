@@ -64,7 +64,8 @@ if (!empty($config['database'])) {
 
 // Load api google
 require_once "app/libraries/google-api-php-client/vendor/autoload.php";
-
+// load vendor autoload của các packet tải bằng composer
+require 'vendor/autoload.php';
 
 // Load database xong mới tới load model
 require_once "core/Model.php"; //Load base Model

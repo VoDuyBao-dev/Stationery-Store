@@ -85,9 +85,10 @@ $routes['notfound'] = 'product/notfound';
 //trang admin_layout
 $routes['admin_layout'] = 'dashboard/home';
 
-
-
-
+// endpoint trả dữ liệu báo doanh thu cho fetch
+$routes['bao-cao-doanh-thu'] = 'ReportController/getRevenueData';
+// export excel
+$routes['bao-cao-doanh-thu/export'] = 'ReportController/exportExcel';
 
 // Chat giữa admin và khách hàng
 $routes['^chat/([0-9]+)$'] = 'chat/detail/$1';
@@ -116,3 +117,10 @@ $routes['xoaDon'] = 'AdminOrder/xoaDon';            // xóa đơn hàng có tran
 $routes['^getOrderDetail/([0-9]+)$'] = 'AdminOrder/getOrderDetail/$1';   // hiển thị trang sửa từng loại sản phẩm (từng bản ghi của order_detail)
 $routes['updateOrderDetail'] = 'AdminOrder/updateOrderDetail';            // cập nhật lại đơn hàng (có nhiều loại sản phẩm)
 $routes['deleteDetail'] = 'AdminOrder/deleteDetail';            // cập nhật lại đơn hàng (có nhiều loại sản phẩm)
+
+
+
+
+
+
+

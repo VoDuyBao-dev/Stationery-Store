@@ -104,7 +104,10 @@ class AdminManageUser extends Controller
         header("Location:" . _WEB_ROOT . "/manage_users");
         exit();
     }
-
+    
+    public function done()  {
+        $this->render("admin/orders/daxuly", []);
+    }
 
 
     public function taosp()
