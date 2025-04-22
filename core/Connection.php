@@ -1,5 +1,7 @@
 <?php
+
 use App\Logger;
+
 class Connection
 {
     private static $instance = null;
