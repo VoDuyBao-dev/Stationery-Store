@@ -417,13 +417,9 @@ class User extends Controller
         $this->render("users/setting/chinhsuathongtin");
     }
 
-
-
-
-
-
     public function reply()
     {
         $this->render("users/reply/reply");
     }
+
 }

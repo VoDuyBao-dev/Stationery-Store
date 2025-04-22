@@ -18,10 +18,11 @@
     <style>
         menu {
             float: left;
+            margin-top: 0px;
         }
 
         main {
-            margin-top: 120px;
+            margin-top: 150px;
             margin-left: 280px;
         }
     </style>
@@ -38,7 +39,7 @@
     </menu>
     <main>
         <div class="order-container">
-            <h2>Quản lý đơn hàng</h2>
+            <h1>Quản lý đơn hàng</h1>
             <div class="tabs">
                 <button class="tab" onclick="redirectTo('<?php echo _WEB_ROOT . '/canxuly'; ?>')">Cần xử lý (0)</button>
                 <button class="tab active" onclick="redirectTo('<?php echo _WEB_ROOT . '/daxuly'; ?>')">Đã xử lý (0)</button>

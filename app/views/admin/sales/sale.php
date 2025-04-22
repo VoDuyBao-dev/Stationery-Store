@@ -16,10 +16,11 @@
     <style>
         menu {
             float: left;
+            margin-top: 0;
         }
 
         main {
-            margin-top: 120px;
+            margin-top: 155px;
             margin-left: 280px;
         }
 
@@ -40,7 +41,7 @@
     <main>
 
         <div class="sale-container">
-            <h2>Quản lý Khuyến mãi</h2>
+            <h1>Quản lý Khuyến mãi</h1>
 
             <div id="promotion-actions">
                 <button id="add-promotion-btn">Thêm khuyến mãi mới</button>
@@ -85,7 +86,7 @@
             <div id="addModal" class="modal">
                 <div class="modal-content">
                     <span class="close add-modal-close">&times;</span>
-                    <h2>Thêm khuyến mãi mới</h2>
+                    <h1>Thêm khuyến mãi mới</h1>
                     <form id="promotion-form" method="POST" action="<?php echo _BASE_URL; ?>/store">
                         <div class="form-group">
                             <!-- <label for="code">Mã giảm giá:</label>
@@ -115,7 +116,7 @@
             <div id="editModal" class="modal">
                 <div class="modal-content">
                     <span class="close edit-modal-close">&times;</span>
-                    <h2>Sửa khuyến mãi</h2>
+                    <h1>Sửa khuyến mãi</h1>
                     <form id="edit-promotion-form" action="<?php echo _BASE_URL; ?>/update" method="POST">
                         <div class="form-group">
                             <input type="hidden" name="coupon_id" id="edit-coupon-id">

@@ -129,12 +129,10 @@ class Product extends Controller
             $id_product_type = intval($_GET['product_type_id']);
             
             $productType = $this->productModel->getDefault_product_type($id_product_type);
-
-            if ($productType) {
-                ob_clean();
+            ob_clean();
+            if ($productType) { 
                 echo json_encode($productType);
-            } else {
-                ob_clean();
+            } else {  
                 echo json_encode(["error" => "Không tìm thấy sản phẩm"]);
             }
             exit; // Dừng script để tránh load cả trang web

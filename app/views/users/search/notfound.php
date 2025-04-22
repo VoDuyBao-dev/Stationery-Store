@@ -19,7 +19,7 @@
 <?php  require_once _DIR_ROOT . "/app/views/blocks/header.php";?>
 <?php  require_once _DIR_ROOT . "/app/views/blocks/menu.php";?>
     <div class="not-found-container">
-        <h2>Rất tiếc, sản phẩm bạn tìm kiếm không tồn tại!</h2>
+        <h1>Rất tiếc, sản phẩm bạn tìm kiếm không tồn tại!</h1>
         <p>Hãy thử tìm kiếm sản phẩm khác hoặc quay về trang chủ </p>
     </div>
     <div class="not-found-footer">

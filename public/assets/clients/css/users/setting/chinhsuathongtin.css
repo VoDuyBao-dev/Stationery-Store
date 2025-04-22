@@ -9,7 +9,7 @@ body {
   .form-container {
     background: white;
     padding: 32px;
-    margin: 150px 450px 50px 450px;
+    margin: 130px 0 30px 380px;
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     width: 100%;
@@ -24,6 +24,7 @@ body {
   
   label {
     font-weight: 600;
+    margin-top: 18px;
     margin-bottom: 6px;
     display: block;
   }
@@ -32,7 +33,6 @@ body {
   input[type="email"] {
     width: 100%;
     padding: 10px;
-    margin-bottom: 18px;
     border: 1px solid #ccc;
     border-radius: 6px;
     transition: 0.3s;
@@ -60,6 +60,7 @@ body {
   #editBtn {
     background: #a7895c;
     color: white;
+    margin-top: 20px;
   }
   
   #editBtn:hover {
