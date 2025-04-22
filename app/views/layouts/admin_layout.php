@@ -16,7 +16,6 @@
   <!-- main css -->
   <link type="text/css" rel="stylesheet" href="<?php echo _WEB_ROOT; ?>/public/assets/clients/css/admin/app.min.css" />
   <link type="text/css" rel="stylesheet" href="<?php echo _WEB_ROOT; ?>/public/assets/clients/css/admin/styles.css" />
-  <link type="text/css" rel="stylesheet" href=".<?php echo _WEB_ROOT; ?>/public/assets/clients/css/admin/components.css" />
   <link type="text/css" rel="stylesheet" href="<?php echo _WEB_ROOT; ?>/public/assets/clients/css/admin/custom.css" />
   <!-- main js -->
   <script type="text/javascript" src="<?php echo _WEB_ROOT; ?>/public/assets/clients/js/admin/app.min.js"></script>
