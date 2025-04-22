@@ -30,6 +30,25 @@ function validateAndSubmit(event) {
     var phone = document.getElementById("phone").value.trim();
     var shippingMethod = document.getElementById("shipping").value;
 
+    const provinceSelect = document.getElementById('province');
+    const districtSelect = document.getElementById('district');
+    const wardSelect = document.getElementById('ward');
+
+    if (!provinceSelect.value) {
+        alert('Vui lòng chọn Tỉnh/Thành phố');
+        event.preventDefault();
+        return false;
+    }
+    if (!districtSelect.value) {
+        alert('Vui lòng chọn Quận/Huyện');
+        event.preventDefault();
+        return false;
+    }
+    if (!wardSelect.value) {
+        alert('Vui lòng chọn Phường/Xã');
+        event.preventDefault();
+        return false;
+    }
     if(fullname ===""){
         alert('Bạn phải nhập đầy đủ họ tên!');
         event.preventDefault(); 
@@ -258,3 +277,68 @@ function formatCurrency(amount) {
         currency: 'VND'
     }).format(amount);
 }
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    const provinceSelect = document.getElementById('province');
+    const districtSelect = document.getElementById('district');
+    const wardSelect = document.getElementById('ward');
+
+    // Load Provinces
+    fetch(API_PROVINCES + "?depth=1")
+        .then(res => res.json())
+        .then(data => {
+            data.forEach(province => {
+                let option = document.createElement("option");
+                option.value = province.name; // Sử dụng tên thay vì code
+                option.textContent = province.name;
+                option.dataset.code = province.code; // Lưu code vào dataset nếu cần
+                provinceSelect.appendChild(option);
+            });
+        });
+
+    // Load Districts when Province changes
+    provinceSelect.addEventListener("change", () => {
+        const provinceName = provinceSelect.value;
+        const provinceCode = provinceSelect.options[provinceSelect.selectedIndex].dataset.code;
+        
+        districtSelect.innerHTML = '<option value="">Chọn Quận/Huyện</option>';
+        wardSelect.innerHTML = '<option value="">Chọn Phường/Xã</option>';
+        
+        if (provinceCode) {
+            fetch(`${API_PROVINCES}p/${provinceCode}?depth=2`)
+                .then(res => res.json())
+                .then(data => {
+                    data.districts.forEach(district => {
+                        let option = document.createElement("option");
+                        option.value = district.name; // Sử dụng tên thay vì code
+                        option.textContent = district.name;
+                        option.dataset.code = district.code;
+                        districtSelect.appendChild(option);
+                    });
+                });
+        }
+    });
+
+    // Load Wards when District changes
+    districtSelect.addEventListener("change", () => {
+        const districtCode = districtSelect.options[districtSelect.selectedIndex].dataset.code;
+        wardSelect.innerHTML = '<option value="">Chọn Phường/Xã</option>';
+
+        if (districtCode) {
+            fetch(`${API_PROVINCES}d/${districtCode}?depth=2`)
+                .then(res => res.json())
+                .then(data => {
+                    data.wards.forEach(ward => {
+                        let option = document.createElement("option");
+                        option.value = ward.name; // Sử dụng tên thay vì code
+                        option.textContent = ward.name;
+                        option.dataset.code = ward.code;
+                        wardSelect.appendChild(option);
+                    });
+                });
+        }
+    });
+
+    
+});
