@@ -21,12 +21,17 @@ $flashSale_products = $flashSale_products ?? [];
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
 
+
   <script type="text/javascript" src="<?php echo _WEB_ROOT; ?>/public/assets/clients/js/blocks/header.js"></script>
   <script>
     function viewProduct(product_name, id_product, id_product_type) {
       window.location.href = "thong-tin-sp/" + encodeURIComponent(product_name) + '/' + id_product + '/' + id_product_type;
     }
     var test = _WEB_ROOT;
+
+    function formatCurrencyVND(amount) {
+      return new Intl.NumberFormat('vi-VN').format(amount) + '₫';
+    }
   </script>
   <style>
     menu {
@@ -34,7 +39,7 @@ $flashSale_products = $flashSale_products ?? [];
     }
 
     main {
-      margin-top: 120px;
+      margin-top: 100px;
       margin-left: 280px;
     }
   </style>
@@ -49,7 +54,6 @@ $flashSale_products = $flashSale_products ?? [];
   </header>
 
   <menu>
-
     <?php require_once _DIR_ROOT . "/app/views/blocks/menu.php"; ?>
   </menu>
   <main>
@@ -125,10 +129,11 @@ $flashSale_products = $flashSale_products ?? [];
             <?php foreach ($flashSale_products as $product): ?>
 
               <div class="product-card">
-                <img src="<?php echo _WEB_ROOT; ?>/public/assets/clients/images/products/<?= $product['image'] ?>" alt="Hộp bút" />
+                <img src="<?php echo _WEB_ROOT; ?>/public/assets/clients/images/products/<?= $product['image'] ?>" alt="<?= $product['product_name'] ?>" />
                 <div class="product-name"><?= $product['product_name'] ?></div>
                 <div class="price">
-                  <?= $product['priceCurrent'] ?>0₫ <span class="old-price"><?= $product['priceOld'] ?>0₫</span>
+
+                  <?= Helpers::format_currency($product['priceCurrent']); ?> <span class="old-price"><?= Helpers::format_currency($product['priceOld']); ?></span>
                 </div>
                 <button class="buy-button" onclick="viewProduct('<?= $product['product_name'] ?>',<?= $product['product_id'] ?>,<?= $product['product_type_id'] ?> )">Xem ngay </button>
 
@@ -165,26 +170,28 @@ $flashSale_products = $flashSale_products ?? [];
                   <div class="product-info">
                     <span><?= $product['product_name'] ?></span>
                     <div class="product-price">
-                      <span class="price"><?= $product['price'] ?>0₫</span>
-                      <span class="old-price"><?= $product['price_old'] ?>0₫</span>
+
+                      <span class="price"><?= Helpers::format_currency($product['price']); ?></span>
+                      <span class="old-price"><?= Helpers::format_currency($product['price_old']); ?></span>
                     </div>
                   </div>
-                <?php endforeach; ?>
-              <?php else: ?>
-                <?php if ($message = Helpers::getFlash('empty_outstanding_products')): ?>
-                  <div><?php echo $message; ?></div>
-                <?php endif; ?>
-              <?php endif; ?>
-
                 </div>
-          </div>
-          <div class="swiper-pagination">
-            <span
-              class="swiper-pagination-bullet swiper-pagination-bullet-active"></span>
-            <span class="swiper-pagination-bullet"></span>
-            <span class="swiper-pagination-bullet"></span>
+              <?php endforeach; ?>
+            <?php else: ?>
+              <?php if ($message = Helpers::getFlash('empty_outstanding_products')): ?>
+                <div><?php echo $message; ?></div>
+              <?php endif; ?>
+            <?php endif; ?>
+
           </div>
         </div>
+        <div class="swiper-pagination">
+          <span
+            class="swiper-pagination-bullet swiper-pagination-bullet-active"></span>
+          <span class="swiper-pagination-bullet"></span>
+          <span class="swiper-pagination-bullet"></span>
+        </div>
+      </div>
     </section>
 
     <!-- ========== Văn phòng phẩm cho bạn ==========  -->
@@ -214,10 +221,6 @@ $flashSale_products = $flashSale_products ?? [];
               <button>Xem thêm</button>
             </div>
           </div>
-          <div class="swiper-pagination">
-            <button>Xem thêm</button>
-          </div>
-        </div>
         </div>
         </div>
       </section>
@@ -277,14 +280,14 @@ $flashSale_products = $flashSale_products ?? [];
 
                 let price = document.createElement("span");
                 price.classList.add("price");
-                price.innerText = product.priceCurrent ? product.priceCurrent + "₫" : "Liên hệ";
+                price.innerText = product.priceCurrent ? formatCurrencyVND(product.priceCurrent) : "Liên hệ";
 
                 priceContainer.appendChild(price);
 
                 if (product.priceOld) {
                   let oldPrice = document.createElement("span");
                   oldPrice.classList.add("old-price");
-                  oldPrice.innerText = product.priceOld + "₫";
+                  oldPrice.innerText = formatCurrencyVND(product.priceOld);
                   priceContainer.appendChild(oldPrice);
                 }
 
