@@ -1,17 +1,5 @@
 
 
-document.addEventListener("DOMContentLoaded", function () {
-    let pageTitle = document.title; // Lấy tiêu đề của trang
-    let breadcrumbTitle = document.querySelector(".breadcrumb-banner h2"); // Chọn phần tử tiêu đề trong breadcrumb
-    let breadcrumbSpan = document.querySelector(".breadcrumb-banner span"); // Chọn span trong breadcrumb
-
-    if (breadcrumbTitle && breadcrumbSpan) {
-        breadcrumbTitle.textContent = pageTitle; // Cập nhật tiêu đề breadcrumb
-        breadcrumbSpan.textContent = pageTitle; // Cập nhật breadcrumb navigation
-    }
-});
-
-
 
 window.onscroll = function () {
     var button = document.getElementById("backToTop");

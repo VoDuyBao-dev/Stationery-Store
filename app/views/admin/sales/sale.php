@@ -1,3 +1,5 @@
+<?php $breadcrumb = "Quản lý khuyến mãi"; ?>
+
 <!DOCTYPE html>
 <html lang="vi">
 
@@ -20,7 +22,7 @@
         }
 
         main {
-            margin-top: 155px;
+            margin-top: 130px;
             margin-left: 280px;
         }
 

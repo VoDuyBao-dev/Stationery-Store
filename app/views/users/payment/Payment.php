@@ -1,6 +1,9 @@
 <?php
 use core\Helpers;
 ?>
+
+<?php $breadcrumb = "Thanh toán"; ?>
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>

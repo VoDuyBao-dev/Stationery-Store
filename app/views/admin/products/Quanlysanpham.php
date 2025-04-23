@@ -1,3 +1,5 @@
+<?php $breadcrumb = "Danh sách sản phẩm"; ?>
+
 <!DOCTYPE html>
 <html lang="vi">
   <head>

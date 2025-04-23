@@ -145,3 +145,16 @@ body {
         
     }
 }
+/* Tiêu đề */
+h3 {
+    font-size: 22px;
+    color: #7e7d7d;
+    margin: 10px 20px;
+    font-style: italic ;
+}
+
+.pnow{
+    font-size: 25px;
+    font-weight: bold;
+    color: red;
+}
