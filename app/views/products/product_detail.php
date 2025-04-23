@@ -1,6 +1,9 @@
 <?php
 use core\Helpers;
 ?>
+
+<?php $breadcrumb = $product['product_name']; ?>
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -161,7 +164,7 @@ use core\Helpers;
             <label>Số lượng:</label>
             <div class="quantity-control">
                 <button type="button" onclick="giamsoluong_productDetail(this)">-</button>
-                <input  type="number" onkeyup="kiemtrasoluong_productDetail(this)" value="1" min="1" readonly/>
+                <input id="input-detail"  type="number" onkeyup="kiemtrasoluong_productDetail(this)" value="1" min="1" readonly/>
                 <button type="button" onclick="tangsoluong_productDetail(this)">+</button>
             </div>
            

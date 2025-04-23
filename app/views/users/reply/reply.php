@@ -1,3 +1,5 @@
+<?php $breadcrumb = "Liên hệ"; ?>
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>

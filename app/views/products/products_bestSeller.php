@@ -1,6 +1,9 @@
 <?php
 use core\Helpers;
 ?>
+
+<?php $breadcrumb = "Sản phẩm nổi bật nhất"; ?>
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>

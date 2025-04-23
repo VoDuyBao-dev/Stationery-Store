@@ -54,8 +54,7 @@ if (isset($_SESSION['giohang'])) {
 </header>
 <div class="breadcrumb-banner">
     <div class="container">
-        <p><a href="<?php echo _WEB_ROOT; ?>/trang-chu ">Trang chủ</a> / <span>Loading...</span> /
-        <h2>Loading...</h2>
+        <p><a href="<?php echo _WEB_ROOT; ?>/ ">Trang chủ</a> <?php if(isset($breadcrumb)) echo '<span>'." / " . $breadcrumb . '</span>'; ?>
         </p>
     </div>
 </div>
@@ -65,13 +64,7 @@ if (isset($_SESSION['giohang'])) {
 </div>
 
 </header>
-<div class="breadcrumb-banner">
-    <div class="container">
-        <p><a href="<?php echo _WEB_ROOT; ?>/ ">Trang chủ</a> / <span>Loading...</span> /
-        <h2>Loading...</h2>
-        </p>
-    </div>
-</div>
+
 <div>
     <button id="backToTop" onclick="scrollToTop()"><i class="fas fa-arrow-up"></i></button>
     <button id="chat"><a href="<?php echo _BASE_URL; ?>/chat/1"><i class="fas fa-envelope"></i></a></button>
