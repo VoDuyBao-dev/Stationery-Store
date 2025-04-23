@@ -219,4 +219,12 @@ class Product extends Controller
     
     }
 
+    //Lấy dữ liệu cho quản lý sản phẩm
+    public function allProducts() {
+        $products = $this->productModel->getAllProducts();
+        $data = [
+            'products' => $products
+        ];
+        $this->render('admin/products/Quanlysanpham', $data);
+    }
 }

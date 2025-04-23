@@ -363,4 +363,26 @@ class ProductModel extends Model
         return $this->fetch($sql, [$product_type_id]);
     }
     
+    // Quan lý sản phẩm trong admin
+    public function getAllProducts() {
+        $sql = "
+            SELECT 
+                p.product_id, 
+                p.name AS product_name, 
+                pt.image
+                pt.priceCurrent, 
+                pt.stock_quantity, 
+                pt.status AS product_status, 
+                c.name AS category_name,
+            FROM products p
+            INNER JOIN product_type pt ON p.product_id = pt.product_id
+            INNER JOIN categories c ON p.category_id = c.category_id
+        ";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
+
+
