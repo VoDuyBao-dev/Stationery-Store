@@ -24,21 +24,19 @@ class OtpService
         ];
     }
 
-//    Check mã Otp có hợp lệ không
+    //    Check mã Otp có hợp lệ không
     public function isValidOtp($inputOtp)
     {
         $regex = '/^\d{4}$/';
-       
+
         $currentTime = time();
-        if(!preg_match($regex, $inputOtp)){
+        if (!preg_match($regex, $inputOtp)) {
             return "Mã OTP phải đủ 4 số!";
-        }
-        elseif ($inputOtp != $_SESSION['otp']['code']) {
+        } elseif ($inputOtp != $_SESSION['otp']['code']) {
             return "Mã OTP không chính xác!";
         } elseif ($currentTime > $_SESSION['otp']['expires_at']) {
             return "Mã OTP đã hết hiệu lực!";
         } else return true;
-
     }
 
     public function sendOtp($email = null)
@@ -79,13 +77,11 @@ class OtpService
         } else {
             echo "Không tìm thấy email người dùng!";
         }
-
-
     }
 
     public function resendOTP($requestAjax, $email = null)
     {
-//        debug
+        //        debug
         // Tắt báo lỗi HTML để tránh làm hỏng JSON
         ini_set('display_errors', 0);
         error_reporting(0);
@@ -93,11 +89,11 @@ class OtpService
         // Kiểm tra yêu cầu AJAX
         if ($requestAjax === 'XMLHttpRequest') {
             // ưu tiên dùng email
-            $email = $email ?? $_SESSION['register_data']['email'] ?? $_SESSION['email'] ?? null;
+            $email = $_SESSION['register_data']['email'] ?? $email ?? $_SESSION['email'] ?? null;
 
             if ($email) {
                 try {
-//                    Kiểm tra và xóa mã otp cũ
+                    //                    Kiểm tra và xóa mã otp cũ
                     if (isset($_SESSION["otp"])) {
                         unset($_SESSION["otp"]);
                     }
@@ -113,7 +109,6 @@ class OtpService
                         error_log("JSON Response: " . json_encode($response)); //  In log phản hồi JSON
                         echo json_encode($response);
                     }
-
                 } catch (\Exception $e) {
                     ob_clean();
                     header('Content-Type: application/json');
@@ -131,5 +126,4 @@ class OtpService
         }
         exit();
     }
-
 }

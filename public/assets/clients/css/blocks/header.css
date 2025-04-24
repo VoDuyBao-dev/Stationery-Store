@@ -5,10 +5,6 @@
     
 }
 
-body {
-    background-color: #dfdcdc;
-}
-
 .header {
     position: fixed;
     top: 0;
@@ -24,50 +20,21 @@ body {
 
 /* Logo */
 .logo {
-    display: flex;
-    align-items: center;
+    display: flex !important;
+    align-items: center !important;
 }
 
 .logo img {
-    width: 50px;
+    width: 250px;
     height: 50px;
 }
 
-.logo-text {
-    color: #c9a56d;
-    margin-left: 10px;
-}
 
 a{
-    text-decoration: none;
-    color: inherit; /* Giữ nguyên màu chữ */
+    text-decoration: none !important;
+    color: inherit !important; /* Giữ nguyên màu chữ */
     border: none; /* Đảm bảo không có viền */
     outline: none; /* Loại bỏ viền khi focus */
-}
-
-
-.s-letter {
-    font-size: 65px;
-    font-weight: bold;
-    background: #C4A262;
-    color: white;
-    float: left;
-    margin-right: 8px;
-    line-height: 1;
-    font-family: 'Pacifico', cursive;
-}
-.stationery {
-    font-size: 35px;
-    font-weight: bold;
-    font-family: 'Pacifico', cursive;
-}
-
-.tagline {
-    font-size: 13px;
-    font-style: italic;
-    color: rgb(224, 218, 218);
-    font-family: 'Caveat', cursive;
-    
 }
 
 /* Search Bar */
@@ -78,25 +45,28 @@ a{
     border-radius: 20px;
     padding: 5px 15px;
     width: 35%;
-    font-family: 'Caveat', cursive;
+    font-family: 'Caveat', cursive !important;
 }
 
 .search-bar input {
-    border: none;
-    outline: none;
-    padding: 8px;
-    width: 100%;
-    font-size: 14px;
-    color: rgb(0, 0, 0);
-    background: rgb(213, 212, 212);
+    flex: 1 !important;
+    border: none !important;
+    outline: none !important;
+    padding: 8px   !important;
+    width: 100%   !important;
+    font-size: 14px     !important;
+    color: rgb(0, 0, 0) !important;
+    background-color: none !important;
+    background: rgb(213, 212, 212)  !important;
 }
 
-.search-bar button {
+.search-bar i {
     background: none;
     border: none;
     cursor: pointer;
     color: #c9a56d;
 }
+    
 
 /* Hotline */
 .hotline {
@@ -128,6 +98,12 @@ a{
     font-size: 26px;
     cursor: pointer;
 }
+.icon p{
+    display: inline;
+    font-size: 14px;
+    align-self: start;
+    color: #f5f0ea !important;
+}
 
 .badge {
     position: absolute;
@@ -152,141 +128,118 @@ a{
 .dropdown-user {
     display: none;
     position: absolute;
-    top: 35px;
-    left: 30%;
+    top: 100%;
+    left: 50%;
     transform: translateX(-50%);
     background: white;
     border-radius: 8px;
     box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
     min-width: 120px;
     overflow: hidden;
-    text-align: left; 
+    text-align: left;
     z-index: 1000;
+    width: 150px;
 }
 
-.user-menu:hover .dropdown-user {
+/* Khi hover vào user-menu hoặc dropdown-user thì hiện menu */
+.user-menu:hover .dropdown-user,
+.dropdown-user:hover {
     display: block;
 }
 
+/* Thiết lập menu item */
 .dropdown-user a {
     display: block;
     padding: 10px;
-    color: black;
+    color: black !important;
     text-decoration: none;
     font-size: 14px;
 }
 
 .dropdown-user a:hover {
-    background: #e2b36dbd;;
-}
-
-.show {
-    display: flex;
+    background: #e2b36dbd;
+    color: black !important;
 }
 
 .breadcrumb-banner {
     background: url('../../images/breadcrumb.jpg') center/cover no-repeat;
     padding: 0;
-    text-align: left;
+    text-align: left !important;
     font-family: 'Montserrat', sans-serif;
-    color: rgba(98, 115, 135, 0.668);
-    position: absolute;
+    color: rgba(98, 115, 135, 0.668) !important;
+    position: absolute !important;
     transform: translateX(-50%);
-    top: 85px; 
+    top: 70px; 
     left: 50%;
-    width: 100%;
-    display: flex;
+    width: 100% !important;
+    display: flex !important;
 }
 
 .breadcrumb-banner .container {
-    width: 100%;
-    margin: auto;
-    background: rgba(112, 128, 144, 0.478);
-    z-index: 2;
-    padding: 10px;
-    display: inline-flex;
+    width: 200% !important;
+    margin: auto !important;
+    background: rgba(112, 128, 144, 0.478)!important;
+    z-index: 2 !important;
+    padding: 10px   !important;
+    display: ruby   !important;
 }
 
 .breadcrumb-banner p {
     font-size: 16px;
     font-style: italic;
-    color: #e0c08d;
+    color: #e0c08d !important;
     display: inline;
 
 }
 
 .breadcrumb-banner a {
-    color:#f6ebd9f5;
+    color:#f6ebd9f5 !important;
     text-decoration: none;
 } 
 
-.breadcrumb-banner h2 {
-    font-size: 16px;
-    font-style: italic;
-    color: #f6ebd9e4;
-}
 .breadcrumb-banner span {
     display: inline-block !important; /* Giữ nó trên cùng một hàng */
     font-size: 16px; /* Kích thước chữ giống h2 */
     font-weight: bold; /* Độ đậm giống h2 */
-    color: #f6ebd9e4; /* Màu chữ */
+    color: #f6ebd9e4 !important; /* Màu chữ */
 }
 
-.cart-floating {
+#backToTop {
     position: fixed;
-    top: 0;
-    right: 0;
-    width: 350px;
-    height: 100vh;
-    background: white;
-    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
-    padding: 20px;
-    overflow: hidden;
-    transform: translateX(100%);
-    transition: transform 0.3s ease-in-out;
-    
-}
-.cart-floating.active {
-    transform: translateX(0);
-}
-.cart-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: left;
-    font-size: 20px;
-    font-weight: bold;
-    color: #ab8b58;
-    font-family: 'Montserrat', sans-serif;
-}
-.cart-content {
-    margin-top: 20px;
-}
-.cart-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 10px;
-}
-.cart-item img {
-    width: 50px;
-    height: 50px;
-    object-fit: cover;
-}
-.cart-footer {
-    margin-top: 20px;
-    text-align: center;
-}
-.cart-button {
-    background: #c9a56d;
+    bottom: 80px;
+    right: 20px;
+    background-color: #cfab57;
     color: white;
     border: none;
     padding: 10px 15px;
+    font-size: 17px;
+    border-radius: 50px;
     cursor: pointer;
-    border-radius: 5px;
-    width: 90%;
+    display: none; /* Ẩn ban đầu */
+    transition: opacity 0.3s;
+    z-index: 1050;
 }
-.cart-button:hover {
-    background: #ab8b58;
-} 
+
+#backToTop:hover {
+    background-color:  #d4b264;
+}
+
+#chat {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #cfab57;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 16px;
+    border-radius: 50px;
+    cursor: pointer;
+    display: block;
+    transition: opacity 0.3s;
+    z-index: 1050;
+}
+
+#chat:hover {
+    background-color:  #d4b264;
+}

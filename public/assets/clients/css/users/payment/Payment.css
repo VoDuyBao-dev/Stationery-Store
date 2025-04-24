@@ -1,0 +1,350 @@
+body {
+    
+    margin: 0;
+    
+}
+
+/* Container chính */
+.main-container {
+    display: flex;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+    background-color: #ededed;
+    flex-wrap: wrap;
+    max-width: 1100px;
+    margin: 120px auto 30px auto;
+    background: #fff;
+    border-radius: 6px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+/* Cột bên trái (Thông tin) */
+.checkout-left {
+    flex: 2;
+    padding: 12px;
+    border-right: 1px solid #eee;
+}
+
+/* Cột bên phải (Tóm tắt đơn hàng) */
+.checkout-right {
+    flex: 3;
+    padding: 12px;
+}
+
+/* Logo */
+.logo-text {
+    font-size: 30px;
+    font-weight: bold;
+    color: #121212;
+    margin-bottom: 12px;
+    text-align: center;
+}
+
+/* Tiêu đề */
+h1 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #000000;
+    margin-bottom: 10px;
+}
+
+/* Form input, select, textarea */
+form input,
+form select,
+form textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 8px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: 0.3s;
+    box-sizing: border-box;
+}
+
+/* Hiệu ứng focus */
+form input:focus,
+form select:focus,
+form textarea:focus {
+    border-color: #28a745;
+    outline: none;
+}
+
+/* Ghi chú */
+form textarea {
+    resize: vertical;
+    min-height: 70px;
+}
+
+/* Phương thức vận chuyển & thanh toán */
+label {
+    font-size: 18px;
+    font-weight: 600;
+    color: #444;
+    margin-bottom: 8px;
+    display: block;
+}
+
+/* Phong cách cho select (chọn phương thức vận chuyển) */
+select {
+    width: 100%;
+    max-width: 350px;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: 500;
+    border: 2px solid #007bff;
+    border-radius: 8px;
+    background: linear-gradient(to right, #f8f9fa, #e9ecef);
+    color: #333;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    appearance: none;
+    position: relative;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23007bff'><path d='M7 10l5 5 5-5H7z'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 18px;
+    padding-right: 40px;
+}
+
+/* Hiệu ứng hover và focus */
+select:hover {
+    border-color: #0056b3;
+    background: linear-gradient(to right, #ffffff, #dee2e6);
+}
+
+select:focus {
+    outline: none;
+    border-color: #28a745;
+    box-shadow: 0 0 8px rgba(40, 167, 69, 0.6);
+}
+
+/* Phong cách cho nhóm phương thức thanh toán */
+.payment-options {
+    display: flex;
+    flex-direction: column;
+    gap: 8px; /* Khoảng cách giữa các tùy chọn */
+    margin-top: 8px;
+}
+
+/* Ẩn input radio mặc định */
+input[type="radio"] {
+    display: none;
+}
+
+/* Thiết kế label của radio */
+.payment-options label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 400px;
+    padding: 9px;
+    border: 2px solid #020609;
+    border-radius: 8px;
+    background: #f8f9fa;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 1px 1px 7px rgba(0, 0, 0, 0.1);
+    max-width: 350px;
+}
+
+/* Hiệu ứng hover */
+.payment-options label:hover {
+    border-color: #0056b3;
+    background: #e9ecef;
+}
+
+/* Custom radio button */
+.payment-options label::before {
+    content: "";
+    width: 10px;
+    height: 10px;
+    border: 2px solid #007bff;
+    border-radius: 50%;
+    background: white;
+    display: inline-block;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Khi radio được chọn */
+input[type="radio"]:checked + label {
+    color: rgb(11, 11, 11);
+    background-color: #75d78b;
+    border-color: #020609;
+
+}
+
+/* Khi radio được chọn, thay đổi custom radio */
+input[type="radio"]:checked + label::before {
+    background: #fff;
+    border: 5px solid white;
+    box-shadow: 0 0 0 4px #131f15;
+}
+
+
+/* Phần chứa toàn bộ giỏ hàng */
+.checkout-right {
+    width: 100%;
+    max-width: 450px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ddd;
+    font-family: Arial, sans-serif;
+}
+
+/* Tiêu đề giỏ hàng */
+.checkout-right h1 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+/* Mỗi sản phẩm trong giỏ hàng */
+.cart-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+.cart-item:last-child {
+    border-bottom: none; /* Loại bỏ viền dưới cùng */
+}
+
+/* Ảnh sản phẩm */
+.cart-item img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+/* Tên sản phẩm */
+.cart-item p {
+    flex: 1;
+    font-size: 16px;
+    font-weight: 500;
+    color: #444;
+    margin: 0;
+}
+
+/* Ô nhập số lượng */
+.cart-item input[type="number"] {
+    width: 50px;
+    padding: 5px;
+    font-size: 14px;
+    text-align: center;
+    border: 1px solid #007bff;
+    border-radius: 6px;
+    outline: none;
+    transition: all 0.3s ease-in-out;
+}
+
+.cart-item input[type="number"]:hover,
+.cart-item input[type="number"]:focus {
+    border-color: #0056b3;
+    box-shadow: 0px 0px 6px rgba(0, 123, 255, 0.5);
+}
+
+/* Giá sản phẩm */
+.cart-item span {
+    font-size: 16px;
+    font-weight: 600;
+    color: #d9534f;
+}
+
+/* Mã giảm giá */
+.discount-container {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    justify-content: center;
+}
+
+.discount-input {
+    flex: 1;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    outline: none;
+    transition: all 0.3s ease-in-out;
+}
+
+.discount-input:focus {
+    border-color: #007bff;
+    box-shadow: 0px 0px 6px rgba(0, 123, 255, 0.5);
+}
+
+.apply-btn {
+    padding: 10px 15px;
+    font-size: 14px;
+    font-weight: 600;
+    color: white;
+    background: #28a745;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.apply-btn:hover {
+    background: #218838;
+}
+
+/* Tổng tiền */
+.total {
+    margin-top: 15px;
+    padding: 10px;
+    border-top: 1px solid #ddd;
+}
+
+.total p {
+    font-size: 16px;
+    font-weight: 500;
+    display: flex;
+    justify-content: space-between;
+    margin: 5px 0;
+}
+
+.total strong {
+    font-size: 18px;
+    color: #d9534f;
+}
+
+/* Nút đặt hàng */
+.checkout-btn {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: 700;
+    color: white;
+    background: #007bff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: all 0.3s ease-in-out;
+}
+
+.checkout-btn:hover {
+    background: #0056b3;
+}
+/* Responsive (Mobile) */
+@media (max-width: 600px) {
+    .container {
+        flex-direction: column;
+    }
+    .checkout-left {
+        border-right: none;
+    }
+}

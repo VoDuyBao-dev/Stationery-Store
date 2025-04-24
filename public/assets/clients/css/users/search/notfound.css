@@ -1,0 +1,33 @@
+/* Định dạng chung */
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f8f8;
+}
+.not-found-footer{
+    margin-left: 280px;
+}
+
+/* Container chính */
+.not-found-container {
+    margin: 120px 0 400px 280px;
+    padding: 50px;
+}
+
+
+/* Tiêu đề */
+h1 {
+    font-size: 24px;
+    color: #333;
+    margin-top: 10px;
+}
+
+/* Đoạn mô tả */
+p {
+    font-size: 16px;
+    color: #666;
+    margin: 10px 0 20px;
+    
+}

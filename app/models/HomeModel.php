@@ -5,12 +5,12 @@ class HomeModel extends Model
 {
     protected $_table = 'users';
 
-//    Nếu lớp con có hàm khởi tạo thì phải gọi hàm khơỉ tạo của lớp cha
-// còn không có thì thôi
-//    public function __construct()
-//    {
-//        parent::__construct();
-//    }
+    //    Nếu lớp con có hàm khởi tạo thì phải gọi hàm khơỉ tạo của lớp cha
+    // còn không có thì thôi
+    //    public function __construct()
+    //    {
+    //        parent::__construct();
+    //    }
 
     public function getList()
     {
@@ -24,7 +24,10 @@ class HomeModel extends Model
     public function getDetail($id)
     {
         $data = [
-            'Item1', 'Item2', 'Item3', 'Item4'
+            'Item1',
+            'Item2',
+            'Item3',
+            'Item4'
         ];
 
         return $data[$id];
