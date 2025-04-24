@@ -187,3 +187,12 @@ function giamsoluong_productDetail(button) {
     capNhatHiddenQuantity(input.value)
 
 }
+
+// xóa toàn bộ vỏ hàng
+
+document.getElementById('clear-cart-btn').addEventListener('click', function(event) {
+    const confirmDelete = confirm('Bạn có chắc chắn muốn xóa toàn bộ giỏ hàng không?');
+    if (!confirmDelete) {
+        event.preventDefault(); // Ngăn chặn hành động mặc định nếu người dùng chọn "Không"
+    }
+});

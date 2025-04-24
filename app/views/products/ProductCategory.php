@@ -131,7 +131,20 @@ use core\Helpers;
             
         </div>
         </div>
-        <p> Trang <?php for($i=1;$i<=$tst;$i++){ if($page==$i) echo "<span class='pnow'>$i</span>"; else {?> <a href="?page=<?php echo $i;?>"><?php echo $i;?></a> <?php }} ?> </p>
+        <?php if($tst > 0):?>
+          <p> Trang 
+    <?php for($i=1; $i<=$tst; $i++): ?>
+        <?php if($page == $i): ?>
+            <span class='pnow'><?php echo $i; ?></span>
+        <?php else: ?>
+            <a href="<?php echo _WEB_ROOT; ?>/productByCategory?category=<?php echo urlencode($getCategory); ?>&sub=<?php echo urlencode($subProduct); ?>&sort=<?php echo urlencode($sort); ?>&page=<?php echo $i; ?>">
+                <?php echo $i; ?>
+            </a>
+        <?php endif; ?>
+    <?php endfor; ?>
+</p>
+        <?php endif;?>
+
         <?php  require_once _DIR_ROOT . "/app/views/blocks/footer.php";?>
 
     

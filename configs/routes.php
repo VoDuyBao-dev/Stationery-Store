@@ -81,6 +81,14 @@ $routes['kqtim-kiem'] = 'product/resultSearch';
 $routes['notfound'] = 'product/notfound';
 
 
+// Danh sách đơn hàng của user
+$routes['danh-sach-don-hang'] = 'order/orderList';
+
+// tìm kiếm đơn hàng của user
+$routes['tim-kiem-don-hang'] = 'order/searchOrder';
+
+// Hủy đơn hàng phía user
+$routes['huy-don-hang'] = 'order/cancelOrder';
 
 //trang admin_layout
 $routes['admin_layout'] = 'dashboard/home';
