@@ -348,3 +348,22 @@ select {
         transform: translateY(0);
     }
 }
+
+.cancel-btn {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+.cancel-btn:hover {
+    background-color: #c82333;
+}
+
+.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}

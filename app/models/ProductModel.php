@@ -269,6 +269,56 @@ class ProductModel extends Model
         return $result;
     }
 
+    // lấy tất cả sản phẩm "khác" các danh mục có sẵn trong menu để hiển thị trong trang all product
+    public function getAnotherProducts($sort)
+    {
+        $orderBy = 'product_name ASC'; // mặc định
+        
+        switch ($sort) {
+            case 'name-desc':
+                $orderBy = 'product_name DESC';
+                break;
+            case 'price-asc':
+                $orderBy = 'pt.priceCurrent ASC';
+                break;
+            case 'price-desc':
+                $orderBy = 'pt.priceCurrent DESC';
+                break;
+            case 'newest':
+                $orderBy = 'pt.created_at DESC';
+                break;
+        }
+
+        $sql = "
+            SELECT 
+    p.product_id,
+    p.name AS product_name,
+    pt.product_type_id,
+    pt.image,
+    pt.priceOld,
+    pt.priceCurrent,
+    pt.discount_price,
+    pt.created_at
+FROM products p
+JOIN (
+    SELECT * FROM product_type
+    WHERE product_type_id IN (
+        SELECT MIN(product_type_id)
+        FROM product_type
+        GROUP BY product_id
+    )
+) pt ON p.product_id = pt.product_id
+WHERE p.name NOT LIKE '%Bút%' 
+  AND p.name NOT LIKE '%Giấy%' 
+  AND p.name NOT LIKE '%Vẽ%'
+ORDER BY $orderBy;
+        ";
+       
+        $result = $this->fetchAll($sql);
+
+        return $result;
+    }
+
     public function searchProduct($keySearch)
     {
 

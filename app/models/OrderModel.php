@@ -1,6 +1,6 @@
 
 <?php
-
+use App\Logger;
 class OrderModel extends Model
 {
     
@@ -28,6 +28,67 @@ class OrderModel extends Model
         
         
     }
+
+    public function getOrdersByUserId($user_id) {
+        $query = "SELECT o.order_id, o.created_at, o.total_price, o.payment_method , o.trangThaiGiao, t.name as transport_name
+            from orders o
+            join transport t
+            on o.transport_id = t.transport_id
+            where o.user_id = ?
+            order by o.created_at desc";
+        $params = [$user_id];
+        return $this->fetchAll($query, $params);
+        
+    }
+
+    // lấy trạng thái của đơn hàng có id chỉ định
+    public function getStatusOrderById($order_id) {
+        $query = "SELECT trangThaiGiao from orders where order_id = ?";
+        $params = [$order_id];
+        return $this->fetch($query, $params);
+        
+    }
+
+    public function updateOrderStatus($order_id, $status)
+    {
+        $sql = "UPDATE orders SET trangThaiGiao = ?
+                WHERE order_id = ?";
+        $params = [(string)$status,$order_id];
+        try {
+            return $this->execute($sql, $params) > 0;
+        } catch (Exception $e) {
+            Logger::logError("Lỗi khi cập nhật trạng thái đơn hàng: " . $e->getMessage());
+            return false;
+        }
+        
+    }
+
+    public function getOrderById($order_id) {
+        $query = "SELECT o.order_id, o.created_at, o.total_price, o.payment_method , o.trangThaiGiao, t.name as transport_name
+            from orders o
+            join transport t
+            on o.transport_id = t.transport_id
+            where o.order_id = ?";
+        $params = [$order_id];
+        return $this->fetch($query, $params);
+        
+    }
+
+    // đơn hàng người dùng sử dụng lọc theo ngày
+    public function getOrdersByDateRange($user_id,$fromDate, $toDate) {
+        $query = "SELECT o.order_id, o.created_at, o.total_price, o.payment_method , o.trangThaiGiao, t.name as transport_name
+            FROM orders o
+            JOIN transport t
+            ON o.transport_id = t.transport_id
+            WHERE o.user_id = ?
+            AND DATE(o.created_at) BETWEEN ? AND ?
+            ORDER BY o.created_at DESC";
+        $params = [$user_id,$fromDate, $toDate];
+        return $this->fetchAll($query, $params);
+        
+    }
+
+
 
     public function getRevenueByType($type) {
         $query = "SELECT DATE(created_at) as date, SUM(total_price) as revenue FROM orders WHERE ";
@@ -86,5 +147,7 @@ class OrderModel extends Model
         $params = [$fromDate, $toDate];
         return $this->fetchAll($query, $params);
     }
+
+   
 }
 ?>

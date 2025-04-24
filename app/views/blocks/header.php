@@ -36,6 +36,7 @@ if (isset($_SESSION['giohang'])) {
                 <p>Xin chào, <?= $_SESSION['user']['fullname'] ?? "" ?> !</p>
                 <div class="dropdown-user" id="dropdownUser">
                     <a href="<?php echo _WEB_ROOT . '/chinh-sua-thong-tin'; ?>">Thông tin cá nhân</a>
+                    <a href="<?php echo _WEB_ROOT . '/danh-sach-don-hang'; ?>">Danh sách đơn hàng</a>
                     <a href="<?php echo _WEB_ROOT . '/dang-xuat'; ?>">Đăng xuất</a>
 
                 </div>

@@ -23,7 +23,7 @@ use core\Helpers;
        
     </script>
      <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-   <script src="<?php echo _WEB_ROOT; ?>/public/assets/clients/js/cart/cart.js"></script>
+  
    <style>
         menu {
             float: left;
@@ -69,7 +69,11 @@ use core\Helpers;
                 <button type="button" onclick="tangsoluong(this)">+</button>
             </div>
             <input type="hidden" value="<?= $item['product_type_id']?>" class="product-type-id">
-            <a href="<?= _WEB_ROOT."/deleteIdProduct_inCart/".$item['product_name']."/".$item['product_id']."/".$item['product_type_id']?>"><i class="fas fa-trash-alt"></i></a>
+            <a href="<?= _WEB_ROOT."/deleteIdProduct_inCart/".$item['product_name']."/".$item['product_id']."/".$item['product_type_id']?>"><i class="fas fa-trash-alt"
+            class="delete-product" 
+   onclick="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này khỏi giỏ hàng không?');">
+
+            </i></a>
         </div>
             
             <div class="cart-total">
@@ -113,7 +117,7 @@ Swal.fire({
     </div>
     <?php  require_once _DIR_ROOT . "/app/views/blocks/footer.php";?>
 </main>  
-   
+<script src="<?php echo _WEB_ROOT; ?>/public/assets/clients/js/cart/cart.js"></script>
 
 </body>
 </html>

@@ -50,4 +50,18 @@ class CouponModel extends Model
 
         return $s;
     }
+
+    // lấy mã giảm giá phù hợp với tổng tiền bên payment
+    public function getAvailableCoupon($totalAmount)
+    {
+        $sql = "SELECT discount
+FROM coupons
+WHERE 
+    price_min <= ?  -- tổng giá đơn hàng
+    AND CURRENT_DATE BETWEEN DATE(start_date) AND DATE(end_date)
+    AND status = '1'
+ORDER BY discount DESC
+LIMIT 1";
+        return $this->fetch($sql, [$totalAmount]);
+    }
 }

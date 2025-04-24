@@ -175,8 +175,14 @@ class Product extends Controller
             $this->render("products/ProductCategory", ['allProduct' => []]);
             return;
         }
+
         // Lấy danh sách sản phẩm đã được sắp xếp
-        $allProduct = $this->productModel->getSortedProducts($sort, $subProduct);
+        if($subProduct == "Khac"){
+            $allProduct = $this->productModel->getAnotherProducts($sort);
+        }else{
+            $allProduct = $this->productModel->getSortedProducts($sort, $subProduct);
+        }
+        
 
         $data = [
             'allProduct' => $allProduct,
