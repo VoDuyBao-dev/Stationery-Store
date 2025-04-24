@@ -6,15 +6,32 @@ body {
     background-color: #f8f8f8;
 }
 
-.container {
+.search-container {
     width: 81,5%;
-    margin: 120px 0 0 280px;
+    margin: 150px 0 0 280px;
 }
 
-h2 {
+h1 {
     font-size: 24px;
     margin-bottom: 10px;
     text-align: center;
+}
+/* Tiêu đề */
+h2 {
+    font-size: 24px;
+    color: #333;
+    margin-top: 10px;
+    margin-left: 0;
+    text-align: center;
+}
+
+/* Đoạn mô tả */
+p {
+    font-size: 16px;
+    color: #666;
+    margin: 10px;
+    text-align: center;
+    
 }
 
 .product {

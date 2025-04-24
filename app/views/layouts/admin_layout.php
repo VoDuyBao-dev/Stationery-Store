@@ -25,17 +25,22 @@
   <!-- header js -->
   <script type="text/javascript" src="<?php echo _WEB_ROOT;?>/public/assets/clients/js/blocks/header.js"></script>
     <style>
+      menu{
+            top: -100px;
+            margin-left: 0px;
+        }
         main{
             margin-left: 280px;
-            margin-top: 125px;
+            margin-top: 130px;
         }
     </style>
 </head>
 
 <body>
     <?php  require_once _DIR_ROOT . "/app/views/blocks/header-admin.php";?>
+    <menu>
     <?php  require_once _DIR_ROOT . "/app/views/blocks/menu-admin.php";?>
-
+</menu>
 <main>
         <section class="section">
           <div class="row ">

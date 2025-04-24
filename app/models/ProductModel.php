@@ -221,8 +221,8 @@ class ProductModel extends Model
         return $result;
     }
 
-    // lấy tất cả sản phẩm để hiển thị trong trang all product
-    public function getSortedProducts($sort, $subProduct)
+    // lấy tất cả sản phẩm để hiển thị trong trang category product
+    public function getSortedProducts($sort, $subProduct,$vt,$sd)
     {
         $orderBy = 'product_name ASC'; // mặc định
         $subProduct = "%$subProduct%";
@@ -262,15 +262,27 @@ class ProductModel extends Model
             ) pt ON p.product_id = pt.product_id
             WHERE p.name LIKE ?
             ORDER BY $orderBy
-        ";
-        $params = [$subProduct];
+            LIMIT ?,?";
+        $params = [$subProduct,$vt,$sd];
         $result = $this->fetchAll($sql, $params);
 
         return $result;
     }
 
-    // lấy tất cả sản phẩm "khác" các danh mục có sẵn trong menu để hiển thị trong trang all product
-    public function getAnotherProducts($sort)
+    // đếm số sản phẩm lấy đc từ  getSortedProducts để phân trang trong category product
+    public function countSortedProducts($subProduct)
+    {
+        
+        $sql = "SELECT  count(product_id) as count FROM products 
+            WHERE name LIKE ?";
+        $params = [$subProduct];
+        $result = $this->fetch($sql, $params);
+
+        return $result;
+    }
+
+    // lấy tất cả sản phẩm "khác" các danh mục có sẵn trong menu để hiển thị trong trang category product
+    public function getAnotherProducts($sort,$vt,$sd)
     {
         $orderBy = 'product_name ASC'; // mặc định
         
@@ -290,31 +302,44 @@ class ProductModel extends Model
         }
 
         $sql = "
-            SELECT 
-    p.product_id,
-    p.name AS product_name,
-    pt.product_type_id,
-    pt.image,
-    pt.priceOld,
-    pt.priceCurrent,
-    pt.discount_price,
-    pt.created_at
-FROM products p
-JOIN (
-    SELECT * FROM product_type
-    WHERE product_type_id IN (
-        SELECT MIN(product_type_id)
-        FROM product_type
-        GROUP BY product_id
-    )
-) pt ON p.product_id = pt.product_id
-WHERE p.name NOT LIKE '%Bút%' 
-  AND p.name NOT LIKE '%Giấy%' 
-  AND p.name NOT LIKE '%Vẽ%'
-ORDER BY $orderBy;
-        ";
+                    SELECT 
+            p.product_id,
+            p.name AS product_name,
+            pt.product_type_id,
+            pt.image,
+            pt.priceOld,
+            pt.priceCurrent,
+            pt.discount_price,
+            pt.created_at
+        FROM products p
+        JOIN (
+            SELECT * FROM product_type
+            WHERE product_type_id IN (
+                SELECT MIN(product_type_id)
+                FROM product_type
+                GROUP BY product_id
+            )
+        ) pt ON p.product_id = pt.product_id
+        WHERE p.name NOT LIKE '%Bút%' 
+        AND p.name NOT LIKE '%Giấy%' 
+        AND p.name NOT LIKE '%Vẽ%'
+        ORDER BY $orderBy
+        LIMIT ?,?";
+       $params = [$vt,$sd];
+        $result = $this->fetchAll($sql, $params);
+
+        return $result;
+    }
+
+    // đếm số sản phẩm lấy đc từ  getAnotherProducts để phân trang trong category product
+    public function countAnotherProducts()
+    { 
+        $sql = "SELECT count(product_id) as count FROM products 
+            WHERE name NOT LIKE '%Bút%' 
+            AND name NOT LIKE '%Giấy%' 
+            AND name NOT LIKE '%Vẽ%'";
        
-        $result = $this->fetchAll($sql);
+        $result = $this->fetch($sql);
 
         return $result;
     }

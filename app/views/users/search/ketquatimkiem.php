@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html lang="vi">
+
+<?php $breadcrumb = "Kết quả tìm kiếm cho - ".$_GET['keyword'] ?? ""; ?>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,9 +24,10 @@
     </script>
 </head>
 <body>
-    <?php  require_once _DIR_ROOT . "/app/views/blocks/header.php";?>
+    <?php  require_once _DIR_ROOT . "/app/views/blocks/header.php";?>   
+
     <?php require_once _DIR_ROOT . "/app/views/blocks/menu.php";?>
-    <div class="container">
+    <div class="search-container">
     
         <?php if(empty($getProduct_Search)):?>
             <div class="not-found-container">
@@ -31,7 +35,7 @@
         <p>Hãy thử tìm kiếm sản phẩm khác hoặc quay về trang chủ </p>
     </div>
             <?php else:?>
-        <h2>Tìm thấy <?php count($getProduct_Search)?> kết quả với từ khóa "<?= $_GET['keyword'] ?? ""?>"</h2>
+        <h3>Tìm thấy <?php count($getProduct_Search)?> kết quả với từ khóa "<?= $_GET['keyword'] ?? ""?>"</h3>
         
         <div class="product-list">
         <?php foreach($getProduct_Search as $product):?>

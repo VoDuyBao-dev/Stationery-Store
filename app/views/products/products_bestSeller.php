@@ -1,6 +1,9 @@
 <?php
 use core\Helpers;
 ?>
+
+<?php $breadcrumb = "Sản phẩm nổi bật nhất"; ?>
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -99,7 +102,7 @@ use core\Helpers;
             </div>
             <?php endforeach;?>
             <?php else:?>
-              <h2>Rất tiếc, sản phẩm không tồn tại!</h2>
+              <h3>Rất tiếc, sản phẩm không tồn tại!</h3>
               <p>Hãy thử tìm kiếm sản phẩm khác hoặc quay về trang chủ </p>
               <?php endif;?>
 

@@ -1,6 +1,9 @@
 <?php
 use core\Helpers;
 ?>
+
+<?php $breadcrumb = "Sản phẩm"; ?>
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -22,7 +25,7 @@ use core\Helpers;
             float: left;
         }
         main{
-            margin-top: 120px;
+            margin-top: 130px;
             margin-left: 280px;
         }
         #loader-wrapper {
@@ -122,13 +125,26 @@ use core\Helpers;
             </div>
             <?php endforeach;?>
             <?php else:?>
-              <h2>Rất tiếc, sản phẩm không tồn tại!</h2>
-              <p>Hãy thử tìm kiếm sản phẩm khác hoặc quay về trang chủ </p>
+              <h3>Danh mục trống</h3>
               <?php endif;?>
 
             
         </div>
         </div>
+        <?php if($tst > 0):?>
+          <p> Trang 
+    <?php for($i=1; $i<=$tst; $i++): ?>
+        <?php if($page == $i): ?>
+            <span class='pnow'><?php echo $i; ?></span>
+        <?php else: ?>
+            <a href="<?php echo _WEB_ROOT; ?>/productByCategory?category=<?php echo urlencode($getCategory); ?>&sub=<?php echo urlencode($subProduct); ?>&sort=<?php echo urlencode($sort); ?>&page=<?php echo $i; ?>">
+                <?php echo $i; ?>
+            </a>
+        <?php endif; ?>
+    <?php endfor; ?>
+</p>
+        <?php endif;?>
+
         <?php  require_once _DIR_ROOT . "/app/views/blocks/footer.php";?>
 
     

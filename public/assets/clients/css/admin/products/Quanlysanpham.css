@@ -15,11 +15,12 @@ body {
   }
   h1 {
     text-align: left;
-    background-color: #609edb;
+    background: #8a7e7e;
     color: white;
     padding: 15px;
     margin: -20px -20px 20px -20px;
     border-radius: 8px 8px 0 0;
+    font-size: 24px;
   }
   .btn-group {
     margin-bottom: 15px;
@@ -76,7 +77,7 @@ body {
     text-align: center;
   }
   .product-table th {
-    background-color: #609edb;
+    background-color: #8a7e7e;
     color: white;
   }
   .product-table img {

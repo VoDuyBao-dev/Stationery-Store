@@ -1,3 +1,5 @@
+<?php $breadcrumb = "Danh sách sản phẩm"; ?>
+
 <!DOCTYPE html>
 <html lang="vi">
   <head>
@@ -19,7 +21,7 @@
             float: left;
         }
         main{
-            margin-top: 120px;
+            margin-top: 130px;
             margin-left: 280px;
         }
     </style>

@@ -9,6 +9,7 @@
   body {
     color: #333;
     margin: 0;
+    background-color:  #e7e4e4;
   }
   
   /* 🎯 Bố cục chung */
@@ -159,7 +160,7 @@
   .buy-now {
     flex: 1;
     text-align: center;
-    background:#a7895c; /* Màu nâu đậm cho nút */
+    background:#6f5c3e; /* Màu nâu đậm cho nút */
     color: white;
     border: none;
     padding: 15px 0;
@@ -569,9 +570,9 @@
   }
   
   /* --- Form Inputs --- */
-  input {
-    width: 100%;
-    padding: 5px;
+  #input-detail {
+    width: 10%;
+    padding: 5px 0 5px 15px;
     border: 1px solid #ccc;
     border-radius: 8px;
     font-size: 16px;

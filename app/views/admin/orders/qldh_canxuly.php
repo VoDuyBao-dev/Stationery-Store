@@ -1,3 +1,5 @@
+<?php $breadcrumb = "Đơn hàng cần xử lý"; ?>
+
 <!DOCTYPE html>
 <html lang="vi">
 
@@ -18,10 +20,11 @@
     <style>
         menu {
             float: left;
+            margin-top: 0;
         }
 
         main {
-            margin-top: 120px;
+            margin-top: 130px;
             margin-left: 280px;
         }
     </style>
@@ -37,7 +40,7 @@
     </menu>
     <main>
         <div class="order-container">
-            <h2>Quản lý đơn hàng - Cần xử lý</h2>
+            <h1>Quản lý đơn hàng - Cần xử lý</h1>
 
             <div class="tabs">
                 <button class="tab active" id="tab-can-xu-ly" onclick="redirectTo('<?php echo _WEB_ROOT . '/canxuly'; ?>')">Cần xử lý (<span id="count-can-xu-ly">0</span>)</button>
@@ -146,7 +149,7 @@
             <div id="editModal" class="modal">
                 <div class="modal-content">
                     <span class="close">&times;</span>
-                    <h2>Sửa đơn hàng</h2>
+                    <h3>Sửa đơn hàng</h3>
                     <form id="edit-order-form" action="<?php echo _BASE_URL ?>/suaDon" method="POST">
                         <div class="form-group">
                             <label for="edit_ma">Mã đơn hàng:</label>
@@ -179,7 +182,7 @@
             <div id="confirmCancelModal" class="modal">
                 <div class="modal-content">
                     <span class="close" onclick='document.getElementById("confirmCancelModal").style.display = "none";'>&times;</span>
-                    <h2>Xác nhận xóa</h2>
+                    <h3>Xác nhận xóa</h3>
                     <p>Bạn có chắc chắn muốn hủy đơn hàng này không?</p>
                     <form class="form-actions" action="<?php echo _BASE_URL; ?>/huyDon" method="post">
                         <input type="hidden" name="order_id" value="">
@@ -193,7 +196,7 @@
             <div id="confirmDeleteModal" class="modal">
                 <div class="modal-content">
                     <span class="close" onclick='document.getElementById("confirmDeleteModal").style.display = "none";'>&times;</span>
-                    <h2>Xác nhận xóa</h2>
+                    <h3>Xác nhận xóa</h3>
                     <p>Bạn có chắc chắn muốn xóa đơn hàng này không?</p>
                     <form class="form-actions" action="<?php echo _BASE_URL . '/xoaDon' ?>" method="post">
                         <input type="hidden" name="order_id" value="">
@@ -270,7 +273,7 @@
             <div id="deleteDetailModal" class="modal">
                 <div class="modal-content">
                     <span class="close" onclick='document.getElementById("deleteDetailModal").style.display = "none";'>&times;</span>
-                    <h2>Xác nhận xóa</h2>
+                    <h3>Xác nhận xóa</h3>
                     <p>Bạn có chắc chắn muốn xóa sản phẩm này trong đơn hàng không?</p>
                     <form class="form-actions" method="POST" action="<?php echo _BASE_URL ?>/deleteDetail">
                         <input type="hidden" name="order_detail_id" value="">

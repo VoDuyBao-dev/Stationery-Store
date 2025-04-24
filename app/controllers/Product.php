@@ -176,18 +176,42 @@ class Product extends Controller
             return;
         }
 
-        // Lấy danh sách sản phẩm đã được sắp xếp
-        if($subProduct == "Khac"){
-            $allProduct = $this->productModel->getAnotherProducts($sort);
-        }else{
-            $allProduct = $this->productModel->getSortedProducts($sort, $subProduct);
-        }
+        // phân trang
+        $sd = 20;
         
+        // Lấy số sp để phân trang
+        if($subProduct == "Khac"){ 
+            $countAnotherProducts = $this->productModel->countAnotherProducts();
+            // lấy tổng số sp
+            $tsp = $countAnotherProducts['count'];
+            // tính tổng số trang
+            $tst = ceil($tsp/$sd);
+        }else{
+            $countAnotherProducts = $this->productModel->countSortedProducts($subProduct);
+            $tsp = $countAnotherProducts['count'];
+            $tst = ceil($tsp/$sd);
+        }
+
+        if(isset($_GET['page'])){
+            $page = $_GET['page'];
+        }else $page = 1;
+        $vt = ($page-1)*$sd; // vị trí bắt đầu
+
+        // lấy số lượng sản phẩm tương ứng trên 1 trang
+        if($subProduct == "Khac"){
+            $allProduct = $this->productModel->getAnotherProducts($sort,$vt,$sd);
+           
+        }else{
+            $allProduct = $this->productModel->getSortedProducts($sort, $subProduct,$vt,$sd);
+        }
 
         $data = [
             'allProduct' => $allProduct,
+            'tst' => $tst,
+            'page' => $page,
             'getCategory' => $getCategory,
-            'subProduct' => $subProduct
+            'subProduct' => $subProduct,
+            'sort' => $sort
         ];
         
         $this->render("products/ProductCategory", $data);
