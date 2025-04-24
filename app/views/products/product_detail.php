@@ -63,7 +63,7 @@ use core\Helpers;
                     parseInt(data.priceCurrent).toLocaleString('vi-VN') + "₫" +
                     `<span class="old-price">${parseInt(data.priceOld).toLocaleString('vi-VN')}₫</span>`;
                     document.querySelector(".status").innerText = data.stock_quantity > 0 ? "Còn hàng" : "Hết hàng";
-                    document.querySelector(".main-image").src = "<?php echo _WEB_ROOT;?>/public/assets/clients/images/products/" + data.image;
+                    document.querySelector(".main-image").src = "<?php echo _WEB_ROOT;?>/public/assets/clients/images/image_products_type/" + data.image;
 
                     // Cập nhật trạng thái nút mua hàng
                     const addToCartBtn = document.getElementById('add-to-cart-btn');
@@ -112,13 +112,17 @@ use core\Helpers;
     <div class="nd-img-and-info">
         <!-- Hình ảnh sản phẩm -->
         <div class="product-images">
-            <img src="<?php echo _WEB_ROOT; ?>/public/assets/clients/images/products/<?= $default_product_type['image']; ?>"
+            <img src="<?php echo _WEB_ROOT; ?>/public/assets/clients/images/image_products_type/<?= $default_product_type['image']; ?>"
                  alt="Sổ tay mini" class="main-image"/>
             <div class="thumbnail-container">
                 <?php foreach ($images_product as $img): ?>
-                    <img src="<?= $img['image_url'] ?>" class="thumbnail"/>
+                    <img src="<?php echo _WEB_ROOT; ?>/public/assets/clients/images/image_product/<?= $img['image_url'] ?>" class="thumbnail"/>
                 <?php endforeach; ?>
-                <img src="<?php echo _WEB_ROOT; ?>/public/assets/clients/images/products/<?= $default_product_type['image']; ?>"
+                <?php foreach ($product_types as $type): ?>
+                    <img src="<?php echo _WEB_ROOT; ?>/public/assets/clients/images/image_products_type/<?= $type['image'] ?>" class="thumbnail"/>
+                <?php endforeach; ?>
+                
+                <img src="<?php echo _WEB_ROOT; ?>/public/assets/clients/images/image_products_type/<?= $default_product_type['image']; ?>"
                      class="thumbnail"/>
 
             </div>
@@ -478,7 +482,7 @@ use core\Helpers;
                                      onclick="event.preventDefault(); viewProduct('<?= $product['product_name'] ?>', <?= $product['product_id'] ?>, <?= $product['product_type_id'] ?>)">
                                     <div class="product-block-item">
 
-                                        <img src="<?php echo _WEB_ROOT; ?>/public/assets/clients/images/products/<?= $product['image'] ?>"
+                                        <img src="<?php echo _WEB_ROOT; ?>/public/assets/clients/images/image_products_type/<?= $product['image'] ?>"
                                              alt="Vở viết"/>
                                     </div>
                                     <div class="product-info">
@@ -516,5 +520,6 @@ Swal.fire({
 });
 </script>
 <?php endif; ?>
+<script src="<?php echo _WEB_ROOT;?>/public/assets/clients/js/products/product_detail.js"></script>
 </body>
 </html>

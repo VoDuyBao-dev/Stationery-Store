@@ -90,7 +90,7 @@ use core\Helpers;
             $tt = $item['quantity']* $item['priceCurrent'];
             $tongtien += $tt;?>
     <div class="cart-item">
-        <img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/products/<?= $item['image'];?>" alt="<?= $item['name_product_type_id']?>">
+        <img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/image_products_type/<?= $item['image'];?>" alt="<?= $item['name_product_type_id']?>">
         <p><?= $item['product_name']?></p>
         <p><strong><?= $item['name_product_type_id']?></strong></p>
         <p>Số lượng: <?= $item['quantity'] ?></p>
@@ -102,10 +102,7 @@ use core\Helpers;
     // Xử lí phí vận chuyển và giảm giá
     
     ?>
-    <div class="discount-container">
-        <input type="text" class="discount-input" placeholder="Nhập mã giảm giá">
-        <button class="apply-btn">Áp dụng</button>
-    </div>
+   
     <div class="total">
         <p>Tổng tiền hàng: <span id="subtotal-amount"><?= Helpers::format_currency($tongtien); ?></span></p>
         <p>Phí vận chuyển: <span id="shipping-amount">-</span></p>

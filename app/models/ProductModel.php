@@ -139,10 +139,11 @@ class ProductModel extends Model
 
     public function getAll_imageOfProduct($id_product)
     {
+        
         $sql = "SELECT pi.image_url
             FROM product_images pi
-            JOIN product_type pt ON pi.product_type_id = pt.product_type_id
-            WHERE pt.product_id = ?";
+            JOIN products p ON pi.product_id = p.product_id
+            WHERE p.product_id = ?";
         $params = [$id_product];
         $result = $this->fetchAll($sql, $params);
         if (!$result) {
@@ -189,12 +190,10 @@ class ProductModel extends Model
                     WHERE pt2.product_id = p.product_id
                 )
             WHERE p.category_id = ?
-            limit 6";
+            limit 8";
         $params = [$category_id];
         $result = $this->fetchAll($sql, $params);
-        if (!$result) {
-            return false;
-        }
+       
         return $result;
     }
 
@@ -212,7 +211,7 @@ class ProductModel extends Model
             )
         WHERE p.name LIKE ?
         ORDER BY pt.discount_price DESC
-        LIMIT 10";
+        LIMIT 8";
         $params = ["%$name_product%"];
         $result = $this->fetchAll($sql, $params);
         if (!$result) {
@@ -272,7 +271,7 @@ class ProductModel extends Model
     // đếm số sản phẩm lấy đc từ  getSortedProducts để phân trang trong category product
     public function countSortedProducts($subProduct)
     {
-        
+        $subProduct = "%$subProduct%";
         $sql = "SELECT  count(product_id) as count FROM products 
             WHERE name LIKE ?";
         $params = [$subProduct];
