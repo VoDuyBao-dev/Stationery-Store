@@ -59,7 +59,7 @@ use core\Helpers;
             $tongtien += $tt;?>
           
             <div class="cart-item">
-            <img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/products/<?= $item['image'];?>" alt="<?= $item['product_name']?>">
+            <img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/image_products_type/<?= $item['image'];?>" alt="<?= $item['product_name']?>">
             <div class="cart-item-info">
                 <p><strong><?= $item['product_name']?></strong></p>
                 <p style="font-style: italic;"><?= $item['name_product_type_id']?></p>

@@ -557,4 +557,11 @@
       width: 90%; /* Điều chỉnh kích thước ảnh dịch vụ */
     }
   }
+  .no-products {
+    text-align: center;
+    width: 100%;
+    padding: 20px 0;
+    color: #666;
+    font-size: 16px;
+}
   

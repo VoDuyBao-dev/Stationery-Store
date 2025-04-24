@@ -139,7 +139,7 @@ $flashSale_products = $flashSale_products ?? [];
           <?php foreach($flashSale_products as $product):?>
           
           <div class="product-card">
-            <img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/products/<?= $product['image'] ?>" alt="<?= $product['product_name'] ?>" />
+            <img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/image_products_type/<?= $product['image'] ?>" alt="<?= $product['product_name'] ?>" />
             <div class="product-name"><?= $product['product_name'] ?></div>
             <div class="price">
             
@@ -175,7 +175,7 @@ $flashSale_products = $flashSale_products ?? [];
              <?php foreach($outstanding_products as $product):?>
               <div class="product-block" onclick="viewProduct('<?= $product['product_name'] ?>',<?= $product['product_id'] ?>,<?= $product['product_type_id'] ?> )" style="cursor: pointer;">
                 <div class="product-block-item">
-                  <img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/products/<?= $product['image'] ?>" alt="Vở viết" />
+                  <img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/image_products_type/<?= $product['image'] ?>" alt="Vở viết" />
                 </div>
                 <div class="product-info">
                   <span><?= $product['product_name'] ?></span>

@@ -150,11 +150,7 @@ class Product extends Controller
                 exit;
             }
             $products_ofCategory = $this->productModel->getProducts_ofCategory($category_id);
-            if(!$products_ofCategory){
-                ob_clean();
-                echo json_encode(["error" => "không có product nào thuộc category trên!"]);
-                exit;
-            }
+
             ob_clean();
             echo json_encode($products_ofCategory);
             exit;
@@ -168,6 +164,7 @@ class Product extends Controller
         // Lấy các tham số từ URL
         $getCategory = trim($_GET['category'] ?? "");
         $subProduct = trim($_GET['sub'] ?? "");
+       
         $sort = $_GET['sort'] ?? 'name-asc';
 
         if(empty($subProduct)){
@@ -180,7 +177,7 @@ class Product extends Controller
         $sd = 20;
         
         // Lấy số sp để phân trang
-        if($subProduct == "Khac"){ 
+        if($subProduct === "Khac"){ 
             $countAnotherProducts = $this->productModel->countAnotherProducts();
             // lấy tổng số sp
             $tsp = $countAnotherProducts['count'];

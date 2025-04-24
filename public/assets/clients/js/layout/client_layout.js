@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function loadProducts(categoryId) {
         fetch(`${_WEB_ROOT}/getProductsBy_category?category_id=${categoryId}`)
-            .then(response => response.text()) // Chuyển về text trước để kiểm tra lỗi
+            .then(response => response.text())
             .then(text => {
                 return JSON.parse(text);
             })
@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
 
                 if (data.length === 0) {
-                    productContainer.innerHTML = `<p>Không có sản phẩm nào.</p>`;
+                    productContainer.innerHTML = `<p class="no-products">Không có sản phẩm nào.</p>`;
                     return;
                 }
 
@@ -29,10 +29,10 @@ document.addEventListener("DOMContentLoaded", function () {
                     productDiv.classList.add("product");
 
                     let productLink = document.createElement("a");
-                    productLink.href = `<?php echo _WEB_ROOT;?>/thong-tin-sp/${product.product_name}/${product.product_id}/${product.product_type_id}`;
+                    productLink.href = `${_WEB_ROOT}/thong-tin-sp/${product.product_name}/${product.product_id}/${product.product_type_id}`;
 
                     let productImage = document.createElement("img");
-                    productImage.src = `<?php echo _WEB_ROOT;?>/public/assets/clients/images/products/${product.image || 'default.jpg'}`;
+                    productImage.src = `${_WEB_ROOT}/public/assets/clients/images/image_products_type/${product.image || 'default.jpg'}`;
                     productImage.alt = product.product_name;
                     productImage.width = 150;
                     productImage.height = 150;
@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     productInfo.classList.add("product-info");
 
                     let productName = document.createElement("a");
-                    productName.href = `<?php echo _WEB_ROOT;?>/thong-tin-sp/${product.product_name}/${product.product_id}/${product.product_type_id}`;
+                    productName.href = `${_WEB_ROOT}/thong-tin-sp/${product.product_name}/${product.product_id}/${product.product_type_id}`;
                     productName.innerText = product.product_name;
 
                     let priceContainer = document.createElement("div");
