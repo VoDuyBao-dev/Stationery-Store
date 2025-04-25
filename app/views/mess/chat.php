@@ -1,3 +1,6 @@
+
+<?php $breadcrumb = "Chat"; ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,16 +9,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" type="text/css"
-        href="<?php echo _BASE_URL; ?>/public/assets/clients/css/users/chat.css" />
+        href="<?php echo _WEB_ROOT; ?>/public/assets/clients/css/users/chat.css" />
+        <link type="text/css" rel="stylesheet" href="<?php echo _WEB_ROOT; ?>/public/assets/clients/css/blocks/header.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap">
+    <link type="text/css" rel="stylesheet" href="<?php echo _WEB_ROOT;?>//public/assets/clients/css/blocks/menu.css">
+    <link type="text/css" rel="stylesheet" 
+        href="<?php echo _WEB_ROOT; ?>/public/assets/clients/css/blocks/footer.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="<?php echo _WEB_ROOT; ?>/public/assets/clients/js/cart/cart.js"></script>
 
+    <script type="text/javascript" src="<?php echo _WEB_ROOT; ?>/public/assets/clients/js/blocks/header.js"></script>
+    <style>
+        main {
+            margin-left: 280px;
+        }
+    </style>
 </head>
 
 <body>
-    
-    <div class="container">
+    <?php if ($role == "admin") : ?>
+        <?php include_once _DIR_ROOT . '/app/views/blocks/header-admin.php'; ?> 
+        <?php include_once _DIR_ROOT . '/app/views/blocks/menu-admin.php'; ?>
+    <?php else : ?>
+        <?php include_once _DIR_ROOT . '/app/views/blocks/header.php'; ?> 
+        <?php include_once _DIR_ROOT . '/app/views/blocks/menu.php'; ?>
+    <?php endif;?>
+    <main>
+    <div class="chat-container">
         <?php if ($role == "admin") { ?>
             <div class="list_user" style="width: 25%;">
-                <h2>Chats</h2>
+                <h2>Stationery</h2>
                 <ul>
                     <?php foreach ($chatList as $oneUser) : ?>
                         <li>
@@ -39,7 +63,6 @@
                                 <div class="message_right">
                                     <div class="avatar"><img src="<?php echo _BASE_URL; ?>/public/assets/clients/images/<?php echo ($role == 'admin') ? 'admin_avatar.png' : 'user_avatar.png'; ?>" alt=""></div>
                                     <div class="content">
-                                        <div class="name"><?php echo ($_SESSION['user']['role'] == $role ? $information['fullname'] : $_SESSION['user']['fullname']); ?></div>
                                         <div class="text"> <?php if ($msg['sticker_id'] != 1) : ?>
                                                 <img src="<?php echo _BASE_URL; ?>/public/assets/clients/images/sticker/<?php echo htmlspecialchars($msg['sticker_id']); ?>.png" class="sticker-img">
                                             <?php else : ?>
@@ -53,7 +76,6 @@
                                 <div class="message_left">
                                     <div class="avatar"><img src="<?php echo _BASE_URL; ?>/public/assets/clients/images/<?php echo ($role == 'user') ? 'admin_avatar.png' : 'user_avatar.png'; ?>" alt=""></div>
                                     <div class="content">
-                                        <div class="name"><?php echo ($_SESSION['user']['role'] == $role ? $information['fullname'] : $_SESSION['user']['fullname']); ?></div>
                                         <div class="text"> <?php if ($msg['sticker_id'] != 1) : ?>
                                                 <img src="<?php echo _BASE_URL; ?>/public/assets/clients/images/sticker/<?php echo htmlspecialchars($msg['sticker_id']); ?>.png" class="sticker-img">
                                             <?php else : ?>
@@ -97,6 +119,22 @@
     </div>
 
     <script type="text/javascript" src=" <?php echo _BASE_URL; ?>/public/assets/clients/js/users/chat.js"></script>
+    
+    <?php include_once _DIR_ROOT . '/app/views/blocks/footer.php'; ?>
+    </main>
+    <!-- <script>
+        function selectSticker(sticker) {
+            const stickerId = sticker.id;
+            document.getElementById('stickerInput').value = stickerId; // Cập nhật giá trị của input ẩn
+            document.getElementById('messageInput').value = ''; // Xóa nội dung tin nhắn
+        }
+
+        function toggleStickerMenu() {
+            const stickerMenu = document.getElementById('stickerMenu');
+            stickerMenu.style.display = (stickerMenu.style.display === 'block') ? 'none' : 'block';
+        }
+    </script> -->
+
 </body>
 
 </html>
