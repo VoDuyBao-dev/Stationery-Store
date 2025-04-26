@@ -1,8 +1,4 @@
 /* ========================== Reset mặc định ========================== */
-<<<<<<< HEAD
-=======
-
->>>>>>> ef31d35316b5bcebcf840fb700d440ba8d6421c5
 * {
     margin: 0; /* Xóa khoảng cách mặc định của tất cả các phần tử */
     padding: 0; /* Xóa padding mặc định của tất cả các phần tử */
@@ -12,33 +8,12 @@
   body {
     background: #f8f8f8;
   }
-  /* Flash Sale */
-  .section-3 .block-product {
-    display: flex;
-    overflow-x: auto;
-    scroll-behavior: smooth;
-  }
-  
-  .section-3 .block-product::-webkit-scrollbar {
-    display: none;
-  }
-  
-  .section-3 .fa-arrow-left, 
-  .section-3 .fa-arrow-right {
-    cursor: pointer;
-    font-size: 24px;
-  }
-  
-  
-  /* ========================== Slider ========================== */
+
+  /* Slider  */
   .section-1 {
-    display: flex; /* Sử dụng flexbox để căn giữa */
-    justify-content: center; /* Căn giữa theo chiều ngang */
-<<<<<<< HEAD
-    padding: 20px 0; /* Tạo khoảng cách trên và dưới */
-=======
-    padding: 30px 0; /* Tạo khoảng cách trên và dưới */
->>>>>>> ef31d35316b5bcebcf840fb700d440ba8d6421c5
+    display: flex; 
+    justify-content: center; 
+    padding: 30px 0; 
   }
   .home-slider {
     position: relative; /* Định vị để đặt nút điều hướng */
@@ -46,18 +21,16 @@
     max-width: 1100px; /* Giới hạn chiều rộng tối đa */
     border-radius: 10px; /* Bo tròn viền */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Đổ bóng nhẹ */
+    margin: auto;
   }
-  
   .home-slider img {
     width: 100%; /* Ảnh chiếm toàn bộ chiều rộng của slider */
     display: block; /* Đảm bảo không có khoảng trắng dư thừa */
     border-radius: 10px; /* Bo tròn viền ảnh */
   }
-  
   .home-slider img:hover {
     transform: scale(1.05); /* Phóng to ảnh khi di chuột vào */
   }
-  
   .home-slider button {
     position: absolute; /* Định vị tuyệt đối trên slider */
     top: 50%; /* Đặt ở giữa chiều cao slider */
@@ -65,23 +38,45 @@
     background: rgba(0, 0, 0, 0.5); /* Nền màu đen trong suốt */
     color: white; /* Màu chữ trắng */
     border: none; /* Xóa đường viền */
-    padding: 10px; /* Kích thước nút */
-    font-size: 20px; /* Kích thước biểu tượng */
+    padding: 15px 15px;
+    font-size: 25px; /* Kích thước biểu tượng */
     cursor: pointer; /* Con trỏ chuột thành dạng chọn được */
     border-radius: 50%; /* Bo tròn thành hình tròn */
     transition: background 0.3s; /* Hiệu ứng màu nền */
+  }
+  .fa-arrow-left {
+    left: 2px;
+  }
+  
+  .fa-arrow-right {
+    right: 2px;
   }
   
   .home-slider button:hover {
     background: rgba(0, 0, 0, 0.8); /* Tăng độ tối khi hover */
   }
-  .home-slider .fa-arrow-left {
-    left: 5px; /* Căn nút mũi tên trái cách mép 10px */
+  .slider-window {
+    width: 100%;
+    overflow: hidden; 
+  }
+  .slider-track {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    width: 100%; /* 3 slide -> 300% */
+    height: auto;
   }
   
-  .home-slider .fa-arrow-right {
-    right: 5px; /* Căn nút mũi tên phải cách mép 10px */
+  .slide {
+    flex: 0 0 100%;
+    max-width: 100%;
   }
+  
+  .slide img {
+    width: 100%;
+    display: block;
+    object-fit: cover;
+  }
+  /* Flash Sale */
   
   /* ========================== Danh mục sản phẩm ========================== */
   .section-2 {
@@ -117,46 +112,39 @@
   }
   /* ========================== Flash Sale ========================== */
   .section-3 {
-    padding: 40px 20px; /* Tạo khoảng cách */
-    background: #fff7eb; /* Đặt màu nền */
-    text-align: center; /* Căn giữa nội dung */
-    border: 3px solid #e50000; /* Đường viền màu đỏ */
-    border-radius: 15px; /* Bo tròn góc */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
-<<<<<<< HEAD
-    max-width: 70%; /* Giới hạn chiều rộng */
-=======
-    max-width: 80%; /* Giới hạn chiều rộng */
->>>>>>> ef31d35316b5bcebcf840fb700d440ba8d6421c5
-    margin: auto; /* Căn giữa trên trang */
+    padding: 40px 20px;
+    background: #fff7eb;
+    text-align: center;
+    border: 3px solid #e50000;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 80%;
+    margin: auto;
     position: relative;
   }
   
-  .flash-sale-container {
+.slider-wrapper {
+  overflow: hidden;
+  width: 100%;
+  position: relative;
+}
+  
+  .slider_FS-track {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    position: relative;
+    transition: transform 0.5s ease;
+    flex-wrap: nowrap; /* Không cho xuống hàng */
+    will-change: transform;
   }
   
-  .block-product {
-    display: flex; /* Hiển thị sản phẩm theo hàng ngang */
-    justify-content: center; /* Căn giữa */
-    gap: 20px; /* Khoảng cách giữa các sản phẩm */
-    flex-wrap: nowrap; /* Không xuống hàng */
-<<<<<<< HEAD
-    overflow-x: auto; /* Cho phép cuộn ngang */
-=======
-    overflow-x: hidden; /* Cho phép cuộn ngang */
->>>>>>> ef31d35316b5bcebcf840fb700d440ba8d6421c5
-    padding: 20px 0; /* Khoảng cách trên và dưới */
-    scroll-behavior: smooth; /* Cuộn mượt */
+  .slide_FS {
+    min-width: calc(25% - 15px); /* 4 sản phẩm/1 hàng, trừ khoảng cách */
+    margin-right: 20px;
+    box-sizing: border-box;
   }
   
   .product-card {
     background: #fff;
-    width: 220px;
+    width: 100%;
     padding: 15px;
     border-radius: 10px;
     text-align: center;
@@ -164,76 +152,82 @@
   }
   
   .product-card:hover {
-    transform: translateY(-5px); /* Nâng sản phẩm lên khi hover */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Đổ bóng nhẹ */
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
   }
   
   .product-card img {
-    width: 100%; /* Chiếm toàn bộ chiều rộng */
-    border-radius: 8px; /* Bo tròn viền ảnh */
+    width: 100%;
+    border-radius: 8px;
   }
-  .buy-button {
-    background: #e50000; /* Màu nền nút mua */
-    color: white; /* Màu chữ */
-    border: none; /* Bỏ viền */
-    padding: 8px 15px; /* Kích thước nút */
-    border-radius: 20px; /* Bo tròn góc */
-    cursor: pointer; /* Đổi con trỏ chuột */
-    font-size: 12px; /* Kích thước chữ */
-    transition: background 0.3s; /* Hiệu ứng hover */
-  }
+  
   .product-name {
     padding-top: 20px;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
-    position: relative;
     width: 100%;
-    line-height: 1.3;
-    margin-bottom: 5px;
-    display: block;
     font-size: 14px;
+    margin-bottom: 5px;
   }
-  .buy-button:hover {
-    background: #c40000; /* Tối màu hơn khi hover */
+  
+  .price {
+    font-weight: bold;
+    margin-top: 10px;
   }
-  .block-product {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    padding: 20px 40px; /* Tạo khoảng cách hai bên */
-    scroll-behavior: smooth;
-    position: relative; /* Cho phép mũi tên định vị tuyệt đối */
+  
+  .old-price {
+    text-decoration: line-through;
+    color: gray;
+    font-size: 13px;
+    margin-left: 8px;
   }
-  .fa-solid {
-    position: absolute; /* Đảm bảo nút được định vị tuyệt đối */
-    top: 50%; /* Đưa về giữa theo chiều dọc */
-    transform: translateY(-50%); /* Dịch chuyển chính xác về giữa */
-    background: #e4002b;
+  
+  .buy-button {
+    background: #e50000;
     color: white;
-    padding: 17px 12px; /* Điều chỉnh kích thước */
+    border: none;
+    padding: 8px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: background 0.3s;
+    margin-top: 10px;
+  }
+  
+  .buy-button:hover {
+    background: #c40000;
+  }
+  
+  /* Nút điều hướng */
+   .fa-solid {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #9d9597;
+    color: white;
+    padding: 17px 12px;
     border-radius: 50%;
     cursor: pointer;
-    font-size: 12px; /* Kích thước icon */
-    transition: background 0.3s;
+    font-size: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
     width: 50px;
     height: 50px;
-    z-index: 10; /* Đảm bảo hiển thị trên các sản phẩm */
+    z-index: 10;
   }
+  
   .fa-solid:hover {
-    background: #c90025;
+    background: #63595b;
   }
+  
   .fa-arrow-left {
-    left: -25px;
+    left:-5px;
   }
   
   .fa-arrow-right {
-    right: -25px;
+    right: -5px;
   }
   /* ========================== Sản phẩm nổi bật ========================== */
   .section-4 {
@@ -465,11 +459,7 @@
   .block-image {
     flex: 1;
     text-align: right;
-<<<<<<< HEAD
-    margin-right: 400px;
-=======
     margin-right: 200px;
->>>>>>> ef31d35316b5bcebcf840fb700d440ba8d6421c5
   }
   
   .item {

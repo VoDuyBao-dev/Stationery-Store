@@ -40,6 +40,7 @@ $flashSale_products = $flashSale_products ?? [];
             margin-top: 100px;
             margin-left: 280px;
         }
+        
     </style>
     <title>Trang chủ</title>
    
@@ -60,19 +61,45 @@ $flashSale_products = $flashSale_products ?? [];
 
   <?php if ($message = Helpers::getFlash('error_params')): ?>
     <div><?php echo $message; ?></div>
-<?php endif; ?>
+<?php endif; ?> 
     <!-- ========== Slider ========== -->
     <section class="section-1">
-      <div class="home-slider">
-        <div class="main clearfix">
-          <div class="clearfix">
-            <a href=""><img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/slider_1.webp" alt="Văn phòng phẩm" /></a>
-          </div>
-        </div>
-        <button class="fa-solid fa-arrow-left"></button
-        ><button class="fa-solid fa-arrow-right"></button>
-      </div>
-    </section>
+  <div class="home-slider" style="overflow: hidden;">
+    <div class="main clearfix">
+    <div class="slider-track" id="sliderTrack">
+  <div class="slide"><a href=""><img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/slider_1.webp" alt="Văn phòng phẩm" /></a></div>
+  <div class="slide"><a href=""><img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/slider_2.webp" alt="Văn phòng phẩm" /></a></div>
+  <div class="slide"><a href=""><img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/slider_3.webp" alt="Văn phòng phẩm" /></a></div>
+</div>
+    </div>
+    <button class="fa-solid fa-arrow-left" id="prevBtn"></button>
+    <button class="fa-solid fa-arrow-right" id="nextBtn"></button>
+  </div>
+</section>
+<script>
+  const sliderTrack = document.getElementById("sliderTrack");
+
+const slides = document.querySelectorAll(".slide");
+const prevBtn = document.getElementById("prevBtn");
+const nextBtn = document.getElementById("nextBtn");
+
+let currentIndex = 0;
+
+function updateSlider() {
+  sliderTrack.style.transform = `translateX(-${currentIndex * 100}%)`;
+}
+
+nextBtn.addEventListener("click", () => {
+  currentIndex = (currentIndex + 1) % slides.length;
+  updateSlider();
+});
+
+prevBtn.addEventListener("click", () => {
+  currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+  updateSlider();
+});
+
+</script>
     <!-- ========== Danh mục sản phẩm ========== -->
     <section class="section-2">
       <div class="cate-list">
@@ -124,45 +151,76 @@ $flashSale_products = $flashSale_products ?? [];
 <?php endif; ?>
     <!-- ========== Flash Sale ==========  -->
     <section class="section-3">
-      <div class="container">
-        <div class="block-title">
-          <h2>
-           
-              <img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/fs.png" alt="fash-sale"
-            />
-          </h2>
-        </div>
-        <div class="block-product">
-        
-          <!-- list Sản phẩm flash sale -->
+  <div class="container">
+    <div class="block-title">
+      <h2>
+        <img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/fs.png" alt="fash-sale" />
+      </h2>
+    </div>
+
+    <div class="slider-wrapper ">
+      <div class="slider_FS-track" id="flashSliderTrack">
         <?php if (!empty($flashSale_products)): ?>
-          <?php foreach($flashSale_products as $product):?>
-          
-          <div class="product-card">
-            <img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/products/<?= $product['image'] ?>" alt="<?= $product['product_name'] ?>" />
-            <div class="product-name"><?= $product['product_name'] ?></div>
-            <div class="price">
-            
-            <?= Helpers::format_currency($product['priceCurrent']); ?> <span class="old-price"><?= Helpers::format_currency($product['priceOld']); ?></span>
+          <?php foreach($flashSale_products as $product): ?>
+            <div class="slide_FS">
+              <div class="product-card">
+                <img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/products/<?= $product['image'] ?>" alt="<?= $product['product_name'] ?>" />
+                <div class="product-name"><?= $product['product_name'] ?></div>
+                <div class="price">
+                  <?= Helpers::format_currency($product['priceCurrent']); ?>
+                  <span class="old-price"><?= Helpers::format_currency($product['priceOld']); ?></span>
+                </div>
+                <button class="buy-button" onclick="viewProduct('<?= $product['product_name'] ?>',<?= $product['product_id'] ?>,<?= $product['product_type_id'] ?>)">Xem ngay</button>
+              </div>
             </div>
-            <button class="buy-button" onclick="viewProduct('<?= $product['product_name'] ?>',<?= $product['product_id'] ?>,<?= $product['product_type_id'] ?> )" >Xem ngay </button>
-           
-          </div>
-          <?php endforeach;?>
-            <?php else: ?>
-              <?php if ($message = Helpers::getFlash('empty_flashSale_products')): ?>
-    <div><?php echo $message; ?></div>
-<?php endif; ?>
-    <?php endif; ?>
-
-    
-
-        </div>
-        <div class="fa-solid fa-arrow-left"></div>
-        <div class="fa-solid fa-arrow-right"></div>
+          <?php endforeach; ?>
+        <?php else: ?>
+          <?php if ($message = Helpers::getFlash('empty_flashSale_products')): ?>
+            <div><?php echo $message; ?></div>
+          <?php endif; ?>
+        <?php endif; ?>
       </div>
-    </section>
+
+      <!-- Nút điều hướng slider -->
+      <div class="fa-solid fa-arrow-left" id="flashPrevBtn"><i></i></div>
+      <div class="fa-solid fa-arrow-right" id="flashNextBtn"><i></i></div>
+    </div>
+  </div>
+</section>
+
+<script>
+const flashSliderTrack = document.getElementById("flashSliderTrack");
+const flashSlides = flashSliderTrack.querySelectorAll(".slide_FS");
+const flashPrevBtn = document.getElementById("flashPrevBtn");
+const flashNextBtn = document.getElementById("flashNextBtn");
+
+let flashCurrentIndex = 0;
+const slidesPerView = 4;
+const totalSlides = flashSlides.length;
+const maxIndex = Math.ceil(totalSlides / slidesPerView) - 1;
+
+function updateFlashSlider() {
+  const translateX = flashCurrentIndex * -100;
+  flashSliderTrack.style.transform = `translateX(${translateX}%)`;
+}
+
+flashNextBtn.addEventListener("click", () => {
+  if (flashCurrentIndex < maxIndex) {
+    flashCurrentIndex++;
+    updateFlashSlider();
+  }
+});
+
+flashPrevBtn.addEventListener("click", () => {
+  if (flashCurrentIndex > 0) {
+    flashCurrentIndex--;
+    updateFlashSlider();
+  }
+});
+
+</script>
     <!-- ========== Sản phẩm nổi bật ========== -->
+  
     <section class="section-4">
       <div class="container">
         <div class="block-title">
@@ -175,7 +233,7 @@ $flashSale_products = $flashSale_products ?? [];
              <?php foreach($outstanding_products as $product):?>
               <div class="product-block" onclick="viewProduct('<?= $product['product_name'] ?>',<?= $product['product_id'] ?>,<?= $product['product_type_id'] ?> )" style="cursor: pointer;">
                 <div class="product-block-item">
-                  <img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/products/<?= $product['image'] ?>" alt="Vở viết" />
+                  <img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/image_products_type/<?= $product['image'] ?>" alt="Vở viết" />
                 </div>
                 <div class="product-info">
                   <span><?= $product['product_name'] ?></span>
@@ -196,15 +254,85 @@ $flashSale_products = $flashSale_products ?? [];
           </div>
         </div>
         <div class="swiper-pagination">
-          <span
-            class="swiper-pagination-bullet swiper-pagination-bullet-active"
-          ></span>
-          <span class="swiper-pagination-bullet"></span>
-          <span class="swiper-pagination-bullet"></span>
+          <span class="swiper-pagination-bullet" id="go_1"></span>
+          <span class="swiper-pagination-bullet" id="go_2"></span>
+          <span class="swiper-pagination-bullet" id="go_3"></span>
         </div>
       </div>
     </section>
+<script>
+var swiperwish = new Swiper('.product-featured-swiper', {
+    slidesPerView: 3,
+    loop: false,
+    grabCursor: true,
+    spaceBetween: 30,
+    roundLengths: true,
+    slideToClickedSlide: false,
+    autoplay: false,
+    pagination: {
+        el: '.section-4 .swiper-pagination',
+        clickable: true,
+    },
+    breakpoints: {
+        300: {
+            slidesPerView: 2,
+            spaceBetween: 15
+        },
+        500: {
+            slidesPerView: 2,
+            spaceBetween: 20
+        },
+        640: {
+            slidesPerView: 3,
+            spaceBetween: 20
+        },
+        768: {
+            slidesPerView: 3,
+            spaceBetween: 20
+        },
+        991: {
+            slidesPerView: 3,
+            spaceBetween: 30
+        },
+        1200: {
+            slidesPerView: 3,
+            spaceBetween: 30
+        }
+    }
+});
 
+// Lắng nghe sự kiện đổi slide
+swiperwish.on('slideChange', function () {
+    document.querySelectorAll('.swiper-pagination-bullet').forEach(function(bullet) {
+        bullet.classList.remove('active');
+    });
+
+    var currentSlide = swiperwish.realIndex;
+    var bullet = document.getElementById('go_' + (currentSlide + 1));
+    if (bullet) {
+        bullet.classList.add('active');
+    }
+});
+
+// Khi load trang lần đầu tiên
+document.addEventListener('DOMContentLoaded', function() {
+    var bullet = document.getElementById('go_1');
+    if (bullet) {
+        bullet.classList.add('active');
+    }
+});
+
+// Xử lý click vào các nút go_1, go_2, go_3
+document.getElementById('go_1').addEventListener('click', function() {
+    swiperwish.slideTo(0);
+});
+document.getElementById('go_2').addEventListener('click', function() {
+    swiperwish.slideTo(1);
+});
+document.getElementById('go_3').addEventListener('click', function() {
+    swiperwish.slideTo(2);
+});
+</script>
     <!-- ========== Văn phòng phẩm cho bạn ==========  -->
     <section class="section-5">
       <section class="block-tab-product">
@@ -283,7 +411,7 @@ $flashSale_products = $flashSale_products ?? [];
                     <img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/iconthanhtoan.svg" alt="Thanh toán cod " />
                   </div>
                   <div class="info">
-                    <h3>Thanh toán codcod</h3>
+                    <h3>Thanh toán cod</h3>
                     <p>Hỗ trợ khách hàng thanh toán cod</p>
                   </div>
                 </div>
