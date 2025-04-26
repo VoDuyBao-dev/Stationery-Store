@@ -11,6 +11,8 @@ $routes['nhap-otp'] = 'user/nhap_otp';
 $routes['dang-ky'] = 'user/register';
 $routes['register_user'] = 'user/registerUser';
 $routes['resend-otp'] = 'user/resendOTP';
+
+
 $routes['dang-nhap'] = 'user/signin';
 
 // xử lí đăng nhập bằng google
@@ -86,6 +88,33 @@ $routes['notfound'] = 'product/notfound';
 $routes['admin_layout'] = 'dashboard/home';
 
 
-?>
 
-<!-- sửa sản phẩm dành cho bạn, quản lý user vs giỏ hàng -->
+
+
+// Chat giữa admin và khách hàng
+$routes['^chat/([0-9]+)$'] = 'chat/detail/$1';
+$routes['beginChat'] = 'chat/beginChat';
+$routes['sendMessage'] = 'chat/sendMessage';
+
+// Trang khuyến mãi
+$routes['sale'] = 'Coupon/khuyenmai';
+$routes['store'] = 'Coupon/store';
+$routes['^show/([0-9]+)$'] = 'Coupon/show/$1';
+$routes['update'] = 'Coupon/update';
+$routes['destroy'] = 'Coupon/destroy';
+
+
+// Trang quản lý đơn hàng của admin (xác nhận đơn hàng, giao hàng, đã giao thành công, bị hủy)
+$routes['daxuly'] = 'AdminOrder/done';
+
+$routes['canxuly'] = 'AdminOrder/canxuly';       // toàn bộ order có trangThaiGiao != 3
+$routes['^detailOrder/([0-9]+)$'] = 'AdminOrder/detailOrder/$1';     // chi tiết đơn hàng (có nhiều loại sản phẩm)
+$routes['xacnhan'] = 'AdminOrder/xacnhan';                // xác nhận đơn hàng và chuyển sang trạng thái đang giao hàng
+$routes['^viewOrder/([0-9]+)$'] = 'AdminOrder/viewOrder/$1';     // xem chi tiết đơn hàng (có nhiều loại
+$routes['suaDon'] = 'AdminOrder/suaDon';
+$routes['huyDon'] = 'AdminOrder/huyDon';
+$routes['xoaDon'] = 'AdminOrder/xoaDon';            // xóa đơn hàng có trangThaiGiao == 2 (đã hủy)
+
+$routes['^getOrderDetail/([0-9]+)$'] = 'AdminOrder/getOrderDetail/$1';   // hiển thị trang sửa từng loại sản phẩm (từng bản ghi của order_detail)
+$routes['updateOrderDetail'] = 'AdminOrder/updateOrderDetail';            // cập nhật lại đơn hàng (có nhiều loại sản phẩm)
+$routes['deleteDetail'] = 'AdminOrder/deleteDetail';            // cập nhật lại đơn hàng (có nhiều loại sản phẩm)

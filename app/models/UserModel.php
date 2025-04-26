@@ -1,6 +1,7 @@
 <?php
 
 use app\Logger;
+
 class UserModel extends Model
 {
     private $_table = 'users';
@@ -23,10 +24,9 @@ class UserModel extends Model
         $result = $this->fetch($sql, $params);
 
         return $result ? true : false;
-
     }
-    
-   
+
+
 
     public function checkSDTExists2($sdt, $id)
     {
@@ -58,16 +58,16 @@ class UserModel extends Model
         } else {
             return "Đăng ký thất bại!";
         }
-
     }
 
-    function insertUser_Google($fullname,$email,$google_id){
-       // Tạo mật khẩu ngẫu nhiên cho user Google
-       $random_password = bin2hex(random_bytes(16));
-       $hashed_password = password_hash($random_password, PASSWORD_DEFAULT);
-        
-        $sql="INSERT INTO $this->_table(fullname,email,password,google_id)VALUES(?, ?, ?, ?)";
-        $params = [$fullname,$email,$hashed_password,$google_id];
+    function insertUser_Google($fullname, $email, $google_id)
+    {
+        // Tạo mật khẩu ngẫu nhiên cho user Google
+        $random_password = bin2hex(random_bytes(16));
+        $hashed_password = password_hash($random_password, PASSWORD_DEFAULT);
+
+        $sql = "INSERT INTO $this->_table(fullname,email,password,google_id)VALUES(?, ?, ?, ?)";
+        $params = [$fullname, $email, $hashed_password, $google_id];
 
         $affectedRows = $this->execute($sql, $params);
         if ($affectedRows > 0) {
@@ -75,8 +75,6 @@ class UserModel extends Model
         } else {
             return "Đăng ký người dùng google thất bại!";
         }
-        
-    
     }
 
     public function verifyUser($email, $input_password)
@@ -89,7 +87,6 @@ class UserModel extends Model
             } else {
                 return "Email hoặc mật khẩu không đúng!";
             }
-
         } else {
             return "Tài khoản không tồn tại!";
         }
@@ -110,9 +107,9 @@ class UserModel extends Model
     public function getAllUsers()
     {
         $sql = "SELECT * FROM $this->_table WHERE status = '1' AND role != 'admin'";
-        
+
         $result = $this->fetchAll($sql);
-        if(!$result){
+        if (!$result) {
             return false;
         }
         return $result;
@@ -122,7 +119,7 @@ class UserModel extends Model
     {
         $sql = "Select * from $this->_table where status = '0' AND role != 'admin'";
         $result = $this->fetchAll($sql);
-        if(!$result){
+        if (!$result) {
             return false;
         }
         return $result;
@@ -133,7 +130,7 @@ class UserModel extends Model
         $sql = "SELECT * FROM $this->_table WHERE user_id = ?";
         $params = [$id];
         $result = $this->fetch($sql, $params);
-        if(empty($result)){
+        if (empty($result)) {
             return false;
         }
         return $result;
@@ -145,41 +142,38 @@ class UserModel extends Model
     {
         $sql = "UPDATE users SET status = '0' WHERE user_id = ?";
         $params = [$id];
-        try{
+        try {
             $affectedRows = $this->execute($sql, $params);
             if ($affectedRows > 0) {
                 return true;
             }
-        }catch (Exception $e) {
+        } catch (Exception $e) {
             Logger::logError("Lỗi khi khóa user: " . $e->getMessage());
             return false;
         }
-       
     }
 
     public function unlockUser($id)
     {
         $sql = "UPDATE users SET status = '1' WHERE user_id = ?";
         $params = [$id];
-        try{
+        try {
             $affectedRows = $this->execute($sql, $params);
             if ($affectedRows > 0) {
                 return true;
             }
-        }catch (Exception $e) {
+        } catch (Exception $e) {
             Logger::logError("Lỗi khi mở khóa user: " . $e->getMessage());
             return false;
         }
-       
     }
 
-    public function updateInformation($fullname, $sdt, $address, $id){
+    public function updateInformation($fullname, $sdt, $address, $id)
+    {
         $sql = "UPDATE users SET fullname = ?, phone = ?, address = ? WHERE user_id = ?";
-        $params = [$fullname,$sdt,$address,$id];
+        $params = [$fullname, $sdt, $address, $id];
 
         $affectedRows = $this->execute($sql, $params);
-        return $affectedRows>0;
+        return $affectedRows > 0;
     }
-
-
 }

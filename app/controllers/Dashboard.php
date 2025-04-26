@@ -2,7 +2,7 @@
 
 class Dashboard extends Controller
 {
-   
+
 
     public function home()
     {

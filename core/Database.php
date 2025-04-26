@@ -15,6 +15,7 @@ class Database
     public function query($sql, $params = [])
     {
         $stmt = $this->conn->prepare($sql);
+
         if (!$stmt) {
             Logger::logError("Lỗi khi chuẩn bị truy vấn!" . $this->conn->error);
             throw new \Exception("Lỗi khi chuẩn bị truy vấn");
@@ -28,19 +29,20 @@ class Database
                     $types .= 's';
                 } elseif (is_float($param)) {
                     $types .= 'd';
-                }else {
+                } else {
                     $types .= 's'; // mặc định chuỗi
                 }
             }
+            // gán dữ liệu vào phần value() của câu lệnh SQL
             $stmt->bind_param($types, ...$params);
         }
 
         $stmt->execute();
-        return $stmt;
 
+        return $stmt;
     }
 
-//    Lấy 1 dòng dữ liệu
+    //    Lấy 1 dòng dữ liệu
     public function fetch($sql, $params = [])
     {
         $stmt = $this->query($sql, $params);
@@ -56,7 +58,7 @@ class Database
         return $data;
     }
 
-//    Lấy nhiều dòng dữ liệu
+    //    Lấy nhiều dòng dữ liệu
     public function fetchAll($sql, $params = [])
     {
         $stmt = $this->query($sql, $params);
@@ -66,6 +68,7 @@ class Database
             $item = [];
             foreach ($row as $key => $value) {
                 $item[$key] = $value;
+                // echo $key . " " . $value . "<br>";
             }
             $data[] = $item;
         }
@@ -73,7 +76,7 @@ class Database
         return $data;
     }
 
-//    execute cho INSERT, UPDATE, DELETE
+    //    execute cho INSERT, UPDATE, DELETE
     public function execute($sql, $params = [])
     {
 
