@@ -66,6 +66,12 @@ a{
     cursor: pointer;
     color: #c9a56d;
 }
+.search-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #c9a56d;
+}
     
 
 /* Hotline */
