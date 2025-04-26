@@ -78,6 +78,7 @@ body {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     text-align: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
 }
 
 .product:hover {
@@ -86,7 +87,8 @@ body {
 }
 
 .product img {
-    width: 100%;
+    width: 250px;
+    height: 250px;
     height: auto;
     border-radius: 8px;
 }
@@ -152,9 +154,45 @@ h3 {
     margin: 10px 20px;
     font-style: italic ;
 }
+.sale-tag {
+    display: flex;
+    position: absolute;
+    height: 60px;
+    background-color: rgb(239, 59, 59);
+    color: white;
+    font-weight: bold;
+    padding: 5px;
+    top:-10px;
+    right: -12px ;
+    font-size: 12px;
+    border-radius: 8px;
+    clip-path: polygon(0 0, 100% 0, 100% 80%, 50% 100%, 0 80%);
+    position: absolute;
+    text-align: center;
+    z-index: 2;
+    
+}
+
+.sale-tag p{
+    margin: 0;
+    padding: 5px;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+
+    animation: blinkText 0.3s infinite;
+}
+
+@keyframes blinkText {
+  0%, 100% { color: white; border: 2px dashed  white;clip-path: polygon(0 0, 100% 0, 100% 80%, 50% 100%, 0 80%);}
+  100% { color: yellow; border: 2px dashed  yellow;clip-path: polygon(0 0, 100% 0, 100% 80%, 50% 100%, 0 80%);}
+}
 
 .pnow{
-    font-size: 25px;
+    font-size: 20px;
     font-weight: bold;
-    color: red;
+    color: #ca9b54;
+    text-decoration: underline;
+    text-align: center;
+    margin: 10px 0;
 }

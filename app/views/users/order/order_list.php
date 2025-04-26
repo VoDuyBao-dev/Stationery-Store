@@ -2,6 +2,9 @@
 use core\Helpers;
 
 ?>
+
+<?php $breadcrumb = "Theo dõi đơn hàng"; ?>
+
 <!DOCTYPE html>
 <html lang="vi">
 
@@ -34,7 +37,10 @@ use core\Helpers;
 </head>
 
 <body>
-   
+<?php require_once _DIR_ROOT . "/app/views/blocks/header.php"; ?>
+<?php require_once _DIR_ROOT . "/app/views/blocks/menu.php"; ?>   
+
+
     <main>
         <div class="order-container">
             <h1>Danh sách đơn hàng</h1>
@@ -50,10 +56,10 @@ use core\Helpers;
         <button id="reset-filter" class="reset-btn">Đặt lại</button>
     </div>
 </div>
-            <div class="search-container">
+    <div class="search-main">
     <form action="<?php echo _WEB_ROOT; ?>/tim-kiem-don-hang" method="GET">
         <input type="text" name="order_id" placeholder="Nhập mã đơn hàng" required>
-        <button class="search-btn" type="submit">
+        <button class="search-button" type="submit">
             <i class="fas fa-search"></i>
         </button>
     </form>

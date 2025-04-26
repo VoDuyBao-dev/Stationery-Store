@@ -18,7 +18,7 @@ if (isset($_SESSION['giohang'])) {
 
     <div class="search-bar">
         <form action="<?php echo _WEB_ROOT; ?>/kqtim-kiem" method="GET" style="display: flex; align-items: center; width: 100%;">
-            <input type="text" name="keyword" placeholder="Tìm kiếm sản phẩm..." /><i class="fas fa-search"></i>
+            <input type="text" name="keyword" placeholder="Tìm kiếm sản phẩm..." /><button class="search-btn" type="submit"><i class="fas fa-search"></i></button>
         </form>
 
     </div>
@@ -36,7 +36,7 @@ if (isset($_SESSION['giohang'])) {
                 <p>Xin chào, <?= $_SESSION['user']['fullname'] ?? "" ?> !</p>
                 <div class="dropdown-user" id="dropdownUser">
                     <a href="<?php echo _WEB_ROOT . '/chinh-sua-thong-tin'; ?>">Thông tin cá nhân</a>
-                    <a href="<?php echo _WEB_ROOT . '/danh-sach-don-hang'; ?>">Danh sách đơn hàng</a>
+                    <a href="<?php echo _WEB_ROOT . '/danh-sach-don-hang'; ?>">Đơn hàng của tôi</a>
                     <a href="<?php echo _WEB_ROOT . '/dang-xuat'; ?>">Đăng xuất</a>
 
                 </div>

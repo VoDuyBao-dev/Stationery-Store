@@ -62,13 +62,13 @@ use core\Helpers;
 <label>Phương thức thanh toán:</label>
 <div class="payment-options">
     <input type="radio" id="cod" name="payment" value="cod">
-    <label for="cod">Thanh toán khi nhận hàng (COD)</label>
+    <label for="cod">Thanh toán khi nhận hàng (COD) <img src="<?php echo _WEB_ROOT; ?> /public/assets/clients/images/cash.jpg" alt="Cash"> </label>
 
     <input type="radio" id="bank" name="payment" value="bank">
-    <label for="bank">Thanh toán qua VNPay</label>
+    <label for="bank">Thanh toán qua VNPay <img src="<?php echo _WEB_ROOT; ?> /public/assets/clients/images/VNPay.png" alt="VNPay"></label>
 
     <input type="radio" id="ewallet" name="payment" value="ewallet">
-    <label for="ewallet">Thanh toán qua MoMo</label>
+    <label for="ewallet">Thanh toán qua MoMo <img src="<?php echo _WEB_ROOT; ?> /public/assets/clients/images/MoMo-logo.jpg" alt="MoMo"></label>
     <div id="momo-options" style="display: none; margin-left: 20px; margin-top: 10px;">
     <!-- option của momo -->
     <input type="radio" id="momo_qr" name="momo_method" value="momo_qr">
