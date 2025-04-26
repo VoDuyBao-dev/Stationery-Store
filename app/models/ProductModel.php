@@ -365,23 +365,35 @@ class ProductModel extends Model
     
     // Quan lý sản phẩm trong admin
     public function getAllProducts() {
-        $sql = "
-            SELECT 
+        $sql = "SELECT 
                 p.product_id, 
                 p.name AS product_name, 
-                pt.image
+                pt.image,
                 pt.priceCurrent, 
                 pt.stock_quantity, 
                 pt.status AS product_status, 
-                c.name AS category_name,
+                c.name AS category_name
             FROM products p
             INNER JOIN product_type pt ON p.product_id = pt.product_id
             INNER JOIN categories c ON p.category_id = c.category_id
         ";
 
-        $stmt = $this->db->prepare($sql);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $result = $this->fetchAll($sql);
+        return $result;
+    }
+    public function addProduct($product_name, $category_id, $priceCurrent, $stock_quantity, $image_name, $product_status, $description) {
+        // Thêm sản phẩm vào bảng products
+        $sql = "INSERT INTO products (name, category_id, description) VALUES (?, ?, ?)";
+        $params = [$product_name, $category_id, $description];
+        $this->execute($sql, $params);
+    
+        // Lấy ID sản phẩm vừa thêm
+        $product_id = $this->db->lastInsertId();
+    
+        // Thêm vào bảng product_type
+        $sql = "INSERT INTO product_type (product_id, priceCurrent, stock_quantity, image, status) VALUES (?, ?, ?, ?, ?)";
+        $params = [$product_id, $priceCurrent, $stock_quantity, $image_name, $product_status];
+        return $this->execute($sql, $params);
     }
 }
 

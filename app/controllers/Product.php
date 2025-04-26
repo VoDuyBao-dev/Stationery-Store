@@ -227,4 +227,39 @@ class Product extends Controller
         ];
         $this->render('admin/products/Quanlysanpham', $data);
     }
+    //lấy trang tạo sản phẩm khi người dùng nhấn vào nút tạo mới sản phẩm
+    public function createProduct() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Lấy dữ liệu từ form
+            $product_name = $_POST['product_name'];
+            $category_id = $_POST['category_id'];
+            $priceCurrent = $_POST['priceCurrent'];
+            $stock_quantity = $_POST['stock_quantity'];
+            $product_status = $_POST['product_status'];
+            $description = $_POST['description'];
+    
+            // Xử lý upload ảnh
+            $image = $_FILES['image'];
+            $image_name = time() . '_' . $image['name'];
+            $upload_dir = _DIR_ROOT . '/public/images/';
+            move_uploaded_file($image['tmp_name'], $upload_dir . $image_name);
+    
+            // Gọi Model để thêm sản phẩm
+            $result = $this->productModel->addProduct($product_name, $category_id, $priceCurrent, $stock_quantity, $image_name, $product_status, $description);
+    
+            if ($result) {
+                Helpers::setFlash('success', 'Tạo sản phẩm thành công!');
+            } else {
+                Helpers::setFlash('error', 'Tạo sản phẩm thất bại!');
+            }
+    
+            // Chuyển hướng về trang quản lý sản phẩm
+            header('Location: ' . _WEB_ROOT . '/admin/products');
+            exit;
+        }
+    
+        // Lấy danh sách danh mục để hiển thị trong form
+        $categories = $this->productModel->getCategories();
+        $this->render('admin/products/Taosp', ['categories' => $categories]);
+    }
 }

@@ -63,11 +63,11 @@ $routes['handleMomoIPN'] = 'MomoController/handleMomoIPN';
 $routes['handleMomoCallback'] = 'payment/handleMomoCallback';
 
 
-$routes['qlsp'] = 'AdminManageUser/qlsp';
-$routes['sale'] = 'AdminManageUser/khuyenmai';
-$routes['taosp'] = 'AdminManageUser/taosp';
+$routes['qlsp'] = 'product/allProducts';
+$routes['taosp'] = 'product/createProduct';
 $routes['daxuly'] = 'AdminManageUser/done';
 $routes['canxuly'] = 'AdminManageUser/canxuly';
+$routes['sale'] = 'AdminManageUser/khuyenmai';
 
 // xong
 $routes['productByCategory'] = 'product/productByCategory';

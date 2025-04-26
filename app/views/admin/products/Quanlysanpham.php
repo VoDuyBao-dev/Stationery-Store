@@ -1,6 +1,3 @@
-<?php
-$products = $products ?? [];
-?>
 <!DOCTYPE html>
 <html lang="vi">
   <head>
@@ -72,7 +69,7 @@ $products = $products ?? [];
                 <td><?php echo $product['product_id']; ?></td>
                 <td><?php echo $product['product_name']; ?></td>
                 <td>
-                  <!-- <img src="<?php //echo _WEB_ROOT; ?>/public/uploads/products/<?php //echo $product['image']; ?>" alt="Ảnh sản phẩm" /> -->
+                  <img src="<?php echo _WEB_ROOT; ?>/public/uploads/products/<?php echo $product['image']; ?>" alt="Ảnh sản phẩm" />
                 </td>
                 <td><?php echo $product['stock_quantity']; ?></td>
                 <td>
