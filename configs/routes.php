@@ -42,7 +42,7 @@ $routes['deleteAll_cart'] = 'cart/deleteAll_cart';
 $routes['deleteIdProduct_inCart'] = 'cart/deleteIdProduct_inCart';
 
 // Chức năng admin
-$routes['manage_users'] = 'AdminManageUser/listuser';
+$routes['manage_users'] = 'AdminManage/listuser';
 
 
 
@@ -65,8 +65,8 @@ $routes['handleMomoIPN'] = 'MomoController/handleMomoIPN';
 $routes['handleMomoCallback'] = 'payment/handleMomoCallback';
 
 
-$routes['qlsp'] = 'AdminManageUser/qlsp';
-$routes['taosp'] = 'AdminManageUser/taosp';
+$routes['quan-ly-san-pham'] = 'AdminManage/qlsp';
+$routes['them-san-pham'] = 'AdminManage/addProduct';
 
 
 // xong

@@ -1,4 +1,5 @@
-<?php $breadcrumb = "Danh sách sản phẩm"; ?>
+<?php $breadcrumb = "Danh sách sản phẩm"; 
+use core\Helpers;?>
 
 <!DOCTYPE html>
 <html lang="vi">
@@ -25,6 +26,7 @@
             margin-left: 280px;
         }
     </style>
+    
   </head>
 
   <body>
@@ -38,10 +40,13 @@
   <main>
     <div class="product-container">
       <h1>Danh Sách Sản Phẩm</h1>
-
+      <?php if ($message = Helpers::getFlash('message')): ?>
+    <div class="success-message"><?php echo $message; ?></div>
+<?php endif; ?>
       <!-- Các nút chức năng -->
       <div class="btn-group">
-        <button class="btn btn-green">+ Tạo mới sản phẩm</button>
+        
+        <button id="createProductBtn" class="btn btn-green">+ Tạo mới sản phẩm</button>
         <button class="btn btn-red">Xuất Excel</button>
         <button class="btn btn-gray">Xóa tất cả</button>
       </div>
@@ -134,5 +139,10 @@
     </div>
     <?php  require_once _DIR_ROOT . "/app/views/blocks/footer.php";?>
     </main>
+    <script>
+document.getElementById('createProductBtn').addEventListener('click', function() {
+    window.location.href = '<?php echo _WEB_ROOT . '/them-san-pham'; ?>';
+});
+</script>
   </body>
 </html>
