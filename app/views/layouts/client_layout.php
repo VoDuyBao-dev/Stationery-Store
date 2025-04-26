@@ -139,7 +139,7 @@ $flashSale_products = $flashSale_products ?? [];
           <?php foreach($flashSale_products as $product):?>
             
           <div class="product-card">
-          <div class="sale-tag"><p>- 25%</p></div>
+          <div class="sale-tag"><p>Sale <br> 25%</p></div>
 
             <img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/image_products_type/<?= $product['image'] ?>" alt="<?= $product['product_name'] ?>" />
             <div class="product-name"><?= $product['product_name'] ?></div>
