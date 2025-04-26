@@ -81,3 +81,6 @@ require_once "app/services/VNPayPaymentProcessing.php";
 require_once "app/services/MomoPaymentProcessing.php";
 // load google service
 require_once "app/services/GoogleAuthService.php";
+
+// admin quan lý hàng
+require_once "app/services/ProductService.php";

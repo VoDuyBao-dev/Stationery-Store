@@ -449,4 +449,42 @@ class ProductModel extends Model
         $sql = "SELECT stock_quantity FROM product_type WHERE product_type_id = ?";
         return $this->fetch($sql, [$product_type_id]);
     }
+
+    // Phần quản lý sản phẩm
+    // Quan lý sản phẩm trong admin
+    public function getAllProducts() {
+        $sql = "SELECT 
+                p.product_id, 
+                p.name AS product_name, 
+                pt.image,
+                pt.priceCurrent, 
+                pt.stock_quantity, 
+                pt.status AS product_status, 
+                c.name AS category_name
+            FROM products p
+            INNER JOIN product_type pt ON p.product_id = pt.product_id
+            INNER JOIN categories c ON p.category_id = c.category_id
+        ";
+
+        $result = $this->fetchAll($sql);
+        return $result;
+    }
+
+    public function addProduct($name, $description, $category_id, $brand_id) {
+        // Thêm sản phẩm vào bảng products
+        $sql = "INSERT INTO $this->_table_products (`name`, `description`, `category_id`, `brand_id`) VALUES (?, ?, ?, ?)";
+        $params = [$name, $description, $category_id, $brand_id];
+        try{
+           $affectedRows = $this->execute($sql, $params);
+            if ($affectedRows > 0) {
+                return $this->getInsertId();//tra về id của order vừa tạo
+            } else {
+                return false;
+            }
+        }catch (Exception $e) {
+            return false;
+        }
+    }
+   
+
 }
