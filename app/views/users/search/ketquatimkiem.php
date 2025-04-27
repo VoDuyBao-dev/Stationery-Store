@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html lang="vi">
+
+<?php $breadcrumb = "Kết quả tìm kiếm cho - ".$_GET['keyword'] ?? ""; ?>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,13 +24,14 @@
     </script>
 </head>
 <body>
-    <?php  require_once _DIR_ROOT . "/app/views/blocks/header.php";?>
+    <?php  require_once _DIR_ROOT . "/app/views/blocks/header.php";?>   
+
     <?php require_once _DIR_ROOT . "/app/views/blocks/menu.php";?>
-    <div class="container">
+    <div class="search-container">
     
         <?php if(empty($getProduct_Search)):?>
             <div class="not-found-container">
-        <h1>Rất tiếc, sản phẩm bạn tìm kiếm không tồn tại!</h1>
+        <h2>Rất tiếc, sản phẩm bạn tìm kiếm không tồn tại!</h2>
         <p>Hãy thử tìm kiếm sản phẩm khác hoặc quay về trang chủ </p>
     </div>
             <?php else:?>
@@ -36,6 +40,7 @@
         <div class="product-list">
         <?php foreach($getProduct_Search as $product):?>
             <div class="product">
+            <div class="sale-tag"><p>Sale <br> 25%</p></div>
                 <img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/products/<?= $product['image'] ?>" alt="<?= $product['product_name'] ?>">
                 <p class="name"><?= $product['product_name'] ?></p>
                 <p class="price"><span class="new"><?= $product['priceCurrent'] ?>đ</span> <span class="old"><?= $product['priceOld'] ?>đ</span></p>

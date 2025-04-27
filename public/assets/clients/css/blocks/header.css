@@ -55,15 +55,22 @@ a {
     flex: 1 !important;
     border: none !important;
     outline: none !important;
-    padding: 8px   !important;
-    width: 100%   !important;
-    font-size: 14px     !important;
+    padding: 8px !important;
+    width: 100% !important;
+    font-size: 14px !important;
     color: rgb(0, 0, 0) !important;
     background-color: none !important;
-    background: rgb(213, 212, 212)  !important;
+    background: rgb(213, 212, 212) !important;
 }
 
 .search-bar i {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #c9a56d;
+}
+
+.search-btn {
     background: none;
     border: none;
     cursor: pointer;
@@ -200,12 +207,6 @@ a {
 .breadcrumb-banner a {
     color: #f6ebd9f5 !important;
     text-decoration: none;
-}
-
-.breadcrumb-banner h2 {
-    font-size: 16px;
-    font-style: italic;
-    color: #f6ebd9e4 !important;
 }
 
 .breadcrumb-banner span {

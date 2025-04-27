@@ -5,11 +5,12 @@
   box-sizing: border-box;
   font-family: "Arial", sans-serif;
 }
+
 /* 🎯 Body tổng quan */
 body {
   color: #333;
   margin: 0;
-  background-color:  #e7e4e4;
+  background-color: #e7e4e4;
 }
 
 /* 🎯 Bố cục chung */
@@ -32,11 +33,13 @@ body {
   width: 90%;
   border-radius: 10px;
 }
+
 .thumbnail-container {
   justify-content: center;
   gap: 5px;
   margin-top: 10px;
 }
+
 .thumbnail {
   width: 50px;
   border-radius: 5px;
@@ -53,7 +56,8 @@ body {
 /* 🎯 Thông tin sản phẩm */
 .product-info {
   padding: 30px;
-  background-color: white; /* Màu nền trắng cho phần thông tin */
+  background-color: white;
+  /* Màu nền trắng cho phần thông tin */
 }
 
 .product-info h1 {
@@ -65,13 +69,15 @@ body {
 
 .product-info p {
   font-size: 15px;
-  color: #555; /* Màu xám cho văn bản */
+  color: #555;
+  /* Màu xám cho văn bản */
   margin-bottom: 15px;
 }
 
 .product-info .price {
   font-size: 18px;
-  color: #d0021b; /* Màu đỏ cho giá */
+  color: #d0021b;
+  /* Màu đỏ cho giá */
   font-weight: bold;
 }
 
@@ -81,10 +87,12 @@ body {
   font-size: 14px;
   margin-left: 10px;
 }
-.text-muted{
+
+.text-muted {
   font-size: 14px;
   padding: 10px;
 }
+
 /* 🎯 Lựa chọn màu sắc */
 .color-options {
   display: flex;
@@ -94,7 +102,8 @@ body {
 }
 
 .color-options button {
-  background: #f0f0f0; /* Màu nền nhẹ cho nút */
+  background: #f0f0f0;
+  /* Màu nền nhẹ cho nút */
   border: 1px solid #ddd;
   padding: 10px 15px;
   margin: 5px;
@@ -112,7 +121,8 @@ body {
 }
 
 .color-options button:hover {
-  background:#a7895c; /* Màu cam cho hiệu ứng hover */
+  background: #a7895c;
+  /* Màu cam cho hiệu ứng hover */
   color: white;
 }
 
@@ -135,7 +145,8 @@ body {
 }
 
 .quantity-control button:hover {
-  background:#a7895c; /* Màu cam cho hiệu ứng hover */
+  background: #a7895c;
+  /* Màu cam cho hiệu ứng hover */
   color: white;
 }
 
@@ -160,7 +171,8 @@ body {
 .buy-now {
   flex: 1;
   text-align: center;
-  background:#a7895c; /* Màu nâu đậm cho nút */
+  background: #6f5c3e;
+  /* Màu nâu đậm cho nút */
   color: white;
   border: none;
   padding: 15px 0;
@@ -170,13 +182,14 @@ body {
   width: 100px;
 }
 
-.add-to-cart{
+.add-to-cart {
   width: 180px;
 }
 
 .add-to-cart:hover,
 .buy-now:hover {
-  background:#d19f53; /* Màu nâu đậm hơn cho hiệu ứng hover */
+  background: #d19f53;
+  /* Màu nâu đậm hơn cho hiệu ứng hover */
 }
 
 /* 🎯 Dịch vụ */
@@ -199,6 +212,7 @@ body {
   width: 30px;
   margin-right: 10px;
 }
+
 .service_product .info h3 {
   font-size: 14px;
   color: #333;
@@ -208,20 +222,24 @@ body {
   font-size: 12px;
   color: #666;
 }
+
 /*Ưu đãi*/
 .promo-section {
   padding: 25px;
   border-radius: 12px;
   margin-top: 100px;
 }
+
 .promo-section h3 {
   margin-bottom: 15px;
   color: #2c3e50;
 }
+
 .promo-section ul {
   list-style-type: disc;
   padding-left: 20px;
 }
+
 .promo-section a {
   color: #e74c3c;
   text-decoration: none;
@@ -231,6 +249,7 @@ body {
 .promo-section a:hover {
   color: #c0392b;
 }
+
 /* 🎯 Thông tin chi tiết */
 .product-details {
   width: 95%;
@@ -245,7 +264,8 @@ body {
   font-size: 20px;
   font-weight: bold;
   margin-bottom: 15px;
-  color: #333; /* Màu xám đậm cho tiêu đề */
+  color: #333;
+  /* Màu xám đậm cho tiêu đề */
 }
 
 .product-details ul {
@@ -257,16 +277,20 @@ body {
   margin-bottom: 10px;
   font-size: 16px;
   line-height: 2;
-  color: #555; /* Màu xám cho văn bản */
+  color: #555;
+  /* Màu xám cho văn bản */
 }
+
 /* Đánh giá sản phẩm */
-.col_right{
+.col_right {
   width: 60%;
 }
+
 /* ⭐ Căn chỉnh phần tổng quan đánh giá */
 .container h3 {
   margin-top: 40px;
 }
+
 .rating-score {
   font-size: 20px;
   font-weight: bold;
@@ -295,11 +319,14 @@ body {
 
 .star-text {
   color: #ffd700;
-  font-size: 12px; /* Nhỏ lại để phù hợp */
+  font-size: 12px;
+  /* Nhỏ lại để phù hợp */
 }
+
 .progress-bar {
   flex: 1;
-  height: 5px; /* Thu nhỏ chiều cao */
+  height: 5px;
+  /* Thu nhỏ chiều cao */
   background: #d6ca93;
   border-radius: 3px;
 }
@@ -367,6 +394,7 @@ body {
   flex-direction: column;
   gap: 8px;
 }
+
 .review-box {
   background: #fff;
   padding: 8px;
@@ -406,6 +434,7 @@ body {
   background: #f3f3f3;
   margin-right: 4px;
 }
+
 /* 🔄 Phần đánh giá sản phẩm */
 .col_right {
   display: flex;
@@ -457,6 +486,7 @@ body {
 .empty-review p a:hover {
   text-decoration: underline;
 }
+
 .see-more-btn {
   background-color: rgb(244, 244, 7);
   color: #333;
@@ -469,27 +499,33 @@ body {
   width: 10%;
   margin-top: 10px;
 }
+
 .see-more-btn:hover {
   background-color: #bccfd8;
 }
+
 /* đánh giá sản phẩm */
 .review-modal {
-  display: none; /* Ẩn mặc định */
+  display: none;
+  /* Ẩn mặc định */
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   background: white;
   padding: 20px;
-  width: 600px; /* Tăng chiều rộng */
+  width: 600px;
+  /* Tăng chiều rộng */
   max-width: 95%;
   border-radius: 10px;
   box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
   z-index: 1000;
   text-align: left;
 }
+
 .review-modal.active {
-  display: block; /* Hiển thị khi active */
+  display: block;
+  /* Hiển thị khi active */
 }
 
 /* --- Header --- */
@@ -500,17 +536,20 @@ body {
   border-bottom: 2px solid #ddd;
   padding-bottom: 10px;
 }
+
 .review-header h2 {
   font-size: 20px;
   color: rgb(14, 13, 13);
   padding: 12px;
   border-radius: 5px;
 }
+
 .close-btn {
   font-size: 22px;
   cursor: pointer;
   color: #333;
 }
+
 .close-btn:hover {
   color: red;
 }
@@ -524,9 +563,11 @@ body {
   color: #ccc;
   cursor: pointer;
 }
+
 .star {
   transition: transform 0.2s ease, color 0.2s ease;
 }
+
 .star:hover,
 .star.active {
   color: #ffcc00;
@@ -536,13 +577,15 @@ body {
 /* --- Review Input --- */
 textarea {
   width: 100%;
-  height: 120px; /* Tăng chiều cao */
+  height: 120px;
+  /* Tăng chiều cao */
   border: 1px solid #ccc;
   border-radius: 8px;
   padding: 12px;
   resize: none;
   font-size: 14px;
 }
+
 .char-count {
   font-size: 13px;
   color: #666;
@@ -555,7 +598,8 @@ textarea {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100px; /* Tăng kích thước */
+  width: 100px;
+  /* Tăng kích thước */
   height: 100px;
   border: 2px dashed #ccc;
   color: #666;
@@ -564,25 +608,28 @@ textarea {
   margin: 10px 0;
   border-radius: 5px;
 }
+
 .upload-box:hover {
   border-color: #1e3a8a;
   color: #1e3a8a;
 }
 
 /* --- Form Inputs --- */
-input {
-  width: 100%;
-  padding: 5px;
+#input-detail {
+  width: 10%;
+  padding: 5px 0 5px 15px;
   border: 1px solid #ccc;
   border-radius: 8px;
   font-size: 16px;
   text-align: center;
   align-items: center;
 }
+
 .input-row {
   display: flex;
   gap: 10px;
 }
+
 .input-row div {
   width: 40%;
 }
@@ -594,6 +641,7 @@ input {
   gap: 12px;
   margin-top: 15px;
 }
+
 .cancel-btn,
 .submit-btn {
   padding: 10px 18px;
@@ -603,17 +651,21 @@ input {
   font-size: 14px;
   font-weight: bold;
 }
+
 .cancel-btn {
   background: #ccc;
   color: #333;
 }
+
 .cancel-btn:hover {
   background: #b3b3b3;
 }
+
 .submit-btn {
   background: #1e3a8a;
   color: white;
 }
+
 .submit-btn:hover {
   background: #162d6b;
 }
@@ -622,6 +674,7 @@ input {
 .required {
   color: red;
 }
+
 /* 🎯 Sản phẩm liên quan */
 /* Giảm padding để thu nhỏ */
 .section-4 {
@@ -635,7 +688,8 @@ input {
   display: flex;
   justify-content: center;
   gap: 15px;
-  flex-wrap: wrap; /* Đảm bảo hiển thị đẹp khi thiếu không gian */
+  flex-wrap: wrap;
+  /* Đảm bảo hiển thị đẹp khi thiếu không gian */
   padding-bottom: 10px;
 }
 
@@ -649,13 +703,15 @@ input {
   align-items: center;
   text-align: center;
   padding: 10px;
-  border-radius: 8px; /* Bo góc nhẹ */
+  border-radius: 8px;
+  /* Bo góc nhẹ */
   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
 
 .product-block:hover {
   transform: translateY(-3px);
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15); /* Tăng hiệu ứng nổi */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+  /* Tăng hiệu ứng nổi */
 }
 
 /* Định dạng ảnh sản phẩm */
@@ -698,7 +754,7 @@ input {
   min-width: 150px;
   align-items: center;
   font-weight: 500;
-  letter-spacing: 0.5px; 
+  letter-spacing: 0.5px;
 }
 
 .price {
@@ -732,6 +788,7 @@ input {
 .block-title a:hover {
   color: #d10000;
 }
+
 .view-more {
   text-align: center;
   margin-top: 15px;
@@ -748,58 +805,71 @@ input {
   cursor: pointer;
   transition: 0.3s ease-in-out;
 }
+
 /* Media Queries cho responsive design */
 @media (max-width: 1024px) {
   .nd-img-and-info {
-    flex-direction: column; /* Xếp chồng các phần tử trên màn hình nhỏ */
+    flex-direction: column;
+    /* Xếp chồng các phần tử trên màn hình nhỏ */
   }
 
   .product-images {
-    width: 100%; /* Chiều rộng đầy đủ trên màn hình nhỏ */
+    width: 100%;
+    /* Chiều rộng đầy đủ trên màn hình nhỏ */
   }
 
   .service_product {
-    width: 100%; /* Chiều rộng đầy đủ trên màn hình nhỏ */
-    margin-top: 20px; /* Thêm margin trên màn hình nhỏ */
+    width: 100%;
+    /* Chiều rộng đầy đủ trên màn hình nhỏ */
+    margin-top: 20px;
+    /* Thêm margin trên màn hình nhỏ */
   }
 }
 
 @media (max-width: 768px) {
   .product-block {
-    width: 150px; /* Giảm kích thước sản phẩm liên quan trên màn hình nhỏ hơn */
+    width: 150px;
+    /* Giảm kích thước sản phẩm liên quan trên màn hình nhỏ hơn */
   }
 
   .block-title h2 {
-    font-size: 24px; /* Giảm kích thước tiêu đề trên màn hình nhỏ hơn */
-    padding: 20px; /* Giảm padding */
+    font-size: 24px;
+    /* Giảm kích thước tiêu đề trên màn hình nhỏ hơn */
+    padding: 20px;
+    /* Giảm padding */
   }
 }
 
 @media (max-width: 480px) {
   .product-block {
-    width: 120px; /* Giảm kích thước sản phẩm liên quan trên màn hình nhỏ hơn nữa */
+    width: 120px;
+    /* Giảm kích thước sản phẩm liên quan trên màn hình nhỏ hơn nữa */
   }
 
   .block-title h2 {
-    font-size: 20px; /* Giảm kích thước tiêu đề trên màn hình nhỏ hơn nữa */
+    font-size: 20px;
+    /* Giảm kích thước tiêu đề trên màn hình nhỏ hơn nữa */
   }
 
   .buttons {
-    flex-direction: column; /* Xếp chồng nút trên màn hình nhỏ */
+    flex-direction: column;
+    /* Xếp chồng nút trên màn hình nhỏ */
   }
 
   .quantity-control input {
-    width: 50px; /* Giảm kích thước ô nhập số lượng */
+    width: 50px;
+    /* Giảm kích thước ô nhập số lượng */
   }
 }
+
 .success-modal {
-  display: none; 
-  position: fixed; 
-  z-index: 1; 
+  display: none;
+  position: fixed;
+  z-index: 1;
   left: 0;
   top: 0;
-  width: 100%; 
-  height: 100%; 
-  overflow: auto; 
+  width: 100%;
+  height: 100%;
+  overflow: auto;
   background-color: rgba(0, 0, 0, 0.4);
 }

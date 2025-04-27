@@ -150,7 +150,10 @@ class OrderModel extends Model
     }
 
 
-    public function getProductID($order_id){
+
+    // Liên quan review
+    public function getProductID($order_id)
+    {
         $sql = "select product_type.product_id as product_id
                 from order_details
                 inner join product_type on order_details.product_type_id = product_type.product_type_id

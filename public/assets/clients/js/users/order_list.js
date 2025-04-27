@@ -119,4 +119,8 @@ document.addEventListener("DOMContentLoaded", function () {
         fromDate.value = urlParams.get('from_date');
         toDate.value = urlParams.get('to_date');
     }
+<<<<<<< HEAD
 });
+=======
+});
+>>>>>>> 580a8c3c434e68307f420358f437d186cf2d80fd

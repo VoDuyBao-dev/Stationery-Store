@@ -1,6 +1,9 @@
 <?php
 use core\Helpers;
 ?>
+
+<?php $breadcrumb = "Danh sách Users"; ?>
+
 <!DOCTYPE html>
 <html lang="vi">
   <head>
@@ -24,6 +27,7 @@ use core\Helpers;
         main{
             margin-top: 120px;
             margin-left: 280px;
+            
         }
     </style>
     <script src="<?php echo _WEB_ROOT;?>/public/assets/clients/js/admin/taikhoan.js"></script>
@@ -87,7 +91,7 @@ use core\Helpers;
                     <td><?php echo htmlspecialchars($user['address']); ?></td>
                     <td><span class="status status-active"></span> Hoạt động</td>
                     <td>
-                    <form action="<?= _WEB_ROOT; ?>/AdminManageUser/lockUser" method="POST" style="display: inline;">
+                    <form action="<?= _WEB_ROOT; ?>/AdminManage/lockUser" method="POST" style="display: inline;">
                         <input type="hidden" name="id" value="<?= $user['user_id']; ?>">
                         <button type="submit" class="action-button" onclick="return confirm('Bạn có chắc chắn muốn khóa tài khoản này không?')">Khóa</button>
                     </form>
@@ -115,7 +119,7 @@ use core\Helpers;
                     <td><?php echo htmlspecialchars($userLock['address']); ?></td>
                     <td><span class="status status-locked"></span> Bị khóa</td>
                     <td>
-                    <form action="<?= _WEB_ROOT; ?>/AdminManageUser/unlockUser" method="POST" style="display: inline;">
+                    <form action="<?= _WEB_ROOT; ?>/AdminManage/unlockUser" method="POST" style="display: inline;">
                         <input type="hidden" name="id" value="<?= $userLock['user_id']; ?>">
                         <button type="submit" class="action-button" onclick="return confirm('Bạn có chắc chắn muốn mở khóa tài khoản này không?')">Mở khóa</button>
                     </form>

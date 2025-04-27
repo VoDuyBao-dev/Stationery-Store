@@ -1,3 +1,5 @@
+<?php $breadcrumb = "Đơn hàng cần xử lý"; ?>
+
 <!DOCTYPE html>
 <html lang="vi">
 
@@ -22,7 +24,7 @@
         }
 
         main {
-            margin-top: 150px;
+            margin-top: 130px;
             margin-left: 280px;
         }
     </style>
@@ -59,7 +61,7 @@
                         <th>Ngày đặt hàng</th>
                         <th>Người nhận</th>
                         <th>Tổng hóa đơn</th>
-                        <th>Phương thức thanh toán</th>
+                        <th style="width: 120px;">Phương thức thanh toán</th>
                         <th>Phương thức vận chuyển</th>
                         <th>Trạng thái</th>
                         <th>Thao tác</th>
@@ -103,11 +105,11 @@
                                 <?php if ($order['trangThaiGiao'] == 0) : ?>
                                     <td><button class="edit-btn" sua-id="<?php echo $order['order_id']; ?>">Sửa</button></td>
                                 <?php elseif ($order['trangThaiGiao'] == 1) : ?>
-                                    <td><button class="huy-btn" huy-id="<?php echo $order['order_id']; ?>">Hủy đơn</button></td>
+                                    <td><button class="huy-btn" huy-id="<?php echo $order['order_id']; ?>">Hủy</button></td>
                                 <?php else: ?>
                                     <td><button class="delete-btn" xoa-id="<?php echo $order['order_id']; ?>">Xóa</button></td>
                                 <?php endif; ?>
-                                <td><button class="viewOrderDetail-btn" xem-id="<?php echo $order['order_id']; ?>">Xem chi tiết</button></td>
+                                <td><button class="viewOrderDetail-btn" xem-id="<?php echo $order['order_id']; ?>">Chi tiết</button></td>
                             </tr>
                         <?php endforeach; ?>
                     <?php endif; ?>
@@ -152,8 +154,8 @@
             </div> -->
 
             <!-- Sủa thông tin đơn hàng -->
-            <div id="editModal" class="modal">
-                <div class="modal-content">
+            <div id="editModal" class="modal-edit">
+                <div class="modal-edit-content">
                     <span class="close">&times;</span>
                     <h3>Sửa đơn hàng</h3>
                     <form id="edit-order-form" action="<?php echo _BASE_URL ?>/suaDon" method="POST">
@@ -177,8 +179,8 @@
 
                             <label for="edit_vanchuyen">Phương thức vận chuyển:</label>
                             <select name="edit_vanchuyen" id="edit_vanchuyen" required></select><br>
-                            <button type="button" id="edit-cancel-btn">Hủy</button>
-                            <button type="submit">Lưu</button>
+                            <button type="button" class="cancel-btn" id="edit-cancel-btn">Hủy</button>
+                            <button type="submit" class="save-btn" >Lưu</button>
                         </div>
                     </form>
                 </div>
@@ -192,8 +194,9 @@
                     <p>Bạn có chắc chắn muốn hủy đơn hàng này không?</p>
                     <form class="form-actions" action="<?php echo _BASE_URL; ?>/huyDon" method="post">
                         <input type="hidden" name="order_id" value="">
-                        <button type="button" id="cancelBtnOrder" onclick='document.getElementById("confirmCancelModal").style.display = "none";'>Thoát</button>
-                        <button type="submit" id="cancelBtn">Hủy đơn</button>
+                        <button type="submit" class="cancel-btn" id="cancelBtn">Hủy đơn</button>
+                        <button type="button" class="delete-btn" id="cancelBtnOrder" onclick='document.getElementById("confirmCancelModal").style.display = "none";'>Thoát</button>
+                        
                     </form>
                 </div>
             </div>
@@ -206,8 +209,8 @@
                     <p>Bạn có chắc chắn muốn xóa đơn hàng này không?</p>
                     <form class="form-actions" action="<?php echo _BASE_URL . '/xoaDon' ?>" method="post">
                         <input type="hidden" name="order_id" value="">
-                        <button type="button" id="deleteBtnOrder" onclick='document.getElementById("confirmDeleteModal").style.display = "none";'>Hủy</button>
-                        <button type="submit" id="deleteBtn">Xóa</button>
+                        <button type="button" class="cancel-btn" id="deleteBtnOrder" onclick='document.getElementById("confirmDeleteModal").style.display = "none";'>Hủy</button>
+                        <button type="submit" class="delete-btn" id="deleteBtn">Xóa</button>
                     </form>
                 </div>
             </div>
@@ -215,7 +218,7 @@
 
             <!-- Modal hiển thị chi tiết đơn hàng -->
             <div id="viewDetailModal" class="modal">
-                <span class="close" onclick='document.getElementById("viewDetailModal").style.display = "none";'>&times;</span>
+                <!-- <span class="close" onclick='document.getElementById("viewDetailModal").style.display = "none";'>&times;</span> -->
                 <table id="orderDetailtable">
                     <thead>
                         <tr id="thead_row">

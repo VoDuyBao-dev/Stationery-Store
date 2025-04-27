@@ -109,10 +109,9 @@ class Product extends Controller
         }
 
         $reviews = $this->productModel->review($id_product);
-        if(count($reviews) == 0){
+        if (count($reviews) == 0) {
             $reviews = 0;
-        }
-        else  $reviews = [$reviews];
+        } else  $reviews = [$reviews];
         // echo count($reviews);
         // print_r($reviews);
         // die();

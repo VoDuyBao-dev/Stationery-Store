@@ -1,3 +1,5 @@
+<?php $breadcrumb = "Đơn hàng đã xử lý"; ?>
+
 <!DOCTYPE html>
 <html lang="vi">
 
@@ -22,7 +24,7 @@
         }
 
         main {
-            margin-top: 150px;
+            margin-top: 130px;
             margin-left: 280px;
         }
     </style>
@@ -88,7 +90,7 @@
 
             <!-- Modal hiển thị chi tiết đơn hàng -->
             <div id="viewDetailModal" class="modal">
-                <span class="close" onclick='document.getElementById("viewDetailModal").style.display = "none";'>&times;</span>
+                <!-- <span class="close" onclick='document.getElementById("viewDetailModal").style.display = "none";'>&times;</span> -->
                 <table id="orderDetailtable">
                     <thead>
                         <tr id="thead_row">
