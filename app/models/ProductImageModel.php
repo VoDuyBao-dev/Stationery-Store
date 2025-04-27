@@ -14,6 +14,28 @@ class ProductImageModel extends Model
         }
          
     }
+
+    // Cập nhật ảnh sản phẩm
+
+    public function deleteProductImageID($product_id)
+    {
+        $sql = "DELETE FROM product_images WHERE product_id = ?";
+        $params = [$product_id];
+        try {
+            $affectedRows = $this->execute($sql, $params);
+            if ($affectedRows > 0) {
+                return true;
+            } else {
+                return "Xóa ảnh product thất bại!";
+            }
+        } catch (Exception $e) {
+            // Xử lý lỗi nếu cần thiết
+            return "Lỗi: " . $e->getMessage();
+        }
+         
+    }
+
+    
     
 }
 ?>
