@@ -6,6 +6,7 @@ class Payment extends Controller
    
     // xử lý giá vận chuyển và coupon và tổng tiền phải thanh toán do ajax gửi request lên
     public function calculateTotal() {
+        $this->validateUser();
         if(!isset($_POST['shipping_method'])) {
             echo json_encode(['error' => 'Missing shipping method']);
             return;
@@ -55,7 +56,7 @@ class Payment extends Controller
     public function initPayment()
     {
 
-        
+        $this->validateUser();
        if(!isset($_POST['payment'])){
             ob_clean();
             echo json_encode(['success' => false, 'message' => 'Không có phương thức thanh toán']);
@@ -121,6 +122,7 @@ class Payment extends Controller
 
     public function handleVNPayCallback()
     {
+        $this->validateUser();
         $paymentMethod = 'vnpay';
         $vnpaySuccess = $_GET['vnpay_success'] ?? null;
         if (isset($vnpaySuccess) && ($vnpaySuccess != 0)) {
@@ -136,6 +138,7 @@ class Payment extends Controller
 
     public function handleMomoCallback()
     {
+        $this->validateUser();
         $paymentMethod = 'momo';
         $momoSuccess = $_GET['momo_success'] ?? null;
         if (isset($momoSuccess) && ($momoSuccess != 0)) {
@@ -149,6 +152,7 @@ class Payment extends Controller
     }
 
     private function finalizePayment($paymentMethod, $payment_id = null) {
+        $this->validateUser();
         $orderData = $_SESSION['order_data'] ?? [];
         unset($_SESSION['order_data']);
         // Gọi service để xử lý đơn hàng và thanh toán

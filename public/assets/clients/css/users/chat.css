@@ -116,15 +116,15 @@ body {
     border-radius: 5px;
 }
 
-.message_right .content .text{
-    background:  #cfab57;
+.message_right .content .text {
+    background: #cfab57;
     color: white;
     padding: 10px 15px;
     font-size: 15px;
 }
 
 
-.message_left .content .text{
+.message_left .content .text {
     background: #e6e6e6;
     color: black;
     padding: 10px 15px;
@@ -223,14 +223,14 @@ body {
     margin-top: 5px;
 }
 
-.message_right .time{
+.message_right .time {
     font-size: 10px;
     color: #353535;
     text-align: right;
     margin-top: 5px;
 }
 
-.message_left .time{
+.message_left .time {
     font-size: 10px;
     color: #353535;
     text-align: left;

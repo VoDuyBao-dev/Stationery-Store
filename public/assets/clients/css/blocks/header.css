@@ -2,7 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    
+
 }
 
 .header {
@@ -30,11 +30,14 @@
 }
 
 
-a{
+a {
     text-decoration: none !important;
-    color: inherit !important; /* Giữ nguyên màu chữ */
-    border: none; /* Đảm bảo không có viền */
-    outline: none; /* Loại bỏ viền khi focus */
+    color: inherit !important;
+    /* Giữ nguyên màu chữ */
+    border: none;
+    /* Đảm bảo không có viền */
+    outline: none;
+    /* Loại bỏ viền khi focus */
 }
 
 /* Search Bar */
@@ -52,12 +55,12 @@ a{
     flex: 1 !important;
     border: none !important;
     outline: none !important;
-    padding: 8px   !important;
-    width: 100%   !important;
-    font-size: 14px     !important;
+    padding: 8px !important;
+    width: 100% !important;
+    font-size: 14px !important;
     color: rgb(0, 0, 0) !important;
     background-color: none !important;
-    background: rgb(213, 212, 212)  !important;
+    background: rgb(213, 212, 212) !important;
 }
 
 .search-bar i {
@@ -66,13 +69,14 @@ a{
     cursor: pointer;
     color: #c9a56d;
 }
+
 .search-btn {
     background: none;
     border: none;
     cursor: pointer;
     color: #c9a56d;
 }
-    
+
 
 /* Hotline */
 .hotline {
@@ -104,7 +108,8 @@ a{
     font-size: 26px;
     cursor: pointer;
 }
-.icon p{
+
+.icon p {
     display: inline;
     font-size: 14px;
     align-self: start;
@@ -123,6 +128,7 @@ a{
     border-radius: 50%;
     font-family: 'Caveat', cursive;
 }
+
 /* Container chứa icon người dùng */
 .user-menu {
     position: relative;
@@ -175,7 +181,7 @@ a{
     color: rgba(98, 115, 135, 0.668) !important;
     position: absolute !important;
     transform: translateX(-50%);
-    top: 70px; 
+    top: 70px;
     left: 50%;
     width: 100% !important;
     display: flex !important;
@@ -184,10 +190,10 @@ a{
 .breadcrumb-banner .container {
     width: 200% !important;
     margin: auto !important;
-    background: rgba(112, 128, 144, 0.478)!important;
+    background: rgba(112, 128, 144, 0.478) !important;
     z-index: 2 !important;
-    padding: 10px   !important;
-    display: ruby   !important;
+    padding: 10px !important;
+    display: ruby !important;
 }
 
 .breadcrumb-banner p {
@@ -199,15 +205,19 @@ a{
 }
 
 .breadcrumb-banner a {
-    color:#f6ebd9f5 !important;
+    color: #f6ebd9f5 !important;
     text-decoration: none;
-} 
+}
 
 .breadcrumb-banner span {
-    display: inline-block !important; /* Giữ nó trên cùng một hàng */
-    font-size: 16px; /* Kích thước chữ giống h2 */
-    font-weight: bold; /* Độ đậm giống h2 */
-    color: #f6ebd9e4 !important; /* Màu chữ */
+    display: inline-block !important;
+    /* Giữ nó trên cùng một hàng */
+    font-size: 16px;
+    /* Kích thước chữ giống h2 */
+    font-weight: bold;
+    /* Độ đậm giống h2 */
+    color: #f6ebd9e4 !important;
+    /* Màu chữ */
 }
 
 #backToTop {
@@ -221,13 +231,14 @@ a{
     font-size: 17px;
     border-radius: 50px;
     cursor: pointer;
-    display: none; /* Ẩn ban đầu */
+    display: none;
+    /* Ẩn ban đầu */
     transition: opacity 0.3s;
     z-index: 1050;
 }
 
 #backToTop:hover {
-    background-color:  #d4b264;
+    background-color: #d4b264;
 }
 
 #chat {
@@ -247,5 +258,5 @@ a{
 }
 
 #chat:hover {
-    background-color:  #d4b264;
+    background-color: #d4b264;
 }

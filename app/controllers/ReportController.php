@@ -3,21 +3,25 @@
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
-class ReportController extends Controller {
+class ReportController extends Controller
+{
     private $reportModel;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->reportModel = $this->model('OrderModel');
     }
 
-    public function getRevenueData() {
+    public function getRevenueData()
+    {
+        $this->validateAdmin();
         $type = $_GET['type'] ?? '7days';
         $response = [];
 
         if ($type === 'custom') {
             $fromDate = $_GET['from'] ?? '';
             $toDate = $_GET['to'] ?? '';
-            
+
             if (empty($fromDate) || empty($toDate)) {
                 $response['error'] = 'Vui lòng chọn khoảng thời gian';
                 echo json_encode($response);
@@ -49,17 +53,20 @@ class ReportController extends Controller {
         echo json_encode($response);
     }
 
-    public function exportExcel() {
+    public function exportExcel()
+    {
+        $this->validateAdmin();
+
         // Tắt output buffering
         ob_end_clean();
-        
+
         // Set header cho Excel 2007 trở lên (.xlsx)
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         header('Content-Disposition: attachment; filename="bao-cao-doanh-thu-' . date('Y-m-d') . '.xlsx"');
         header('Cache-Control: max-age=0');
-        
+
         $type = $_GET['type'] ?? '7days';
-        
+
         // Lấy dữ liệu
         if ($type === 'custom') {
             $fromDate = $_GET['from'] ?? '';
@@ -76,11 +83,11 @@ class ReportController extends Controller {
         // Tạo spreadsheet mới
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
-        
+
         // Set tiêu đề
         $sheet->setCellValue('A1', 'BÁO CÁO DOANH THU');
         $sheet->setCellValue('A2', 'Thời gian: ' . ($type === 'custom' ? "$fromDate đến $toDate" : $type));
-        
+
         // Set header cho bảng
         $sheet->setCellValue('A4', 'Ngày');
         $sheet->setCellValue('B4', 'Doanh thu (VNĐ)');
@@ -94,22 +101,22 @@ class ReportController extends Controller {
 
         $count = count($data);
         foreach ($data as $item) {
-            $date = $type === 'thisYear' 
-                    ? 'Tháng ' . date('m', strtotime($item['date']))
-                    : date('d/m/Y', strtotime($item['date']));
-                    
+            $date = $type === 'thisYear'
+                ? 'Tháng ' . date('m', strtotime($item['date']))
+                : date('d/m/Y', strtotime($item['date']));
+
             $revenue = (float)$item['revenue'];
-            
+
             // Lưu giá trị đầu và cuối
             if ($firstRevenue === null) {
                 $firstRevenue = $revenue;
             }
             $lastRevenue = $revenue;
-            
+
             $sheet->setCellValue('A' . $row, $date);
             $sheet->setCellValue('B' . $row, $revenue);
             $totalRevenue += $revenue;
-            if($revenue > $highestRevenue) {
+            if ($revenue > $highestRevenue) {
                 $highestRevenue = $revenue;
             }
             $row++;
@@ -118,22 +125,22 @@ class ReportController extends Controller {
         $averageRevenue = $totalRevenue / ($count ?? 1);
 
         // Tính tăng trưởng
-        $growth = $firstRevenue > 0 
-            ? (($lastRevenue - $firstRevenue) / $firstRevenue * 100) 
+        $growth = $firstRevenue > 0
+            ? (($lastRevenue - $firstRevenue) / $firstRevenue * 100)
             : 0;
 
         // Thêm tổng
-        $row++;  
+        $row++;
         $sheet->setCellValue('A' . $row, 'Tổng doanh thu');
         $sheet->setCellValue('B' . $row, $totalRevenue);
 
         // Thêm trung bình doanh thu
-        $row++; 
+        $row++;
         $sheet->setCellValue('A' . $row, 'Doanh thu trung bình');
         $sheet->setCellValue('B' . $row, $averageRevenue);
 
         // Thêm doanh thu cao nhất
-        $row++;  
+        $row++;
         $sheet->setCellValue('A' . $row, 'Doanh thu cao nhất');
         $sheet->setCellValue('B' . $row, $highestRevenue);
 
@@ -143,7 +150,7 @@ class ReportController extends Controller {
         $sheet->setCellValue('B' . $row, round($growth, 2));
 
         // Style cho phần tổng hợp
-        $summaryRange = 'A' . ($row-3) . ':A' . $row;
+        $summaryRange = 'A' . ($row - 3) . ':A' . $row;
         $sheet->getStyle($summaryRange)->getFont()->setBold(true);
 
         // Thêm màu cho tăng trưởng
@@ -165,10 +172,9 @@ class ReportController extends Controller {
 
         // Save file
         $writer = new Xlsx($spreadsheet);
-        
+
         // Ghi trực tiếp vào output
         $writer->save('php://output');
         exit;
     }
 }
-?>

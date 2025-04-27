@@ -9,6 +9,10 @@
         <input type="text" placeholder="Tìm kiếm sản phẩm...">
         <button class="search-btn" type="submit"><i class="fas fa-search"></i></button>
     </div>
+    <!-- <div class="search-bar">
+        <input type="text" placeholder="Tìm kiếm sản phẩm...">
+        <button class="search-btn" type="submit"><i class="fas fa-search"></i></button>
+    </div> -->
 
     <div class="hotline">
         <i class="fab fa-whatsapp"></i>

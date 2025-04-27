@@ -12,7 +12,6 @@ class Route
         $url = trim($url, '/');
         $handleUrl = $url;
 
-
         //        Neu $routes bên config khác rỗng thì duyệt qua toàn bộ các key để so sánh xem có key nào khớp
         // với đường dẫn không
 
@@ -23,7 +22,7 @@ class Route
                 }
             }
         }
-
+        
         return $handleUrl;
     }
 }

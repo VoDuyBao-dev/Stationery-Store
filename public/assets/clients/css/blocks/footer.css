@@ -7,7 +7,7 @@ footer {
 
 .footer-container {
     display: flex;
-    background-color:  rgba(38, 44, 49, 0.693);
+    background-color: rgba(38, 44, 49, 0.693);
     justify-content: space-between !important;
     width: 100%;
     flex-wrap: wrap !important;
@@ -80,10 +80,11 @@ footer {
     width: 60px;
     margin: 5px;
 }
+
 .tagline {
     font-size: 14px;
     font-style: italic;
     color: rgb(224, 218, 218) !important;
     font-family: 'Caveat', cursive;
-    
+
 }
