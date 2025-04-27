@@ -14,6 +14,7 @@ use core\Helpers;?>
         href="<?php echo _WEB_ROOT; ?>/public/assets/clients/css/blocks/footer.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="<?php echo _WEB_ROOT; ?>/public/assets/clients/css/admin/products/Quanlysanpham.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
     <script type="text/javascript" src="<?php echo _WEB_ROOT; ?>/public/assets/clients/js/blocks/header.js"></script>
@@ -146,5 +147,16 @@ document.getElementById('createProductBtn').addEventListener('click', function()
     window.location.href = '<?php echo _WEB_ROOT . '/them-san-pham'; ?>';
 });
 </script>
+<!-- Thông báo thêm vào giỏ hàng thành công -->
+<?php if ($noti = Helpers::getFlash('notification')): ?>
+<script>
+Swal.fire({
+    title: <?= $noti['type'] === 'success' ? "'Thành công!'" : "'Thất bại!'" ?>,
+    text: decodeURIComponent("<?= rawurlencode($noti['message']) ?>"),
+    icon: "<?= $noti['type'] ?>",
+    confirmButtonText: "OK"
+});
+</script>
+<?php endif; ?>
   </body>
 </html>

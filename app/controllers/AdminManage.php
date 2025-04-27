@@ -221,10 +221,18 @@ class AdminManage extends Controller
             );
 
             if ($result === true) {
-                Helpers::setFlash('message', "Thêm sản phẩm mới thành công!");
+                Helpers::setFlash('notification', [
+                    'type' => 'success',
+                    'message' => 'Thêm sản phẩm mới thành công!'
+                ]);
+             
                 header("Location:" . _WEB_ROOT . "/quan-ly-san-pham");
             } else {
-                Helpers::setFlash('error', $result);
+                Helpers::setFlash('notification', [
+                    'type' => 'error',
+                    'message' => $result
+                ]);
+               
                 header("Location:" . _WEB_ROOT . "/them-san-pham");
             }
             exit();
