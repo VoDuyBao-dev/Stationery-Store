@@ -16,7 +16,7 @@
 
             <li><a href="<?php echo _WEB_ROOT . '/manage_users'; ?>"><i class="fas fa-user-tag"></i> Quản lý người dùng <span> </span></a></li>
 
-            <li><a href="<?php echo _WEB_ROOT . '/qlsp'; ?>"><i class="fas fa-boxes"></i> Quản lý sản phẩm <span> </span></a></li>
+            <li><a href="<?php echo _WEB_ROOT . '/quan-ly-san-pham'; ?>"><i class="fas fa-boxes"></i> Quản lý sản phẩm <span> </span></a></li>
 
             <li><a href="<?php echo _WEB_ROOT . '/canxuly'; ?>"><i class="fas fa-shipping-fast"></i> Quản lý đơn hàng <span>&gt;</span></a>
                 <ul class="submenu">

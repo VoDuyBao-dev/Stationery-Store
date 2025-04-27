@@ -72,6 +72,17 @@ class Controller
 
     }
 
+    public function redirectIfLoggedIn() {
+        if (isset($_SESSION['user'])) {
+            header("Location: " . _WEB_ROOT . "/trang-chu");
+            exit();
+        }
+    }
+
+    
+
+    
+
     
 
     
