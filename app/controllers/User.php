@@ -70,6 +70,7 @@ class User extends Controller
             $email = strtolower(htmlspecialchars(trim($_POST['email'])));
             $password = htmlspecialchars(trim($_POST['password']));
             $confirmPassword = htmlspecialchars(trim($_POST['confirm-password']));
+            $remember_me = isset($_POST['remember-me']) ? 1 : 0; // Lưu trạng thái "Nhớ tôi"
 
             $messages = [
 
@@ -108,7 +109,7 @@ class User extends Controller
             //            hash password
             $password = password_hash($password, PASSWORD_DEFAULT);
 
-            $_SESSION['register_data'] = compact('fullname', 'sdt', 'email', 'password');
+            $_SESSION['register_data'] = compact('fullname', 'sdt', 'email', 'password', 'remember_me');
 
             //            Gửi mã otp
             $otpService = new OtpService();
@@ -143,7 +144,21 @@ class User extends Controller
         );
 
 
+
         if ($result === true) {
+            // Nếu người dùng chọn "Ghi nhớ tài khoản"
+            if (!empty($data['remember_me']) && $data['remember_me'] == true) {
+                // Sinh token ngẫu nhiên
+                $rememberToken = bin2hex(random_bytes(32)); // 64 ký tự hex
+
+                // Update token vào Database
+                $this->userModel->updateRememberToken($data['email'], $rememberToken);
+
+                // Set cookie (30 ngày)
+                setcookie('remember_email', $data['email'], time() + (86400 * 30), "/");
+                setcookie('remember_token', $rememberToken, time() + (86400 * 30), "/");
+            }
+
             unset($_SESSION["otp"]);
             unset($_SESSION['register_data']);
             Helpers::setFlash('success', 'Đăng ký thành công!');
@@ -196,7 +211,23 @@ class User extends Controller
             'url' => $url
         ];
 
-        if (isset($_POST['submit-signin'])) {
+        if (isset($_COOKIE['remember_email']) && isset($_COOKIE['remember_token'])) {
+            $email = $_COOKIE['remember_email'];
+            $token = $_COOKIE['remember_token'];
+            $verifyUser = $this->userModel->checkEmailExists($email);
+            if ($verifyUser) {
+                // Kiểm tra token trong database
+                if ($verifyUser['remember_token'] == $token) {
+                    $_SESSION['user'] = $verifyUser;
+                    if ($verifyUser['role'] == 'admin') {
+                        header("Location:" . _WEB_ROOT . "/admin_layout");
+                        exit();
+                    }
+                    header("Location:" . _WEB_ROOT . "/trang-chu");
+                    exit();
+                }
+            }
+        } else if (isset($_POST['submit-signin'])) {
             $email = strtolower(htmlspecialchars(trim($_POST['email'])));
             $password = htmlspecialchars(trim($_POST['password']));
 
@@ -251,6 +282,13 @@ class User extends Controller
 
     public function signout()
     {
+
+        // Xóa cookie nhớ tài khoản
+        if (isset($_COOKIE['remember_email']) && isset($_COOKIE['remember_token'])) {
+            setcookie('remember_email', '', time() - 3600, "/");
+            setcookie('remember_token', '', time() - 3600, "/");
+        }
+        // Xóa session người dùng
         unset($_SESSION['user']);
         header("Location:" . _WEB_ROOT . "/dang-nhap");
         exit();
@@ -421,5 +459,4 @@ class User extends Controller
     {
         $this->render("users/reply/reply");
     }
-
 }

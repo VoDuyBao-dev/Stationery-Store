@@ -27,6 +27,7 @@ class Chat extends Controller
             exit();
         }
 
+
         $chatList = $this->chatModel->getChatList($currentUserId, $role);
         $allSticker = $this->chatModel->getAllStickers();
 

@@ -176,4 +176,11 @@ class UserModel extends Model
         $affectedRows = $this->execute($sql, $params);
         return $affectedRows > 0;
     }
+
+
+    public function updateRememberToken($email, $token)
+    {
+        $sql = "UPDATE users SET remember_token = ? WHERE email = ?";
+        return $this->db->execute($sql, [$token, $email]);
+    }
 }
