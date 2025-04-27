@@ -168,9 +168,6 @@ function giamsoluong_productDetail(button) {
     }
     capNhatHiddenQuantity(input.value)
 
-<<<<<<< HEAD:public/assets/clients/js/products/cart.js
-}
-=======
 }
 
 // xóa toàn bộ vỏ hàng
@@ -181,4 +178,3 @@ document.getElementById('clear-cart-btn').addEventListener('click', function(eve
         event.preventDefault(); // Ngăn chặn hành động mặc định nếu người dùng chọn "Không"
     }
 });
->>>>>>> 580a8c3c434e68307f420358f437d186cf2d80fd:public/assets/clients/js/cart/cart.js

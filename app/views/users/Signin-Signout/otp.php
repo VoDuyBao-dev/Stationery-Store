@@ -1,3 +1,4 @@
+<?php $breadcrumb = "Nhập OTP"; ?>
 <!DOCTYPE html>
 <html lang="vi">
 
