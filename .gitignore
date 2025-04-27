@@ -42,4 +42,4 @@ uploads/
 # Các tệp hệ thống của Git
 .git/
 
-config/database.php
+configs/database.php
