@@ -6,7 +6,7 @@ class AdminSearch extends Controller
     public function __construct()
     {
         try {
-            $this->searchModel = $this->model('AdminSearchModel');  // tạo một object mới
+            $this->searchModel = $this->model('AdminSeachModel');  // tạo một object mới
 
             if (!$this->searchModel) {
                 throw new Exception("Lỗi trong quá trình tạo đối tượng");
@@ -21,7 +21,8 @@ class AdminSearch extends Controller
     public function index()
     {
 
-        $keyword = $_GET['q'] ?? '';
+        $keyword = $_GET['keyword'] ?? '';
+
         $results = $this->searchModel->search($keyword);
 
         $this->render('admin/admin_search', [
