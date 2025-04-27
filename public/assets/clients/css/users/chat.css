@@ -169,7 +169,7 @@ body {
 
 .sticker-menu.show {
     display: block;
-    width: 60%;
+    width: 50%;
     white-space: nowrap;
     overflow-x: scroll;
     gap: 10px;
@@ -177,7 +177,7 @@ body {
 }
 
 .sticker-menu img {
-    width: 50px;
+    width: 70px;
     cursor: pointer;
     transition: transform 0.2s;
 }

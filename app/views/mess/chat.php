@@ -99,12 +99,11 @@
                         </div>
                         <div id="stickerMenu" class="sticker-menu">
                             <?php foreach ($allSticker as $index => $sticker): ?>
-                                <?php if ($index === (count($allSticker) - 1)) break;  ?>
-                                <img src="<?php echo _BASE_URL; ?>/public/assets/clients/images/sticker/<?php echo $sticker["sticker_id"] ?>.png" id=<?php echo $sticker["sticker_id"] ?> onclick="selectSticker(this)">
+                                <?php if ($index === (count($allSticker)) - 1) break;  ?>
+                                <img src="<?php echo _BASE_URL; ?>/public/assets/clients/images/sticker/<?php echo $sticker["sticker_id"] + 1 ?>.png" id=<?php echo $sticker["sticker_id"] + 1 ?> onclick="selectSticker(this)">
                             <?php endforeach; ?>
                         </div>
                     </form>
-
                 </div>
 
                 <div class="information">
