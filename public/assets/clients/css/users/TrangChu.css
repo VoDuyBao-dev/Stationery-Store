@@ -55,10 +55,10 @@
   .home-slider button:hover {
     background: rgba(0, 0, 0, 0.8); /* Tăng độ tối khi hover */
   }
-  .slider-window {
+  /* .slider-window {
     width: 100%;
     overflow: hidden; 
-  }
+  } */
   .slider-track {
     display: flex;
     transition: transform 0.5s ease-in-out;
