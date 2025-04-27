@@ -427,6 +427,7 @@ use core\Helpers;
 
             <!-- Danh sách đánh giá -->
             <div class="review-container">
+            <?php if($reviews != 0):?>
                 <?php foreach($reviews as $review) :?>
                 <div class="review-box">
                     <h5><?php echo htmlspecialchars($review['fullname']); ?></h5>
@@ -437,6 +438,7 @@ use core\Helpers;
                     <p class="text-muted"><?php echo $review['created_at'] ?></p>
                 </div>
                     <?php endforeach;?>
+            <?php endif ;?>
                 <!-- <div class="review-box">
                     <h5>Ngọc Hân</h5>
                     <div class="rating">★★★★☆</div>

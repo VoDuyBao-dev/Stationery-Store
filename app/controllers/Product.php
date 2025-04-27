@@ -109,7 +109,13 @@ class Product extends Controller
         }
 
         $reviews = $this->productModel->review($id_product);
-        $reviews = [$reviews];
+        if(count($reviews) == 0){
+            $reviews = 0;
+        }
+        else  $reviews = [$reviews];
+        // echo count($reviews);
+        // print_r($reviews);
+        // die();
 
         $this->data = [
             'images_product' => $images_product,

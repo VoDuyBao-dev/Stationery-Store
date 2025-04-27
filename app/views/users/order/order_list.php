@@ -182,26 +182,7 @@ use core\Helpers;
             <div id="reviewModal" class="modal">
             <div class="modal-content">
                 <span class="close" onclick="closeModal('reviewModal')">&times;</span>
-                <h3>Đánh giá sản phẩm</h3>
-                <form id="reviewForm" method="POST"  action="<?php echo _BASE_URL ?>/addReview">
-                    <input type="hidden" name="order_id" id="order_id">
-                    <input type="hidden" name="user_id" value="<?php echo $_SESSION['user']['user_id']?>"> <!-- Hoặc lấy từ session -->
-
-                    <label for="rating">Chọn số sao đánh giá:</label>
-                    <select id="rating" name="rating" required>
-                        <option value="">-- Chọn số sao --</option>
-                        <option value="5">5 sao - Rất tuyệt vời</option>
-                        <option value="4">4 sao - Tốt</option>
-                        <option value="3">3 sao - Bình thường</option>
-                        <option value="2">2 sao - Tạm ổn</option>
-                        <option value="1">1 sao - Tệ</option>
-                    </select>
-
-                    <label for="comment">Nhận xét chi tiết:</label>
-                    <textarea id="comment" name="comment" placeholder="Hãy chia sẻ cảm nhận của bạn..." required></textarea>
-
-                    <button type="submit">Gửi đánh giá</button>
-                </form>
+                <?php if()?>
             </div>
         </div>
 
