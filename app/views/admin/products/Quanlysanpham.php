@@ -26,6 +26,11 @@ use core\Helpers;?>
             margin-top: 130px;
             margin-left: 280px;
         }
+        .pnow{
+    font-size: 25px;
+    font-weight: bold;
+    color: red;
+}
     </style>
     
   </head>
@@ -128,10 +133,10 @@ use core\Helpers;?>
         <p>Trang</p>
         <?php for($i = 1; $i <= $tst; $i++): ?>
             <?php if($page == $i): ?>
-                <span class="page-number active"><?php echo $i; ?></span>
+                <span class="pnow active"><?php echo $i; ?></span>
             <?php else: ?>
                 <a href="<?php echo _WEB_ROOT . '/quan-ly-san-pham?page=' . $i; ?>" 
-                   class="page-number">
+                   class="pnow">
                     <?php echo $i; ?>
                 </a>
             <?php endif; ?>
