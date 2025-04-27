@@ -180,7 +180,8 @@ class UserModel extends Model
 
     public function updateRememberToken($email, $token)
     {
+
         $sql = "UPDATE users SET remember_token = ? WHERE email = ?";
-        return $this->db->execute($sql, [$token, $email]);
+        return $this->execute($sql, [$token, $email]);
     }
 }

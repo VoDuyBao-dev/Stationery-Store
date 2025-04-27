@@ -20,15 +20,47 @@ class AdminOrder extends Controller
     // Hiển thị toàn bộ các đơn hàng đã giao thành công
     public function done()
     {
-        $ordersDone = $this->orderModel->getListOrdersDone();
-        $this->render("admin/orders/daxuly",  ["ordersDone" => $ordersDone]);
+        $date = $_GET['date'] ?? null;
+        $currentPage = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+        $limit = isset($_GET['limit']) ? (int)$_GET['limit'] : 5;
+        $offset = ($currentPage - 1) * $limit;
+        $totalOrders = count($this->orderModel->getAllDone($date));
+        $totalPages = ceil($totalOrders / $limit);
+        $totalPages = $totalPages == 0 ? 1 : $totalPages;
+        $ordersDone = $this->orderModel->getListOrdersDone($date, $limit, $offset);
+        // $ordersDone = $this->orderModel->getListOrdersDone();
+        $this->render("admin/orders/daxuly",  [
+            "ordersDone" => $ordersDone,
+            "currentPage" => $currentPage,
+            "totalPages" => $totalPages,
+            "limit" => $limit,
+            "date" => $date
+        ]);
     }
 
     // Hiển thị toàn bộ các đơn hàng chờ xác nhận, đang giao hàng, đã hủy
     public function canxuly()
     {
-        $orders = $this->orderModel->getAllOrders();
-        $this->render("admin/orders/qldh_canxuly", ["orders" => $orders]);
+        $date = isset($_GET['date']) ? $_GET['date'] : null;
+        $currentPage = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+        $limit = isset($_GET['limit']) ? (int)$_GET['limit'] : 5;
+        $offset = ($currentPage - 1) * $limit;
+        $totalOrders = count($this->orderModel->getAll($date));
+        // print($currentPage);
+        // print($limit);
+        // print($offset);
+        // die();
+        $totalPages = ceil($totalOrders / $limit);
+        $totalPages = $totalPages == 0 ? 1 : $totalPages;
+        $orders = $this->orderModel->getAllOrders($date, $limit, $offset);
+        // $ordersDone = $this->orderModel->getListOrdersDone();
+        $this->render("admin/orders/qldh_canxuly",  [
+            "orders" => $orders,
+            "currentPage" => $currentPage,
+            "totalPages" => $totalPages,
+            "limit" => $limit,
+            "date" => $date
+        ]);
     }
 
     // xác nhận giao hàng
@@ -36,6 +68,13 @@ class AdminOrder extends Controller
     {
         $order_id = $order_id[0];
         $this->orderModel->xacNhanDonModel($order_id);
+        header("Location:" . _WEB_ROOT . "/canxuly");
+    }
+    // xác nhận giao hàng thành công
+    public function xacNhanThanhCong($order_id)
+    {
+        $order_id = $order_id[0];
+        $this->orderModel->xacNhanDonThanhCongModel($order_id);
         header("Location:" . _WEB_ROOT . "/canxuly");
     }
 

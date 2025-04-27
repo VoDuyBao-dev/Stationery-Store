@@ -71,10 +71,10 @@
                 <?php if (!empty($error_confirmPassword)) : ?>
                     <div class="error-message"><?php echo $error_confirmPassword; ?></div>
                 <?php endif; ?>
-                <div>
-                    <input type="checkbox" id="remember" name="remember"
-                        <?= (isset($_COOKIE['remember_email']) && isset($_COOKIE['remember_password'])) ? 'checked' : '' ?>>
-                    <label for="remember">Ghi nhớ tài khoản</label>
+                <!-- Checkbox "Nhớ tài khoản" -->
+                <div class="remember-me-container">
+                    <input type="checkbox" id="remember" name="remember" value="1">
+                    <label for="remember">Nhớ tài khoản</label>
                 </div>
                 <button type="submit" name="submit" class="btn">Tạo tài khoản</button>
             </form>

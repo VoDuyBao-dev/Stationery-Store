@@ -44,11 +44,17 @@
                 <button class="tab active" id="tab-can-xu-ly" onclick="redirectTo('<?php echo _WEB_ROOT . '/canxuly'; ?>')">Cần xử lý (<span id="count-can-xu-ly">0</span>)</button>
                 <button class="tab" id="tab-da-xu-ly" onclick="redirectTo('<?php echo _WEB_ROOT . '/daxuly'; ?>')">Đã xử lý (<span id="count-da-xu-ly">0</span>)</button>
             </div>
-            <div class="actions"><input type="date" class="date-picker" /></div>
-            <!-- <div id="order-actions"><button id="add-order-btn">Thêm đơn hàng mới</button></div> -->
+
+            <form id="date_filter_form" class="actions" method="GET" action="<?php echo _BASE_URL; ?>/canxuly">
+                <input type="date" name="date" class="data-picker" value="<?php echo $_GET['date'] ?? ''; ?>" onchange="this.form.submit()" required />
+                <!-- Giữ lại các tham số cũ của 'limit' và 'page' -->
+                <input type="hidden" name="limit" value="<?php echo $_GET['limit'] ?? 10; ?>" />
+                <input type="hidden" name="page" value="<?php echo $_GET['page'] ?? 1; ?>" />
+            </form>
             <table id="order-table">
                 <thead>
                     <tr>
+                        <th>STT</th>
                         <th>Mã đơn hàng</th>
                         <th>Ngày đặt hàng</th>
                         <th>Người nhận</th>
@@ -66,9 +72,11 @@
                             <td colspan="8" class="no-data">Không có bản ghi nào</td>
                         </tr>
                     <?php else: ?>
+                        <?php $stt = 1; ?>
                         <?php foreach ($orders as $order): ?>
                             <tr>
-                                <td><?php echo htmlspecialchars($order['order_id']); ?></td>
+                                <td><?php echo $stt++; ?></td>
+                                <td>mdh<?php echo htmlspecialchars($order['order_id']); ?>kl</td>
                                 <td><?php echo htmlspecialchars($order['created_at']); ?></td>
                                 <td><?php echo htmlspecialchars($order['fullname']); ?></td>
                                 <td><?php echo htmlspecialchars($order['total_price']); ?></td>
@@ -280,7 +288,26 @@
                     </form>
                 </div>
             </div>
+            <form id="pagination_form" method="GET" action="<?php echo _WEB_ROOT . '/canxuly'; ?>">
+                <div class="footer">
+                    <div class="left">
+                        <span>Bản ghi mỗi trang:</span>
+                        <select name="limit" onchange="this.form.submit()">
+                            <option value="5" <?php if (isset($_GET['limit']) && $_GET['limit'] == 5) echo 'selected'; ?>>5</option>
+                            <option value="10" <?php if (isset($_GET['limit']) && $_GET['limit'] == 10) echo 'selected'; ?>>10</option>
+                            <option value="20" <?php if (isset($_GET['limit']) && $_GET['limit'] == 20) echo 'selected'; ?>>20</option>
+                            <option value="50" <?php if (isset($_GET['limit']) && $_GET['limit'] == 50) echo 'selected'; ?>>50</option>
+                        </select>
+                    </div>
+                    <input type="hidden" name="date" value="<?php echo $_GET['date'] ?? ''; ?>" required />
 
+                    <div class="right">
+                        <button type="submit" name="page" value="<?php echo max($currentPage - 1, 1); ?>">&lt;</button>
+                        <span><?php echo $currentPage . "/" . $totalPages; ?></span>
+                        <button type="submit" name="page" value="<?php echo min($currentPage + 1, $totalPages) ?>">&gt;</button>
+                    </div>
+                </div>
+            </form>
 
         </div>
         <?php require_once _DIR_ROOT . "/app/views/blocks/footer.php"; ?>
@@ -289,6 +316,7 @@
         const baseURL = "<?php echo _BASE_URL; ?>";
     </script>
     <script type="text/javascript" src="<?php echo _BASE_URL; ?>/public/assets/clients/js/admin/orders/donhang.js"></script>
+
 </body>
 
 </html>

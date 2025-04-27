@@ -109,6 +109,7 @@ $routes['daxuly'] = 'AdminOrder/done';
 $routes['canxuly'] = 'AdminOrder/canxuly';       // toàn bộ order có trangThaiGiao != 3
 $routes['^detailOrder/([0-9]+)$'] = 'AdminOrder/detailOrder/$1';     // chi tiết đơn hàng (có nhiều loại sản phẩm)
 $routes['xacnhan'] = 'AdminOrder/xacnhan';                // xác nhận đơn hàng và chuyển sang trạng thái đang giao hàng
+$routes['xacNhanThanhCong'] = 'AdminOrder/xacNhanThanhCong';                // xác nhận đơn hàng và chuyển sang trạng thái đang giao hàng
 $routes['^viewOrder/([0-9]+)$'] = 'AdminOrder/viewOrder/$1';     // xem chi tiết đơn hàng (có nhiều loại
 $routes['suaDon'] = 'AdminOrder/suaDon';
 $routes['huyDon'] = 'AdminOrder/huyDon';
@@ -117,10 +118,3 @@ $routes['xoaDon'] = 'AdminOrder/xoaDon';            // xóa đơn hàng có tran
 $routes['^getOrderDetail/([0-9]+)$'] = 'AdminOrder/getOrderDetail/$1';   // hiển thị trang sửa từng loại sản phẩm (từng bản ghi của order_detail)
 $routes['updateOrderDetail'] = 'AdminOrder/updateOrderDetail';            // cập nhật lại đơn hàng (có nhiều loại sản phẩm)
 $routes['deleteDetail'] = 'AdminOrder/deleteDetail';            // cập nhật lại đơn hàng (có nhiều loại sản phẩm)
-
-
-
-
-
-
-

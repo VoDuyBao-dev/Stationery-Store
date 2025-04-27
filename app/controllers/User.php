@@ -70,7 +70,7 @@ class User extends Controller
             $email = strtolower(htmlspecialchars(trim($_POST['email'])));
             $password = htmlspecialchars(trim($_POST['password']));
             $confirmPassword = htmlspecialchars(trim($_POST['confirm-password']));
-            $remember_me = isset($_POST['remember-me']) ? 1 : 0; // Lưu trạng thái "Nhớ tôi"
+            $remember_me = isset($_POST['remember']) ? 1 : 0; // Lưu trạng thái "Nhớ tôi"
 
             $messages = [
 
@@ -150,7 +150,6 @@ class User extends Controller
             if (!empty($data['remember_me']) && $data['remember_me'] == true) {
                 // Sinh token ngẫu nhiên
                 $rememberToken = bin2hex(random_bytes(32)); // 64 ký tự hex
-
                 // Update token vào Database
                 $this->userModel->updateRememberToken($data['email'], $rememberToken);
 
@@ -255,6 +254,19 @@ class User extends Controller
                 }
                 // Lấy thông tin người dùng
                 $_SESSION['user'] = $verifyUser;
+
+                if (!empty($_POST['remember'])) {
+                    // Sinh token ngẫu nhiên
+                    $rememberToken = bin2hex(random_bytes(32)); // 64 ký tự hex
+
+                    // Update token vào Database
+                    $this->userModel->updateRememberToken($email, $rememberToken);
+
+                    // Set cookie (30 ngày)
+                    setcookie('remember_email', $email, time() + (86400 * 30), "/");
+                    setcookie('remember_token', $rememberToken, time() + (86400 * 30), "/");
+                }
+
                 //                reset bộ đếm dăng nhập sai
                 $_SESSION['signin_incorrect'] = 0;
                 // xóa session old email

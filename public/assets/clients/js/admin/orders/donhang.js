@@ -204,6 +204,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     tbody.appendChild(actionRow)
                 }
+                else if (trangThaiGiao === '1') {
+                    const actionRow = document.createElement('tr');
+                    actionRow.innerHTML = `
+                        <td colspan="100%">
+                            <div id="xacNhanThanhCong" style="text-align: right; margin-bottom: 10px;">
+                                <form action="${baseURL}/xacNhanThanhCong/${orderId}" method="post">
+                                    <button type="submit" id="xacNhanThanhCong">Xác nhận giao thành công</button>
+                                </form>
+                            </div>
+                        </td>`
+
+                    tbody.appendChild(actionRow)
+                }
                 // Sau khi render xong => gắn sự kiện cho các nút sửa, xóa
                 addEditButtonListeners();
                 deleteDetailOrder()

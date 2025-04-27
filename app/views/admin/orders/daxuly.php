@@ -45,16 +45,17 @@
                 <button class="tab active" onclick="redirectTo('<?php echo _WEB_ROOT . '/daxuly'; ?>')">Đã xử lý (0)</button>
             </div>
 
-            <div class="actions">
-                <input type="date" class="date-picker">
-            </div>
-            <div class="search-container">
-                <input type="text" id="order-id" placeholder="Nhập mã đơn hàng">
-                <button id="search-btn">Q</button>
-            </div>
+            <form id="date_filter_form" class="actions" method="GET" action="<?php echo _BASE_URL; ?>/daxuly">
+                <input type="date" name="date" class="data-picker" value="<?php echo $_GET['date'] ?? ''; ?>" onchange="this.form.submit()" required />
+                <!-- Giữ lại các tham số cũ của 'limit' và 'page' -->
+                <input type="hidden" name="limit" value="<?php echo $_GET['limit'] ?? 10; ?>" />
+                <input type="hidden" name="page" value="<?php echo $_GET['page'] ?? 1; ?>" />
+            </form>
+
             <table>
                 <thead>
                     <tr>
+                        <th>STT</th>
                         <th>Mã đơn hàng</th>
                         <th>Ngày đặt hàng</th>
                         <th>Người sửa đơn</th>
@@ -68,9 +69,11 @@
                             <td colspan="6" class="no-data">Không có bản ghi nào</td>
                         </tr>
                     <?php else: ?>
+                        <?php $stt = 1; ?>
                         <?php foreach ($ordersDone as $order): ?>
                             <tr>
-                                <td><?php echo $order['order_id']; ?></td>
+                                <td><?php echo $stt++; ?></td>
+                                <td>mdh<?php echo $order['order_id']; ?>kl</td>
                                 <td><?php echo $order['created_at']; ?></td>
                                 <td><?php echo $order['fullname']; ?></td>
                                 <td><?php echo $order['updated_at']; ?></td>
@@ -123,17 +126,26 @@
                 </form>
             </div> -->
 
-            <div class="footer">
-                <span>Bản Ghi Mỗi Trang</span>
-                <select>
-                    <option>10</option>
-                    <option>20</option>
-                    <option>50</option>
-                </select>
-                <span>0 of 0</span>
-                <button>&lt;</button>
-                <button>&gt;</button>
-            </div>
+            <form id="pagination_form" method="GET" action="<?php echo _WEB_ROOT . '/daxuly'; ?>">
+                <div class="footer">
+                    <div class="left">
+                        <span>Bản ghi mỗi trang:</span>
+                        <select name="limit" onchange="this.form.submit()">
+                            <option value="5" <?php if (isset($_GET['limit']) && $_GET['limit'] == 5) echo 'selected'; ?>>5</option>
+                            <option value="10" <?php if (isset($_GET['limit']) && $_GET['limit'] == 10) echo 'selected'; ?>>10</option>
+                            <option value="20" <?php if (isset($_GET['limit']) && $_GET['limit'] == 20) echo 'selected'; ?>>20</option>
+                            <option value="50" <?php if (isset($_GET['limit']) && $_GET['limit'] == 50) echo 'selected'; ?>>50</option>
+                        </select>
+                    </div>
+                    <input type="hidden" name="date" value="<?php echo $_GET['date'] ?? ''; ?>" required />
+
+                    <div class="right">
+                        <button type="submit" name="page" value="<?php echo max($currentPage - 1, 1); ?>">&lt;</button>
+                        <span><?php echo $currentPage . "/" . $totalPages; ?></span>
+                        <button type="submit" name="page" value="<?php echo min($currentPage + 1, $totalPages) ?>">&gt;</button>
+                    </div>
+                </div>
+            </form>
         </div>
         <?php require_once _DIR_ROOT . "/app/views/blocks/footer.php"; ?>
     </main>
