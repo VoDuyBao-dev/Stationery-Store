@@ -70,7 +70,6 @@ class User extends Controller
             $email = strtolower(htmlspecialchars(trim($_POST['email'])));
             $password = htmlspecialchars(trim($_POST['password']));
             $confirmPassword = htmlspecialchars(trim($_POST['confirm-password']));
-            $remember_me = isset($_POST['remember']) ? 1 : 0; // Lưu trạng thái "Nhớ tôi"
 
             $messages = [
 
@@ -109,7 +108,7 @@ class User extends Controller
             //            hash password
             $password = password_hash($password, PASSWORD_DEFAULT);
 
-            $_SESSION['register_data'] = compact('fullname', 'sdt', 'email', 'password', 'remember_me');
+            $_SESSION['register_data'] = compact('fullname', 'sdt', 'email', 'password');
 
             //            Gửi mã otp
             $otpService = new OtpService();
@@ -146,18 +145,6 @@ class User extends Controller
 
 
         if ($result === true) {
-            // Nếu người dùng chọn "Ghi nhớ tài khoản"
-            if (!empty($data['remember_me']) && $data['remember_me'] == true) {
-                // Sinh token ngẫu nhiên
-                $rememberToken = bin2hex(random_bytes(32)); // 64 ký tự hex
-                // Update token vào Database
-                $this->userModel->updateRememberToken($data['email'], $rememberToken);
-
-                // Set cookie (30 ngày)
-                setcookie('remember_email', $data['email'], time() + (86400 * 30), "/");
-                setcookie('remember_token', $rememberToken, time() + (86400 * 30), "/");
-            }
-
             unset($_SESSION["otp"]);
             unset($_SESSION['register_data']);
             Helpers::setFlash('success', 'Đăng ký thành công!');

@@ -22,7 +22,7 @@ class Order extends Controller
     // danh sách đơn hàng
     public function orderList()
     {
-        $this->checkLogin();
+        $this->validateUser();
         $user_id = $_SESSION['user']['user_id'];
         // lay danh sách đơn hàng của người dùng
         // Nếu người dùng sài lọc thì hiển thị các đơn hàng trong khoảng tg đó
@@ -46,7 +46,7 @@ class Order extends Controller
     // đơn hàng người dùng tìm kiêms
     public function searchOrder()
     {
-        $this->checkLogin();
+        $this->validateUser();
         $orderId = isset($_GET['order_id']) ? trim($_GET['order_id']) : '';
 
         if (empty($orderId)) {
@@ -85,6 +85,7 @@ class Order extends Controller
     // Hủy đơn hàng khi còn ở trạng thái đang xử lý
     public function cancelOrder()
     {
+        $this->validateUser();
         $data = json_decode(file_get_contents('php://input'), true);
         $orderId = $data['order_id'] ?? null;
 
@@ -117,7 +118,7 @@ class Order extends Controller
 
     public function addReview()
     {
-        $this->checkLogin();
+        $this->validateUser();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $order_id = isset($_POST['order_id']) ? (int)$_POST['order_id'] : 0;
             $user_id = isset($_POST['user_id']) ? (int)$_POST['user_id'] : 0;

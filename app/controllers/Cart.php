@@ -16,6 +16,7 @@ class Cart extends Controller
 
     public function handle_cart()
     {
+        $this->checkLogin();
         if (isset($_POST['addcart']) || isset($_POST['buynow'])) {
             $product_type_id = $_POST['product_type_id'];
             // Kiểm tra tồn kho
@@ -39,6 +40,7 @@ class Cart extends Controller
     }
     private function addToCartFromPost()
     {
+        $this->checkLogin();
         $name_product_type_id = $_POST['product_name_type_id'];
         $product_id = $_POST['product_id'];
         $product_type_id = $_POST['product_type_id'];
@@ -73,7 +75,7 @@ class Cart extends Controller
 
     public function add_cart()
     {
-
+        $this->checkLogin();
         // Xử lý thêm sản phẩm vô giỏ hàng và trả về tên sp để redirect
         $product_name = $this->addToCartFromPost();
         // Mã hóa tên sản phẩm
@@ -85,7 +87,7 @@ class Cart extends Controller
 
     public function buyNow()
     {
-
+        $this->checkLogin();
         // Xử lý thêm sản phẩm vô giỏ hàng và trả về tên sp để redirect
         $product_name = $this->addToCartFromPost();
         header("Location:" . _WEB_ROOT . "/thanh-toan");

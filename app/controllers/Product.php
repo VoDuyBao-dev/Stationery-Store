@@ -26,6 +26,7 @@ class Product extends Controller
 
     public function index()
     {
+        $this->validateUser();
         $outstanding_products = $this->productModel->get_BestSellingProducts();
         $flashSale_products = $this->productModel->get_ProductsFlashSale();
         $categories = $this->productModel->getCategories();
@@ -69,6 +70,7 @@ class Product extends Controller
 
     public function productDetail($params)
     {
+        $this->validateUser();
         // Lấy id của product_type và id_product
         $value_params = $this->getValue_ofArrayParams($params);
         if (!$value_params) {
@@ -128,6 +130,7 @@ class Product extends Controller
     // trả lời API (API response) để hiển thị dữ liệu tương ứng với product type mà người dùng chọn
     public function getProductType()
     {
+        $this->validateUser();
         if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['product_type_id'])) {
             $id_product_type = intval($_GET['product_type_id']);
 
@@ -145,6 +148,7 @@ class Product extends Controller
     // Lấy các sản phẩm tùy vào lưaj chọn danh mục ở Văn phòng phẩm cho bạn ở trang chủ
     public function getProductsBy_category()
     {
+        $this->validateUser();
         if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['category_id'])) {
             $category_id = $_GET['category_id'] ?? "";
             $category = $this->productModel->checkCategoryExists($category_id);
@@ -163,6 +167,7 @@ class Product extends Controller
 
     public function productByCategory()
     {
+        $this->validateUser();
         // Lấy các tham số từ URL
         $getCategory = trim($_GET['category'] ?? "");
         $subProduct = trim($_GET['sub'] ?? "");
@@ -218,6 +223,7 @@ class Product extends Controller
 
     public function resultSearch()
     {
+        $this->validateUser();
         if (isset($_GET['keyword'])) {
             $keySearch = htmlspecialchars(trim($_GET['keyword']));
             $getProduct_Search = $this->productModel->searchProduct($keySearch);
@@ -238,6 +244,7 @@ class Product extends Controller
     // lấy sản phẩm bán chạy nhất trong phần danh mục nổi bật
     public function allBestSelling()
     {
+        $this->validateUser();
         $products = $this->productModel->allBestSelling_product();
         $data = [
             'products_bestSeller' => $products

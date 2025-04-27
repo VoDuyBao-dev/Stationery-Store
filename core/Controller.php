@@ -60,8 +60,12 @@ class Controller
             header("Location:" . _WEB_ROOT. "/dang-nhap");
             exit();
         }
-
-
+    }
+    public function validateUser(){
+        if((!isset($_SESSION['user']) || ($_SESSION['user']['role'] !== 'user') )){
+            header("Location:" . _WEB_ROOT. "/dang-nhap");
+            exit();
+        }
     }
 
     public function checkLogin(){

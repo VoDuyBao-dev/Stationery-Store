@@ -116,6 +116,7 @@ class AdminManage extends Controller
 
     public function addProduct()
     {
+        $this->validateAdmin();
         $brands = $this->manageBrandModel->getAllBrand();
         $categories = $this->manageCategoryModel->getAllCategory();
 
@@ -237,6 +238,7 @@ class AdminManage extends Controller
 
     public function qlsp()
     {
+        $this->validateAdmin();
         $this->render("admin/products/Quanlysanpham", []);
     }
 }

@@ -14,6 +14,7 @@ class ReportController extends Controller
 
     public function getRevenueData()
     {
+        $this->validateAdmin();
         $type = $_GET['type'] ?? '7days';
         $response = [];
 
@@ -54,6 +55,8 @@ class ReportController extends Controller
 
     public function exportExcel()
     {
+        $this->validateAdmin();
+
         // Tắt output buffering
         ob_end_clean();
 
