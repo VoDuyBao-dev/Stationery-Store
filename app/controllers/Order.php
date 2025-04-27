@@ -35,6 +35,7 @@ class Order extends Controller
             $order_list = $this->OrderModel->getOrdersByUserId($user_id);
         }
 
+
         $data = [
             'order_list' => $order_list,
         ];
@@ -108,5 +109,37 @@ class Order extends Controller
             'success' => $result,
             'message' => $result ? 'Hủy đơn hàng thành công' : 'Có lỗi xảy ra'
         ]);
+    }
+
+
+
+// Thêm đanhs giá
+
+    public function addReview()
+    {
+        $this->checkLogin();
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $order_id = isset($_POST['order_id']) ? (int)$_POST['order_id'] : 0;
+            $user_id = isset($_POST['user_id']) ? (int)$_POST['user_id'] : 0;
+            $rating = isset($_POST['rating']) ? (int)$_POST['rating'] : 0;
+            $comment = isset($_POST['comment']) ? trim($_POST['comment']) : '';
+
+            // Kiểm tra dữ liệu hợp lệ
+            if ($order_id > 0 && $user_id > 0 && $rating > 0 && $rating <= 5 && !empty($comment)) {
+                $product_id = $this->OrderModel->getProductID($order_id);
+
+                $result = $this->OrderModel->insertReview($product_id['product_id'], $user_id, $rating, $comment);
+
+                if ($result) {
+                    header('Location: ' . _BASE_URL . '/danh-sach-don-hang');
+                    exit();
+                }
+                else{
+                    echo "<script>alert('Không lưu đánh giá được')</script>";
+                }
+            } else {
+                echo "<script>alert('Nội dung không hợp lệ')</script>";
+            }
+        }
     }
 }

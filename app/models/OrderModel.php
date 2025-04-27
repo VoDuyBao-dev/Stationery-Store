@@ -148,5 +148,22 @@ class OrderModel extends Model
         $params = [$fromDate, $toDate];
         return $this->fetchAll($query, $params);
     }
+
+
+    public function getProductID($order_id){
+        $sql = "select product_type.product_id as product_id
+                from order_details
+                inner join product_type on order_details.product_type_id = product_type.product_type_id
+                where order_details.order_id = ? limit 1";
+        return $this->fetch($sql, [$order_id]);
+    }
+
+    public function insertReview($product_id, $user_id, $rating, $comment)
+    {
+        $sql = "INSERT INTO reviews (product_id, user_id, rating, comment, created_at) 
+                VALUES (?, ? ,?, ?, NOW())";
+
+        return $this->execute($sql, [$product_id, $user_id, $rating, $comment]);
+    }
 }
 ?>

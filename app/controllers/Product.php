@@ -106,13 +106,16 @@ class Product extends Controller
             Logger::logError("Lỗi không lấy được sản phẩm liên quan đến sản phẩm có id_product: " . $id_product);
         }
 
+        $reviews = $this->productModel->review($id_product);
+        $reviews = [$reviews];
 
         $this->data = [
             'images_product' => $images_product,
             'product' => $product,
             'product_types' => $product_types,
             'default_product_type' => $default_product_type,
-            'products_related' => $products_related
+            'products_related' => $products_related,
+            'reviews' => $reviews
         ];
 
         $description = $this->data['product']['description'];

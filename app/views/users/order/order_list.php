@@ -32,6 +32,37 @@ use core\Helpers;
             margin-top: 150px;
             margin-left: 280px;
         }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 10000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.6);
+        }
+        .modal-content {
+            background-color: #fff;
+            margin: 5% auto;
+            padding: 30px;
+            border: 1px solid #888;
+            width: 70%;
+            height: 70%;
+            border-radius: 10px;
+            position: relative;
+        }
+        .modal .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            position: absolute;
+            right: 15px;
+            top: 10px;
+            cursor: pointer;
+        }
     </style>
 
 </head>
@@ -111,6 +142,8 @@ use core\Helpers;
                                     <button class="detail-btn" xem-id="<?= $order['order_id'] ?>">Xem chi tiết</button>
                                     <?php if($order['trangThaiGiao'] == 0): ?>
                                         <button class="cancel-btn" data-id="<?= $order['order_id'] ?>">Hủy đơn</button>
+                                    <?php elseif($order['trangThaiGiao'] == 3): ?>
+                                            <button class="review-btn" data-order_id="<?= $order['order_id'] ?>">Đánh giá</button>
                                     <?php endif; ?>
                                 </td>
                                 <!-- vì đơn hàng đã hoàn thành nên không nên xóa để có dữ liệu làm báo cáo doanh thu -->
@@ -145,6 +178,33 @@ use core\Helpers;
 
             </div>
 
+
+            <div id="reviewModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('reviewModal')">&times;</span>
+                <h3>Đánh giá sản phẩm</h3>
+                <form id="reviewForm" method="POST"  action="<?php echo _BASE_URL ?>/addReview">
+                    <input type="hidden" name="order_id" id="order_id">
+                    <input type="hidden" name="user_id" value="<?php echo $_SESSION['user']['user_id']?>"> <!-- Hoặc lấy từ session -->
+
+                    <label for="rating">Chọn số sao đánh giá:</label>
+                    <select id="rating" name="rating" required>
+                        <option value="">-- Chọn số sao --</option>
+                        <option value="5">5 sao - Rất tuyệt vời</option>
+                        <option value="4">4 sao - Tốt</option>
+                        <option value="3">3 sao - Bình thường</option>
+                        <option value="2">2 sao - Tạm ổn</option>
+                        <option value="1">1 sao - Tệ</option>
+                    </select>
+
+                    <label for="comment">Nhận xét chi tiết:</label>
+                    <textarea id="comment" name="comment" placeholder="Hãy chia sẻ cảm nhận của bạn..." required></textarea>
+
+                    <button type="submit">Gửi đánh giá</button>
+                </form>
+            </div>
+        </div>
+
             
 
         </div>
@@ -153,6 +213,30 @@ use core\Helpers;
     <script>
         const baseURL = "<?php echo _BASE_URL; ?>";
         const _WEB_ROOT = "<?php echo _WEB_ROOT; ?>";
+        function closeModal(modalId) {
+        document.getElementById(modalId).style.display = 'none';
+    }
+
+    // Khi click nút Đánh giá
+    document.querySelectorAll('.review-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const productId = this.getAttribute('data-order_id');
+            document.getElementById('order_id').value = productId;
+            document.getElementById('reviewModal').style.display = 'block';
+        });
+    });
+
+    // Khi click ra ngoài modal thì tắt modal
+    window.onclick = function(event) {
+        const reviewModal = document.getElementById('reviewModal');
+        const detailModal = document.getElementById('viewDetailModal');
+        if (event.target == reviewModal) {
+            reviewModal.style.display = "none";
+        }
+        if (event.target == detailModal) {
+            detailModal.style.display = "none";
+        }
+    }
     </script>
     <script type="text/javascript" src="<?php echo _WEB_ROOT; ?>/public/assets/clients/js/users/order_list.js"></script>
 

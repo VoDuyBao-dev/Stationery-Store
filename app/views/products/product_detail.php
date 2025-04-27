@@ -318,7 +318,7 @@ use core\Helpers;
                 </div>
 
                 <!-- Dropdown Lọc đánh giá -->
-                <div class="dropdown" style="margin-top: 15px;">
+                <!-- <div class="dropdown" style="margin-top: 15px;">
                     <button class="filter-btn">☰ Lọc đánh giá</button>
                     <div class="dropdown-content">
                         <a href="#">Từ mới đến cũ</a>
@@ -329,7 +329,7 @@ use core\Helpers;
                         <a href="#">2 sao</a>
                         <a href="#">1 sao</a>
                     </div>
-                </div>
+                </div> -->
             </div>
 
             <!-- Cột phải: Hiển thị đánh giá hoặc thông báo chưa có đánh giá -->
@@ -427,21 +427,17 @@ use core\Helpers;
 
             <!-- Danh sách đánh giá -->
             <div class="review-container">
+                <?php foreach($reviews as $review) :?>
                 <div class="review-box">
-                    <h5>Phương Linh</h5>
-                    <div class="rating">★★★★★</div>
+                    <h5><?php echo htmlspecialchars($review['fullname']); ?></h5>
+                    <div class="rating"><?php echo $review['rating']?>★</div>
                     <p class="review-text">
-                        Viết rất êm nhưng mọi người không thích "màu xanh ngọc", nếu có thể tôi muốn nhà sản xuất đổi
-                        sang "màu hồng pastel".
+                        <?php echo $review['comment']?>
                     </p>
-                    <div>
-                        <span class="vote-buttons">👍 (0)</span>
-                        <span class="vote-buttons">👎 (0)</span>
-                    </div>
-                    <p class="text-muted">25/10/2024</p>
+                    <p class="text-muted"><?php echo $review['created_at'] ?></p>
                 </div>
-
-                <div class="review-box">
+                    <?php endforeach;?>
+                <!-- <div class="review-box">
                     <h5>Ngọc Hân</h5>
                     <div class="rating">★★★★☆</div>
                     <p class="review-text">
@@ -452,9 +448,9 @@ use core\Helpers;
                         <span class="vote-buttons">👎 (0)</span>
                     </div>
                     <p class="text-muted">18/09/2024</p>
-                </div>
+                </div> -->
                 <!-- Nút xem thêm -->
-                <button id="see-more-btn" class="see-more-btn">Xem thêm</button>
+                <!-- <button id="see-more-btn" class="see-more-btn">Xem thêm</button> -->
             </div>
         </div>
 

@@ -102,6 +102,8 @@ $routes['bao-cao-doanh-thu/export'] = 'ReportController/exportExcel';
 
 
 
+$routes['addReview'] = 'order/addReview';
+
 
 // Chat giữa admin và khách hàng
 $routes['^chat/([0-9]+)$'] = 'chat/detail/$1';

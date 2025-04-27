@@ -487,4 +487,13 @@ class ProductModel extends Model
             return false;
         }
     }
+
+
+    public function review($product_id){
+        $sql = "select users.fullname as fullname, reviews.*
+                from reviews
+                inner join users on users.user_id = reviews.user_id
+                where product_id = ?";
+        return $this->fetch($sql, [$product_id]);
+    }
 }
