@@ -63,16 +63,44 @@ $flashSale_products = $flashSale_products ?? [];
 <?php endif; ?>
     <!-- ========== Slider ========== -->
     <section class="section-1">
-      <div class="home-slider">
+      <div class="home-slider" style="overflow: hidden";>
         <div class="main clearfix">
-          <div class="clearfix">
-            <a href=""><img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/slider_1.webp" alt="Văn phòng phẩm" /></a>
+          <div class="clearfix"> 
+            <div class="slider-track" id="sliderTrack">
+              <div class="slide"><a href=""><img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/slider_1.webp" alt="Văn phòng phẩm" /></a></div>
+              <div class="slide"><a href=""><img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/slider_2.webp" alt="Văn phòng phẩm" /></a></div>
+              <div class="slide"><a href=""><img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/slider_3.webp" alt="Văn phòng phẩm" /></a></div>
+            </div>
           </div>
         </div>
-        <button class="fa-solid fa-arrow-left"></button
-        ><button class="fa-solid fa-arrow-right"></button>
+        <button class="fa-solid fa-arrow-left" id="prevBtn"></button
+        ><button class="fa-solid fa-arrow-right" id="nextBtn"></button>
       </div>
     </section>
+    <script>
+  const sliderTrack = document.getElementById("sliderTrack");
+
+const slides = document.querySelectorAll(".slide");
+const prevBtn = document.getElementById("prevBtn");
+const nextBtn = document.getElementById("nextBtn");
+
+let currentIndex = 0;
+
+function updateSlider() {
+  sliderTrack.style.transform = `translateX(-${currentIndex * 100}%)`;
+}
+
+nextBtn.addEventListener("click", () => {
+  currentIndex = (currentIndex + 1) % slides.length;
+  updateSlider();
+});
+
+prevBtn.addEventListener("click", () => {
+  currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+  updateSlider();
+});
+
+</script>
     <!-- ========== Danh mục sản phẩm ========== -->
     <section class="section-2">
       <div class="cate-list">
@@ -132,13 +160,15 @@ $flashSale_products = $flashSale_products ?? [];
             />
           </h2>
         </div>
-        <div class="block-product">
-        
+        <div class="slider-wrapper ">
+        <div class="slider_FS-track" id="flashSliderTrack">
           <!-- list Sản phẩm flash sale -->
         <?php if (!empty($flashSale_products)): ?>
           <?php foreach($flashSale_products as $product):?>
-          
+        <div class="slide_FS">  
           <div class="product-card">
+          <div class="sale-tag"><p>Sale <br> 25%</p></div>
+
             <img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/image_products_type/<?= $product['image'] ?>" alt="<?= $product['product_name'] ?>" />
             <div class="product-name"><?= $product['product_name'] ?></div>
             <div class="price">
@@ -148,6 +178,7 @@ $flashSale_products = $flashSale_products ?? [];
             <button class="buy-button" onclick="viewProduct('<?= $product['product_name'] ?>',<?= $product['product_id'] ?>,<?= $product['product_type_id'] ?> )" >Xem ngay </button>
            
           </div>
+        </div>
           <?php endforeach;?>
             <?php else: ?>
               <?php if ($message = Helpers::getFlash('empty_flashSale_products')): ?>
@@ -155,13 +186,46 @@ $flashSale_products = $flashSale_products ?? [];
 <?php endif; ?>
     <?php endif; ?>
 
-    
-
         </div>
-        <div class="fa-solid fa-arrow-left"></div>
-        <div class="fa-solid fa-arrow-right"></div>
-      </div>
+        <!-- Nút điều hướng slider -->
+      <div class="fa-solid fa-arrow-left" id="flashPrevBtn"><i></i></div>
+      <div class="fa-solid fa-arrow-right" id="flashNextBtn"><i></i></div>
+    </div>
+  </div>
     </section>
+
+    <script>
+const flashSliderTrack = document.getElementById("flashSliderTrack");
+const flashSlides = flashSliderTrack.querySelectorAll(".slide_FS");
+const flashPrevBtn = document.getElementById("flashPrevBtn");
+const flashNextBtn = document.getElementById("flashNextBtn");
+
+let flashCurrentIndex = 0;
+const slidesPerView = 4;
+const totalSlides = flashSlides.length;
+const maxIndex = Math.ceil(totalSlides / slidesPerView) - 1;
+
+function updateFlashSlider() {
+  const translateX = flashCurrentIndex * -100;
+  flashSliderTrack.style.transform = `translateX(${translateX}%)`;
+}
+
+flashNextBtn.addEventListener("click", () => {
+  if (flashCurrentIndex < maxIndex) {
+    flashCurrentIndex++;
+    updateFlashSlider();
+  }
+});
+
+flashPrevBtn.addEventListener("click", () => {
+  if (flashCurrentIndex > 0) {
+    flashCurrentIndex--;
+    updateFlashSlider();
+  }
+});
+
+</script>
+
     <!-- ========== Sản phẩm nổi bật ========== -->
     <section class="section-4">
       <div class="container">
@@ -170,6 +234,7 @@ $flashSale_products = $flashSale_products ?? [];
         </div>
         <div class="block-product">
           <div class="product-featured-swiper">
+          <div class="product-row">
             <!-- List Sản phẩm  -->
             <?php if (!empty($outstanding_products)): ?>
              <?php foreach($outstanding_products as $product):?>
@@ -194,16 +259,56 @@ $flashSale_products = $flashSale_products ?? [];
                   <?php endif; ?>
             
           </div>
+          </div>
         </div>
         <div class="swiper-pagination">
-          <span
-            class="swiper-pagination-bullet swiper-pagination-bullet-active"
-          ></span>
-          <span class="swiper-pagination-bullet"></span>
-          <span class="swiper-pagination-bullet"></span>
+          <span class="swiper-pagination-bullet" id="go_1"></span>
+          <span class="swiper-pagination-bullet" id="go_2"></span>
+          <span class="swiper-pagination-bullet" id="go_3"></span>
         </div>
       </div>
     </section>
+
+    <script>
+var productContainer = document.querySelector('.product-featured-swiper');
+var productBlocks = document.querySelectorAll('.product-block');
+var numSlides = Math.ceil(productBlocks.length / 3); // Hiển thị 3 sản phẩm mỗi lần
+var currentPage = 0;
+
+function showPage(pageNum) {
+    // Ẩn tất cả sản phẩm
+    productBlocks.forEach(block => {
+        block.style.display = 'none';
+    });
+
+    // Hiển thị 3 sản phẩm của trang hiện tại
+    let start = pageNum * 3;
+    let end = start + 3;
+    for(let i = start; i < end && i < productBlocks.length; i++) {
+        productBlocks[i].style.display = 'block';
+    }
+
+    // Cập nhật trạng thái active cho bullets
+    document.querySelectorAll('.swiper-pagination-bullet').forEach(bullet => {
+        bullet.classList.remove('active');
+    });
+    document.getElementById('go_' + (pageNum + 1)).classList.add('active');
+    
+    currentPage = pageNum;
+}
+
+
+// Khởi tạo sự kiện click cho các nút go
+document.getElementById('go_1').addEventListener('click', () => showPage(0));
+document.getElementById('go_2').addEventListener('click', () => showPage(1));
+document.getElementById('go_3').addEventListener('click', () => showPage(2));
+
+// Hiển thị trang đầu tiên khi load
+document.addEventListener('DOMContentLoaded', () => {
+    showPage(0);
+});
+</script>
+
 
     <!-- ========== Văn phòng phẩm cho bạn ==========  -->
     <section class="section-5">

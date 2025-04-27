@@ -87,7 +87,7 @@
 
             <!-- Modal hiển thị chi tiết đơn hàng -->
             <div id="viewDetailModal" class="modal">
-                <span class="close" onclick='document.getElementById("viewDetailModal").style.display = "none";'>&times;</span>
+                <!-- <span class="close" onclick='document.getElementById("viewDetailModal").style.display = "none";'>&times;</span> -->
                 <table id="orderDetailtable">
                     <thead>
                         <tr id="thead_row">
