@@ -27,6 +27,7 @@ body {
   width: 40%;
   text-align: center;
   height: 40%;
+  position: relative;
 }
 
 .product-images img.main-image {
@@ -132,6 +133,7 @@ body {
   align-items: center;
   margin: 20px 0;
   gap: 10px;
+  width: 400px;
 }
 
 .quantity-control button {
@@ -691,6 +693,7 @@ textarea {
   flex-wrap: wrap;
   /* Đảm bảo hiển thị đẹp khi thiếu không gian */
   padding-bottom: 10px;
+  position: relative;
 }
 
 /* Định dạng chung cho khối sản phẩm */
@@ -706,6 +709,8 @@ textarea {
   border-radius: 8px;
   /* Bo góc nhẹ */
   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  background: #fff;
+  position: relative;
 }
 
 .product-block:hover {
@@ -723,26 +728,32 @@ textarea {
 }
 
 /* Định dạng thông tin sản phẩm */
-.product-info {
+.product-info1 {
   min-height: 90px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
 }
 
 /* Tiêu đề sản phẩm */
-.product-info a {
+.product-info1 p {
+  white-space: normal;
   font-size: 14px;
   font-weight: bold;
   color: #333;
+  line-height: 1.5;
   text-decoration: none;
   display: block;
   transition: color 0.2s ease-in-out;
   overflow: hidden;
-  max-width: 180px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  padding: 10px 0;
+
 }
 
-.product-info a:hover {
+.product-info1 a:hover {
   color: #e50000;
 }
 
@@ -872,4 +883,49 @@ textarea {
   height: 100%;
   overflow: auto;
   background-color: rgba(0, 0, 0, 0.4);
+}
+
+.sale-tag {
+  display: flex;
+  position: absolute;
+  height: 60px;
+  background-color: rgb(239, 59, 59);
+  color: white;
+  font-weight: bold;
+  padding: 5px;
+  top: -10px;
+  right: -12px;
+  font-size: 12px;
+  border-radius: 8px;
+  clip-path: polygon(0 0, 100% 0, 100% 80%, 50% 100%, 0 80%);
+  position: absolute;
+  text-align: center;
+  z-index: 100;
+
+}
+
+.sale-tag p {
+  margin: 0;
+  padding: 5px;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+
+  animation: blinkText 0.3s infinite;
+}
+
+@keyframes blinkText {
+
+  0%,
+  100% {
+    color: white;
+    border: 2px dashed white;
+    clip-path: polygon(0 0, 100% 0, 100% 80%, 50% 100%, 0 80%);
+  }
+
+  100% {
+    color: yellow;
+    border: 2px dashed yellow;
+    clip-path: polygon(0 0, 100% 0, 100% 80%, 50% 100%, 0 80%);
+  }
 }

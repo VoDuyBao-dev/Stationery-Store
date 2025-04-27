@@ -310,6 +310,7 @@ body {
   padding: 10px;
   border-radius: 10px;
   width: 300px;
+  position: relative;
 }
 
 .product-block.active {
@@ -446,6 +447,7 @@ a {
   text-align: center;
   transition: transform 0.3s ease-in-out;
   width: 100%;
+  position: relative;
 }
 
 .product-block-item:hover {
