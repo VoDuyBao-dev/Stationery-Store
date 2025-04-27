@@ -253,7 +253,6 @@ class User extends Controller
                     setcookie('remember_email', $email, time() + (86400 * 30), "/");
                     setcookie('remember_token', $rememberToken, time() + (86400 * 30), "/");
                 }
-
                 //                reset bộ đếm dăng nhập sai
                 $_SESSION['signin_incorrect'] = 0;
                 // xóa session old email
@@ -292,6 +291,10 @@ class User extends Controller
         header("Location:" . _WEB_ROOT . "/dang-nhap");
         exit();
     }
+
+
+
+
 
 
     public function forgot_pass()

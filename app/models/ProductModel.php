@@ -488,6 +488,43 @@ class ProductModel extends Model
         }
     }
 
+    // Lấy sản phẩm theo id trongh chỉnh sửa sản phẩm của admin
+    public function getProductID($product_id)
+    {
+        $sql = "SELECT * FROM $this->_table_products
+            WHERE product_id = ?";
+        $params = [$product_id];
+       return $this->fetch($sql,$params);
+         
+    }
+
+    // Cập nhật sản phẩm
+    public function updateProductID($name, $description, $category_id, $brand_id,$product_id)
+    {
+        $sql = "UPDATE products
+        SET 
+            name = ?,
+            description = ?,
+            category_id = ?,
+            brand_id = ?
+        WHERE product_id = ?";
+        $params = [$name, $description, $category_id, $brand_id,$product_id];
+        try {
+            $affectedRows = $this->execute($sql, $params);
+            if ($affectedRows > 0) {
+                return true;
+            } else {
+                return "Cập nhật sản phẩm thất bại!";
+            }
+        } catch (Exception $e) {
+            // Xử lý lỗi nếu cần thiết
+            return "Lỗi: " . $e->getMessage();
+        }
+         
+    }
+    
+   
+
 
     public function review($product_id)
     {

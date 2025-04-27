@@ -67,6 +67,11 @@ $routes['handleMomoCallback'] = 'payment/handleMomoCallback';
 
 $routes['quan-ly-san-pham'] = 'AdminManage/qlsp';
 $routes['them-san-pham'] = 'AdminManage/addProduct';
+$routes['xoa-san-pham'] = 'AdminManage/DeleteProduct';
+$routes['sua-san-pham'] = 'AdminManage/editingProductPage';
+// Xử lý sửa sản phẩm:
+$routes['editingProduct'] = 'AdminManage/editingProduct';
+
 
 
 // xong

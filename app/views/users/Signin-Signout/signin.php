@@ -65,8 +65,7 @@ use core\Helpers;
                 <input type="password" id="login-password" name="password" placeholder="Nhập Mật khẩu" required>
                 <div class="forgot"><a href="<?php echo _WEB_ROOT; ?>/forgot_pass"> Quên mật khẩu?</a></div>
                 <!-- Checkbox "Nhớ tài khoản" -->
-                <div class="remember-me-container">
-                    <input type="checkbox" id="remember" name="remember" value="1">
+                <div class="remember-me-container"><input type="checkbox" id="remember" name="remember" value="1">
                     <label for="remember">Nhớ tài khoản</label>
                 </div>
                 <button type="submit" name="submit-signin" class="btn">Đăng nhập</button>
