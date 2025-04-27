@@ -5,14 +5,16 @@
         </div>
     </div>
 
-    <div class="search-bar">
-        <input type="text" placeholder="Tìm kiếm sản phẩm...">
-        <button class="search-btn" type="submit"><i class="fas fa-search"></i></button>
-    </div>
     <!-- <div class="search-bar">
         <input type="text" placeholder="Tìm kiếm sản phẩm...">
         <button class="search-btn" type="submit"><i class="fas fa-search"></i></button>
     </div> -->
+    <div class="search-bar">
+        <form action="<?php echo _WEB_ROOT; ?>/search" method="GET" style="display: flex; align-items: center; width: 100%;">
+            <input type="text" name="keyword" placeholder="Tìm kiếm sản phẩm..." /><button class="search-btn" type="submit"><i class="fas fa-search"></i></button>
+        </form>
+
+    </div>
 
     <div class="hotline">
         <i class="fab fa-whatsapp"></i>
@@ -43,7 +45,7 @@
 </header>
 <div class="breadcrumb-banner">
     <div class="container">
-        <p><a href="<?php echo _WEB_ROOT; ?>/admin_layout">Trang chủ</a> <?php if(isset($breadcrumb)) echo  '<span>'." / " . $breadcrumb .'</span>'; ?>
+        <p><a href="<?php echo _WEB_ROOT; ?>/admin_layout">Trang chủ</a> <?php if (isset($breadcrumb)) echo  '<span>' . " / " . $breadcrumb . '</span>'; ?>
         </p>
     </div>
 </div>
