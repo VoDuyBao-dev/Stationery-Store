@@ -169,10 +169,11 @@ body {
 
 .sticker-menu.show {
     display: block;
-    width: 49%;
+    width: 60%;
     white-space: nowrap;
     overflow-x: scroll;
     gap: 10px;
+    margin: 15px auto;
 }
 
 .sticker-menu img {

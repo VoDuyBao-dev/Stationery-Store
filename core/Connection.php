@@ -10,7 +10,7 @@ class Connection
     private function __construct($config)
     {
         //        Kết nối database
-        $this->conn = new mysqli($config['db_host'], $config['user'], $config['pass'], $config['db_name'], $config['port']);
+        $this->conn = new mysqli($config['db_host'], $config['user'], $config['pass'], $config['db_name']);
 
         if ($this->conn->connect_error) {
             Logger::logError("Connection failed: " . $this->conn->connect_error);

@@ -55,7 +55,7 @@
                 <div class="context">
                     <div class="message">
                         <?php if (count($messages) == 0) : ?>
-                            <div style="text-align: center;">Bạn có thắc mắc gì? Ngu thì đừng thắc mắc</div>
+                            <div style="text-align: center;">Bạn có thắc mắc gì?</div>
                         <?php else : ?>
                             <?php foreach ($messages as $msg) : ?>
                                 <?php if ($msg['sender_id'] == $sender_id) : ?>

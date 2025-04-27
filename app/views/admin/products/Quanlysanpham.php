@@ -27,10 +27,13 @@ use core\Helpers;?>
             margin-left: 280px;
         }
         .pnow{
-    font-size: 25px;
-    font-weight: bold;
-    color: red;
-}
+          font-size: 20px;
+          font-weight: bold;
+          color: #ca9b54;
+          text-decoration: underline;
+          text-align: center;
+          margin: 10px 0;
+        }
     </style>
     
   </head>
@@ -130,7 +133,7 @@ use core\Helpers;?>
 </table>
 <?php if($tst > 0): ?>
     <div class="pagination">
-        <p>Trang</p>
+        <p>Trang
         <?php for($i = 1; $i <= $tst; $i++): ?>
             <?php if($page == $i): ?>
                 <span class="pnow active"><?php echo $i; ?></span>
@@ -140,7 +143,7 @@ use core\Helpers;?>
                     <?php echo $i; ?>
                 </a>
             <?php endif; ?>
-        <?php endfor; ?>
+        <?php endfor; ?> </p>
     </div>
 <?php endif; ?>
 

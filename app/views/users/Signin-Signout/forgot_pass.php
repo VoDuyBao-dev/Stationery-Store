@@ -1,3 +1,5 @@
+<?php $breadcrumb = "Bạn quên mật khẩu?"; ?>
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>

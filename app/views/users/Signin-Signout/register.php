@@ -1,3 +1,5 @@
+<?php $breadcrumb = "Đăng kí"; ?>
+
 <!DOCTYPE html>
 <html lang="vi">
 

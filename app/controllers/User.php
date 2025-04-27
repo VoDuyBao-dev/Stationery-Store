@@ -188,7 +188,7 @@ class User extends Controller
 
     public function signin()
     {
-        $this->checkLogin();
+        // $this->checkLogin();
         // Tạo đường dẫn để đi đến trang đăng nhập của google.
         $googleService = new GoogleAuthService();
         $client = $googleService->getClient();
