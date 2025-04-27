@@ -79,6 +79,9 @@ $routes['productByCategory'] = 'product/productByCategory';
 // sản phẩm bán chạy ở danh mục nổi bật
 $routes['allBestSelling'] = 'product/allBestSelling';
 
+// sản phẩm mới ở danh mục nổi bật
+$routes['newProductCatalog'] = 'product/newProductCatalog';
+
 $routes['phan-hoi'] = 'user/reply';
 // xong
 $routes['kqtim-kiem'] = 'product/resultSearch';

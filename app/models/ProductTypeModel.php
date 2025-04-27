@@ -48,7 +48,7 @@ class ProductTypeModel extends Model
 
     public function getAllProductType_ofProductID($product_id)
     {
-        $sql = "SELECT product_type_id, pt.name as productType_name, priceCurrent, priceCurrent, stock_quantity, image
+        $sql = "SELECT product_type_id, pt.name as productType_name, priceCurrent, priceOld, stock_quantity, image
             FROM product_type pt 
             JOIN products p
                 ON pt.product_id = p.product_id

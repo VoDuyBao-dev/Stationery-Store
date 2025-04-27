@@ -146,7 +146,7 @@ use core\Helpers;
 
                     <div class="form-row buttons">
                         <button type="submit" class="btn-luu">Lưu lại</button>
-                        <button type="button" class="btn-huy">Hủy bỏ</button>
+                        <a href="<?=_WEB_ROOT?>/quan-ly-san-pham" class="btn-huy">Hủy bỏ</a>
                     </div>
                 </form>
             </div>

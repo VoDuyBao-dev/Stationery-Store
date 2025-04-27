@@ -18,7 +18,7 @@ class ProductModel extends Model
                 JOIN products p ON pt.product_id = p.product_id
                 GROUP BY p.product_id
                 ORDER BY total_sold DESC
-                LIMIT 6
+                LIMIT 9
             ),
             best_selling_product_type AS (
                 -- Lấy product_type có lượt bán cao nhất cho mỗi sản phẩm
@@ -58,6 +58,29 @@ class ProductModel extends Model
         return $result;
     }
 
+    // danh mục sản phẩm mới
+    public function newProductCatalog(){
+        $sql = "SELECT 
+    p.product_id,
+    p.name AS product_name,
+    pt.product_type_id,
+    pt.image,
+    pt.priceOld,
+    pt.priceCurrent,
+    pt.discount_price
+FROM products p
+JOIN product_type pt ON pt.product_id = p.product_id
+JOIN (
+    SELECT product_id, MAX(created_at) AS latest_create_at
+    FROM product_type
+    WHERE created_at >= DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)
+    GROUP BY product_id
+) latest ON pt.product_id = latest.product_id 
+    AND pt.created_at = latest.latest_create_at
+ORDER BY pt.created_at DESC";
+        return  $this->fetchAll($sql);
+    }
+
     public function stockQuantityOf_allProducts()
     {
         $sql = "SELECT product_type_id,stock_quantity FROM $this->_table_product_type";
@@ -88,7 +111,7 @@ class ProductModel extends Model
                     )
                 )
             ORDER BY pt.discount_price DESC
-            LIMIT 5";
+            LIMIT 8";
 
 
         $result = $this->fetchAll($sql);
@@ -499,7 +522,7 @@ class ProductModel extends Model
     // Cập nhật sản phẩm
     public function updateProductID($name, $description, $category_id, $brand_id,$product_id)
     {
-        $sql = "UPDATE products
+        $sql = "UPDATE $this->_table_products
         SET 
             name = ?,
             description = ?,

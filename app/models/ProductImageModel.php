@@ -19,7 +19,7 @@ class ProductImageModel extends Model
 
     public function deleteProductImageID($product_id)
     {
-        $sql = "DELETE FROM product_images WHERE product_id = ?";
+        $sql = "DELETE FROM $this->_table WHERE product_id = ?";
         $params = [$product_id];
         try {
             $affectedRows = $this->execute($sql, $params);

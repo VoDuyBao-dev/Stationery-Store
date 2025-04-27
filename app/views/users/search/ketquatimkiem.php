@@ -40,8 +40,8 @@
         <div class="product-list">
         <?php foreach($getProduct_Search as $product):?>
             <div class="product">
-            <div class="sale-tag"><p>Sale <br> 25%</p></div>
-                <img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/products/<?= $product['image'] ?>" alt="<?= $product['product_name'] ?>">
+            <div class="sale-tag"><p>Sale <br> <?=$product['discount_price']?>%</p></div>
+                <img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/image_products_type/<?= $product['image'] ?>" alt="<?= $product['product_name'] ?>">
                 <p class="name"><?= $product['product_name'] ?></p>
                 <p class="price"><span class="new"><?= $product['priceCurrent'] ?>đ</span> <span class="old"><?= $product['priceOld'] ?>đ</span></p>
                 <button class="btn" onclick="viewProduct('<?= $product['product_name'] ?>',<?= $product['product_id'] ?>,<?= $product['product_type_id'] ?> )">Xem ngay</button>

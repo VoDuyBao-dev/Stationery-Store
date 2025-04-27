@@ -309,6 +309,7 @@ class AdminManage extends Controller
             
             // sản phẩm mặc định cần sửa
             $product = $this->manageProductModel->getProductID($product_id);
+            
             $imagesProduct = $this->manageProductModel->getAll_imageOfProduct($product_id);
             $productType_ofProductID = $this->manageProductTypeModel->getAllProductType_ofProductID($product_id);
             
@@ -363,13 +364,30 @@ class AdminManage extends Controller
             $productTypes = [];
             if (isset($_POST['product_types']) && is_array($_POST['product_types'])) {
                 foreach ($_POST['product_types'] as $key => $type) {
+                    // Xử lý chuỗi giá tiền
+                    $priceNew = $type['priceNew'] ?? '';
+                    $priceCurrent = $type['priceCurrent'] ?? '';
+
+                    // Loại bỏ ký tự đơn vị tiền và dấu chấm phân cách
+                    $priceNew = str_replace(['₫', '.'], '', $priceNew);
+                    $priceCurrent = str_replace(['₫', '.'], '', $priceCurrent);
+                    
                     $productTypes[$key] = [
                         'name' => htmlspecialchars(trim(preg_replace('/\s+/', ' ', $type['productType_name']))),
-                        'priceCurrent' => $type['priceCurrent'],
-                        'priceNew' => $type['priceNew'],
-                        'stock_quantity' => $type['stock_quantity'],
+                        'priceCurrent' => (float)$priceCurrent,
+                        'priceNew' => !empty($priceNew) ? (float)$priceNew : null,
+                        'stock_quantity' => intval($type['stock_quantity']),
                         'product_type_id' => $type['product_type_id']
                     ];
+                    
+                    // Validate giá
+                    if ($productTypes[$key]['priceCurrent'] <= 0) {
+                        $errors[] = "Giá bán phải lớn hơn 0";
+                    }
+                    if (!empty($productTypes[$key]['priceNew']) && 
+                        $productTypes[$key]['priceNew'] > $productTypes[$key]['priceCurrent']) {
+                        $errors[] = "Giá mới không được lớn hơn giá hiện tại";
+                    }
 
                     // Xử lý ảnh chính của product type
                     if (isset($_FILES['product_types']['name'][$key]['main_image'])) {
@@ -431,7 +449,7 @@ class AdminManage extends Controller
             // Kiểm tra lỗi trước khi lưu
             if (!empty($errors)) {
                 Helpers::setFlash('error', implode("<br>", $errors));
-                header("Location:" . _WEB_ROOT . "/them-san-pham");
+                header("Location:" . _WEB_ROOT . "/sua-san-pham?product_id=$product_id");
                 exit();
             }
 
@@ -443,7 +461,7 @@ class AdminManage extends Controller
                 header("Location:" . _WEB_ROOT . "/quan-ly-san-pham");
             } else {
                 Helpers::setFlash('error', $result);
-                header("Location:" . _WEB_ROOT . "/them-san-pham");
+                header("Location:" . _WEB_ROOT . "/sua-san-pham?product_id=$product_id");
             }
             exit();
         

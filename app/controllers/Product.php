@@ -244,4 +244,16 @@ class Product extends Controller
     
     }
 
+    // danh mục sản phẩm mới
+    public function newProductCatalog(){
+        $products = $this->productModel->newProductCatalog();
+        $data = [
+            'products_bestSeller' => $products
+        ];
+        $this->render("products/products_bestSeller", $data);
+    
+    }
+
+
+
 }
