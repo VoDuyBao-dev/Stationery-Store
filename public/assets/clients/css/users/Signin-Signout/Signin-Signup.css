@@ -3,7 +3,7 @@ body {
     justify-content: center;
     align-items: flex-start;
     height: 100%;
- 
+
 }
 
 .hidden {
@@ -19,7 +19,7 @@ body {
     margin: 150px 400px 50px 400px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     overflow: hidden;
-    
+
 }
 
 .tabs {
@@ -73,9 +73,10 @@ input {
     background: #f8f8f8;
 }
 
-p{
+p {
     font-weight: italic;
 }
+
 .btn {
     width: 100%;
     padding: 12px;
@@ -91,6 +92,7 @@ p{
 .btn:hover {
     background: #a7895c;
 }
+
 .forgot {
     display: ruby-text;
     color: #a7895c;
@@ -98,22 +100,26 @@ p{
     text-align: center;
 
 }
+
 h4 {
     text-align: center;
     color: #797373e8;
 }
 
-.forgot span{
+.forgot span {
     text-align: center;
     color: #000000;
 }
+
 .forgot:hover {
     color: #ddb06b;
 }
 
 .success-message {
-    background-color: #d4edda; /* Xanh lá nhạt */
-    color: #155724; /* Xanh lá đậm */
+    background-color: #d4edda;
+    /* Xanh lá nhạt */
+    color: #155724;
+    /* Xanh lá đậm */
     padding: 12px;
     border: 1px solid #c3e6cb;
     border-radius: 5px;
@@ -124,8 +130,10 @@ h4 {
 }
 
 .error-message {
-    background-color: #f8d7da; /* Đỏ nhạt */
-    color: #721c24; /* Đỏ đậm */
+    background-color: #f8d7da;
+    /* Đỏ nhạt */
+    color: #721c24;
+    /* Đỏ đậm */
     padding: 12px;
     border: 1px solid #f5c6cb;
     border-radius: 5px;
@@ -149,7 +157,7 @@ h4 {
     text-transform: uppercase;
 }
 
-.or{
+.or {
     margin: 0 10px;
     font-size: 18px;
     color: #a7895c;
@@ -168,10 +176,12 @@ h4 {
     text-align: center;
     width: 100%;
 }
+
 #google-btn:hover {
-    background:#c21919;
+    background: #c21919;
 }
-#google-btn i { 
+
+#google-btn i {
     margin-right: 10px;
     font-size: 23px;
 }
@@ -187,11 +197,12 @@ h4 {
     margin-right: 10px;
     bottom: 20px;
 }
- .remember-me-container input[type="checkbox"] {
+
+.remember-me-container input[type="checkbox"] {
     margin-right: 10px;
     width: 20px;
     height: 20px;
     cursor: pointer;
     border-radius: 50%;
     border: 2px solid #a7895c;
- }
+}

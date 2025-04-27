@@ -32,28 +32,28 @@ document.addEventListener("DOMContentLoaded", function () {
                     let productLink = document.createElement("a");
                     productLink.href = `${_WEB_ROOT}/thong-tin-sp/${product.product_name}/${product.product_id}/${product.product_type_id}`;
 
-                   // Tạo product-block-item
-                   let productBlockItem = document.createElement("div");
-                   productBlockItem.classList.add("product-block-item");
-                   productBlockItem.style.position = "relative"; // Thêm position relative
+                    // Tạo product-block-item
+                    let productBlockItem = document.createElement("div");
+                    productBlockItem.classList.add("product-block-item");
+                    productBlockItem.style.position = "relative"; // Thêm position relative
 
-                    
+
                     let productImage = document.createElement("img");
                     productImage.src = `${_WEB_ROOT}/public/assets/clients/images/image_products_type/${product.image || 'default.jpg'}`;
                     productImage.alt = product.product_name;
                     productImage.width = 150;
                     productImage.height = 250;
                     productLink.appendChild(productImage);
-                    
 
-                     
-                     // Thêm sale tag
-                     let saleTagDiv = document.createElement("div");
-                     saleTagDiv.classList.add("sale-tag");
-                     saleTagDiv.innerHTML = '<p>Sale <br> 25%</p>';
-                     productBlockItem.appendChild(saleTagDiv);
-                     productBlockItem.appendChild(productImage);
-                     productLink.appendChild(productBlockItem);
+
+
+                    // Thêm sale tag
+                    let saleTagDiv = document.createElement("div");
+                    saleTagDiv.classList.add("sale-tag");
+                    saleTagDiv.innerHTML = '<p>Sale <br> 25%</p>';
+                    productBlockItem.appendChild(saleTagDiv);
+                    productBlockItem.appendChild(productImage);
+                    productLink.appendChild(productBlockItem);
 
                     let productInfo = document.createElement("div");
                     productInfo.classList.add("product-info");
@@ -77,11 +77,11 @@ document.addEventListener("DOMContentLoaded", function () {
                         oldPrice.innerText = formatCurrencyVND(product.priceOld);
                         priceContainer.appendChild(oldPrice);
                     }
-                    
+
 
                     productInfo.appendChild(productName);
                     productInfo.appendChild(priceContainer);
-                    
+
 
                     productDiv.appendChild(productLink);
                     productDiv.appendChild(productInfo);
@@ -115,7 +115,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // Xử lý click nút xem thêm
-    viewMoreBtn.addEventListener('click', function() {
+    viewMoreBtn.addEventListener('click', function () {
         const link = this.getAttribute('data-href');
         if (link) {
             window.location.href = link;
@@ -132,4 +132,3 @@ document.addEventListener("DOMContentLoaded", function () {
         viewMoreBtn.setAttribute('data-href', defaultLink);
     }
 });
-
