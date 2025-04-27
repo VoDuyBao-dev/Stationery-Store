@@ -103,6 +103,8 @@ $routes['bao-cao-doanh-thu/export'] = 'ReportController/exportExcel';
 
 
 $routes['addReview'] = 'order/addReview';
+$routes['search'] = 'AdminSearch/index';
+
 
 
 // Chat giữa admin và khách hàng

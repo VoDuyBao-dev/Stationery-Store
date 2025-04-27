@@ -2,20 +2,33 @@
 
 class AdminSearchModel extends Model
 {
-    public function search($query)
+    public function search($keyword)
     {
-        $query = '%' . $query . '%';
+        $result = [
+            'products' => [],
+            'users' => [],
+            'orders' => [],
+            'coupons' => []
+        ];
 
-        $sql = "(
-            SELECT 'product' AS type, product_id AS id, name AS title FROM products WHERE name LIKE ?
-        ) UNION (
-            SELECT 'coupon' AS type, coupon_id AS id, code AS title FROM coupons WHERE code LIKE ?
-        ) UNION (
-            SELECT 'user' AS type, user_id AS id, username AS title FROM users WHERE username LIKE ?
-        ) UNION (
-            SELECT 'order' AS type, order_id AS id, CONCAT('Order #', order_id) AS title FROM orders WHERE order_id LIKE ?
-        )";
+        $searchKey = '%' . $keyword . '%';
 
-        return $this->query($sql, [$query, $query, $query, $query]);
+        // Tìm kiếm sản phẩm
+        $sqlProduct = "SELECT product_id, name, price FROM products WHERE name LIKE ?";
+        $result['products'] = $stmtProduct->fetchAll($sqlProduct, [$keyword]);
+
+        // Tìm kiếm tài khoản người dùng
+        $sqlUser = "SELECT user_id, fullname, email FROM users WHERE username LIKE ? OR email LIKE ?";
+        $result['users'] = $stmtUser->fetchAll($sqlUser, [$keyword, $keyword]);
+
+        // Tìm kiếm đơn hàng
+        $sqlOrder = "SELECT order_id, order, user_id, status FROM orders WHERE order_id LIKE ?";
+        $result['orders'] = $stmtOrder->fetchAll($sqlOrder, [$keyword]);
+
+        // Tìm kiếm mã giảm giá
+        $sqlCoupon = "SELECT id, code, discount_value FROM coupons WHERE code LIKE ?";
+        $result['coupons'] = $stmtCoupon->fetchAll($sqlCoupon, [$keyword]);
+
+        return $result;
     }
 }

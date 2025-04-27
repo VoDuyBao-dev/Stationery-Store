@@ -57,7 +57,7 @@ class Controller
 
     public function validateAdmin(){
         if((!isset($_SESSION['user']) || ($_SESSION['user']['role'] !== 'admin') )){
-            header("Location:" . _WEB_ROOT. "/trang-chu");
+            header("Location:" . _WEB_ROOT. "/dang-nhap");
             exit();
         }
 
