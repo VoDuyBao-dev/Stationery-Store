@@ -152,6 +152,7 @@ class OrderModel extends Model
 
 
     // Liên quan review
+
     public function getProductID($order_id)
     {
         $sql = "select product_type.product_id as product_id
@@ -159,6 +160,12 @@ class OrderModel extends Model
                 inner join product_type on order_details.product_type_id = product_type.product_type_id
                 where order_details.order_id = ? limit 1";
         return $this->fetch($sql, [$order_id]);
+    }
+
+    public function checkReview($product_id, $user_id)
+    {
+        $sql = "SELECT * FROM reviews WHERE product_id = ? AND user_id = ?";
+        return $this->fetch($sql, [$product_id, $user_id]);
     }
 
     public function insertReview($product_id, $user_id, $rating, $comment)

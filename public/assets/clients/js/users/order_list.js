@@ -57,12 +57,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Xử lý hủy đơn hàng
     const cancelButtons = document.querySelectorAll('.cancel-btn');
-    
+
     cancelButtons.forEach(button => {
-        button.addEventListener('click', function() {
+        button.addEventListener('click', function () {
             const orderId = this.getAttribute('data-id');
-            
-            if(confirm('Bạn có chắc chắn muốn hủy đơn hàng này?')) {
+
+            if (confirm('Bạn có chắc chắn muốn hủy đơn hàng này?')) {
                 fetch(`${_WEB_ROOT}/huy-don-hang`, {
                     method: 'POST',
                     headers: {
@@ -72,19 +72,19 @@ document.addEventListener("DOMContentLoaded", function () {
                         order_id: orderId
                     })
                 })
-                .then(response => response.json())
-                .then(data => {
-                    if(data.success) {
-                        alert('Đã hủy đơn hàng thành công');
-                        location.reload(); // Tải lại trang để cập nhật trạng thái
-                    } else {
-                        alert(data.message || 'Có lỗi xảy ra khi hủy đơn hàng');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('Có lỗi xảy ra khi hủy đơn hàng');
-                });
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert('Đã hủy đơn hàng thành công');
+                            location.reload(); // Tải lại trang để cập nhật trạng thái
+                        } else {
+                            alert(data.message || 'Có lỗi xảy ra khi hủy đơn hàng');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Có lỗi xảy ra khi hủy đơn hàng');
+                    });
             }
         });
     });
@@ -95,7 +95,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const fromDate = document.getElementById('from-date');
     const toDate = document.getElementById('to-date');
 
-    filterBtn.addEventListener('click', function() {
+    filterBtn.addEventListener('click', function () {
         if (!fromDate.value || !toDate.value) {
             alert('Vui lòng chọn khoảng thời gian');
             return;
@@ -109,7 +109,7 @@ document.addEventListener("DOMContentLoaded", function () {
         window.location.href = `${_WEB_ROOT}/danh-sach-don-hang?from_date=${fromDate.value}&to_date=${toDate.value}`;
     });
 
-    resetBtn.addEventListener('click', function() {
+    resetBtn.addEventListener('click', function () {
         window.location.href = `${_WEB_ROOT}/danh-sach-don-hang`;
     });
 
@@ -119,8 +119,4 @@ document.addEventListener("DOMContentLoaded", function () {
         fromDate.value = urlParams.get('from_date');
         toDate.value = urlParams.get('to_date');
     }
-<<<<<<< HEAD
 });
-=======
-});
->>>>>>> 580a8c3c434e68307f420358f437d186cf2d80fd

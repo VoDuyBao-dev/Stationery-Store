@@ -20,10 +20,8 @@ class AdminSearch extends Controller
 
     public function index()
     {
-        // echo "đen dược đây";
-        // die();
+
         $keyword = $_GET['q'] ?? '';
-        // $searchModel = $this->model('AdminSearchModel');
         $results = $this->searchModel->search($keyword);
 
         $this->render('admin/admin_search', [
@@ -32,4 +30,3 @@ class AdminSearch extends Controller
         ]);
     }
 }
-?>

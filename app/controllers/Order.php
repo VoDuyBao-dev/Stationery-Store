@@ -35,7 +35,6 @@ class Order extends Controller
             $order_list = $this->OrderModel->getOrdersByUserId($user_id);
         }
 
-
         $data = [
             'order_list' => $order_list,
         ];
@@ -114,7 +113,7 @@ class Order extends Controller
 
 
 
-// Thêm đanhs giá
+    // Thêm đanhs giá
 
     public function addReview()
     {
@@ -128,14 +127,18 @@ class Order extends Controller
             // Kiểm tra dữ liệu hợp lệ
             if ($order_id > 0 && $user_id > 0 && $rating > 0 && $rating <= 5 && !empty($comment)) {
                 $product_id = $this->OrderModel->getProductID($order_id);
+                $checkReview = $this->OrderModel->checkReview($product_id['product_id'], $user_id);
 
-                $result = $this->OrderModel->insertReview($product_id['product_id'], $user_id, $rating, $comment);
+                if (count($checkReview) > 0) {
+                    header('Location: ' . _BASE_URL . '/danh-sach-don-hang');
+                    exit();
+                } else
+                    $result = $this->OrderModel->insertReview($product_id['product_id'], $user_id, $rating, $comment);
 
                 if ($result) {
                     header('Location: ' . _BASE_URL . '/danh-sach-don-hang');
                     exit();
-                }
-                else{
+                } else {
                     echo "<script>alert('Không lưu đánh giá được')</script>";
                 }
             } else {
