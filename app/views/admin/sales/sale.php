@@ -43,7 +43,7 @@
     <main>
 
         <div class="sale-container">
-            <h1>Quản lý Khuyến mãi</h1>
+            <h2>Quản lý Khuyến mãi</h2>
 
             <div id="promotion-actions">
                 <button id="add-promotion-btn">Thêm khuyến mãi mới</button>
@@ -70,11 +70,11 @@
                         <?php foreach ($coupons as $coupon): ?>
                             <tr>
                                 <td><?php echo htmlspecialchars($coupon['code']); ?></td>
-                                <td><?php echo htmlspecialchars($coupon['price_min']); ?></td>
-                                <td><?php echo htmlspecialchars($coupon['discount']); ?></td>
-                                <td><?php echo htmlspecialchars($coupon['start_date']); ?></td>
-                                <td><?php echo htmlspecialchars($coupon['end_date']); ?></td>
-                                <td><?php echo htmlspecialchars($coupon['status']); ?></td>
+                                <td style="text-align: right;"><?php echo htmlspecialchars($coupon['price_min']); ?></td>
+                                <td style="text-align: center;"><?php echo htmlspecialchars($coupon['discount']); ?></td>
+                                <td style="text-align: right;"><?php echo htmlspecialchars($coupon['start_date']); ?></td>
+                                <td style="text-align: right;"><?php echo htmlspecialchars($coupon['end_date']); ?></td>
+                                <td style="text-align: center;"><?php echo htmlspecialchars($coupon['status']); ?></td>
                                 <td class="actions">
                                     <button class="edit-btn" data-id="<?= $coupon['coupon_id'] ?>">Sửa</button>
                                     <button class="delete-btn" data-id="<?= $coupon['coupon_id'] ?>">Xóa</button>
@@ -109,7 +109,7 @@
                         </div>
                         <div class="form-actions">
                             <button type="button" class="cancel-btn add-modal-close">Hủy</button>
-                            <button type="submit">Thêm</button>
+                            <button type="submit" class="save-btn">Thêm</button>
                         </div>
                     </form>
                 </div>
@@ -118,7 +118,7 @@
             <div id="editModal" class="modal">
                 <div class="modal-content">
                     <span class="close edit-modal-close">&times;</span>
-                    <h1>Sửa khuyến mãi</h1>
+                    <h1 >Sửa khuyến mãi</h1>
                     <form id="edit-promotion-form" action="<?php echo _BASE_URL; ?>/update" method="POST">
                         <div class="form-group">
                             <input type="hidden" name="coupon_id" id="edit-coupon-id">
@@ -140,21 +140,21 @@
                         </div>
                         <div class="form-actions">
                             <button type="button" class="cancel-btn edit-modal-close">Hủy</button>
-                            <button type="submit">Lưu</button>
+                            <button type="submit" class="save-btn">Lưu</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
         <!-- Modal xác nhận xóa -->
-        <div id="confirmDeleteModal" class="modal">
+        <div id="confirmDeleteModal" class="modal"> 
             <form action="<?php echo _BASE_URL; ?>/destroy" method="POST">
                 <div class="modal-content">
                     <h3>Bạn có chắc chắn muốn xóa khuyến mãi này?</h3>
                     <div class="form-actions">
                         <input type="hidden" name="coupon_id" id="delete-coupon-id">
                         <button id="cancelDeleteBtn" class="cancel-btn" type="button">Hủy</button>
-                        <button id="confirmDeleteBtn" type='submit'>Xóa</button>
+                        <button id="confirmDeleteBtn" class="delete-btn" type='submit'>Xóa</button>
                     </div>
                 </div>
             </form>
