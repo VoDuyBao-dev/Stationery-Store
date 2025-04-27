@@ -27,6 +27,7 @@ class Chat extends Controller
             exit();
         }
 
+
         $chatList = $this->chatModel->getChatList($currentUserId, $role);
         $allSticker = $this->chatModel->getAllStickers();
 
@@ -83,7 +84,6 @@ class Chat extends Controller
 
     public function sendMessage()
     {
-
         // Lấy thông tin từ session và POST
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $sender_id = $_SESSION['user']['user_id'];

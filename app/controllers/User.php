@@ -143,6 +143,7 @@ class User extends Controller
         );
 
 
+
         if ($result === true) {
             unset($_SESSION["otp"]);
             unset($_SESSION['register_data']);
@@ -252,7 +253,7 @@ class User extends Controller
                     setcookie('remember_email', $email, time() + (86400 * 30), "/");
                     setcookie('remember_token', $rememberToken, time() + (86400 * 30), "/");
                 }
-//                reset bộ đếm dăng nhập sai
+                //                reset bộ đếm dăng nhập sai
                 $_SESSION['signin_incorrect'] = 0;
                 // xóa session old email
                 unset($_SESSION['old_email']);
@@ -293,7 +294,7 @@ class User extends Controller
 
 
 
-    
+
 
 
     public function forgot_pass()
@@ -460,5 +461,4 @@ class User extends Controller
     {
         $this->render("users/reply/reply");
     }
-
 }

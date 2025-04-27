@@ -6,7 +6,8 @@ namespace App\Helpers;
 
 use App\Logger;
 
-class ImageUploadHelper {
+class ImageUploadHelper
+{
     // Các biến static để cấu hình chung
     private static $dinhDangChoPhep = ['png', 'jpg', 'jpeg', 'webp'];
     private static $kichThuocToiDa = 2097152; // 2MB 
@@ -18,9 +19,10 @@ class ImageUploadHelper {
      * @param string|null $tenFile Tên file tùy chọn
      * @return array Kết quả upload
      */
-    public static function kiemTraVaUploadAnh($file, $duongDanLuu) {
+    public static function kiemTraVaUploadAnh($file, $duongDanLuu)
+    {
         $errors = [];
-        
+
         // Kiểm tra lỗi upload
         if ($file['error'] !== UPLOAD_ERR_OK) {
             Logger::logError("Lỗi upload file: " . $file['error']);
@@ -48,10 +50,10 @@ class ImageUploadHelper {
                 'loiNhan' => "File vượt quá kích thước cho phép (2MB)"
             ];
         }
-        
+
         // Xóa hết khoảng trắng
         $tenFile = str_replace(' ', '', $file['name']);
-       
+
         // Chuẩn bị đường dẫn
         $duongDanLuu = str_replace('/', '\\', $duongDanLuu);
         $document_root = str_replace('/', '\\', $_SERVER['DOCUMENT_ROOT']);

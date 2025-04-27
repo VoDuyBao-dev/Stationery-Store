@@ -1,7 +1,9 @@
 <?php
+
 use App\Helpers\ImageUploadHelper;
 use core\Helpers;
 use App\Logger;
+
 class AdminManage extends Controller
 {
     private $manageUserModel;
@@ -12,7 +14,7 @@ class AdminManage extends Controller
     private $manageProductModel;
 
     public function __construct()
-{
+    {
         try {
             $this->manageUserModel = $this->model('UserModel');
             $this->manageBrandModel = $this->model('BrandModel');
@@ -116,14 +118,16 @@ class AdminManage extends Controller
     }
 
     // Quản lý sp
-    
-    public function addProduct() {
+
+    public function addProduct()
+    {
+        $this->validateAdmin();
         $brands = $this->manageBrandModel->getAllBrand();
         $categories = $this->manageCategoryModel->getAllCategory();
 
-        if(isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') {
+        if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') {
             $errors = [];
-            
+
             // Xử lý và kiểm tra dữ liệu sản phẩm cơ bản
             $productData = [
                 'name' => htmlspecialchars(trim(preg_replace('/\s+/', ' ', $_POST['product_name']))) ?? null,
@@ -158,7 +162,7 @@ class AdminManage extends Controller
                             'error' => $_FILES['product_types']['error'][$key]['main_image'],
                             'size' => $_FILES['product_types']['size'][$key]['main_image']
                         ];
-                        
+
 
                         $ketQuaUpload = ImageUploadHelper::kiemTraVaUploadAnh(
                             $file,
@@ -170,7 +174,7 @@ class AdminManage extends Controller
                             Logger::logError("Lỗi upload ảnh phân loại: " . $ketQuaUpload['loiNhan']);
                             continue;
                         }
-                      
+
                         $productTypes[$key]['image'] = $ketQuaUpload['duongDan'];
                     }
                 }
@@ -225,14 +229,14 @@ class AdminManage extends Controller
                     'type' => 'success',
                     'message' => 'Thêm sản phẩm mới thành công!'
                 ]);
-             
+
                 header("Location:" . _WEB_ROOT . "/quan-ly-san-pham");
             } else {
                 Helpers::setFlash('notification', [
                     'type' => 'error',
                     'message' => $result
                 ]);
-               
+
                 header("Location:" . _WEB_ROOT . "/them-san-pham");
             }
             exit();
@@ -247,43 +251,95 @@ class AdminManage extends Controller
 
     public function qlsp()
     {
+        $this->validateAdmin();
+        if(isset($_GET['search_product'])) {
+            $search = $_GET['search_product'];
+            $productTypes = $this->manageProductTypeModel->getSearchProducts($search);
+            $data = [
+                "productTypes" => $productTypes
+            ];
+        } else {
+            
+            // phân trang
+            $sd = 20;
 
-      
+            // Lấy số sp để phân trang
+
+            $countProductTypes = $this->manageProductTypeModel->countProductType();
+            // lấy tổng số sp
+            $tsp = $countProductTypes['count'];
+            // tính tổng số trang
+            $tst = ceil($tsp / $sd);
+
+            if (isset($_GET['page'])) {
+                $page = $_GET['page'];
+            } else $page = 1;
+            $vt = ($page - 1) * $sd; // vị trí bắt đầu
+
+            // lấy số lượng sản phẩm tương ứng trên 1 trang
+
+            $productTypes = $this->manageProductTypeModel->getAllProductType($vt, $sd);
+            $data = [
+
+                'tst' => $tst,
+                'page' => $page,
+                "productTypes" => $productTypes
+            ];
+        }
+        
+       
+
+        
+
+        $this->render("admin/products/Quanlysanpham", $data);
+    }
+
+    public function searchProduct()
+    {
+        $this->validateAdmin();
+        if(isset($_GET['search'])) {
+            $search = $_GET['search'];
+            $productTypes = $this->manageProductTypeModel->searchProduct($search);
+        } else {
+            $productTypes = $this->manageProductTypeModel->getAllProductType();
+        }
         // phân trang
         $sd = 20;
-        
+
         // Lấy số sp để phân trang
-        
+
         $countProductTypes = $this->manageProductTypeModel->countProductType();
         // lấy tổng số sp
         $tsp = $countProductTypes['count'];
         // tính tổng số trang
-        $tst = ceil($tsp/$sd);
-        
-        if(isset($_GET['page'])){
+        $tst = ceil($tsp / $sd);
+
+        if (isset($_GET['page'])) {
             $page = $_GET['page'];
-        }else $page = 1;
-        $vt = ($page-1)*$sd; // vị trí bắt đầu
+        } else $page = 1;
+        $vt = ($page - 1) * $sd; // vị trí bắt đầu
 
         // lấy số lượng sản phẩm tương ứng trên 1 trang
-       
-        $productTypes = $this->manageProductTypeModel->getAllProductType($vt,$sd);
-        
-        
+
+        $productTypes = $this->manageProductTypeModel->getAllProductType($vt, $sd);
+
+
         $data = [
-           
+
             'tst' => $tst,
             'page' => $page,
             "productTypes" => $productTypes
         ];
-        
+
         $this->render("admin/products/Quanlysanpham", $data);
     }
 
+    
+
     public function DeleteProduct()
     {
-        
-        if(isset($_GET['productType_id'])){
+        $this->validateAdmin();
+        if (isset($_GET['productType_id'])) {
             $productType_id = $_GET['productType_id'];
             $result = $this->manageProductTypeModel->deleteProductType($productType_id);
             if ($result) {
@@ -294,27 +350,28 @@ class AdminManage extends Controller
         } else {
             Helpers::setFlash('error', 'ID sản phẩm không hợp lệ!');
         }
-        
-        header("Location:" . _WEB_ROOT . "/quan-ly-san-pham");  
+
+        header("Location:" . _WEB_ROOT . "/quan-ly-san-pham");
         exit();
     }
 
-    public function editingProductPage(){
-        
+    public function editingProductPage()
+    {
+        $this->validateAdmin();
         $brands = $this->manageBrandModel->getAllBrand();
         $categories = $this->manageCategoryModel->getAllCategory();
-        if(isset($_GET['product_id'])) {
+        if (isset($_GET['product_id'])) {
 
             $product_id = $_GET['product_id'];
-            
+
             // sản phẩm mặc định cần sửa
             $product = $this->manageProductModel->getProductID($product_id);
             
             $imagesProduct = $this->manageProductModel->getAll_imageOfProduct($product_id);
             $productType_ofProductID = $this->manageProductTypeModel->getAllProductType_ofProductID($product_id);
-            
 
-            
+
+
             if ($product) {
                 $data = [
                     'brands' => $brands,
@@ -323,27 +380,26 @@ class AdminManage extends Controller
                     'imagesProduct' => $imagesProduct,
                     'productType_ofProductID' => $productType_ofProductID
 
-                    ];
+                ];
                 $this->render("admin/products/Suasanpham", $data);
-            } 
-        } 
-      
-
+            }
+        }
     }
 
-    public function editingProduct() {
-       
+    public function editingProduct()
+    {
 
-        if(isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') {
-            
+        $this->validateAdmin();
+        if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') {
+
             $product_id = $_POST['product_id'] ?? null;
             if ($product_id === null || !is_numeric($product_id) || $product_id <= 0) {
                 Helpers::setFlash('error', 'ID không hợp lệ!');
                 header("Location:" . _WEB_ROOT . "/quan-ly-san-pham");
                 exit();
             }
-           
-           
+
+
             $errors = [];
             // Xử lý và kiểm tra dữ liệu sản phẩm cơ bản
             $productData = [
@@ -398,7 +454,7 @@ class AdminManage extends Controller
                             'error' => $_FILES['product_types']['error'][$key]['main_image'],
                             'size' => $_FILES['product_types']['size'][$key]['main_image']
                         ];
-                        
+
 
                         $ketQuaUpload = ImageUploadHelper::kiemTraVaUploadAnh(
                             $file,
@@ -410,7 +466,7 @@ class AdminManage extends Controller
                             Logger::logError("Lỗi upload ảnh phân loại: " . $ketQuaUpload['loiNhan']);
                             continue;
                         }
-                      
+
                         $productTypes[$key]['image'] = $ketQuaUpload['duongDan'];
                     }
                 }
@@ -464,10 +520,6 @@ class AdminManage extends Controller
                 header("Location:" . _WEB_ROOT . "/sua-san-pham?product_id=$product_id");
             }
             exit();
-        
         }
-       
     }
-   
-    
 }

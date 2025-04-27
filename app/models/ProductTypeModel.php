@@ -2,17 +2,16 @@
 class ProductTypeModel extends Model
 {
     private $_table = 'product_type';
-    
+
     public function insertProductType($productId, $name, $image, $priceCurrent, $stock_quantity)
     {
         $sql = "INSERT INTO $this->_table (`product_id`, `name`, `image`, `priceCurrent`, `stock_quantity`) VALUES (?, ?, ?, ?, ?)";
         $params = [$productId, $name, $image, $priceCurrent, $stock_quantity];
-        try{
+        try {
             return $this->execute($sql, $params);
-        }catch (Exception $e) {
+        } catch (Exception $e) {
             return false;
         }
-         
     }
 
     public function getAllProductType($vt,$sd)
@@ -95,8 +94,24 @@ class ProductTypeModel extends Model
         return $result;
     }
 
-
+// tìm kiếm sản phẩm của quản lí sản phẩm aadmin
+public function getSearchProducts($search)
+{
+    $search = "%$search%";
+    $sql = "SELECT p.product_id, p.name AS product_name, c.name as name_category, pt.product_type_id, pt.image, pt.priceOld, pt.priceCurrent, pt.stock_quantity, pt.status
+            FROM products p
+            JOIN product_type pt 
+                ON pt.product_id = p.product_id 
+			join categories c
+            on p.category_id = c.category_id
+            
+where p.name like ?
+order by p.product_id asc
+    ";
+    $params = [$search];
+    $result = $this->fetchAll($sql, $params);
+    return $result;
+}
 
     
 }
-?>

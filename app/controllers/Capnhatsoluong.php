@@ -32,7 +32,7 @@ class Capnhatsoluong extends Controller
             $html_cart .= '
             <div class="cart-item">
             
-                <img src="' . _WEB_ROOT . '/public/assets/clients/images/products/' . htmlspecialchars($item['image']) . '" 
+                <img src="' . _WEB_ROOT . '/public/assets/clients/images/image_products_type/' . htmlspecialchars($item['image']) . '" 
                      alt="' . htmlspecialchars($item['product_name']) . '">
                 <div class="cart-item-info">
                     <p><strong>' . htmlspecialchars($item['product_name']) . '</strong></p>

@@ -21,6 +21,7 @@ class Coupon extends Controller
     // Hiển thị danh sách mã giảm giá
     public function khuyenmai()
     {
+        $this->validateAdmin();
         $coupons = $this->couponModel->getAllCoupons();
         $this->render("admin/sales/sale",  ['coupons' => $coupons]);
     }
@@ -29,6 +30,7 @@ class Coupon extends Controller
     // Lưu mã giảm giá mới
     public function store()
     {
+        $this->validateAdmin();
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             header('Location: ' . _BASE_URL . '/sale');
             exit;
@@ -79,6 +81,7 @@ class Coupon extends Controller
 
     public function show($id)
     {
+        $this->validateAdmin();
         $id = $id[0];
         // Lấy dữ liệu coupon từ model
         $coupon = $this->couponModel->getCouponById($id);
@@ -104,7 +107,7 @@ class Coupon extends Controller
     // Cập nhật mã giảm giá
     public function update()
     {
-        echo "hello";
+        $this->validateAdmin();
         $coupon_id = $_POST['coupon_id'] ?? null;
         if (!$coupon_id) {
             echo "<script>alert('coupon_id')</script>";
@@ -158,6 +161,7 @@ class Coupon extends Controller
     // Xóa mã giảm giá
     public function destroy()
     {
+        $this->validateAdmin();
         $coupon_id = $_POST['coupon_id'] ?? null;
         if (!$coupon_id) {
             header('Location: ' . _BASE_URL . '/sale');

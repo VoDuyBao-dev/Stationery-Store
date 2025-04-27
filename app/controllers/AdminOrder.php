@@ -20,28 +20,72 @@ class AdminOrder extends Controller
     // Hiển thị toàn bộ các đơn hàng đã giao thành công
     public function done()
     {
-        $ordersDone = $this->orderModel->getListOrdersDone();
-        $this->render("admin/orders/daxuly",  ["ordersDone" => $ordersDone]);
+        $this->validateAdmin();
+        $date = $_GET['date'] ?? null;
+        $currentPage = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+        $limit = isset($_GET['limit']) ? (int)$_GET['limit'] : 5;
+        $offset = ($currentPage - 1) * $limit;
+        $totalOrders = count($this->orderModel->getAllDone($date));
+        $totalPages = ceil($totalOrders / $limit);
+        $totalPages = $totalPages == 0 ? 1 : $totalPages;
+        $ordersDone = $this->orderModel->getListOrdersDone($date, $limit, $offset);
+        // $ordersDone = $this->orderModel->getListOrdersDone();
+        $this->render("admin/orders/daxuly",  [
+            "ordersDone" => $ordersDone,
+            "currentPage" => $currentPage,
+            "totalPages" => $totalPages,
+            "limit" => $limit,
+            "date" => $date
+        ]);
     }
 
     // Hiển thị toàn bộ các đơn hàng chờ xác nhận, đang giao hàng, đã hủy
     public function canxuly()
     {
-        $orders = $this->orderModel->getAllOrders();
-        $this->render("admin/orders/qldh_canxuly", ["orders" => $orders]);
+        $this->validateAdmin();
+        $date = isset($_GET['date']) ? $_GET['date'] : null;
+        $currentPage = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+        $limit = isset($_GET['limit']) ? (int)$_GET['limit'] : 5;
+        $offset = ($currentPage - 1) * $limit;
+        $totalOrders = count($this->orderModel->getAll($date));
+        // print($currentPage);
+        // print($limit);
+        // print($offset);
+        // die();
+        $totalPages = ceil($totalOrders / $limit);
+        $totalPages = $totalPages == 0 ? 1 : $totalPages;
+        $orders = $this->orderModel->getAllOrders($date, $limit, $offset);
+        // $ordersDone = $this->orderModel->getListOrdersDone();
+        $this->render("admin/orders/qldh_canxuly",  [
+            "orders" => $orders,
+            "currentPage" => $currentPage,
+            "totalPages" => $totalPages,
+            "limit" => $limit,
+            "date" => $date
+        ]);
     }
 
     // xác nhận giao hàng
     public function xacnhan($order_id)
     {
+        $this->validateAdmin();
         $order_id = $order_id[0];
         $this->orderModel->xacNhanDonModel($order_id);
+        header("Location:" . _WEB_ROOT . "/canxuly");
+    }
+    // xác nhận giao hàng thành công
+    public function xacNhanThanhCong($order_id)
+    {
+        $this->validateAdmin();
+        $order_id = $order_id[0];
+        $this->orderModel->xacNhanDonThanhCongModel($order_id);
         header("Location:" . _WEB_ROOT . "/canxuly");
     }
 
     // Hiển thị đơn hàng khi nhấn nút sửa
     public function viewOrder($order_id)
     {
+        $this->validateAdmin();
         $id = $order_id[0];
         if (!$id) {
             echo "<script>alert('Không tìm thấy đơn hàng hợp lệ')</script>";
@@ -60,6 +104,7 @@ class AdminOrder extends Controller
     // Sửa thông tin đơn hàng (chỉ được sửa phương thức vận chuyển)
     public function suaDon()
     {
+        $this->validateAdmin();
         $order_id = (int)$_POST['edit_ma'];
         $transport_id = $_POST['edit_vanchuyen'];
         $transportOldPrice = $_POST['transportOldPrice'];
@@ -72,6 +117,7 @@ class AdminOrder extends Controller
     // Hủy đơn hàng
     public function huyDon()
     {
+        $this->validateAdmin();
         $order_id = $_POST['order_id'] ?? null;
         $this->orderModel->huyDonModel($order_id);
         header("Location:" . _WEB_ROOT . "/canxuly");
@@ -81,6 +127,7 @@ class AdminOrder extends Controller
     // Xóa đơn hàng 
     public function xoaDon()
     {
+        $this->validateAdmin();
         $order_id = $_POST['order_id'] ?? null;
         if (!$order_id) {
             echo "<script>alert('Không tìm thấy đơn hàng hợp lệ để xóa')</script>";
@@ -93,6 +140,7 @@ class AdminOrder extends Controller
     }
     public function deleteDetail()
     {
+        $this->validateAdmin();
         $order_detail_id = $_POST['order_detail_id'] ?? null;
         $order_id = $this->orderModel->getOrderId($order_detail_id);
         $order_id = $order_id['order_id'];
@@ -119,6 +167,7 @@ class AdminOrder extends Controller
     // Hiển thị toàn bộ các đơn hàng chi tiết có trong đơn hàng có order_id = ?
     public function detailOrder($order_id)
     {
+        $this->validateAdmin();
         $order_id = $order_id[0];
         $details = $this->orderModel->getAllOrderById($order_id);
         header('Content-Type: application/json');
@@ -128,6 +177,7 @@ class AdminOrder extends Controller
     // Hiển thị thông tin chi tiết của đơn hàng để chỉnh sửa (trả JSON)
     public function getOrderDetail($order_detail_id)
     {
+        $this->validateAdmin();
         $order_detail_id = (int)$order_detail_id[0];
         if (!is_numeric($order_detail_id)) {
             echo json_encode(['error' => 'ID không hợp lệ']);
@@ -147,6 +197,7 @@ class AdminOrder extends Controller
     // Nhận dữ liệu đã chỉnh sửa của bản ghi chi tiết đơn hàng để cập nhật lại cơ sở dữ liệu
     public function updateOrderDetail()
     {
+        $this->validateAdmin();
         $order_detail_id = $_POST['order_detail_id'] ?? null;
         if (!$order_detail_id) {
             echo "<script>alert('Sai đường dẫn (thiếu id)');</script>";
