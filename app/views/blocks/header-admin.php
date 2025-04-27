@@ -7,7 +7,7 @@
 
     <div class="search-bar">
         <input type="text" placeholder="Tìm kiếm sản phẩm...">
-        <i class="fas fa-search"></i>
+        <button class="search-btn" type="submit"><i class="fas fa-search"></i></button>
     </div>
 
     <div class="hotline">
@@ -39,8 +39,7 @@
 </header>
 <div class="breadcrumb-banner">
     <div class="container">
-        <p><a href="<?php echo _WEB_ROOT; ?>/admin_layout">Trang chủ</a> / <span>Loading...</span> /
-        <h2>Loading...</h2>
+        <p><a href="<?php echo _WEB_ROOT; ?>/admin_layout">Trang chủ</a> <?php if(isset($breadcrumb)) echo  '<span>'." / " . $breadcrumb .'</span>'; ?>
         </p>
     </div>
 </div>

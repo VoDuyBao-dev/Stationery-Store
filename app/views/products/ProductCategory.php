@@ -114,7 +114,7 @@ use core\Helpers;
                 <?php foreach($allProduct as $product):?>
             <div class="product">
             
-                <img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/products/<?= $product['image'];?>" alt="<?= $product['image'];?>">
+                <img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/image_products_type/<?= $product['image'];?>" alt="<?= $product['image'];?>">
                 <p class="name"><?= $product['product_name']?></p>
                 
                 <p class="price"><span class="new"><?= Helpers::format_currency($product['priceCurrent']); ?></span> <span class="old"><?= Helpers::format_currency($product['priceOld']); ?></span></p>

@@ -27,7 +27,8 @@
             </div>
             <h3>PHƯƠNG THỨC THANH TOÁN</h3>
             <div class="payment-methods">
-                <img src="<?php echo _WEB_ROOT; ?> /public/assets/clients/images/ACB-logo.jpg" alt="ACB">
+                <img src="<?php echo _WEB_ROOT; ?> /public/assets/clients/images/cash.jpg" alt="Cash">
+                <img src="<?php echo _WEB_ROOT; ?> /public/assets/clients/images/VNPay.png" alt="VNPay">
                 <img src="<?php echo _WEB_ROOT; ?> /public/assets/clients/images/MoMo-logo.jpg" alt="MoMo">
             </div>
         </div>

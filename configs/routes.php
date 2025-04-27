@@ -42,7 +42,7 @@ $routes['deleteAll_cart'] = 'cart/deleteAll_cart';
 $routes['deleteIdProduct_inCart'] = 'cart/deleteIdProduct_inCart';
 
 // Chức năng admin
-$routes['manage_users'] = 'AdminManageUser/listuser';
+$routes['manage_users'] = 'AdminManage/listuser';
 
 
 
@@ -65,8 +65,8 @@ $routes['handleMomoIPN'] = 'MomoController/handleMomoIPN';
 $routes['handleMomoCallback'] = 'payment/handleMomoCallback';
 
 
-$routes['qlsp'] = 'AdminManageUser/qlsp';
-$routes['taosp'] = 'AdminManageUser/taosp';
+$routes['quan-ly-san-pham'] = 'AdminManage/qlsp';
+$routes['them-san-pham'] = 'AdminManage/addProduct';
 
 
 // xong
@@ -81,6 +81,14 @@ $routes['kqtim-kiem'] = 'product/resultSearch';
 $routes['notfound'] = 'product/notfound';
 
 
+// Danh sách đơn hàng của user
+$routes['danh-sach-don-hang'] = 'order/orderList';
+
+// tìm kiếm đơn hàng của user
+$routes['tim-kiem-don-hang'] = 'order/searchOrder';
+
+// Hủy đơn hàng phía user
+$routes['huy-don-hang'] = 'order/cancelOrder';
 
 //trang admin_layout
 $routes['admin_layout'] = 'dashboard/home';
@@ -89,6 +97,11 @@ $routes['admin_layout'] = 'dashboard/home';
 $routes['bao-cao-doanh-thu'] = 'ReportController/getRevenueData';
 // export excel
 $routes['bao-cao-doanh-thu/export'] = 'ReportController/exportExcel';
+
+
+
+
+
 
 // Chat giữa admin và khách hàng
 $routes['^chat/([0-9]+)$'] = 'chat/detail/$1';

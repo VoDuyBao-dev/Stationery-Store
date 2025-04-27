@@ -125,6 +125,7 @@ class Cart extends Controller
     // Lấy thông tin vận chuyển  qua trang thanh toán 
     public function getTransport_Payment()
     {
+        $this->checkLogin();
 
         $stockQuantityOf_allProducts = $this->productModel->stockQuantityOf_allProducts();
         $messages = [];
