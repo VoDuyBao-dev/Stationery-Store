@@ -39,8 +39,8 @@
     <h3>Danh mục nổi bật</h3>
     <ul>
         <li><a href="<?php echo _WEB_ROOT; ?>/allBestSelling"><img src="<?php echo _WEB_ROOT; ?> /public/assets/clients/images/banchay.jpg" alt=""> Sản phẩm bán chạy nhất</a></li>
-        <li><a href="#"><img src="<?php echo _WEB_ROOT; ?> /public/assets/clients/images/noibat.jpg" alt=""> Sản phẩm nổi bật</a></li>
-        <li><a href="#"><img src="<?php echo _WEB_ROOT; ?> /public/assets/clients/images/feedback.jpg" alt=""> Phản hồi</a></li>
+        <li><a href="#"><img src="<?php echo _WEB_ROOT; ?> /public/assets/clients/images/noibat.jpg" alt=""> Hàng mới </a></li>
+        <li><a href="#"><img src="<?php echo _WEB_ROOT; ?> /public/assets/clients/images/feedback.jpg" alt=""> Đánh giá</a></li>
         <li><a href="<?php echo _WEB_ROOT . '/phan-hoi'; ?>"><img src="<?php echo _WEB_ROOT; ?> /public/assets/clients/images/lienhe.jpg" alt=""> Liên hệ</a></li>
     </ul>
 </div>
