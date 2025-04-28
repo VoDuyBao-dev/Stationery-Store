@@ -405,6 +405,7 @@ ORDER BY pt.created_at DESC";
                 pt.image,
                 pt.priceCurrent,
                 pt.priceOld,
+                pt.discount_price,
                 pt.stock_quantity,
                 sales.total_sold
             FROM 

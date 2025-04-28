@@ -107,39 +107,7 @@ use core\Helpers;
                 </form>
         </div>
         <!-- Sản phẩm đã xem gần đây -->
-        <section class="section-4">
-            <div class="cart-product-list">
-                <div class="block-title">
-                    <h4>Sản phẩm đã xem gần đây</h4>
-                </div>
-                <div class="block-product">
-                    <div class="product-featured-swiper">
-
-                        <?php if (!empty($products_related)): ?>
-                            <?php foreach ($products_related as $product): ?>
-                                <div class="product-block"
-                                     onclick="event.preventDefault(); viewProduct('<?= $product['product_name'] ?>', <?= $product['product_id'] ?>, <?= $product['product_type_id'] ?>)">
-                                    <div class="product-block-item">
-
-                                        <img src="<?php echo _WEB_ROOT; ?>/public/assets/clients/images/image_products_type/<?= $product['image'] ?>"
-                                             alt="Vở viết"/>
-                                    </div>
-                                    <div class="product-info">
-                                        <p><?= $product['product_name'] ?></p>
-                                        <div class="product-price">
-                                        
-                                            <span class="price"> <?= Helpers::format_currency($product['priceCurrent']); ?></span>
-                                            <span class="old-price"><?= Helpers::format_currency($product['priceOld']); ?></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            <?php endforeach; ?>
-                        <?php endif; ?>
-                    </div>
-                </div>
-                </div>
-        </section>
-
+        
          <!-- hiển thị thông báo khi số lượng vượtu quá hàng tồn kho -->
     <?php if ($noti = Helpers::getFlash('notification')): ?>
 <script>
@@ -155,7 +123,7 @@ Swal.fire({
     </div>
     <?php  require_once _DIR_ROOT . "/app/views/blocks/footer.php";?>
 </main>  
-<script src="<?php echo _WEB_ROOT; ?>/public/assets/clients/js/cart/cart.js"></script>
+<script src="<?php echo _WEB_ROOT; ?>/public/assets/clients/js/products/cart.js"></script>
 
 </body>
 </html>

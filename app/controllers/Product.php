@@ -26,7 +26,7 @@ class Product extends Controller
 
     public function index()
     {
-        $this->validateUser();
+       
         $outstanding_products = $this->productModel->get_BestSellingProducts();
         $flashSale_products = $this->productModel->get_ProductsFlashSale();
         $categories = $this->productModel->getCategories();
@@ -70,7 +70,7 @@ class Product extends Controller
 
     public function productDetail($params)
     {
-        $this->validateUser();
+        
         // Lấy id của product_type và id_product
         $value_params = $this->getValue_ofArrayParams($params);
         if (!$value_params) {
@@ -266,6 +266,8 @@ class Product extends Controller
         $this->render("products/products_bestSeller", $data);
     
     }
+
+    
 
 
 

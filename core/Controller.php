@@ -78,7 +78,12 @@ class Controller
 
     public function redirectIfLoggedIn() {
         if (isset($_SESSION['user'])) {
-            header("Location: " . _WEB_ROOT . "/trang-chu");
+            if($_SESSION['user']['role'] != 'admin'){
+                header("Location: " . _WEB_ROOT . "/trang-chu");
+            }else{
+                header("Location: " . _WEB_ROOT . "/admin_layout");
+            }
+            
             exit();
         }
     }

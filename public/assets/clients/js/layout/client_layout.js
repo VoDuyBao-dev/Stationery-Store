@@ -28,16 +28,38 @@ document.addEventListener("DOMContentLoaded", function () {
                     let productDiv = document.createElement("div");
                     productDiv.classList.add("product");
 
+
                     let productLink = document.createElement("a");
                     productLink.href = `${_WEB_ROOT}/thong-tin-sp/${product.product_name}/${product.product_id}/${product.product_type_id}`;
 
+                   // Tạo product-block-item
+                   let productBlockItem = document.createElement("div");
+                   productBlockItem.classList.add("product-block-item");
+                   productBlockItem.style.position = "relative"; // Thêm position relative
+
+                    
                     let productImage = document.createElement("img");
                     productImage.src = `${_WEB_ROOT}/public/assets/clients/images/image_products_type/${product.image || 'default.jpg'}`;
                     productImage.alt = product.product_name;
                     productImage.width = 150;
-                    productImage.height = 150;
-
+                    productImage.height = 250;
                     productLink.appendChild(productImage);
+                    
+
+                     
+                     // Thêm sale tag
+                     if (product.priceOld && product.priceCurrent) {
+                        const discount = Math.round(((product.priceOld - product.priceCurrent) / product.priceOld) * 100);
+                        if (discount > 0) {
+                            let saleTagDiv = document.createElement("div");
+                            saleTagDiv.classList.add("sale-tag");
+                            saleTagDiv.innerHTML = `<p>Sale <br> ${discount}%</p>`;
+                            productBlockItem.appendChild(saleTagDiv);
+                        }
+                    }
+    
+                    productBlockItem.appendChild(productImage);
+                    productLink.appendChild(productBlockItem);
 
                     let productInfo = document.createElement("div");
                     productInfo.classList.add("product-info");
@@ -61,9 +83,11 @@ document.addEventListener("DOMContentLoaded", function () {
                         oldPrice.innerText = formatCurrencyVND(product.priceOld);
                         priceContainer.appendChild(oldPrice);
                     }
+                    
 
                     productInfo.appendChild(productName);
                     productInfo.appendChild(priceContainer);
+                    
 
                     productDiv.appendChild(productLink);
                     productDiv.appendChild(productInfo);

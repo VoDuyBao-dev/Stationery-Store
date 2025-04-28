@@ -61,6 +61,7 @@ label {
     margin: 10px 0 5px;
     text-align: left;
     padding: 8px;
+    width: 300px;
 }
 
 input {
@@ -91,10 +92,12 @@ p{
     background: #a7895c;
 }
 .forgot {
-    padding-top: 8px;
+    display: ruby-text;
     color: #a7895c;
     cursor: pointer;
     text-align: center;
+    margin: 15px auto;
+
 }
 h4 {
     text-align: center;
@@ -174,6 +177,22 @@ h4 {
     font-size: 23px;
 }
 
+.remember-me-container {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+    margin-left: 300px;
+}
 
-
-
+.remember-me-container.checkbox {
+    margin-right: 10px;
+    bottom: 20px;
+}
+ .remember-me-container input[type="checkbox"] {
+    margin-right: 10px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    border-radius: 50%;
+    border: 2px solid #a7895c;
+ }

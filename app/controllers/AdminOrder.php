@@ -167,10 +167,12 @@ class AdminOrder extends Controller
     // Hiển thị toàn bộ các đơn hàng chi tiết có trong đơn hàng có order_id = ?
     public function detailOrder($order_id)
     {
+        
         $this->validateAdmin();
         $order_id = $order_id[0];
         $details = $this->orderModel->getAllOrderById($order_id);
         header('Content-Type: application/json');
+        
         echo json_encode($details);
     }
 

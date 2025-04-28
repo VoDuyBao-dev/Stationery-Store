@@ -229,7 +229,11 @@ $flashSale_products = $flashSale_products ?? [];
               <?php if (!empty($outstanding_products)): ?>
                 <?php foreach ($outstanding_products as $product): ?>
                   <div class="product-block" onclick="viewProduct('<?= $product['product_name'] ?>',<?= $product['product_id'] ?>,<?= $product['product_type_id'] ?> )" style="cursor: pointer;">
-                    <div class="product-block-item">
+                  <div class="sale-tag">
+                    <p>Sale <br> <?=$product['discount_price']?>%</p>
+                  </div>  
+                  <div class="product-block-item">
+                      
                       <img src="<?php echo _WEB_ROOT; ?>/public/assets/clients/images/image_products_type/<?= $product['image'] ?>" alt="Vở viết" />
                     </div>
                     <div class="product-info">
@@ -320,6 +324,7 @@ $flashSale_products = $flashSale_products ?? [];
 
             <div class="tab-1 tab-content current" id="tab1">
               <div class="product-list">
+                
                 <!-- Các sản phẩm sẽ được hiển thị ở đây sau khi JS xử lý -->
               </div>
             </div>

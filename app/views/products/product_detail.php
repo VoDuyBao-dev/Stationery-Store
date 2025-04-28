@@ -114,7 +114,11 @@ use core\Helpers;
         <!-- Khu vực hiển thị sản phẩm -->
         <div class="nd-img-and-info">
             <!-- Hình ảnh sản phẩm -->
+             
             <div class="product-images">
+            <div class="sale-tag">
+                <p>Sale <br> 25%</p>
+              </div>
                 <img src="<?php echo _WEB_ROOT; ?>/public/assets/clients/images/image_products_type/<?= $default_product_type['image']; ?>"
                     alt="Sổ tay mini" class="main-image" />
                 <div class="thumbnail-container">
@@ -475,17 +479,20 @@ use core\Helpers;
                     </div>
                     <div class="block-product">
                         <div class="product-featured-swiper">
+                            
 
                             <?php if (!empty($products_related)): ?>
                                 <?php foreach ($products_related as $product): ?>
                                     <div class="product-block"
                                         onclick="event.preventDefault(); viewProduct('<?= $product['product_name'] ?>', <?= $product['product_id'] ?>, <?= $product['product_type_id'] ?>)">
                                         <div class="product-block-item">
-
+                                            <div class="sale-tag">
+                                                <p>Sale <br> 25%</p>
+                                            </div>
                                             <img src="<?php echo _WEB_ROOT; ?>/public/assets/clients/images/image_products_type/<?= $product['image'] ?>"
                                                 alt="Vở viết" />
                                         </div>
-                                        <div class="product-info">
+                                        <div class="product-info1">
                                             <p><?= $product['product_name'] ?></p>
                                             <div class="product-price">
 
@@ -519,6 +526,7 @@ use core\Helpers;
             });
         </script>
     <?php endif; ?>
+    <script src="<?php echo _WEB_ROOT; ?>/public/assets/clients/js/products/cart.js"></script>
     <script src="<?php echo _WEB_ROOT; ?>/public/assets/clients/js/products/product_detail.js"></script>
 </body>
 
