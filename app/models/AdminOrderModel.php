@@ -190,8 +190,8 @@ class AdminOrderModel extends Model
     }
     public function xacNhanDonThanhCongModel($order_id)
     {
-        $sql = "UPDATE orders SET trangThaiGiao = ? WHERE order_id = ?";
-        return $this->execute($sql, ['3', $order_id]);
+        $sql = "UPDATE orders SET trangThaiGiao = ?, is_paid = ? WHERE order_id = ?";
+        return $this->execute($sql, ['3', '1', $order_id]);
     }
 
 

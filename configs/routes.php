@@ -105,6 +105,7 @@ $routes['bao-cao-doanh-thu/export'] = 'ReportController/exportExcel';
 
 
 
+$routes['^detailOrderUser/([0-9]+)$'] = 'order/detailOrderUser/$1';     // chi tiết đơn hàng (có nhiều loại sản phẩm)
 
 
 $routes['addReview'] = 'order/addReview';

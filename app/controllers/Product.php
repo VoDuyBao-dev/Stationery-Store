@@ -26,7 +26,6 @@ class Product extends Controller
 
     public function index()
     {
-        $this->validateUser();
         $outstanding_products = $this->productModel->get_BestSellingProducts();
         $flashSale_products = $this->productModel->get_ProductsFlashSale();
         $categories = $this->productModel->getCategories();
@@ -153,7 +152,7 @@ class Product extends Controller
     // Lấy các sản phẩm tùy vào lưaj chọn danh mục ở Văn phòng phẩm cho bạn ở trang chủ
     public function getProductsBy_category()
     {
-        $this->validateUser();
+        // $this->validateUser();
         if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['category_id'])) {
             $category_id = $_GET['category_id'] ?? "";
             $category = $this->productModel->checkCategoryExists($category_id);
@@ -172,7 +171,7 @@ class Product extends Controller
 
     public function productByCategory()
     {
-        $this->validateUser();
+        // $this->validateUser();
         // Lấy các tham số từ URL
         $getCategory = trim($_GET['category'] ?? "");
         $subProduct = trim($_GET['sub'] ?? "");
@@ -249,7 +248,7 @@ class Product extends Controller
     // lấy sản phẩm bán chạy nhất trong phần danh mục nổi bật
     public function allBestSelling()
     {
-        $this->validateUser();
+        // $this->validateUser();
         $products = $this->productModel->allBestSelling_product();
         $data = [
             'products_bestSeller' => $products

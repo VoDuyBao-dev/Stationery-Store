@@ -2,9 +2,9 @@ document.addEventListener("DOMContentLoaded", function () {
     document.querySelectorAll('.detail-btn').forEach(btn => {
         btn.addEventListener('click', function () {
             const orderId = this.getAttribute("xem-id");
-            console.log(`${baseURL}/detailOrder/${orderId}`);
-
-            fetch(`${baseURL}/detailOrder/${orderId}`)
+            console.log(`${baseURL}/detailOrderUser/${orderId}`);
+            console.log(orderId);
+            fetch(`${baseURL}/detailOrderUser/${orderId}`)
                 .then(response => {
                     if (!response.ok) {
                         throw new Error(`HTTP error! status: ${response.status}`);

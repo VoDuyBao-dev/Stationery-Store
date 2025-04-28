@@ -112,6 +112,17 @@ class Order extends Controller
     }
 
 
+    // Hiển thị toàn bộ các đơn hàng chi tiết có trong đơn hàng có order_id = ?
+    public function detailOrderUser($order_id)
+    {
+        // $this->validateAdmin();
+        $order_id = $order_id[0];
+        $details = $this->OrderModel->getAllOrderById($order_id);
+        header('Content-Type: application/json');
+        echo json_encode($details);
+    }
+
+
 
     // Thêm đanhs giá
 

@@ -104,7 +104,6 @@
                             <?php endforeach; ?>
                         </div>
                     </form>
-
                 </div>
 
                 <div class="information">
