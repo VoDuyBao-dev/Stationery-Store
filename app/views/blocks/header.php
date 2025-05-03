@@ -18,7 +18,7 @@ if (isset($_SESSION['giohang'])) {
 
     <div class="search-bar">
         <form action="<?php echo _WEB_ROOT; ?>/kqtim-kiem" method="GET" style="display: flex; align-items: center; width: 100%;">
-            <input type="text" name="keyword" placeholder="Tìm kiếm sản phẩm..." /><i class="fas fa-search"></i>
+            <input type="text" name="keyword" placeholder="Tìm kiếm sản phẩm..." /><button class="search-btn" type="submit"><i class="fas fa-search"></i></button>
         </form>
 
     </div>
@@ -36,6 +36,7 @@ if (isset($_SESSION['giohang'])) {
                 <p>Xin chào, <?= $_SESSION['user']['fullname'] ?? "" ?> !</p>
                 <div class="dropdown-user" id="dropdownUser">
                     <a href="<?php echo _WEB_ROOT . '/chinh-sua-thong-tin'; ?>">Thông tin cá nhân</a>
+                    <a href="<?php echo _WEB_ROOT . '/danh-sach-don-hang'; ?>">Đơn hàng của tôi</a>
                     <a href="<?php echo _WEB_ROOT . '/dang-xuat'; ?>">Đăng xuất</a>
 
                 </div>
@@ -54,8 +55,7 @@ if (isset($_SESSION['giohang'])) {
 </header>
 <div class="breadcrumb-banner">
     <div class="container">
-        <p><a href="<?php echo _WEB_ROOT; ?>/trang-chu ">Trang chủ</a> / <span>Loading...</span> /
-        <h2>Loading...</h2>
+        <p><a href="<?php echo _WEB_ROOT; ?>/ ">Trang chủ</a> <?php if(isset($breadcrumb)) echo '<span>'." / " . $breadcrumb . '</span>'; ?>
         </p>
     </div>
 </div>
@@ -65,13 +65,7 @@ if (isset($_SESSION['giohang'])) {
 </div>
 
 </header>
-<div class="breadcrumb-banner">
-    <div class="container">
-        <p><a href="<?php echo _WEB_ROOT; ?>/ ">Trang chủ</a> / <span>Loading...</span> /
-        <h2>Loading...</h2>
-        </p>
-    </div>
-</div>
+
 <div>
     <button id="backToTop" onclick="scrollToTop()"><i class="fas fa-arrow-up"></i></button>
     <button id="chat"><a href="<?php echo _BASE_URL; ?>/chat/1"><i class="fas fa-envelope"></i></a></button>

@@ -42,7 +42,7 @@ $routes['deleteAll_cart'] = 'cart/deleteAll_cart';
 $routes['deleteIdProduct_inCart'] = 'cart/deleteIdProduct_inCart';
 
 // Chức năng admin
-$routes['manage_users'] = 'AdminManageUser/listuser';
+$routes['manage_users'] = 'AdminManage/listuser';
 
 
 
@@ -65,11 +65,14 @@ $routes['handleMomoIPN'] = 'MomoController/handleMomoIPN';
 $routes['handleMomoCallback'] = 'payment/handleMomoCallback';
 
 
-$routes['qlsp'] = 'product/allProducts';
-$routes['taosp'] = 'product/createProduct';
-$routes['daxuly'] = 'AdminManageUser/done';
-$routes['canxuly'] = 'AdminManageUser/canxuly';
-$routes['sale'] = 'AdminManageUser/khuyenmai';
+$routes['quan-ly-san-pham'] = 'AdminManage/qlsp';
+$routes['them-san-pham'] = 'AdminManage/addProduct';
+$routes['xoa-san-pham'] = 'AdminManage/DeleteProduct';
+$routes['sua-san-pham'] = 'AdminManage/editingProductPage';
+// Xử lý sửa sản phẩm:
+$routes['editingProduct'] = 'AdminManage/editingProduct';
+
+
 
 // xong
 $routes['productByCategory'] = 'product/productByCategory';
@@ -83,11 +86,29 @@ $routes['kqtim-kiem'] = 'product/resultSearch';
 $routes['notfound'] = 'product/notfound';
 
 
+// Danh sách đơn hàng của user
+$routes['danh-sach-don-hang'] = 'order/orderList';
+
+// tìm kiếm đơn hàng của user
+$routes['tim-kiem-don-hang'] = 'order/searchOrder';
+
+// Hủy đơn hàng phía user
+$routes['huy-don-hang'] = 'order/cancelOrder';
 
 //trang admin_layout
 $routes['admin_layout'] = 'dashboard/home';
 
+// endpoint trả dữ liệu báo doanh thu cho fetch
+$routes['bao-cao-doanh-thu'] = 'ReportController/getRevenueData';
+// export excel
+$routes['bao-cao-doanh-thu/export'] = 'ReportController/exportExcel';
 
+
+
+
+
+$routes['addReview'] = 'order/addReview';
+$routes['search'] = 'AdminSearch/index';
 
 
 
@@ -110,6 +131,7 @@ $routes['daxuly'] = 'AdminOrder/done';
 $routes['canxuly'] = 'AdminOrder/canxuly';       // toàn bộ order có trangThaiGiao != 3
 $routes['^detailOrder/([0-9]+)$'] = 'AdminOrder/detailOrder/$1';     // chi tiết đơn hàng (có nhiều loại sản phẩm)
 $routes['xacnhan'] = 'AdminOrder/xacnhan';                // xác nhận đơn hàng và chuyển sang trạng thái đang giao hàng
+$routes['xacNhanThanhCong'] = 'AdminOrder/xacNhanThanhCong';                // xác nhận đơn hàng và chuyển sang trạng thái đang giao hàng
 $routes['^viewOrder/([0-9]+)$'] = 'AdminOrder/viewOrder/$1';     // xem chi tiết đơn hàng (có nhiều loại
 $routes['suaDon'] = 'AdminOrder/suaDon';
 $routes['huyDon'] = 'AdminOrder/huyDon';

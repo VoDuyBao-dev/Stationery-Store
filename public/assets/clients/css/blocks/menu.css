@@ -1,12 +1,10 @@
-
-
 .menu {
     width: 240px;
     background-color: #fff;
     border-radius: 10px;
     padding: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin: 120px 30px;
+    margin: 0px 30px;
     position: fixed;
     z-index: 999;
 }
@@ -22,7 +20,7 @@
     position: relative;
 }
 
-.menu-list li:hover > .submenu {
+.menu-list li:hover>.submenu {
     display: block;
 }
 
@@ -45,6 +43,7 @@
     background-color: #e2b36dbd;
     border-radius: 5px;
 }
+
 .submenu {
     display: none;
     position: absolute;
@@ -80,12 +79,12 @@
 
 .submenu li a:hover {
     display: block;
-    background-color:#e2b36dbd;
+    background-color: #e2b36dbd;
     border-radius: 5px;
 }
 
 .featured {
-    margin: 350px 30px 500px 30px;
+    margin: 230px 30px 500px 30px;
     width: 240px;
     position: relative;
     background-color: #f9f9f9;

@@ -1,6 +1,9 @@
 <?php
 use core\Helpers;
 ?>
+
+<?php $breadcrumb = "Thanh toán"; ?>
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -17,7 +20,7 @@ use core\Helpers;
 
 
     <script type="text/javascript" src="<?php echo _WEB_ROOT; ?>/public/assets/clients/js/blocks/header.js"></script>
-
+    
 </head>
     
 <body>
@@ -34,16 +37,16 @@ use core\Helpers;
                 <input type="tel" id="phone" name="phone" value="<?= htmlspecialchars($_SESSION['user']['phone'] ?? '') ?>" placeholder="Số điện thoại (tuỳ chọn)" required>
 
                 <!-- Dropdown tỉnh/quận/phường -->
-                <select id="province" name="province">
+                <select id="province" name="province" required>
                     <option value="">Chọn Tỉnh/Thành phố</option>
                 </select>
-                <select id="district" name="district">
+                <select id="district" name="district" required>
                     <option value="">Chọn Quận/Huyện</option>
                 </select>
-                <select id="ward" name="ward">
+                <select id="ward" name="ward" required>
                     <option value="">Chọn Phường/Xã</option>
                 </select>
-                <input type="text" name="address_detail" placeholder="Địa chỉ (Cụ thể)">
+                <input type="text" name="address_detail" placeholder="Địa chỉ (Cụ thể)" value="<?= htmlspecialchars($_SESSION['user']['address'] ?? '') ?>">
                 <textarea name="note" placeholder="Ghi chú (tuỳ chọn)"></textarea>
               
 
@@ -59,13 +62,13 @@ use core\Helpers;
 <label>Phương thức thanh toán:</label>
 <div class="payment-options">
     <input type="radio" id="cod" name="payment" value="cod">
-    <label for="cod">Thanh toán khi nhận hàng (COD)</label>
+    <label for="cod">Thanh toán khi nhận hàng (COD) <img src="<?php echo _WEB_ROOT; ?> /public/assets/clients/images/cash.jpg" alt="Cash"> </label>
 
     <input type="radio" id="bank" name="payment" value="bank">
-    <label for="bank">Thanh toán qua VNPay</label>
+    <label for="bank">Thanh toán qua VNPay <img src="<?php echo _WEB_ROOT; ?> /public/assets/clients/images/VNPay.png" alt="VNPay"></label>
 
     <input type="radio" id="ewallet" name="payment" value="ewallet">
-    <label for="ewallet">Thanh toán qua MoMo</label>
+    <label for="ewallet">Thanh toán qua MoMo <img src="<?php echo _WEB_ROOT; ?> /public/assets/clients/images/MoMo-logo.jpg" alt="MoMo"></label>
     <div id="momo-options" style="display: none; margin-left: 20px; margin-top: 10px;">
     <!-- option của momo -->
     <input type="radio" id="momo_qr" name="momo_method" value="momo_qr">
@@ -87,7 +90,7 @@ use core\Helpers;
             $tt = $item['quantity']* $item['priceCurrent'];
             $tongtien += $tt;?>
     <div class="cart-item">
-        <img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/products/<?= $item['image'];?>" alt="<?= $item['name_product_type_id']?>">
+        <img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/image_products_type/<?= $item['image'];?>" alt="<?= $item['name_product_type_id']?>">
         <p><?= $item['product_name']?></p>
         <p><strong><?= $item['name_product_type_id']?></strong></p>
         <p>Số lượng: <?= $item['quantity'] ?></p>
@@ -99,10 +102,7 @@ use core\Helpers;
     // Xử lí phí vận chuyển và giảm giá
     
     ?>
-    <div class="discount-container">
-        <input type="text" class="discount-input" placeholder="Nhập mã giảm giá">
-        <button class="apply-btn">Áp dụng</button>
-    </div>
+   
     <div class="total">
         <p>Tổng tiền hàng: <span id="subtotal-amount"><?= Helpers::format_currency($tongtien); ?></span></p>
         <p>Phí vận chuyển: <span id="shipping-amount">-</span></p>
@@ -117,7 +117,7 @@ use core\Helpers;
     <script>
         const _WEB_ROOT = "<?php echo _WEB_ROOT; ?>";
         const countCart = <?php echo count($_SESSION['giohang'] ?? []); ?>;
-       
+        const API_PROVINCES = "https://provinces.open-api.vn/api/";
     </script>
    <script src="<?php echo _WEB_ROOT; ?>/public/assets/clients/js/payment/payment.js"></script>
    

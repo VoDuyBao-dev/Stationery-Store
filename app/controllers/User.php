@@ -143,6 +143,7 @@ class User extends Controller
         );
 
 
+
         if ($result === true) {
             unset($_SESSION["otp"]);
             unset($_SESSION['register_data']);
@@ -196,7 +197,23 @@ class User extends Controller
             'url' => $url
         ];
 
-        if (isset($_POST['submit-signin'])) {
+        if (isset($_COOKIE['remember_email']) && isset($_COOKIE['remember_token'])) {
+            $email = $_COOKIE['remember_email'];
+            $token = $_COOKIE['remember_token'];
+            $verifyUser = $this->userModel->checkEmailExists($email);
+            if ($verifyUser) {
+                // Kiểm tra token trong database
+                if ($verifyUser['remember_token'] == $token) {
+                    $_SESSION['user'] = $verifyUser;
+                    if ($verifyUser['role'] == 'admin') {
+                        header("Location:" . _WEB_ROOT . "/admin_layout");
+                        exit();
+                    }
+                    header("Location:" . _WEB_ROOT . "/trang-chu");
+                    exit();
+                }
+            }
+        } else if (isset($_POST['submit-signin'])) {
             $email = strtolower(htmlspecialchars(trim($_POST['email'])));
             $password = htmlspecialchars(trim($_POST['password']));
 
@@ -224,6 +241,18 @@ class User extends Controller
                 }
                 // Lấy thông tin người dùng
                 $_SESSION['user'] = $verifyUser;
+
+                if (!empty($_POST['remember'])) {
+                    // Sinh token ngẫu nhiên
+                    $rememberToken = bin2hex(random_bytes(32)); // 64 ký tự hex
+
+                    // Update token vào Database
+                    $this->userModel->updateRememberToken($email, $rememberToken);
+
+                    // Set cookie (30 ngày)
+                    setcookie('remember_email', $email, time() + (86400 * 30), "/");
+                    setcookie('remember_token', $rememberToken, time() + (86400 * 30), "/");
+                }
                 //                reset bộ đếm dăng nhập sai
                 $_SESSION['signin_incorrect'] = 0;
                 // xóa session old email
@@ -251,10 +280,21 @@ class User extends Controller
 
     public function signout()
     {
+
+        // Xóa cookie nhớ tài khoản
+        if (isset($_COOKIE['remember_email']) && isset($_COOKIE['remember_token'])) {
+            setcookie('remember_email', '', time() - 3600, "/");
+            setcookie('remember_token', '', time() - 3600, "/");
+        }
+        // Xóa session người dùng
         unset($_SESSION['user']);
         header("Location:" . _WEB_ROOT . "/dang-nhap");
         exit();
     }
+
+
+
+
 
 
     public function forgot_pass()
@@ -416,11 +456,6 @@ class User extends Controller
         }
         $this->render("users/setting/chinhsuathongtin");
     }
-
-
-
-
-
 
     public function reply()
     {

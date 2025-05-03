@@ -21,20 +21,26 @@ $flashSale_products = $flashSale_products ?? [];
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
 
+
   <script type="text/javascript" src="<?php echo _WEB_ROOT; ?>/public/assets/clients/js/blocks/header.js"></script>
   <script>
     function viewProduct(product_name, id_product, id_product_type) {
       window.location.href = "thong-tin-sp/" + encodeURIComponent(product_name) + '/' + id_product + '/' + id_product_type;
     }
-    var test = _WEB_ROOT;
+
+
+    function formatCurrencyVND(amount) {
+      return new Intl.NumberFormat('vi-VN').format(amount) + '₫';
+    }
   </script>
   <style>
     menu {
       float: left;
+      margin-top: 30px;
     }
 
     main {
-      margin-top: 120px;
+      margin-top: 100px;
       margin-left: 280px;
     }
   </style>
@@ -61,15 +67,42 @@ $flashSale_products = $flashSale_products ?? [];
     <?php endif; ?>
     <!-- ========== Slider ========== -->
     <section class="section-1">
-      <div class="home-slider">
+      <div class="home-slider" style="overflow: hidden" ;>
         <div class="main clearfix">
           <div class="clearfix">
-            <a href=""><img src="<?php echo _WEB_ROOT; ?>/public/assets/clients/images/slider_1.webp" alt="Văn phòng phẩm" /></a>
+            <div class="slider-track" id="sliderTrack">
+              <div class="slide"><a href=""><img src="<?php echo _WEB_ROOT; ?>/public/assets/clients/images/slider_1.webp" alt="Văn phòng phẩm" /></a></div>
+              <div class="slide"><a href=""><img src="<?php echo _WEB_ROOT; ?>/public/assets/clients/images/slider_2.webp" alt="Văn phòng phẩm" /></a></div>
+              <div class="slide"><a href=""><img src="<?php echo _WEB_ROOT; ?>/public/assets/clients/images/slider_3.webp" alt="Văn phòng phẩm" /></a></div>
+            </div>
           </div>
         </div>
-        <button class="fa-solid fa-arrow-left"></button><button class="fa-solid fa-arrow-right"></button>
+        <button class="fa-solid fa-arrow-left" id="prevBtn"></button><button class="fa-solid fa-arrow-right" id="nextBtn"></button>
       </div>
     </section>
+    <script>
+      const sliderTrack = document.getElementById("sliderTrack");
+
+      const slides = document.querySelectorAll(".slide");
+      const prevBtn = document.getElementById("prevBtn");
+      const nextBtn = document.getElementById("nextBtn");
+
+      let currentIndex = 0;
+
+      function updateSlider() {
+        sliderTrack.style.transform = `translateX(-${currentIndex * 100}%)`;
+      }
+
+      nextBtn.addEventListener("click", () => {
+        currentIndex = (currentIndex + 1) % slides.length;
+        updateSlider();
+      });
+
+      prevBtn.addEventListener("click", () => {
+        currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+        updateSlider();
+      });
+    </script>
     <!-- ========== Danh mục sản phẩm ========== -->
     <section class="section-2">
       <div class="cate-list">
@@ -118,35 +151,73 @@ $flashSale_products = $flashSale_products ?? [];
             <img src="<?php echo _WEB_ROOT; ?>/public/assets/clients/images/fs.png" alt="fash-sale" />
           </h2>
         </div>
-        <div class="block-product">
+        <div class="slider-wrapper ">
+          <div class="slider_FS-track" id="flashSliderTrack">
+            <!-- list Sản phẩm flash sale -->
+            <?php if (!empty($flashSale_products)): ?>
+              <?php foreach ($flashSale_products as $product): ?>
+                <div class="slide_FS">
+                  <div class="product-card">
+                    <div class="sale-tag">
+                      <p>Sale <br> 25%</p>
+                    </div>
 
-          <!-- list Sản phẩm flash sale -->
-          <?php if (!empty($flashSale_products)): ?>
-            <?php foreach ($flashSale_products as $product): ?>
+                    <img src="<?php echo _WEB_ROOT; ?>/public/assets/clients/images/image_products_type/<?= $product['image'] ?>" alt="<?= $product['product_name'] ?>" />
+                    <div class="product-name"><?= $product['product_name'] ?></div>
+                    <div class="price">
 
-              <div class="product-card">
-                <img src="<?php echo _WEB_ROOT; ?>/public/assets/clients/images/products/<?= $product['image'] ?>" alt="Hộp bút" />
-                <div class="product-name"><?= $product['product_name'] ?></div>
-                <div class="price">
-                  <?= $product['priceCurrent'] ?>0₫ <span class="old-price"><?= $product['priceOld'] ?>0₫</span>
+                      <?= Helpers::format_currency($product['priceCurrent']); ?> <span class="old-price"><?= Helpers::format_currency($product['priceOld']); ?></span>
+                    </div>
+                    <button class="buy-button" onclick="viewProduct('<?= $product['product_name'] ?>',<?= $product['product_id'] ?>,<?= $product['product_type_id'] ?> )">Xem ngay </button>
+
+                  </div>
                 </div>
-                <button class="buy-button" onclick="viewProduct('<?= $product['product_name'] ?>',<?= $product['product_id'] ?>,<?= $product['product_type_id'] ?> )">Xem ngay </button>
-
-              </div>
-            <?php endforeach; ?>
-          <?php else: ?>
-            <?php if ($message = Helpers::getFlash('empty_flashSale_products')): ?>
-              <div><?php echo $message; ?></div>
+              <?php endforeach; ?>
+            <?php else: ?>
+              <?php if ($message = Helpers::getFlash('empty_flashSale_products')): ?>
+                <div><?php echo $message; ?></div>
+              <?php endif; ?>
             <?php endif; ?>
-          <?php endif; ?>
 
-
-
+          </div>
+          <!-- Nút điều hướng slider -->
+          <div class="fa-solid fa-arrow-left" id="flashPrevBtn"><i></i></div>
+          <div class="fa-solid fa-arrow-right" id="flashNextBtn"><i></i></div>
         </div>
-        <div class="fa-solid fa-arrow-left"></div>
-        <div class="fa-solid fa-arrow-right"></div>
       </div>
     </section>
+
+    <script>
+      const flashSliderTrack = document.getElementById("flashSliderTrack");
+      const flashSlides = flashSliderTrack.querySelectorAll(".slide_FS");
+      const flashPrevBtn = document.getElementById("flashPrevBtn");
+      const flashNextBtn = document.getElementById("flashNextBtn");
+
+      let flashCurrentIndex = 0;
+      const slidesPerView = 4;
+      const totalSlides = flashSlides.length;
+      const maxIndex = Math.ceil(totalSlides / slidesPerView) - 1;
+
+      function updateFlashSlider() {
+        const translateX = flashCurrentIndex * -100;
+        flashSliderTrack.style.transform = `translateX(${translateX}%)`;
+      }
+
+      flashNextBtn.addEventListener("click", () => {
+        if (flashCurrentIndex < maxIndex) {
+          flashCurrentIndex++;
+          updateFlashSlider();
+        }
+      });
+
+      flashPrevBtn.addEventListener("click", () => {
+        if (flashCurrentIndex > 0) {
+          flashCurrentIndex--;
+          updateFlashSlider();
+        }
+      });
+    </script>
+
     <!-- ========== Sản phẩm nổi bật ========== -->
     <section class="section-4">
       <div class="container">
@@ -155,18 +226,25 @@ $flashSale_products = $flashSale_products ?? [];
         </div>
         <div class="block-product">
           <div class="product-featured-swiper">
-            <!-- List Sản phẩm  -->
-            <?php if (!empty($outstanding_products)): ?>
-              <?php foreach ($outstanding_products as $product): ?>
-                <div class="product-block" onclick="viewProduct('<?= $product['product_name'] ?>',<?= $product['product_id'] ?>,<?= $product['product_type_id'] ?> )" style="cursor: pointer;">
+            <div class="product-row">
+              <!-- List Sản phẩm  -->
+              <?php if (!empty($outstanding_products)): ?>
+                <?php foreach ($outstanding_products as $product): ?>
+                  <div class="product-block" onclick="viewProduct('<?= $product['product_name'] ?>',<?= $product['product_id'] ?>,<?= $product['product_type_id'] ?> )" style="cursor: pointer;">
+                  <div class="sale-tag">
+                    <p>Sale <br> 25%</p>
+                  </div>  
                   <div class="product-block-item">
-                    <img src="<?php echo _WEB_ROOT; ?>/public/assets/clients/images/products/<?= $product['image'] ?>" alt="Vở viết" />
-                  </div>
-                  <div class="product-info">
-                    <span><?= $product['product_name'] ?></span>
-                    <div class="product-price">
-                      <span class="price"><?= $product['price'] ?>0₫</span>
-                      <span class="old-price"><?= $product['price_old'] ?>0₫</span>
+                      
+                      <img src="<?php echo _WEB_ROOT; ?>/public/assets/clients/images/image_products_type/<?= $product['image'] ?>" alt="Vở viết" />
+                    </div>
+                    <div class="product-info">
+                      <span><?= $product['product_name'] ?></span>
+                      <div class="product-price">
+
+                        <span class="price"><?= Helpers::format_currency($product['price']); ?></span>
+                        <span class="old-price"><?= Helpers::format_currency($product['price_old']); ?></span>
+                      </div>
                     </div>
                   </div>
                 <?php endforeach; ?>
@@ -176,16 +254,57 @@ $flashSale_products = $flashSale_products ?? [];
                 <?php endif; ?>
               <?php endif; ?>
 
-                </div>
-          </div>
-          <div class="swiper-pagination">
-            <span
-              class="swiper-pagination-bullet swiper-pagination-bullet-active"></span>
-            <span class="swiper-pagination-bullet"></span>
-            <span class="swiper-pagination-bullet"></span>
+            </div>
           </div>
         </div>
+        <div class="swiper-pagination">
+          <span class="swiper-pagination-bullet" id="go_1"></span>
+          <span class="swiper-pagination-bullet" id="go_2"></span>
+          <span class="swiper-pagination-bullet" id="go_3"></span>
+        </div>
+      </div>
     </section>
+
+    <script>
+      var productContainer = document.querySelector('.product-featured-swiper');
+      var productBlocks = document.querySelectorAll('.product-block');
+      var numSlides = Math.ceil(productBlocks.length / 3); // Hiển thị 3 sản phẩm mỗi lần
+      var currentPage = 0;
+
+      function showPage(pageNum) {
+        // Ẩn tất cả sản phẩm
+        productBlocks.forEach(block => {
+          block.style.display = 'none';
+        });
+
+        // Hiển thị 3 sản phẩm của trang hiện tại
+        let start = pageNum * 3;
+        let end = start + 3;
+        for (let i = start; i < end && i < productBlocks.length; i++) {
+          productBlocks[i].style.display = 'block';
+        }
+
+        // Cập nhật trạng thái active cho bullets
+        document.querySelectorAll('.swiper-pagination-bullet').forEach(bullet => {
+          bullet.classList.remove('active');
+        });
+        document.getElementById('go_' + (pageNum + 1)).classList.add('active');
+
+        currentPage = pageNum;
+      }
+
+
+      // Khởi tạo sự kiện click cho các nút go
+      document.getElementById('go_1').addEventListener('click', () => showPage(0));
+      document.getElementById('go_2').addEventListener('click', () => showPage(1));
+      document.getElementById('go_3').addEventListener('click', () => showPage(2));
+
+      // Hiển thị trang đầu tiên khi load
+      document.addEventListener('DOMContentLoaded', () => {
+        showPage(0);
+      });
+    </script>
+
 
     <!-- ========== Văn phòng phẩm cho bạn ==========  -->
     <section class="section-5">
@@ -207,122 +326,19 @@ $flashSale_products = $flashSale_products ?? [];
 
             <div class="tab-1 tab-content current" id="tab1">
               <div class="product-list">
+                
                 <!-- Các sản phẩm sẽ được hiển thị ở đây sau khi JS xử lý -->
               </div>
             </div>
             <div class="swiper-pagination">
-              <button>Xem thêm</button>
+              <button class="view-more-btn" data-category="">Xem thêm</button>
             </div>
           </div>
-          <div class="swiper-pagination">
-            <button>Xem thêm</button>
-          </div>
-        </div>
         </div>
         </div>
       </section>
     </section>
-    <script>
-      document.addEventListener("DOMContentLoaded", function() {
-        const tabs = document.querySelectorAll(".tabs-title");
-        const productContainer = document.querySelector(".tab-1 .product-list");
 
-        function loadProducts(categoryId) {
-
-
-          fetch(`/<?= _NAME_PROJECT ?>/getProductsBy_category?category_id=${categoryId}`)
-            .then(response => response.text()) // Chuyển về text trước để kiểm tra lỗi
-            .then(text => {
-              return JSON.parse(text);
-            })
-            .then(data => {
-              console.log("Dữ liệu nhận được:", data);
-
-              productContainer.innerHTML = ""; // Xóa nội dung cũ
-
-              if (!Array.isArray(data)) {
-                productContainer.innerHTML = `<p>Lỗi: Dữ liệu không hợp lệ!</p>`;
-                return;
-              }
-
-              if (data.length === 0) {
-                productContainer.innerHTML = `<p>Không có sản phẩm nào.</p>`;
-                return;
-              }
-
-              data.forEach(product => {
-                let productDiv = document.createElement("div");
-                productDiv.classList.add("product");
-
-                let productLink = document.createElement("a");
-                productLink.href = `<?php echo _WEB_ROOT; ?>/thong-tin-sp/${product.product_name}/${product.product_id}/${product.product_type_id}`;
-
-                let productImage = document.createElement("img");
-                productImage.src = `<?php echo _WEB_ROOT; ?>/public/assets/clients/images/products/${product.image || 'default.jpg'}`;
-                productImage.alt = product.product_name;
-                productImage.width = 150;
-                productImage.height = 150;
-
-                productLink.appendChild(productImage);
-
-                let productInfo = document.createElement("div");
-                productInfo.classList.add("product-info");
-
-                let productName = document.createElement("a");
-                productName.href = `<?php echo _WEB_ROOT; ?>/thong-tin-sp/${product.product_name}/${product.product_id}/${product.product_type_id}`;
-                productName.innerText = product.product_name;
-
-                let priceContainer = document.createElement("div");
-                priceContainer.classList.add("product-price");
-
-                let price = document.createElement("span");
-                price.classList.add("price");
-                price.innerText = product.priceCurrent ? product.priceCurrent + "₫" : "Liên hệ";
-
-                priceContainer.appendChild(price);
-
-                if (product.priceOld) {
-                  let oldPrice = document.createElement("span");
-                  oldPrice.classList.add("old-price");
-                  oldPrice.innerText = product.priceOld + "₫";
-                  priceContainer.appendChild(oldPrice);
-                }
-
-                productInfo.appendChild(productName);
-                productInfo.appendChild(priceContainer);
-
-                productDiv.appendChild(productLink);
-                productDiv.appendChild(productInfo);
-
-                productContainer.appendChild(productDiv);
-              });
-
-              document.querySelector(".tab-1").classList.add("current");
-            })
-            .catch(error => {
-              console.error("Lỗi:", error);
-              productContainer.innerHTML = `<p>Lỗi tải dữ liệu!</p>`;
-            });
-        }
-
-        tabs.forEach(tab => {
-          tab.addEventListener("click", function() {
-            tabs.forEach(t => t.classList.remove("active"));
-            document.querySelectorAll(".tab-content").forEach(c => c.classList.remove("current"));
-
-            this.classList.add("active");
-
-            let categoryId = this.getAttribute("data-id");
-            loadProducts(categoryId);
-          });
-        });
-
-        // Kích hoạt tab đầu tiên khi tải trang
-        if (tabs.length > 0) {
-          tabs[0].click();
-        }
-      });
-    </script>
     <!-- ========= Dịch vụ =========== -->
     <section class="section-6">
       <section class="section-service">
@@ -391,6 +407,10 @@ $flashSale_products = $flashSale_products ?? [];
     </section>
     <?php require_once _DIR_ROOT . "/app/views/blocks/footer.php"; ?>
   </main>
+  <script>
+    const _WEB_ROOT = "<?= _WEB_ROOT; ?> ";
+  </script>
+  <script type="text/javascript" src="<?php echo _WEB_ROOT; ?>/public/assets/clients/js/layout/client_layout.js"></script>
 </body>
 
 </html>

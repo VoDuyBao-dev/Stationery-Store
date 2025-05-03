@@ -3,22 +3,31 @@
 class AdminSearch extends Controller
 {
     private $searchModel;
-
     public function __construct()
     {
-        $this->searchModel = new AdminSearchModel();
+        try {
+            $this->searchModel = $this->model('AdminSeachModel');  // tạo một object mới
+
+            if (!$this->searchModel) {
+                throw new Exception("Lỗi trong quá trình tạo đối tượng");
+            }
+        } catch (Exception $e) {
+            header("Location:" . _BASE_URL . "/app/errors/loichung.php?message=" . urlencode($e->getMessage()));
+            exit;
+        }
     }
+
 
     public function index()
     {
-        $query = $_GET['query'] ?? '';
 
-        if (!empty($query)) {
-            $results = $this->searchModel->search($query);
-        } else {
-            $results = [];
-        }
+        $keyword = $_GET['keyword'] ?? '';
 
-        $this->render('', ['results' => $results, 'query' => $query]);
+        $results = $this->searchModel->search($keyword);
+
+        $this->render('admin/admin_search', [
+            'keyword' => $keyword,
+            'results' => $results
+        ]);
     }
 }

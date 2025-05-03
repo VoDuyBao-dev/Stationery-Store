@@ -1,6 +1,11 @@
 {
     "require": {
         "phpmailer/phpmailer": "^6.9",
-        "cboden/ratchet": "^0.4.4"
+        "phpoffice/phpspreadsheet": "^4.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
     }
 }

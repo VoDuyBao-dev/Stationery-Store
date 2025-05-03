@@ -1,3 +1,5 @@
+<?php $breadcrumb = "Đơn hàng cần xử lý"; ?>
+
 <!DOCTYPE html>
 <html lang="vi">
 
@@ -18,10 +20,11 @@
     <style>
         menu {
             float: left;
+            margin-top: 0;
         }
 
         main {
-            margin-top: 120px;
+            margin-top: 130px;
             margin-left: 280px;
         }
     </style>
@@ -37,22 +40,28 @@
     </menu>
     <main>
         <div class="order-container">
-            <h2>Quản lý đơn hàng - Cần xử lý</h2>
+            <h1>Quản lý đơn hàng - Cần xử lý</h1>
 
             <div class="tabs">
                 <button class="tab active" id="tab-can-xu-ly" onclick="redirectTo('<?php echo _WEB_ROOT . '/canxuly'; ?>')">Cần xử lý (<span id="count-can-xu-ly">0</span>)</button>
                 <button class="tab" id="tab-da-xu-ly" onclick="redirectTo('<?php echo _WEB_ROOT . '/daxuly'; ?>')">Đã xử lý (<span id="count-da-xu-ly">0</span>)</button>
             </div>
-            <div class="actions"><input type="date" class="date-picker" /></div>
-            <!-- <div id="order-actions"><button id="add-order-btn">Thêm đơn hàng mới</button></div> -->
+
+            <form id="date_filter_form" class="actions" method="GET" action="<?php echo _BASE_URL; ?>/canxuly">
+                <input type="date" name="date" class="data-picker" value="<?php echo $_GET['date'] ?? ''; ?>" onchange="this.form.submit()" required />
+                <!-- Giữ lại các tham số cũ của 'limit' và 'page' -->
+                <input type="hidden" name="limit" value="<?php echo $_GET['limit'] ?? 10; ?>" />
+                <input type="hidden" name="page" value="<?php echo $_GET['page'] ?? 1; ?>" />
+            </form>
             <table id="order-table">
                 <thead>
                     <tr>
+                        <th>STT</th>
                         <th>Mã đơn hàng</th>
                         <th>Ngày đặt hàng</th>
                         <th>Người nhận</th>
                         <th>Tổng hóa đơn</th>
-                        <th>Phương thức thanh toán</th>
+                        <th style="width: 120px;">Phương thức thanh toán</th>
                         <th>Phương thức vận chuyển</th>
                         <th>Trạng thái</th>
                         <th>Thao tác</th>
@@ -65,9 +74,11 @@
                             <td colspan="8" class="no-data">Không có bản ghi nào</td>
                         </tr>
                     <?php else: ?>
+                        <?php $stt = 1; ?>
                         <?php foreach ($orders as $order): ?>
                             <tr>
-                                <td><?php echo htmlspecialchars($order['order_id']); ?></td>
+                                <td><?php echo $stt++; ?></td>
+                                <td>mdh<?php echo htmlspecialchars($order['order_id']); ?>kl</td>
                                 <td><?php echo htmlspecialchars($order['created_at']); ?></td>
                                 <td><?php echo htmlspecialchars($order['fullname']); ?></td>
                                 <td><?php echo htmlspecialchars($order['total_price']); ?></td>
@@ -94,11 +105,11 @@
                                 <?php if ($order['trangThaiGiao'] == 0) : ?>
                                     <td><button class="edit-btn" sua-id="<?php echo $order['order_id']; ?>">Sửa</button></td>
                                 <?php elseif ($order['trangThaiGiao'] == 1) : ?>
-                                    <td><button class="huy-btn" huy-id="<?php echo $order['order_id']; ?>">Hủy đơn</button></td>
+                                    <td><button class="huy-btn" huy-id="<?php echo $order['order_id']; ?>">Hủy</button></td>
                                 <?php else: ?>
                                     <td><button class="delete-btn" xoa-id="<?php echo $order['order_id']; ?>">Xóa</button></td>
                                 <?php endif; ?>
-                                <td><button class="viewOrderDetail-btn" xem-id="<?php echo $order['order_id']; ?>">Xem chi tiết</button></td>
+                                <td><button class="viewOrderDetail-btn" xem-id="<?php echo $order['order_id']; ?>">Chi tiết</button></td>
                             </tr>
                         <?php endforeach; ?>
                     <?php endif; ?>
@@ -143,10 +154,10 @@
             </div> -->
 
             <!-- Sủa thông tin đơn hàng -->
-            <div id="editModal" class="modal">
-                <div class="modal-content">
+            <div id="editModal" class="modal-edit">
+                <div class="modal-edit-content">
                     <span class="close">&times;</span>
-                    <h2>Sửa đơn hàng</h2>
+                    <h3>Sửa đơn hàng</h3>
                     <form id="edit-order-form" action="<?php echo _BASE_URL ?>/suaDon" method="POST">
                         <div class="form-group">
                             <label for="edit_ma">Mã đơn hàng:</label>
@@ -168,8 +179,8 @@
 
                             <label for="edit_vanchuyen">Phương thức vận chuyển:</label>
                             <select name="edit_vanchuyen" id="edit_vanchuyen" required></select><br>
-                            <button type="button" id="edit-cancel-btn">Hủy</button>
-                            <button type="submit">Lưu</button>
+                            <button type="button" class="cancel-btn" id="edit-cancel-btn">Hủy</button>
+                            <button type="submit" class="save-btn" >Lưu</button>
                         </div>
                     </form>
                 </div>
@@ -179,12 +190,13 @@
             <div id="confirmCancelModal" class="modal">
                 <div class="modal-content">
                     <span class="close" onclick='document.getElementById("confirmCancelModal").style.display = "none";'>&times;</span>
-                    <h2>Xác nhận xóa</h2>
+                    <h3>Xác nhận xóa</h3>
                     <p>Bạn có chắc chắn muốn hủy đơn hàng này không?</p>
                     <form class="form-actions" action="<?php echo _BASE_URL; ?>/huyDon" method="post">
                         <input type="hidden" name="order_id" value="">
-                        <button type="button" id="cancelBtnOrder" onclick='document.getElementById("confirmCancelModal").style.display = "none";'>Thoát</button>
-                        <button type="submit" id="cancelBtn">Hủy đơn</button>
+                        <button type="submit" class="cancel-btn" id="cancelBtn">Hủy đơn</button>
+                        <button type="button" class="delete-btn" id="cancelBtnOrder" onclick='document.getElementById("confirmCancelModal").style.display = "none";'>Thoát</button>
+                        
                     </form>
                 </div>
             </div>
@@ -193,12 +205,12 @@
             <div id="confirmDeleteModal" class="modal">
                 <div class="modal-content">
                     <span class="close" onclick='document.getElementById("confirmDeleteModal").style.display = "none";'>&times;</span>
-                    <h2>Xác nhận xóa</h2>
+                    <h3>Xác nhận xóa</h3>
                     <p>Bạn có chắc chắn muốn xóa đơn hàng này không?</p>
                     <form class="form-actions" action="<?php echo _BASE_URL . '/xoaDon' ?>" method="post">
                         <input type="hidden" name="order_id" value="">
-                        <button type="button" id="deleteBtnOrder" onclick='document.getElementById("confirmDeleteModal").style.display = "none";'>Hủy</button>
-                        <button type="submit" id="deleteBtn">Xóa</button>
+                        <button type="button" class="cancel-btn" id="deleteBtnOrder" onclick='document.getElementById("confirmDeleteModal").style.display = "none";'>Hủy</button>
+                        <button type="submit" class="delete-btn" id="deleteBtn">Xóa</button>
                     </form>
                 </div>
             </div>
@@ -206,7 +218,7 @@
 
             <!-- Modal hiển thị chi tiết đơn hàng -->
             <div id="viewDetailModal" class="modal">
-                <span class="close" onclick='document.getElementById("viewDetailModal").style.display = "none";'>&times;</span>
+                <!-- <span class="close" onclick='document.getElementById("viewDetailModal").style.display = "none";'>&times;</span> -->
                 <table id="orderDetailtable">
                     <thead>
                         <tr id="thead_row">
@@ -270,7 +282,7 @@
             <div id="deleteDetailModal" class="modal">
                 <div class="modal-content">
                     <span class="close" onclick='document.getElementById("deleteDetailModal").style.display = "none";'>&times;</span>
-                    <h2>Xác nhận xóa</h2>
+                    <h3>Xác nhận xóa</h3>
                     <p>Bạn có chắc chắn muốn xóa sản phẩm này trong đơn hàng không?</p>
                     <form class="form-actions" method="POST" action="<?php echo _BASE_URL ?>/deleteDetail">
                         <input type="hidden" name="order_detail_id" value="">
@@ -279,7 +291,26 @@
                     </form>
                 </div>
             </div>
+            <form id="pagination_form" method="GET" action="<?php echo _WEB_ROOT . '/canxuly'; ?>">
+                <div class="footer">
+                    <div class="left">
+                        <span>Bản ghi mỗi trang:</span>
+                        <select name="limit" onchange="this.form.submit()">
+                            <option value="5" <?php if (isset($_GET['limit']) && $_GET['limit'] == 5) echo 'selected'; ?>>5</option>
+                            <option value="10" <?php if (isset($_GET['limit']) && $_GET['limit'] == 10) echo 'selected'; ?>>10</option>
+                            <option value="20" <?php if (isset($_GET['limit']) && $_GET['limit'] == 20) echo 'selected'; ?>>20</option>
+                            <option value="50" <?php if (isset($_GET['limit']) && $_GET['limit'] == 50) echo 'selected'; ?>>50</option>
+                        </select>
+                    </div>
+                    <input type="hidden" name="date" value="<?php echo $_GET['date'] ?? ''; ?>" required />
 
+                    <div class="right">
+                        <button type="submit" name="page" value="<?php echo max($currentPage - 1, 1); ?>">&lt;</button>
+                        <span><?php echo $currentPage . "/" . $totalPages; ?></span>
+                        <button type="submit" name="page" value="<?php echo min($currentPage + 1, $totalPages) ?>">&gt;</button>
+                    </div>
+                </div>
+            </form>
 
         </div>
         <?php require_once _DIR_ROOT . "/app/views/blocks/footer.php"; ?>
@@ -288,6 +319,7 @@
         const baseURL = "<?php echo _BASE_URL; ?>";
     </script>
     <script type="text/javascript" src="<?php echo _BASE_URL; ?>/public/assets/clients/js/admin/orders/donhang.js"></script>
+
 </body>
 
 </html>

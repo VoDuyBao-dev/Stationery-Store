@@ -7,6 +7,7 @@ class VNPayController extends Controller {
     }
 
     public function vnpay_post(){
+        $this->validateUser();
         if(isset($_GET['vnp_ResponseCode'])){
             if($_GET['vnp_ResponseCode'] == 00){
                 $information = $_GET;

@@ -16,6 +16,7 @@ class Cart extends Controller
 
     public function handle_cart()
     {
+        $this->validateUser();
         if (isset($_POST['addcart']) || isset($_POST['buynow'])) {
             $product_type_id = $_POST['product_type_id'];
             // Kiểm tra tồn kho
@@ -39,6 +40,7 @@ class Cart extends Controller
     }
     private function addToCartFromPost()
     {
+        $this->validateUser();
         $name_product_type_id = $_POST['product_name_type_id'];
         $product_id = $_POST['product_id'];
         $product_type_id = $_POST['product_type_id'];
@@ -73,7 +75,7 @@ class Cart extends Controller
 
     public function add_cart()
     {
-
+        $this->validateUser();
         // Xử lý thêm sản phẩm vô giỏ hàng và trả về tên sp để redirect
         $product_name = $this->addToCartFromPost();
         // Mã hóa tên sản phẩm
@@ -85,7 +87,7 @@ class Cart extends Controller
 
     public function buyNow()
     {
-
+        $this->validateUser();
         // Xử lý thêm sản phẩm vô giỏ hàng và trả về tên sp để redirect
         $product_name = $this->addToCartFromPost();
         header("Location:" . _WEB_ROOT . "/thanh-toan");
@@ -94,13 +96,13 @@ class Cart extends Controller
 
     public function view_cart()
     {
-        $this->checkLogin();
+        $this->validateUser();
         $this->render("products/giohang");
     }
 
     public function deleteAll_cart()
     {
-        $this->checkLogin();
+        $this->validateUser();
         if (isset($_POST['deleteAll_cart'])) {
             $_SESSION['giohang'] = [];
             header("Location:" . _WEB_ROOT . "/view_cart");
@@ -110,7 +112,7 @@ class Cart extends Controller
 
     public function deleteIdProduct_inCart($params)
     {
-        $this->checkLogin();
+        $this->validateUser();
         $value_params = $this->getValue_ofArrayParams($params);
         $id_product_type = $value_params['lastValue'];
         unset($_SESSION['giohang'][$id_product_type]);
@@ -125,6 +127,7 @@ class Cart extends Controller
     // Lấy thông tin vận chuyển  qua trang thanh toán 
     public function getTransport_Payment()
     {
+        $this->validateUser();
 
         $stockQuantityOf_allProducts = $this->productModel->stockQuantityOf_allProducts();
         $messages = [];

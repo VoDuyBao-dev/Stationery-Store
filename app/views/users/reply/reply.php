@@ -1,3 +1,5 @@
+<?php $breadcrumb = "Liên hệ"; ?>
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -16,6 +18,12 @@
 
 
     <script type="text/javascript" src="<?php echo _WEB_ROOT; ?>/public/assets/clients/js/blocks/header.js"></script>
+    <style>
+        menu {
+           float: left;
+           margin-top: 120px;
+        }
+    </style>
 </head>
 <body>
 <header><?php  require_once _DIR_ROOT . "/app/views/blocks/header.php";?></header>

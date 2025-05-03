@@ -57,11 +57,15 @@ class Controller
 
     public function validateAdmin(){
         if((!isset($_SESSION['user']) || ($_SESSION['user']['role'] !== 'admin') )){
-            header("Location:" . _WEB_ROOT. "/trang-chu");
+            header("Location:" . _WEB_ROOT. "/dang-nhap");
             exit();
         }
-
-
+    }
+    public function validateUser(){
+        if((!isset($_SESSION['user']) || ($_SESSION['user']['role'] !== 'user') )){
+            header("Location:" . _WEB_ROOT. "/dang-nhap");
+            exit();
+        }
     }
 
     public function checkLogin(){
@@ -70,8 +74,18 @@ class Controller
             exit();
         }
 
-
     }
+
+    public function redirectIfLoggedIn() {
+        if (isset($_SESSION['user'])) {
+            header("Location: " . _WEB_ROOT . "/trang-chu");
+            exit();
+        }
+    }
+
+    
+
+    
 
     
 

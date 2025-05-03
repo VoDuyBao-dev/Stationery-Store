@@ -13,7 +13,7 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-h2 {
+h1,h3 {
     margin-bottom: 15px;
 }
 
@@ -41,6 +41,23 @@ h2 {
 /* Nút thao tác */
 .actions {
     margin-bottom: 10px;
+}
+.search-main {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 5px;
+    width: 22%;
+    justify-content: space-between;
+
+}
+.search-button {
+    margin-left: 25px;
+    border: none;
+    color: rgb(10, 10, 10);
+    cursor: pointer;
+    border-radius: 4px;
 }
 
 button {
@@ -82,7 +99,7 @@ input[type="date"] {
     padding: 5px;
     width: 30%;
     /* Chiếm nửa trang */
-    margin: left;
+    justify-content: space-between;
 }
 
 input[type="text"] {
@@ -145,9 +162,11 @@ select {
 .modal-content {
     background-color: #fefefe;
     margin: auto;
-    padding: 20px;
+    padding: 25px;
     border: 1px solid #888;
     width: 50%;
+    text-align: center;
+    flex-direction: column;
 }
 
 
@@ -165,20 +184,6 @@ select {
     text-decoration: none;
     cursor: pointer;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 /* Modal nền */
@@ -213,7 +218,7 @@ select {
 }
 
 #orderDetailtable th {
-    background-color: #f4f4f4;
+    background-color: #9f9a9a;
     font-weight: bold;
 }
 
@@ -347,4 +352,224 @@ select {
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+.cancel-btn {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+.cancel-btn:hover {
+    background-color: #c82333;
+}
+
+.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.edit-btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.delete-btn {
+    background-color: #f44336;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.huy-btn {
+    background-color: #6b6969;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.viewOrderDetail-btn {
+    background-color:#ca9b54;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.form-actions button {
+    padding: 10px 20px;
+    margin-left: 10px;
+    border: none;
+    background-color: #ca9b54;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+    justify-content: center;
+}
+.form-actions button.cancel-btn {
+    background-color: #6b6969;
+}
+.form-actions button.delete-btn {
+    background-color: #d54d4d;
+}
+
+.form-actions button.cancel-btn:hover {
+    background-color: #353535;
+}
+.form-actions button.delete-btn:hover {
+    background-color: #b73f3f;
+}
+
+.save-btn {
+    background-color: #ca9b54;
+    color: white;
+    padding: 8px 18px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.save-btn:hover {
+    background-color: #a76b3e;
+}
+
+.modal-feedback {
+    display: none;
+    position: fixed;
+    z-index: 10000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.6);
+}
+.modal-feedback-content {
+    background-color: #fff;
+    margin: 5% auto;
+    padding: 30px;
+    border: 1px solid #888;
+    width: 70%;
+    height: 100%;
+    border-radius: 10px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+
+}
+.modal-feedback .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    cursor: pointer;
+}
+.modal-feedback label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    padding: 10px 0;
+}
+.modal-feedback input[type="text"],
+.modal-feedback select,
+.modal-feedback textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+.modal-feedback select{
+    padding: 5px;
+    width: 30%;
+}
+.modal-feedback textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+.modal-feedback button[type="submit"] {
+    margin-top: 20px;
+    margin-left: 35%;
+    padding: 10px 18px;
+    background-color: #ca955f;
+    border: none;
+    color: white;
+    font-size: 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 25%;
+    transition: background-color 0.3s;
+}
+.modal-feedback button[type="submit"]:hover {
+    background-color: #a76b3e;
+}
+
+.modal-edit {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    background-color: rgba(70, 68, 68, 0.6);
+    justify-content: center;
+    align-items: center;
+    overflow: auto;
+    padding: 20px;
+    height: 100vh;
+}
+
+.modal-edit-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 25px;
+    border: 1px solid #888;
+    width: 50%;
+    flex-direction: column;
+}
+.modal-edit .close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.modal-edit label{
+    margin-top: 15px;
+    margin-bottom: 6px;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 10px 0;
+}
+.modal-edit input[type="text"],
+.modal-edit input[type="date"],
+.modal-edit select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 8px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+.modal-edit button {
+    margin-top: 20px;
+    margin-left: 28%;
+    padding: 10px 18px;
+    
 }

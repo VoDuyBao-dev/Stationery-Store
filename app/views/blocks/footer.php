@@ -6,16 +6,7 @@
             <p>📞 Tổng đài: <strong>19006750</strong></p>
             <p>📧 Email: <strong>stationery@gmail.com</strong></p>
         </div>
-        <div class="footer-links">
-            <h3>TÌM HIỂU THÊM</h3>
-            <ul>
-                <li><a href="#">Trang chủ</a></li>
-                <li><a href="#">Giới thiệu</a></li>
-                <li><a href="#">Sản phẩm</a></li>
-                <li><a href="#">Tin tức</a></li>
-                <li><a href="#">Liên hệ</a></li>
-            </ul>
-        </div>
+        
         <div class="footer-links">
             <h3>HỖ TRỢ KHÁCH HÀNG</h3>
             <ul>
@@ -36,7 +27,8 @@
             </div>
             <h3>PHƯƠNG THỨC THANH TOÁN</h3>
             <div class="payment-methods">
-                <img src="<?php echo _WEB_ROOT; ?> /public/assets/clients/images/ACB-logo.jpg" alt="ACB">
+                <img src="<?php echo _WEB_ROOT; ?> /public/assets/clients/images/cash.jpg" alt="Cash">
+                <img src="<?php echo _WEB_ROOT; ?> /public/assets/clients/images/VNPay.png" alt="VNPay">
                 <img src="<?php echo _WEB_ROOT; ?> /public/assets/clients/images/MoMo-logo.jpg" alt="MoMo">
             </div>
         </div>

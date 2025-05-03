@@ -4,13 +4,17 @@ function toggleStickerMenu() {
 
 function selectSticker(imgElement) {
     let stickerSrc = imgElement.getAttribute("id");
+
+    // Nếu stickerSrc có giá trị hợp lệ
     if (stickerSrc) {
         document.getElementById("stickerInput").value = stickerSrc; // Lưu đường dẫn ảnh vào input ẩn
         document.getElementById("messageInput").removeAttribute("required"); // Không bắt buộc nhập text nếu chọn sticker
-        document.querySelector("form").submit(); // Gửi tin nhắn ngay lập tức
+        document.getElementById("guiTinNhan").submit(); // Gửi tin nhắn ngay lập tức
+    } else {
+        // Nếu không có sticker, đảm bảo giá trị của sticker = 1
+        document.getElementById("stickerInput").value = 1;
+        document.getElementById("guiTinNhan").submit(); // Gửi tin nhắn ngay lập tức
     }
-    else stickerSrc = 1;
-
 }
 
 function scrollToBottom() {
@@ -19,7 +23,7 @@ function scrollToBottom() {
 }
 
 window.onload = scrollToBottom; // Cuộn khi tải trang
-document.querySelector("form").onsubmit = function () {
+document.getElementById("guiTinNhan").onsubmit = function () {
     setTimeout(scrollToBottom, 200); // Cuộn sau khi gửi tin nhắn
 };
 

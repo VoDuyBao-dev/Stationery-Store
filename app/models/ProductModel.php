@@ -139,10 +139,11 @@ class ProductModel extends Model
 
     public function getAll_imageOfProduct($id_product)
     {
+
         $sql = "SELECT pi.image_url
             FROM product_images pi
-            JOIN product_type pt ON pi.product_type_id = pt.product_type_id
-            WHERE pt.product_id = ?";
+            JOIN products p ON pi.product_id = p.product_id
+            WHERE p.product_id = ?";
         $params = [$id_product];
         $result = $this->fetchAll($sql, $params);
         if (!$result) {
@@ -189,12 +190,10 @@ class ProductModel extends Model
                     WHERE pt2.product_id = p.product_id
                 )
             WHERE p.category_id = ?
-            limit 6";
+            limit 8";
         $params = [$category_id];
         $result = $this->fetchAll($sql, $params);
-        if (!$result) {
-            return false;
-        }
+
         return $result;
     }
 
@@ -212,7 +211,7 @@ class ProductModel extends Model
             )
         WHERE p.name LIKE ?
         ORDER BY pt.discount_price DESC
-        LIMIT 10";
+        LIMIT 8";
         $params = ["%$name_product%"];
         $result = $this->fetchAll($sql, $params);
         if (!$result) {
@@ -221,8 +220,8 @@ class ProductModel extends Model
         return $result;
     }
 
-    // lấy tất cả sản phẩm để hiển thị trong trang all product
-    public function getSortedProducts($sort, $subProduct)
+    // lấy tất cả sản phẩm để hiển thị trong trang category product
+    public function getSortedProducts($sort, $subProduct, $vt, $sd)
     {
         $orderBy = 'product_name ASC'; // mặc định
         $subProduct = "%$subProduct%";
@@ -262,9 +261,84 @@ class ProductModel extends Model
             ) pt ON p.product_id = pt.product_id
             WHERE p.name LIKE ?
             ORDER BY $orderBy
-        ";
-        $params = [$subProduct];
+            LIMIT ?,?";
+        $params = [$subProduct, $vt, $sd];
         $result = $this->fetchAll($sql, $params);
+
+        return $result;
+    }
+
+    // đếm số sản phẩm lấy đc từ  getSortedProducts để phân trang trong category product
+    public function countSortedProducts($subProduct)
+    {
+        $subProduct = "%$subProduct%";
+        $sql = "SELECT  count(product_id) as count FROM products 
+            WHERE name LIKE ?";
+        $params = [$subProduct];
+        $result = $this->fetch($sql, $params);
+
+        return $result;
+    }
+
+    // lấy tất cả sản phẩm "khác" các danh mục có sẵn trong menu để hiển thị trong trang category product
+    public function getAnotherProducts($sort, $vt, $sd)
+    {
+        $orderBy = 'product_name ASC'; // mặc định
+
+        switch ($sort) {
+            case 'name-desc':
+                $orderBy = 'product_name DESC';
+                break;
+            case 'price-asc':
+                $orderBy = 'pt.priceCurrent ASC';
+                break;
+            case 'price-desc':
+                $orderBy = 'pt.priceCurrent DESC';
+                break;
+            case 'newest':
+                $orderBy = 'pt.created_at DESC';
+                break;
+        }
+
+        $sql = "
+                    SELECT 
+            p.product_id,
+            p.name AS product_name,
+            pt.product_type_id,
+            pt.image,
+            pt.priceOld,
+            pt.priceCurrent,
+            pt.discount_price,
+            pt.created_at
+        FROM products p
+        JOIN (
+            SELECT * FROM product_type
+            WHERE product_type_id IN (
+                SELECT MIN(product_type_id)
+                FROM product_type
+                GROUP BY product_id
+            )
+        ) pt ON p.product_id = pt.product_id
+        WHERE p.name NOT LIKE '%Bút%' 
+        AND p.name NOT LIKE '%Giấy%' 
+        AND p.name NOT LIKE '%Vẽ%'
+        ORDER BY $orderBy
+        LIMIT ?,?";
+        $params = [$vt, $sd];
+        $result = $this->fetchAll($sql, $params);
+
+        return $result;
+    }
+
+    // đếm số sản phẩm lấy đc từ  getAnotherProducts để phân trang trong category product
+    public function countAnotherProducts()
+    {
+        $sql = "SELECT count(product_id) as count FROM products 
+            WHERE name NOT LIKE '%Bút%' 
+            AND name NOT LIKE '%Giấy%' 
+            AND name NOT LIKE '%Vẽ%'";
+
+        $result = $this->fetch($sql);
 
         return $result;
     }
@@ -375,9 +449,17 @@ class ProductModel extends Model
         $sql = "SELECT stock_quantity FROM product_type WHERE product_type_id = ?";
         return $this->fetch($sql, [$product_type_id]);
     }
+<<<<<<< HEAD
     
     // Quan lý sản phẩm trong admin
     public function getAllProducts() {
+=======
+
+    // Phần quản lý sản phẩm
+    // Quan lý sản phẩm trong admin
+    public function getAllProducts()
+    {
+>>>>>>> 7575333396c94c81fd7c78c9ef1d30f9b779317d
         $sql = "SELECT 
                 p.product_id, 
                 p.name AS product_name, 
@@ -394,6 +476,7 @@ class ProductModel extends Model
         $result = $this->fetchAll($sql);
         return $result;
     }
+<<<<<<< HEAD
     public function addProduct($product_name, $category_id, $priceCurrent, $stock_quantity, $image_name, $product_status, $description) {
         // Thêm sản phẩm vào bảng products
         $sql = "INSERT INTO products (name, category_id, description) VALUES (?, ?, ?)";
@@ -407,6 +490,71 @@ class ProductModel extends Model
         $sql = "INSERT INTO product_type (product_id, priceCurrent, stock_quantity, image, status) VALUES (?, ?, ?, ?, ?)";
         $params = [$product_id, $priceCurrent, $stock_quantity, $image_name, $product_status];
         return $this->execute($sql, $params);
+=======
+
+    public function addProduct($name, $description, $category_id, $brand_id)
+    {
+        // Thêm sản phẩm vào bảng products
+        $sql = "INSERT INTO $this->_table_products (`name`, `description`, `category_id`, `brand_id`) VALUES (?, ?, ?, ?)";
+        $params = [$name, $description, $category_id, $brand_id];
+        try {
+            $affectedRows = $this->execute($sql, $params);
+            if ($affectedRows > 0) {
+                return $this->getInsertId(); //tra về id của order vừa tạo
+            } else {
+                return false;
+            }
+        } catch (Exception $e) {
+            return false;
+        }
+    }
+
+    // Lấy sản phẩm theo id trongh chỉnh sửa sản phẩm của admin
+    public function getProductID($product_id)
+    {
+        $sql = "SELECT * FROM $this->_table_products
+            WHERE product_id = ?";
+        $params = [$product_id];
+       return $this->fetch($sql,$params);
+         
+    }
+
+    // Cập nhật sản phẩm
+    public function updateProductID($name, $description, $category_id, $brand_id,$product_id)
+    {
+        $sql = "UPDATE products
+        SET 
+            name = ?,
+            description = ?,
+            category_id = ?,
+            brand_id = ?
+        WHERE product_id = ?";
+        $params = [$name, $description, $category_id, $brand_id,$product_id];
+        try {
+            $affectedRows = $this->execute($sql, $params);
+            if ($affectedRows > 0) {
+                return true;
+            } else {
+                return "Cập nhật sản phẩm thất bại!";
+            }
+        } catch (Exception $e) {
+            // Xử lý lỗi nếu cần thiết
+            return "Lỗi: " . $e->getMessage();
+        }
+         
+    }
+    
+   
+
+
+    public function review($product_id)
+    {
+        $sql = "select users.fullname as fullname, reviews.*
+                from reviews
+                inner join users on users.user_id = reviews.user_id
+                where product_id = ?";
+        return $this->fetch($sql, [$product_id]);
+>>>>>>> 7575333396c94c81fd7c78c9ef1d30f9b779317d
     }
 }
 

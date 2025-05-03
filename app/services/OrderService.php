@@ -16,7 +16,9 @@ class OrderService
         $coupon_id = $_SESSION['coupon_id'] ?? null;
         unset($_SESSION['coupon_id']);
         $orderModel = new OrderModel();
-        $order_id = $orderModel->createOrder($user_id, $totalPrice, $paymentMethod, $payment_id, $coupon_id, $postData['shipping']);
+        // lưu đơn hàng
+        $is_paid = ($paymentMethod === 'cod') ? 0 : 1; // 0: chưa thanh toán, 1: đã thanh toán
+        $order_id = $orderModel->createOrder($user_id, $totalPrice, $paymentMethod, $payment_id, $coupon_id, $is_paid,$postData['shipping']);
 
         if(!is_numeric($order_id)){
             return [
