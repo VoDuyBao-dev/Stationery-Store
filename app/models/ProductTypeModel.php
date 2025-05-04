@@ -22,7 +22,7 @@ class ProductTypeModel extends Model
                 ON pt.product_id = p.product_id 
 			join categories c
             on p.category_id = c.category_id
-            order by p.product_id asc
+            order by pt.updated_at desc
              LIMIT ?,?";
           $params = [$vt,$sd];
        return $this->fetchAll($sql,$params);
