@@ -70,7 +70,6 @@ class Chat extends Controller
         // }
 
         $allSticker = $this->chatModel->getAllStickers();
-
         $this->render('mess/chat', [
             'messages' => $messages,         // Tất cả tin nhắn giữa 2 người
             'sender_id' => $sender_id,          // người gửi

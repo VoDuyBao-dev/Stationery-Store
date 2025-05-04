@@ -14,7 +14,7 @@ class ProductTypeModel extends Model
         }
     }
 
-    public function getAllProductType($vt,$sd)
+    public function getAllProductType($vt, $sd)
     {
         $sql = "SELECT p.product_id, p.name AS product_name, c.name as name_category, pt.product_type_id, pt.image, pt.priceOld, pt.priceCurrent, pt.stock_quantity, pt.status
             FROM products p
@@ -24,42 +24,40 @@ class ProductTypeModel extends Model
             on p.category_id = c.category_id
             order by p.product_id asc
              LIMIT ?,?";
-          $params = [$vt,$sd];
-       return $this->fetchAll($sql,$params);
-         
+        $params = [$vt, $sd];
+        return $this->fetchAll($sql, $params);
     }
 
-    public function deleteProductType($productType_id) {
+    public function deleteProductType($productType_id)
+    {
         $sql = "DELETE FROM $this->_table WHERE product_type_id = ?";
         $params = [$productType_id];
-        try{
-           $affectedRows = $this->execute($sql, $params);
+        try {
+            $affectedRows = $this->execute($sql, $params);
             if ($affectedRows > 0) {
                 return true;
             } else {
                 return false;
             }
-        }catch (Exception $e) {
+        } catch (Exception $e) {
             return false;
         }
-
     }
 
     public function getAllProductType_ofProductID($product_id)
     {
-        $sql = "SELECT product_type_id, pt.name as productType_name, priceCurrent, priceCurrent, stock_quantity, image
+        $sql = "SELECT product_type_id, pt.name as productType_name, priceCurrent, priceOld, stock_quantity, image
             FROM product_type pt 
             JOIN products p
                 ON pt.product_id = p.product_id
             WHERE p.product_id = ?
             order by product_type_id asc";
         $params = [$product_id];
-       return $this->fetchAll($sql, $params);
-         
+        return $this->fetchAll($sql, $params);
     }
 
     // Cập nhật loại sản phẩm
-    public function updateProductTypeID($name, $image, $priceCurrent, $priceOld,$stock_quantity,$discount,$product_type_id)
+    public function updateProductTypeID($name, $image, $priceCurrent, $priceOld, $stock_quantity, $discount, $product_type_id)
     {
         $sql = "UPDATE product_type
         SET 
@@ -70,7 +68,7 @@ class ProductTypeModel extends Model
             stock_quantity = ?,
             discount_price = ?
         WHERE product_type_id = ?";
-        $params = [$name, $image, $priceCurrent, $priceOld,$stock_quantity,$discount,$product_type_id];
+        $params = [$name, $image, $priceCurrent, $priceOld, $stock_quantity, $discount, $product_type_id];
         try {
             $affectedRows = $this->execute($sql, $params);
             if ($affectedRows > 0) {
@@ -82,19 +80,33 @@ class ProductTypeModel extends Model
             // Xử lý lỗi nếu cần thiết
             return "Lỗi: " . $e->getMessage();
         }
-         
     }
 
     public function countProductType()
-    { 
+    {
         $sql = "SELECT count(product_type_id) as count FROM $this->_table";
-     
+
         $result = $this->fetch($sql);
 
         return $result;
     }
 
-
-
-    
+    // tìm kiếm sản phẩm của quản lí sản phẩm aadmin
+    public function getSearchProducts($search)
+    {
+        $search = "%$search%";
+        $sql = "SELECT p.product_id, p.name AS product_name, c.name as name_category, pt.product_type_id, pt.image, pt.priceOld, pt.priceCurrent, pt.stock_quantity, pt.status
+            FROM products p
+            JOIN product_type pt 
+                ON pt.product_id = p.product_id 
+			join categories c
+            on p.category_id = c.category_id
+            
+where p.name like ?
+order by p.product_id asc
+    ";
+        $params = [$search];
+        $result = $this->fetchAll($sql, $params);
+        return $result;
+    }
 }

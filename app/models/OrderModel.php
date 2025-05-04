@@ -176,7 +176,6 @@ class OrderModel extends Model
         return $this->execute($sql, [$product_id, $user_id, $rating, $comment]);
     }
 
-
     public function getAllOrderById($order_id)
     {
         $sql = "SELECT order_details.*, orders.order_id, orders.total_price, orders.trangThaiGiao,
@@ -187,6 +186,12 @@ class OrderModel extends Model
                 INNER JOIN product_type ON order_details.product_type_id = product_type.product_type_id 
                 WHERE orders.order_id = ?";
         return $this->fetchAll($sql, [$order_id]);
+    }
+
+    public function countOrder()
+    {
+        $sql = "SELECT count(order_id) as countOrder FROM orders";
+        return $this->fetch($sql);
     }
 }
 ?>

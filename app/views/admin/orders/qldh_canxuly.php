@@ -51,7 +51,7 @@
                 <input type="date" name="date" class="data-picker" value="<?php echo $_GET['date'] ?? ''; ?>" onchange="this.form.submit()" required />
                 <!-- Giữ lại các tham số cũ của 'limit' và 'page' -->
                 <input type="hidden" name="limit" value="<?php echo $_GET['limit'] ?? 10; ?>" />
-                <input type="hidden" name="page" value="<?php echo $_GET['page'] ?? 1; ?>" />
+                <input type="hidden" name="page" value="<?php echo 1; ?>" />
             </form>
             <table id="order-table">
                 <thead>
@@ -180,7 +180,7 @@
                             <label for="edit_vanchuyen">Phương thức vận chuyển:</label>
                             <select name="edit_vanchuyen" id="edit_vanchuyen" required></select><br>
                             <button type="button" class="cancel-btn" id="edit-cancel-btn">Hủy</button>
-                            <button type="submit" class="save-btn" >Lưu</button>
+                            <button type="submit" class="save-btn">Lưu</button>
                         </div>
                     </form>
                 </div>
@@ -196,7 +196,6 @@
                         <input type="hidden" name="order_id" value="">
                         <button type="submit" class="cancel-btn" id="cancelBtn">Hủy đơn</button>
                         <button type="button" class="delete-btn" id="cancelBtnOrder" onclick='document.getElementById("confirmCancelModal").style.display = "none";'>Thoát</button>
-                        
                     </form>
                 </div>
             </div>
@@ -265,14 +264,10 @@
                     <label>Ghi chú:</label>
                     <textarea name="ghiChu" id="edit_ghiChu"></textarea><br>
 
-                    <!-- <label>Giá sản phẩm:</label> -->
-                    <!-- <input type="hidden" name="priceCurrent" id="edit_priceCurrent"><br> -->
 
                     <label>Số lượng:</label>
                     <input type="number" name="quantity" id="edit_quantity" min="1" required><br>
 
-                    <!-- <label for="edit_transport_id">Phương thức vận chuyển:</label>
-                    <select name="transport_id" id="edit_transport_id" required></select><br> -->
 
                     <button type="submit">Cập nhật</button>
                 </form>

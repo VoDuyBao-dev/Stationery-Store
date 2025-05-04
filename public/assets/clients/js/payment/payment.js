@@ -17,8 +17,8 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function isValidPhone(phone) {
-    
-    var phoneRegex = /^(0|\+84)(\d{9,10})$/; 
+
+    var phoneRegex = /^(0|\+84)(\d{9,10})$/;
     return phoneRegex.test(phone);
 }
 
@@ -49,19 +49,19 @@ function validateAndSubmit(event) {
         event.preventDefault();
         return false;
     }
-    if(fullname ===""){
+    if (fullname === "") {
         alert('Bạn phải nhập đầy đủ họ tên!');
-        event.preventDefault(); 
+        event.preventDefault();
         return false;
     }
 
-    if(phone ===""){
+    if (phone === "") {
         alert('Bạn phải nhập đầy đủ số điện thoại!');
         event.preventDefault();
         return false;
     }
 
-    if(isValidPhone(phone) === false){
+    if (isValidPhone(phone) === false) {
         alert('Số điện thoại không hợp lệ!');
         event.preventDefault();
         return false;
@@ -81,7 +81,7 @@ function validateAndSubmit(event) {
         return false;
     }
 
-    if(countCart === 0){
+    if (countCart === 0) {
         alert('Giỏ hàng của bạn đang trống!');
         event.preventDefault(); // Ngừng việc gửi form
         return false;
@@ -94,20 +94,20 @@ function validateAndSubmit(event) {
 
 
 
- // Gắn hàm validateAndSubmit() vào sự kiện click của nút "ĐẶT HÀNG"
+// Gắn hàm validateAndSubmit() vào sự kiện click của nút "ĐẶT HÀNG"
 document.getElementById('checkout-btn').addEventListener('click', validateAndSubmit);
 
 function submitBothForms() {
     // Lấy dữ liệu từ form người dùng
     var userFormData = new FormData(document.getElementById('checkout-form'));
-   
+
     // Lấy giá trị tổng tiền và xử lý
     var totalElement = document.getElementById('total-amount').innerText;
     var amount = totalElement.split(':')[1]
-                             .trim()
-                             .replace(/\./g, '')  // Loại bỏ dấu chấm
-                             .replace('₫', '')
-                             .trim();
+        .trim()
+        .replace(/\./g, '')  // Loại bỏ dấu chấm
+        .replace('₫', '')
+        .trim();
 
     // Thêm số tiền vào FormData
     userFormData.append("tongtien", amount);
@@ -116,7 +116,7 @@ function submitBothForms() {
     var shippingMethod = document.getElementById("shipping").value;  // Phương thức vận chuyển
     var paymentMethod = document.querySelector("input[name='payment']:checked") ? document.querySelector("input[name='payment']:checked").value : null; // Phương thức thanh toán
 
-    
+
     // Nếu là thanh toán qua VNPay, thêm redirect=1 để thỏa mãn $_POST['redirect'] của VNPay service
     if (paymentMethod === 'bank') {
         userFormData.append("redirect", "1");
@@ -124,31 +124,31 @@ function submitBothForms() {
 
     // Thêm phương thức MOMO nếu được chọn
     if (paymentMethod === 'ewallet') {
-        var momoMethod = document.querySelector("input[name='momo_method']:checked") ? 
+        var momoMethod = document.querySelector("input[name='momo_method']:checked") ?
             document.querySelector("input[name='momo_method']:checked").value : null;
 
         userFormData.append("momo_method", momoMethod);
-    } 
+    }
     // Thêm dữ liệu phương thức thanh toán vào FormData
     userFormData.append("payment", paymentMethod);
     // Thêm dữ liệu phương thức vận chuyển và thanh toán vào FormData
     userFormData.append("shipping", shippingMethod);
-    
+
     console.log(userFormData);
     // Tạo đối tượng XMLHttpRequest để gửi dữ liệu đến UserController
     var xhr = new XMLHttpRequest();
-    xhr.open("POST",  _WEB_ROOT + "/handleUserInfor_Payment", true);
-    
+    xhr.open("POST", _WEB_ROOT + "/handleUserInfor_Payment", true);
+
     xhr.onload = function () {
         if (xhr.status === 200) {
             var response = JSON.parse(xhr.responseText); // Giả sử bạn trả về JSON từ UserController
 
             if (response.success) {
-               
+
                 // Dữ liệu người dùng đã gửi thành công, tiếp tục gửi dữ liệu thanh toán
                 var paymentXhr = new XMLHttpRequest();
                 paymentXhr.open("POST", _WEB_ROOT + "/processPayment", true);
-                
+
                 paymentXhr.onload = function () {
                     if (paymentXhr.status === 200) {
                         var paymentResponse = JSON.parse(paymentXhr.responseText);
@@ -165,7 +165,7 @@ function submitBothForms() {
                                     confirmButtonText: 'Đóng'
                                 });
                             }
-                        } else if(paymentMethod === 'cod') {
+                        } else if (paymentMethod === 'cod') {
                             // Xử lý thanh toán COD 
                             if (paymentResponse.success) {
                                 window.location.href = paymentResponse.redirect; // Chuyển hướng đến trang kết quả
@@ -198,7 +198,7 @@ function submitBothForms() {
                         });
                     }
                 };
-                
+
                 paymentXhr.send(userFormData); // Gửi dữ liệu đến PaymentController
             } else {
                 alert('Lỗi: ' + response.error);
@@ -221,7 +221,7 @@ function checkPaymentStatus() {
         if (success === 'true') {
             Swal.fire({
                 title: 'Thành công!',
-                text: decodeURIComponent(message)+ ' ❤️',
+                text: decodeURIComponent(message) + ' ❤️',
                 icon: 'success',
                 confirmButtonText: 'OK'
             }).then((result) => {
@@ -255,20 +255,21 @@ function calculateTotal() {
         },
         body: `shipping_method=${shippingMethod}`
     })
-    .then(response => response.json())
-    .then(data => {
-        if(data.success) {
-            document.getElementById('subtotal-amount').textContent = 
-                formatCurrency(data.data.totalProduct_cost);
-            document.getElementById('shipping-amount').textContent = 
-                formatCurrency(data.data.shipping_fee);
-            document.getElementById('discount-amount').textContent = 
-                `-${formatCurrency(data.data.discount)}`;
-            document.getElementById('total-amount').textContent = 
-                `Tổng thanh toán: ${formatCurrency(data.data.final_total)}`;
-        }
-    })
-    .catch(error => console.error('Error:', error));
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                document.getElementById('subtotal-amount').textContent =
+                    formatCurrency(data.data.totalProduct_cost);
+                document.getElementById('shipping-amount').textContent =
+                    formatCurrency(data.data.shipping_fee);
+                document.getElementById('discount-amount').textContent =
+                    `-${formatCurrency(data.data.discount)}`;
+                console.log(data.data.discount);
+                document.getElementById('total-amount').textContent =
+                    `Tổng thanh toán: ${formatCurrency(data.data.final_total)}`;
+            }
+        })
+        .catch(error => console.error('Error:', error));
 }
 
 function formatCurrency(amount) {
@@ -279,7 +280,7 @@ function formatCurrency(amount) {
 }
 
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const provinceSelect = document.getElementById('province');
     const districtSelect = document.getElementById('district');
     const wardSelect = document.getElementById('ward');
@@ -301,10 +302,10 @@ document.addEventListener('DOMContentLoaded', function() {
     provinceSelect.addEventListener("change", () => {
         const provinceName = provinceSelect.value;
         const provinceCode = provinceSelect.options[provinceSelect.selectedIndex].dataset.code;
-        
+
         districtSelect.innerHTML = '<option value="">Chọn Quận/Huyện</option>';
         wardSelect.innerHTML = '<option value="">Chọn Phường/Xã</option>';
-        
+
         if (provinceCode) {
             fetch(`${API_PROVINCES}p/${provinceCode}?depth=2`)
                 .then(res => res.json())
@@ -340,5 +341,5 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    
+
 });

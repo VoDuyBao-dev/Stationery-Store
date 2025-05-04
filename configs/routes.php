@@ -79,6 +79,9 @@ $routes['productByCategory'] = 'product/productByCategory';
 // sản phẩm bán chạy ở danh mục nổi bật
 $routes['allBestSelling'] = 'product/allBestSelling';
 
+// sản phẩm mới ở danh mục nổi bật
+$routes['newProductCatalog'] = 'product/newProductCatalog';
+
 $routes['phan-hoi'] = 'user/reply';
 // xong
 $routes['kqtim-kiem'] = 'product/resultSearch';
@@ -105,7 +108,6 @@ $routes['bao-cao-doanh-thu/export'] = 'ReportController/exportExcel';
 
 
 
-$routes['^detailOrderUser/([0-9]+)$'] = 'order/detailOrderUser/$1';     // chi tiết đơn hàng (có nhiều loại sản phẩm)
 
 
 $routes['addReview'] = 'order/addReview';
@@ -141,3 +143,6 @@ $routes['xoaDon'] = 'AdminOrder/xoaDon';            // xóa đơn hàng có tran
 $routes['^getOrderDetail/([0-9]+)$'] = 'AdminOrder/getOrderDetail/$1';   // hiển thị trang sửa từng loại sản phẩm (từng bản ghi của order_detail)
 $routes['updateOrderDetail'] = 'AdminOrder/updateOrderDetail';            // cập nhật lại đơn hàng (có nhiều loại sản phẩm)
 $routes['deleteDetail'] = 'AdminOrder/deleteDetail';            // cập nhật lại đơn hàng (có nhiều loại sản phẩm)
+
+// đường dẫn xem chi tiết đỡn đựt hàng
+$routes['^detailOrderUser/([0-9]+)$'] = 'order/detailOrderUser/$1';     // chi tiết đơn hàng (có nhiều loại sản phẩm)

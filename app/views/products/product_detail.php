@@ -526,6 +526,7 @@ use core\Helpers;
             });
         </script>
     <?php endif; ?>
+    <script src="<?php echo _WEB_ROOT; ?>/public/assets/clients/js/products/cart.js"></script>
     <script src="<?php echo _WEB_ROOT; ?>/public/assets/clients/js/products/product_detail.js"></script>
 </body>
 

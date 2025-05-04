@@ -24,12 +24,17 @@ class AdminOrder extends Controller
         $date = $_GET['date'] ?? null;
         $currentPage = isset($_GET['page']) ? (int)$_GET['page'] : 1;
         $limit = isset($_GET['limit']) ? (int)$_GET['limit'] : 5;
-        $offset = ($currentPage - 1) * $limit;
-        $totalOrders = count($this->orderModel->getAllDone($date));
-        $totalPages = ceil($totalOrders / $limit);
+        $offset = $currentPage * $limit;
+        $totalOrders = count($this->orderModel->getAllDone($date)); // Lấy tổng số đơn hàng đã giao thành công
+        $totalPages = ceil($totalOrders / $limit);                  // Tính tổng số trang
         $totalPages = $totalPages == 0 ? 1 : $totalPages;
-        $ordersDone = $this->orderModel->getListOrdersDone($date, $limit, $offset);
-        // $ordersDone = $this->orderModel->getListOrdersDone();
+
+        $ordersDone = $this->orderModel->getListOrdersDone($date, $offset);
+
+        $i = ($currentPage - 1) * $limit;   // Tính chỉ số bắt đầu của trang hiện tại
+        $ordersDone = array_slice($ordersDone, $i); // Lấy danh sách đơn hàng theo trang}
+
+
         $this->render("admin/orders/daxuly",  [
             "ordersDone" => $ordersDone,
             "currentPage" => $currentPage,
@@ -46,16 +51,16 @@ class AdminOrder extends Controller
         $date = isset($_GET['date']) ? $_GET['date'] : null;
         $currentPage = isset($_GET['page']) ? (int)$_GET['page'] : 1;
         $limit = isset($_GET['limit']) ? (int)$_GET['limit'] : 5;
-        $offset = ($currentPage - 1) * $limit;
-        $totalOrders = count($this->orderModel->getAll($date));
-        // print($currentPage);
-        // print($limit);
-        // print($offset);
-        // die();
-        $totalPages = ceil($totalOrders / $limit);
+        $offset = $currentPage * $limit;
+        $totalOrders = count($this->orderModel->getAll($date)); // Lấy tổng số đơn hàng đã giao thành công
+
+        $totalPages = ceil($totalOrders / $limit);              // Tính tổng số trang
         $totalPages = $totalPages == 0 ? 1 : $totalPages;
-        $orders = $this->orderModel->getAllOrders($date, $limit, $offset);
-        // $ordersDone = $this->orderModel->getListOrdersDone();
+
+        $orders = $this->orderModel->getAllOrders($date, $offset);
+
+        $i = ($currentPage - 1) * $limit;   // Tính chỉ số bắt đầu của trang hiện tại
+        $orders = array_slice($orders, $i); // Lấy danh sách đơn hàng theo trang}
         $this->render("admin/orders/qldh_canxuly",  [
             "orders" => $orders,
             "currentPage" => $currentPage,
@@ -185,7 +190,7 @@ class AdminOrder extends Controller
         }
         // Lấy chi tiết đơn hàng theo ID
         $orderDetail = $this->orderModel->getOrderDetailByProductTypeId($order_detail_id);
-        // Lấy danh sách transport (để đổ vào dropdown)
+        // Lấy danh sách các loại sản phẩm có trong đơn hàng
         $productTypes = $this->orderModel->getAllProductType($order_detail_id);
         header('Content-Type: application/json');
         echo json_encode([
@@ -208,38 +213,42 @@ class AdminOrder extends Controller
         $required_fields = ['tenDonHang', 'phone', 'address', 'quantity', 'order_id'];
         foreach ($required_fields as $field) {
             if (!isset($_POST[$field])) {
-                echo "<script>alert('m chưa điền đầy đủ thông tin!');</script>";
+                echo "<script>alert('Bạn chưa điền đầy đủ thông tin!');</script>";
                 header('Location: ' . _BASE_URL . '/canxuly' . '?xem-id=' . $_POST['order_id']);
                 exit;
             }
         }
 
-        if ($_POST['quantity'] < 0) {
-            echo "<script>alert('Cập nhật không thành công! Số lượng không thể nhỏ hơn 0');</script>";
+        if ($_POST['quantity'] <= 0) {
+            echo "<script>alert('Cập nhật không thành công! Số lượng không thể <= 0');</script>";
             header('Location: ' . _BASE_URL . '/canxuly' . '?xem-id=' . $_POST['order_id']);
             exit;
         }
 
         $data = [
             'product_type_id' => $_POST['product_type_id'],
-            'tenDonHang' => $_POST['tenDonHang'],
+            // 'tenDonHang' => $_POST['tenDonHang'],
             'phone' => $_POST['phone'],
             'address' => $_POST['address'],
             'ghiChu' => $_POST['ghiChu'] ?? '',
             'quantity' => $_POST['quantity'],
-            'order_detail_id' => $_POST['order_detail_id']
+            'order_detail_id' => $_POST['order_detail_id'],
+            'order_id' => $_POST['order_id']
         ];
         // print_r($data);
+        // echo "<br>";
         // lấy giá của loại sản phẩm
         $productTypePrice = $this->orderModel->getProductTypePrice($data['product_type_id']);
-
+        // print_r($productTypePrice);
+        // echo "<br>";
         // tính và cập nhật lại giá tiền của sản phẩm
         $price = $_POST['quantity'] * $productTypePrice['priceCurrent'];
         $this->orderModel->updateOrderDetail($data, $price, $productTypePrice);
-
+        $this->orderModel->update($data);
         // Sau khi cập nhật xong chi tiết đơn hàng, có thể tính lại tổng giá của đơn hàng
-        $this->orderModel->updateTotalPrice($_POST['order_id']);
-
+        $tmp = $this->orderModel->updateTotalPrice($_POST['order_id']);
+        // echo $tmp;
+        // die();
         header('Location: ' . _BASE_URL . '/canxuly' . '?xem-id=' . $_POST['order_id']);
     }
 }

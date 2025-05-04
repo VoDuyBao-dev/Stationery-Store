@@ -1,5 +1,7 @@
 <?php
+
 use core\Helpers;
+
 class Capnhatsoluong extends Controller
 {
     public function capnhat_soluong()
@@ -47,14 +49,14 @@ class Capnhatsoluong extends Controller
                     <button type="button" onclick="tangsoluong(this)">+</button>
                 </div>
                 <input type="hidden" value="' . htmlspecialchars($item['product_type_id']) . '" class="product-type-id">
-                <a href="' . _WEB_ROOT . '/deleteIdProduct_inCart/' . 
-                    urlencode($item['product_name']) . '/' . 
-                    (int)$item['product_id'] . '/' . 
-                    urlencode($item['product_type_id']) . '"><i class="fas fa-trash-alt"></i></a>
+                <a href="' . _WEB_ROOT . '/deleteIdProduct_inCart/' .
+                urlencode($item['product_name']) . '/' .
+                (int)$item['product_id'] . '/' .
+                urlencode($item['product_type_id']) . '"><i class="fas fa-trash-alt"></i></a>
             </div>
             <div class="cart-total">
                 <span>Tạm tính:</span>
-                <span>'. Helpers::format_currency($thanhtien) . '</span>
+                <span>' . Helpers::format_currency($thanhtien) . '</span>
             </div>';
         }
 

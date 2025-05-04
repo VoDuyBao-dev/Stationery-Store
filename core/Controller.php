@@ -15,21 +15,18 @@ class Controller
         return false;
     }
 
-//    Render
-//Vì mỗi view sẽ có data hoặc không => khai báo data dạng mảng
+    //    Render
+    //Vì mỗi view sẽ có data hoặc không => khai báo data dạng mảng
     public function render($view, $data = [])
     {
-//        để không phải lúc nào cũng dùng mỗi biến $data
-//        mà muốn dùng nhiều tên biến để gọi data theo key bên trong mảng data => dùng extract
+        //        để không phải lúc nào cũng dùng mỗi biến $data
+        //        mà muốn dùng nhiều tên biến để gọi data theo key bên trong mảng data => dùng extract
         extract($data); // Chuyển các key trong mảng thành biến
         if (file_exists(_DIR_ROOT . "/app/views/" . $view . ".php")) {
             require_once _DIR_ROOT . "/app/views/" . $view . ".php";
-
         } else {
             echo "sai url";
         }
-
-
     }
 
     public function getValue_ofArrayParams($params)
@@ -52,44 +49,41 @@ class Controller
             return $value;
         }
         return false;
-
     }
 
-    public function validateAdmin(){
-        if((!isset($_SESSION['user']) || ($_SESSION['user']['role'] !== 'admin') )){
-            header("Location:" . _WEB_ROOT. "/dang-nhap");
+    public function validateAdmin()
+    {
+        if ((!isset($_SESSION['user']) || ($_SESSION['user']['role'] !== 'admin'))) {
+            header("Location:" . _WEB_ROOT . "/dang-nhap");
             exit();
         }
     }
-    public function validateUser(){
-        if((!isset($_SESSION['user']) || ($_SESSION['user']['role'] !== 'user') )){
-            header("Location:" . _WEB_ROOT. "/dang-nhap");
+    public function validateUser()
+    {
+        if ((!isset($_SESSION['user']) || ($_SESSION['user']['role'] !== 'user'))) {
+            header("Location:" . _WEB_ROOT . "/dang-nhap");
             exit();
         }
     }
 
-    public function checkLogin(){
-        if((!isset($_SESSION['user']))){
-            header("Location:" . _WEB_ROOT. "/dang-nhap");
+    public function checkLogin()
+    {
+        if ((!isset($_SESSION['user']))) {
+            header("Location:" . _WEB_ROOT . "/dang-nhap");
             exit();
         }
-
     }
 
-    public function redirectIfLoggedIn() {
+    public function redirectIfLoggedIn()
+    {
         if (isset($_SESSION['user'])) {
-            header("Location: " . _WEB_ROOT . "/trang-chu");
+            if ($_SESSION['user']['role'] != 'admin') {
+                header("Location: " . _WEB_ROOT . "/trang-chu");
+            } else {
+                header("Location: " . _WEB_ROOT . "/admin_layout");
+            }
+
             exit();
         }
     }
-
-    
-
-    
-
-    
-
-    
-
-
 }

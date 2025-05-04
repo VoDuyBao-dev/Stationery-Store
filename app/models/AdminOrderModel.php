@@ -29,24 +29,24 @@ class AdminOrderModel extends Model
         }
     }
 
-    public function getAllOrders($data, $limit, $offset)
+    public function getAllOrders($data, $limit)
     {
         if ($data == null) {
             $sql = "SELECT orders.*, users.fullname, transport.name AS transport_name
                     FROM orders
                     INNER JOIN users ON orders.user_id = users.user_id 
                     INNER JOIN transport ON orders.transport_id = transport.transport_id 
-                    WHERE orders.trangThaiGiao != '3' and orders.order_id >= ?
+                    WHERE orders.trangThaiGiao != '3'
                     ORDER BY orders.updated_at desc LIMIT ?";
-            return $this->fetchAll($sql, [$offset, $limit]);
+            return $this->fetchAll($sql, [$limit]);
         } else {
             $sql = "SELECT orders.*, users.fullname, transport.name AS transport_name
                     FROM orders
                     INNER JOIN users ON orders.user_id = users.user_id 
                     INNER JOIN transport ON orders.transport_id = transport.transport_id 
-                    WHERE orders.trangThaiGiao != '3' and date(orders.created_at) = ? and orders.order_id >= ?
+                    WHERE orders.trangThaiGiao != '3' and date(orders.created_at) = ?
                     ORDER BY orders.updated_at desc LIMIT ?";
-            return $this->fetchAll($sql, [$data, $offset, $limit]);
+            return $this->fetchAll($sql, [$data, $limit]);
         }
     }
 
@@ -72,22 +72,22 @@ class AdminOrderModel extends Model
         return $this->fetchAll($sql, [$order_id]);
     }
 
-    public function getListOrdersDone($data, $limit, $offset)
+    public function getListOrdersDone($data, $limit)
     {
         if ($data == null) {
             $sql = "SELECT orders.*, users.fullname 
                     FROM orders 
                     INNER JOIN users ON orders.user_id = users.user_id 
-                    WHERE orders.trangThaiGiao = '3' and orders.order_id >= ?
+                    WHERE orders.trangThaiGiao = '3'
                     ORDER BY orders.updated_at desc LIMIT ?";
-            return $this->fetchAll($sql, [$offset, $limit]);
+            return $this->fetchAll($sql, [$limit]);
         } else {
             $sql = "SELECT orders.*, users.fullname 
                     FROM orders 
                     INNER JOIN users ON orders.user_id = users.user_id 
-                    WHERE orders.trangThaiGiao = '3' and date(orders.created_at) = ? and orders.order_id >= ?
+                    WHERE orders.trangThaiGiao = '3' and date(orders.created_at) = ?
                     ORDER BY orders.updated_at desc LIMIT ?";
-            return $this->fetchAll($sql, [$data, $offset, $limit]);
+            return $this->fetchAll($sql, [$data, $limit]);
         }
     }
 
@@ -126,20 +126,28 @@ class AdminOrderModel extends Model
     public function updateOrderDetail($data, $price, $productTypePrice)
     {
         $sql = "UPDATE order_details 
-                SET product_type_id = ?, tenDonHang = ?, phone = ?, address = ?, ghiChu = ?, 
-                    quantity = ?, cost = ?,  price = ?
+                SET product_type_id = ?, tenDonHang = ?, quantity = ?, cost = ?,  price = ?
                 WHERE order_detail_id = ?";
-
+        $tenDonHang = "select name from product_type where product_type_id = ?";
+        $tenDonHang = $this->fetch($tenDonHang, [$data['product_type_id']]);
         return $this->execute($sql, [
             $data['product_type_id'],
-            $data['tenDonHang'],
-            $data['phone'],
-            $data['address'],
-            $data['ghiChu'],
+            $tenDonHang['name'],
             $data['quantity'],
             $productTypePrice['priceCurrent'],
             $price,
             $data['order_detail_id']
+        ]);
+    }
+
+    public function update($data)
+    {
+        $sql = "UPDATE order_details set phone = ?, address = ?, ghiChu = ? where order_id = ?";
+        return $this->execute($sql, [
+            $data['phone'],
+            $data['address'],
+            $data['ghiChu'],
+            $data['order_id']
         ]);
     }
 
@@ -165,13 +173,27 @@ class AdminOrderModel extends Model
     public function getTotalPrice($order_id)
     {
         $sum = $this->sum($order_id);
-        $couppon = $this->getCouppon($sum['price']);
-        $this->setCoupon($order_id, $couppon['coupon_id']);
-        $sql = "SELECT transport.price + ? * (SELECT (100 - (SELECT discount FROM coupons WHERE coupon_id = ?)) / 100) AS total_price 
+        // print_r($sum);
+        // echo "<br>";
+        // echo "đây là giá sản phẩm" . $sum['price'] . "<br>";
+        $coupon = $this->getCouppon($sum['price']);
+        // echo "coupoun id" . $couppon['coupon_id'] . "<br>";
+        // print_r($couppon);
+        // echo "<br>";
+        $this->setCoupon($order_id, $coupon['coupon_id']);
+        if ($coupon['coupon_id'] == null) {
+            $sql = "SELECT transport.price + ? AS total_price 
+                FROM orders
+                INNER JOIN transport ON orders.transport_id = transport.transport_id
+                where orders.order_id = ?";
+            return $this->fetch($sql, [$sum['price'], $order_id]);
+        } else {
+            $sql = "SELECT transport.price + ? * (SELECT (100 - (SELECT discount FROM coupons WHERE coupon_id = ?)) / 100) AS total_price 
                 FROM orders
                 INNER JOIN transport ON orders.transport_id = transport.transport_id 
-		WHERE orders.order_id = ?";
-        return $this->fetch($sql, [$sum['price'], $couppon['coupon_id'], $order_id]);
+		        WHERE orders.order_id = ?";
+            return $this->fetch($sql, [$sum['price'], $coupon['coupon_id'], $order_id]);
+        }
     }
 
     public function updateTotalPrice($order_id)

@@ -64,6 +64,7 @@ class ProductService {
     }
 
     public function editingProduct($productData, $productTypes, $productImages, $product_id) {
+<<<<<<< HEAD
         try {
             // Cập nhật thông tin sản phẩm cơ bản
             $resultUpdate_product = $this->ProductModel->updateProductID(
@@ -154,6 +155,91 @@ class ProductService {
             Logger::logError("Exception in editingProduct: " . $e->getMessage());
             return "Lỗi hệ thống: " . $e->getMessage();
         }
+=======
+       
+
+        // Cập nhật thông tin sản phẩm cơ bản
+        $resultUpdate_product = $this->ProductModel->updateProductID(
+            $productData['name'],
+            $productData['description'], 
+            $productData['category_id'], 
+            $productData['brand_id'],
+            $product_id
+        );
+        
+        
+        if ($resultUpdate_product !== true) {
+            Logger::logError("Lỗi cập nhật sản phẩm: " . $resultUpdate_product);
+            return "Lỗi cập nhật thông tin sản phẩm";
+        }
+        
+        // Cập nhật các phân loại sản phẩm
+        foreach ($productTypes as $type) {
+            // Tính toán giảm giá nếu có giá mới
+            $discount = 0;
+            if (!empty($type['priceNew']) && $type['priceNew'] < $type['priceCurrent']) {
+                $discount = $this->tinhPhanTramGiam($type['priceCurrent'], $type['priceNew']);
+            }
+
+            // Kiểm tra xem là cập nhật hay thêm mới
+            if (!empty($type['product_type_id'])) {
+                
+                // Cập nhật product type hiện có
+                $resultUpdate_productType = $this->ProductTypeModel->updateProductTypeID(
+                    $type['name'],
+                    $type['image'] ?? null, 
+                    $type['priceNew'],
+                    $type['priceCurrent'],
+                    $type['stock_quantity'],
+                    $discount,
+                    $type['product_type_id']
+                    
+                );
+                
+                if ($resultUpdate_productType !== true) {
+                    Logger::logError("Lỗi cập nhật product type: " . $resultUpdate_productType);
+                    return "Lỗi cập nhật phân loại sản phẩm";
+                }
+            } else {
+                // Thêm product type mới
+                $resultInsert_productType = $this->ProductTypeModel->insertProductType(
+                    $product_id,
+                    $type['name'],
+                    $type['image'] ?? null,
+                    $type['priceCurrent'],
+                    $type['stock_quantity']
+                );
+                
+                if (!$resultInsert_productType) {
+                    Logger::logError("Lỗi thêm product type mới");
+                    return "Lỗi thêm phân loại sản phẩm mới";
+                }
+            }
+        }
+        
+        // // Xử lý ảnh sản phẩm
+        if (!empty($productImages)) {
+            // Xóa ảnh cũ
+            $deleteImage = $this->ProductImageModel->deleteProductImageID($product_id);
+            if ($deleteImage !== true) {
+                Logger::logError("Lỗi xóa ảnh cũ: " . $deleteImage);
+                return "Lỗi cập nhật ảnh sản phẩm";
+            }
+            
+            // Thêm ảnh mới
+            foreach ($productImages as $image) {
+                $result = $this->ProductImageModel->insertProductImage($product_id, $image['path']);
+                if (!$result) {
+                    Logger::logError("Lỗi thêm ảnh mới");
+                    return "Lỗi thêm ảnh sản phẩm";
+                }
+            }
+        }
+       
+
+        return true;
+        
+>>>>>>> master
     }
 
     

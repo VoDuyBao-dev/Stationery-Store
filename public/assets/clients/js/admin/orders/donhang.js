@@ -57,7 +57,9 @@ document.addEventListener("DOMContentLoaded", function () {
                     console.log(order);
                     console.log(transports);
                     document.getElementById("edit_ma").value = order.order_id;
-                    document.getElementById("edit_ngay").value = order.created_at;
+                    const d = new Date(order.created_at);
+                    const formatted = d.toISOString().split('T')[0];  // lấy phần ngày trước chữ 'T'
+                    document.getElementById("edit_ngay").value = formatted;
                     document.getElementById("edit_nguoi").value = order.fullname;
                     document.getElementById("edit_tong").value = order.total_price;
                     document.getElementById("edit_thanhtoan").value = order.payment_method;

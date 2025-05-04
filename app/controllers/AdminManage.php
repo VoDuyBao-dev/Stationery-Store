@@ -252,7 +252,6 @@ class AdminManage extends Controller
     public function qlsp()
     {
         $this->validateAdmin();
-
         // phân trang
         $sd = 20;
 
