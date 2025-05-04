@@ -175,5 +175,23 @@ class OrderModel extends Model
 
         return $this->execute($sql, [$product_id, $user_id, $rating, $comment]);
     }
+
+    public function getAllOrderById($order_id)
+    {
+        $sql = "SELECT order_details.*, orders.order_id, orders.total_price, orders.trangThaiGiao,
+                       transport.price, product_type.name, product_type.priceCurrent
+                FROM order_details 
+                INNER JOIN orders ON order_details.order_id = orders.order_id
+                INNER JOIN transport ON orders.transport_id = transport.transport_id 
+                INNER JOIN product_type ON order_details.product_type_id = product_type.product_type_id 
+                WHERE orders.order_id = ?";
+        return $this->fetchAll($sql, [$order_id]);
+    }
+
+    public function countOrder()
+    {
+        $sql = "SELECT count(order_id) as countOrder FROM orders";
+        return $this->fetch($sql);
+    }
 }
 ?>

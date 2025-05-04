@@ -197,6 +197,7 @@ use core\Helpers;
             });
         });
 
+
         // Khi click ra ngoài modal thì tắt modal
         window.onclick = function(event) {
             const reviewModal = document.getElementById('reviewModal');

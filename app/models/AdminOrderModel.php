@@ -37,7 +37,7 @@ class AdminOrderModel extends Model
                     INNER JOIN users ON orders.user_id = users.user_id 
                     INNER JOIN transport ON orders.transport_id = transport.transport_id 
                     WHERE orders.trangThaiGiao != '3' and orders.order_id >= ?
-                    ORDER BY orders.order_id ASC LIMIT ?";
+                    ORDER BY orders.updated_at desc LIMIT ?";
             return $this->fetchAll($sql, [$offset, $limit]);
         } else {
             $sql = "SELECT orders.*, users.fullname, transport.name AS transport_name
@@ -45,7 +45,7 @@ class AdminOrderModel extends Model
                     INNER JOIN users ON orders.user_id = users.user_id 
                     INNER JOIN transport ON orders.transport_id = transport.transport_id 
                     WHERE orders.trangThaiGiao != '3' and date(orders.created_at) = ? and orders.order_id >= ?
-                    ORDER BY orders.order_id ASC LIMIT ?";
+                    ORDER BY orders.updated_at desc LIMIT ?";
             return $this->fetchAll($sql, [$data, $offset, $limit]);
         }
     }
@@ -79,14 +79,14 @@ class AdminOrderModel extends Model
                     FROM orders 
                     INNER JOIN users ON orders.user_id = users.user_id 
                     WHERE orders.trangThaiGiao = '3' and orders.order_id >= ?
-                    ORDER BY orders.order_id ASC LIMIT ?";
+                    ORDER BY orders.updated_at desc LIMIT ?";
             return $this->fetchAll($sql, [$offset, $limit]);
         } else {
             $sql = "SELECT orders.*, users.fullname 
                     FROM orders 
                     INNER JOIN users ON orders.user_id = users.user_id 
                     WHERE orders.trangThaiGiao = '3' and date(orders.created_at) = ? and orders.order_id >= ?
-                    ORDER BY orders.order_id ASC LIMIT ?";
+                    ORDER BY orders.updated_at desc LIMIT ?";
             return $this->fetchAll($sql, [$data, $offset, $limit]);
         }
     }
@@ -190,8 +190,8 @@ class AdminOrderModel extends Model
     }
     public function xacNhanDonThanhCongModel($order_id)
     {
-        $sql = "UPDATE orders SET trangThaiGiao = ? WHERE order_id = ?";
-        return $this->execute($sql, ['3', $order_id]);
+        $sql = "UPDATE orders SET trangThaiGiao = ?, is_paid = ? WHERE order_id = ?";
+        return $this->execute($sql, ['3', '1', $order_id]);
     }
 
 

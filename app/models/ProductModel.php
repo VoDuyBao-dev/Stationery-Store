@@ -559,4 +559,10 @@ ORDER BY pt.created_at DESC";
                 where product_id = ?";
         return $this->fetch($sql, [$product_id]);
     }
+
+    public function countProduct()
+    {
+        $sql = "SELECT count(product_id) as countProduct FROM products";
+        return $this->fetch($sql);
+    }
 }

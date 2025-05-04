@@ -95,7 +95,14 @@ class Order extends Controller
     }
 
 
-
+    public function detailOrderUser($order_id)
+    {
+        // $this->validateAdmin();
+        $order_id = $order_id[0];
+        $details = $this->OrderModel->getAllOrderById($order_id);
+        header('Content-Type: application/json');
+        echo json_encode($details);
+    }
     // Thêm đanhs giá
 
     public function addReview()
