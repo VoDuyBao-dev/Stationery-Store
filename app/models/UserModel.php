@@ -187,7 +187,7 @@ class UserModel extends Model
 
     public function getAllnewUser()
     {
-        $sql = "SELECT fullname, email, phone FROM $this->_table ORDER BY created_at DESC";
+        $sql = "SELECT fullname, email, phone FROM $this->_table WHERE  role != 'admin' ORDER BY created_at DESC";
         return $this->fetchAll($sql);
     }
 

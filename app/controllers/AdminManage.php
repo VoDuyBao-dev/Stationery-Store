@@ -343,7 +343,11 @@ class AdminManage extends Controller
             $productType_id = $_GET['productType_id'];
             $result = $this->manageProductTypeModel->deleteProductType($productType_id);
             if ($result) {
-                Helpers::setFlash('message', 'Xóa sản phẩm thành công!');
+                Helpers::setFlash('notification', [
+                    'type' => 'success',
+                    'message' => 'Xóa sản phẩm thành công!'
+                ]);
+               
             } else {
                 Helpers::setFlash('error', 'Xóa sản phẩm thất bại!');
             }
@@ -513,7 +517,11 @@ class AdminManage extends Controller
             $result = $this->productService->editingProduct($productData, $productTypes, $productImages, $product_id);
 
             if ($result === true) {
-                Helpers::setFlash('message', "Cập nhật sản phẩm thành công!");
+                Helpers::setFlash('notification', [
+                    'type' => 'success',
+                    'message' => 'Cập nhật sản phẩm thành công!'
+                ]);
+               
                 header("Location:" . _WEB_ROOT . "/quan-ly-san-pham");
             } else {
                 Helpers::setFlash('error', $result);
