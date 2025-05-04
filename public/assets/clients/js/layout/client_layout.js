@@ -48,12 +48,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
                      
                      // Thêm sale tag
-                     let saleTagDiv = document.createElement("div");
-                     saleTagDiv.classList.add("sale-tag");
-                     saleTagDiv.innerHTML = '<p>Sale <br> 25%</p>';
-                     productBlockItem.appendChild(saleTagDiv);
-                     productBlockItem.appendChild(productImage);
-                     productLink.appendChild(productBlockItem);
+                     if (product.priceOld && product.priceCurrent) {
+                        const discount = Math.round(((product.priceOld - product.priceCurrent) / product.priceOld) * 100);
+                        if (discount > 0) {
+                            let saleTagDiv = document.createElement("div");
+                            saleTagDiv.classList.add("sale-tag");
+                            saleTagDiv.innerHTML = `<p>Sale <br> ${discount}%</p>`;
+                            productBlockItem.appendChild(saleTagDiv);
+                        }
+                    }
+    
+                    productBlockItem.appendChild(productImage);
+                    productLink.appendChild(productBlockItem);
 
                     let productInfo = document.createElement("div");
                     productInfo.classList.add("product-info");

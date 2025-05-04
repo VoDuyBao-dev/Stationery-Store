@@ -152,15 +152,13 @@ $flashSale_products = $flashSale_products ?? [];
           </h2>
         </div>
         <div class="slider-wrapper ">
-          <div class="slider_FS-track" id="flashSliderTrack">
-            <!-- list Sản phẩm flash sale -->
-            <?php if (!empty($flashSale_products)): ?>
-              <?php foreach ($flashSale_products as $product): ?>
-                <div class="slide_FS">
-                  <div class="product-card">
-                    <div class="sale-tag">
-                      <p>Sale <br> 25%</p>
-                    </div>
+        <div class="slider_FS-track" id="flashSliderTrack">
+          <!-- list Sản phẩm flash sale -->
+        <?php if (!empty($flashSale_products)): ?>
+          <?php foreach($flashSale_products as $product):?>
+        <div class="slide_FS">  
+          <div class="product-card">
+          <div class="sale-tag"><p>Sale <br> <?=$product['discount_price']?>%</p></div>
 
                     <img src="<?php echo _WEB_ROOT; ?>/public/assets/clients/images/image_products_type/<?= $product['image'] ?>" alt="<?= $product['product_name'] ?>" />
                     <div class="product-name"><?= $product['product_name'] ?></div>
@@ -232,7 +230,7 @@ $flashSale_products = $flashSale_products ?? [];
                 <?php foreach ($outstanding_products as $product): ?>
                   <div class="product-block" onclick="viewProduct('<?= $product['product_name'] ?>',<?= $product['product_id'] ?>,<?= $product['product_type_id'] ?> )" style="cursor: pointer;">
                   <div class="sale-tag">
-                    <p>Sale <br> 25%</p>
+                    <p>Sale <br> <?=$product['discount_price']?>%</p>
                   </div>  
                   <div class="product-block-item">
                       

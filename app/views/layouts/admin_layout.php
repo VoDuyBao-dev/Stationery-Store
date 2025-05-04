@@ -52,7 +52,7 @@
                       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
                         <div class="card-content">
                           <h5 class="font-15">Đơn hàng</h5>
-                          <h2 class="mb-3 font-18">1.000</h2>
+                          <h2 class="mb-3 font-18"><?= $countOrder['countOrder'] ?? 0?></h2>
                           <p class="mb-0">Giảm <span class="col-orange">10%</span> </p>
                         </div>
                       </div>
@@ -74,7 +74,7 @@
                       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
                         <div class="card-content">
                           <h5 class="font-15"> Khách hàng</h5>
-                          <h2 class="mb-3 font-18">1,206</h2>
+                          <h2 class="mb-3 font-18"><?= $countUSer['countUser'] ?? 0?></h2>
                           <p class="mb-0">Tăng <span class="col-green">25%</span></p>
                         </div>
                       </div>
@@ -96,7 +96,7 @@
                       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
                         <div class="card-content">
                           <h5 class="font-15">Sản phẩm</h5>
-                          <h2 class="mb-3 font-18">654</h2>
+                          <h2 class="mb-3 font-18"><?= $countProduct['countProduct'] ?? 0?></h2>
                           <p class="mb-0"> Tăng <span class="col-green">18%</span></p>
                         </div>
                       </div>
@@ -271,36 +271,18 @@
                         </tr>
                       </thead>
                       <tbody>
+                        <?php $i=1; if($newsUSer > 0):?>
+                          
+                          <?php foreach($newsUSer as $user):?>
                         <tr>
-                          <td>1</td>
-                          <td>Nguyễn Văn A </td>
-                          <td>0912346382</td>
-                          <td>nguyenvanA@gmail.com</td>
+                          <td> <?php $i++?></td>
+                          <td><?=$user['fullname']?></td>
+                          <td><?=$user['email']?></td>
+                          <td><?=$user['phone']?></td>
                         </tr>
-                        <tr>
-                          <td>2</td>
-                          <td>Vương Thị Bé </td>
-                          <td>0893463821</td>
-                          <td>vuongtBe@gmail.com</td>
-                        </tr>
-                        <tr>
-                          <td>3</td>
-                          <td>Lý Văn Tèo </td>
-                          <td>0324382946</td>
-                          <td>teovanly@gmail.com</td>
-                        </tr>
-                        <tr>
-                          <td>4</td>
-                          <td>Doãn Tùng </td>
-                          <td>0911495960</td>
-                          <td>doantung@gmail.com</td>
-                        </tr>
-                        <tr>
-                          <td>5</td>
-                          <td>Trần Thiên Lộc </td>
-                          <td>0366231077</td>
-                          <td>locbaton@gmail.com</td>
-                        </tr>
+                        <?php endforeach;?>
+                        <?php endif;?>
+                        
                       </tbody>
                     </table>
                   </div>
@@ -343,7 +325,7 @@
                           <td>3</td>
                           <td>QRS169 </td>
                           <td>11-03-2025</td>
-                          <td>ACB</td>
+                          <td>VNpay</td>
                           <td>150.000 VNĐ</td>
                         </tr>
                         <tr>
@@ -357,7 +339,7 @@
                           <td>5</td>
                           <td>ZBC109 </td>
                           <td>8-03-2025</td>
-                          <td>ACB</td>
+                          <td>MoMo</td>
                           <td>300.000 VNĐ</td>
                         </tr>
                         <tr>

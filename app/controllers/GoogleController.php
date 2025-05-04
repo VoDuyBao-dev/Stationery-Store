@@ -56,7 +56,7 @@ class GoogleController extends Controller
                         $_SESSION['user'] = $getInfoUser;
                         // check admin hay user
                         // nếu là user thì về trang chủ của user
-                        $this->validateAdmin();
+                        $this->redirectIfLoggedIn();
                         // còn là admin thì đến trang admin
                         header('Location: ' . _WEB_ROOT . "/admin_layout");
                         exit();
@@ -69,7 +69,7 @@ class GoogleController extends Controller
                     $_SESSION['user'] = $checkUserExists;
                     // check admin hay user
                     // nếu là user thì về trang chủ của user
-                    $this->validateAdmin();
+                    $this->redirectIfLoggedIn();
                     // còn là admin thì đến trang admin
                     header('Location: ' . _WEB_ROOT . "/admin_layout");
                     exit();

@@ -1,4 +1,4 @@
-<?php $breadcrumb = "Thêm sản phẩm mới"; 
+<?php $breadcrumb = "Sửa sản phẩm"; 
 use core\Helpers;
 ?>
 
@@ -36,6 +36,14 @@ use core\Helpers;
 
             <div class="content">
                 <h2>Cập nhật sản phẩm</h2>
+                <?php if ($message = Helpers::getFlash('message')): ?>
+    <div class="success-message"><?php echo $message; ?></div>
+<?php endif; ?>
+
+<!-- các lỗi do bên thêm sửa xóa sản phẩm -->
+<?php if ($message = Helpers::getFlash('error')): ?>
+    <div class="success-message"><?php echo $message; ?></div>
+<?php endif; ?>
                 
                 <form action="<?= _WEB_ROOT; ?>/editingProduct" class="form" method="POST" enctype="multipart/form-data">
                     <!-- Add hidden input for product_id -->
@@ -131,18 +139,18 @@ use core\Helpers;
                                             <label>Giá cũ</label>
                                             <input type="text" 
                                                    name="product_types[<?= $index ?>][priceOld]" 
-                                                   value="<?= !empty($type['priceOld']) ? $type['priceOld'] : '--' ?>"
+                                                   value="<?= !empty($type['priceOld']) ? Helpers::format_currency($type['priceOld']) : '--' ?>"
                                                    readonly
                                                    style="background-color: #f5f5f5; cursor: not-allowed;" />
                                         </div>
                                         <div class="form-group">
                                             <label>Giá hiện tại</label>
-                                            <input type="number" 
+                                            <input type="text" 
                                                    name="product_types[<?= $index ?>][priceCurrent]" 
-                                                   value="<?= $type['priceCurrent'] ?>"
-                                                   min="0" 
-                                                   oninput="validateNumber(this, 'Giá hiện tại')"
-                                                   required />
+                                                   
+                                                   value="<?= Helpers::format_currency($type['priceCurrent']); ?>"
+                                                   readonly
+                                                   style="background-color: #f5f5f5; cursor: not-allowed;"/>
                                         </div>
                                         <div class="form-group">
                                             <label>Giá mới</label>
@@ -186,11 +194,13 @@ use core\Helpers;
                         <?php endif; ?>
                     </div>
 
-                    <button type="button" id="add-type" class="btn-them-phan-loai">+ Thêm phân loại</button>
+                    
 
                     <div class="form-row buttons">
                         <button type="submit" class="btn-luu">Lưu lại</button>
-                        <button type="button" class="btn-huy">Hủy bỏ</button>
+                        
+                        <a href="<?=_WEB_ROOT?>/quan-ly-san-pham" class="btn-huy">Hủy bỏ</a>
+                         
                     </div>
                 </form>
             </div>

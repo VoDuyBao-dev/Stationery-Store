@@ -184,4 +184,16 @@ class UserModel extends Model
         $sql = "UPDATE users SET remember_token = ? WHERE email = ?";
         return $this->execute($sql, [$token, $email]);
     }
+
+    public function getAllnewUser()
+    {
+        $sql = "SELECT fullname, email, phone FROM $this->_table ORDER BY created_at DESC";
+        return $this->fetchAll($sql);
+    }
+
+    public function countUser()
+    {
+        $sql = "SELECT count(user_id) as countUser FROM users";
+        return $this->fetch($sql);
+    }
 }

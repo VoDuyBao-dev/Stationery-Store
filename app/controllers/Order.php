@@ -63,24 +63,7 @@ class Order extends Controller
         $this->render("users/order/order_list", $data);
     }
 
-    // đơn hàng người dùng sử dụng lọc theo ngày
-    // public function searchOrderBy_timeFilter() {
-    //     $fromDate = isset($_GET['from_date']) ? $_GET['from_date'] : null;
-    //     $toDate = isset($_GET['to_date']) ? $_GET['to_date'] : null;
-
-    //     if ($fromDate && $toDate) {
-    //         $order_list = $this->orderModel->getOrdersByDateRange($fromDate, $toDate);
-    //     } else {
-    //         $order_list = $this->orderModel->getAllOrders();
-    //     }
-
-    //     $data = [
-    //         'order_list' => $order_list
-    //     ];
-
-    //     $this->render("users/order/order_list", $data);
-    // }
-
+    
     // Hủy đơn hàng khi còn ở trạng thái đang xử lý
     public function cancelOrder()
     {
@@ -112,7 +95,14 @@ class Order extends Controller
     }
 
 
-
+    public function detailOrderUser($order_id)
+    {
+        // $this->validateAdmin();
+        $order_id = $order_id[0];
+        $details = $this->OrderModel->getAllOrderById($order_id);
+        header('Content-Type: application/json');
+        echo json_encode($details);
+    }
     // Thêm đanhs giá
 
     public function addReview()

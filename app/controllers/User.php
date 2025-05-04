@@ -63,6 +63,7 @@ class User extends Controller
 
     public function register()
     {
+        $this->redirectIfLoggedIn();
 
         if (isset($_POST['submit'])) {
             $fullname = htmlspecialchars(trim($_POST['fullname']));
@@ -188,6 +189,7 @@ class User extends Controller
 
     public function signin()
     {
+        $this->redirectIfLoggedIn();
         // Tạo đường dẫn để đi đến trang đăng nhập của google.
         $googleService = new GoogleAuthService();
         $client = $googleService->getClient();

@@ -94,7 +94,7 @@ use core\Helpers;
                 <?php foreach($products_bestSeller as $product):?>
             <div class="product">
             <div class="sale-tag">
-                <p>Sale <br> 25%</p>
+                <p>Sale <br> <?=$product['discount_price']?>%</p>
               </div>
                 <img src="<?php echo _WEB_ROOT;?>/public/assets/clients/images/image_products_type/<?= $product['image'];?>" alt="<?= $product['image'];?>">
                 <p class="name"><?= $product['product_name']?></p>

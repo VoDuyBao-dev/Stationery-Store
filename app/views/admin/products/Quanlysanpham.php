@@ -61,13 +61,16 @@ use core\Helpers;?>
       <div class="btn-group">
         
         <button id="createProductBtn" class="btn btn-green">+ Tạo mới sản phẩm</button>
-        <button class="btn btn-red">Xuất Excel</button>
-        <button class="btn btn-gray">Xóa tất cả</button>
+       
       </div>
 
       <!-- Ô tìm kiếm -->
       <div class="search-box">
-        <input type="text" placeholder="Tìm kiếm..." />
+        <form action="" method="GET">
+        <input type="text" name="search_product" placeholder="Tìm kiếm..." />
+        <button type="submit">Tìm kiếm</button>
+        </form>
+        
       </div>
 
       <!-- Bảng danh sách sản phẩm -->
@@ -131,7 +134,8 @@ use core\Helpers;?>
         <?php endif; ?>
     </tbody>
 </table>
-<?php if($tst > 0): ?>
+<?php if(isset($tst)):?>
+    <?php if($tst > 0): ?>
     <div class="pagination">
         <p>Trang
         <?php for($i = 1; $i <= $tst; $i++): ?>
@@ -145,6 +149,7 @@ use core\Helpers;?>
             <?php endif; ?>
         <?php endfor; ?> </p>
     </div>
+<?php endif; ?>
 <?php endif; ?>
 
     </div>

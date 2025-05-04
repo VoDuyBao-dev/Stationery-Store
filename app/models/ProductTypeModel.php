@@ -47,7 +47,7 @@ class ProductTypeModel extends Model
 
     public function getAllProductType_ofProductID($product_id)
     {
-        $sql = "SELECT product_type_id, pt.name as productType_name, priceCurrent, priceCurrent, stock_quantity, image
+        $sql = "SELECT product_type_id, pt.name as productType_name, priceCurrent, priceOld, stock_quantity, image
             FROM product_type pt 
             JOIN products p
                 ON pt.product_id = p.product_id
@@ -94,7 +94,24 @@ class ProductTypeModel extends Model
         return $result;
     }
 
-
+// tìm kiếm sản phẩm của quản lí sản phẩm aadmin
+public function getSearchProducts($search)
+{
+    $search = "%$search%";
+    $sql = "SELECT p.product_id, p.name AS product_name, c.name as name_category, pt.product_type_id, pt.image, pt.priceOld, pt.priceCurrent, pt.stock_quantity, pt.status
+            FROM products p
+            JOIN product_type pt 
+                ON pt.product_id = p.product_id 
+			join categories c
+            on p.category_id = c.category_id
+            
+where p.name like ?
+order by p.product_id asc
+    ";
+    $params = [$search];
+    $result = $this->fetchAll($sql, $params);
+    return $result;
+}
 
     
 }

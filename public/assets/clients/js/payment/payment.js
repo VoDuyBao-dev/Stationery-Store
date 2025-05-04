@@ -264,6 +264,7 @@ function calculateTotal() {
                 formatCurrency(data.data.shipping_fee);
             document.getElementById('discount-amount').textContent = 
                 `-${formatCurrency(data.data.discount)}`;
+                console.log(data.data.discount);
             document.getElementById('total-amount').textContent = 
                 `Tổng thanh toán: ${formatCurrency(data.data.final_total)}`;
         }
