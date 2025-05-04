@@ -1,0 +1,239 @@
+/* Tổng thể giao diện */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    display: block;
+    height: 100vh;
+    background-color: #f5f7fa;
+}
+
+.chat-container {
+    display: flex;
+    width: 100%;
+    height: 80vh;
+    margin: 130px auto 20px auto;
+    border-radius: 8px;
+    box-shadow: 1px 1px 1px 1px rgb(47, 43, 43);
+
+}
+
+/* Sidebar danh sách người dùng */
+.list_user {
+    width: 25%;
+    background: #ffffff;
+    border-right: 1px solid #ddd;
+    padding: 20px;
+    overflow: auto;
+}
+
+.list_user h2 {
+    margin-bottom: 15px;
+    font-size: 26px;
+    font-weight: bold;
+    color: #cfab57;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.list_user ul {
+    list-style: none;
+}
+
+.list_user li {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.list_user li:hover {
+    background: #e6f3ff;
+}
+
+.list_user img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+/* Khung chat chính */
+.context {
+    width: 75%;
+    display: flex;
+    flex-direction: column;
+    background: #f5f7fa;
+}
+
+.message {
+    flex-grow: 1;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.message_right,
+.message_left {
+    display: flex;
+    margin-bottom: 15px;
+    align-items: center;
+}
+
+.message_right {
+    justify-content: flex-end;
+}
+
+.message_left {
+    justify-content: flex-start;
+}
+
+.text img {
+    display: block;
+    overflow: auto;
+}
+
+
+.avatar img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.content {
+    max-width: 60%;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 14px;
+}
+
+.text {
+    border-radius: 5px;
+}
+
+.message_right .content .text {
+    background: #cfab57;
+    color: white;
+    padding: 10px 15px;
+    font-size: 15px;
+}
+
+
+.message_left .content .text {
+    background: #e6e6e6;
+    color: black;
+    padding: 10px 15px;
+    font-size: 15px;
+}
+
+/* Ô nhập tin nhắn */
+.input {
+    display: flex;
+    padding: 10px;
+    background: white;
+    border-top: 1px solid #ddd;
+}
+
+.input input {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.input button {
+    padding: 10px 15px;
+    background: #cfab57;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-left: 10px;
+    border-radius: 10px;
+}
+
+
+.sticker-menu {
+    display: none;
+    position: absolute;
+    bottom: 50px;
+    background: white;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.sticker-menu.show {
+    display: block;
+    width: 50%;
+    white-space: nowrap;
+    overflow-x: scroll;
+    gap: 10px;
+    margin: 15px auto;
+}
+
+.sticker-menu img {
+    width: 70px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.sticker-menu img:hover {
+    transform: scale(1.2);
+}
+
+.sticker-img {
+    width: 80px;
+    height: auto;
+    margin-top: 5px;
+}
+
+
+/* Thông tin người dùng */
+.information {
+    width: 25%;
+    background: white;
+    padding: 20px;
+    border-left: 1px solid #ddd;
+}
+
+.information .avatar img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: block;
+    margin: 0 auto 10px;
+}
+
+.information .name {
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.information .email,
+.information .phone,
+.information .stk {
+    font-size: 14px;
+    color: #555;
+    text-align: center;
+    margin-top: 5px;
+}
+
+.message_right .time {
+    font-size: 10px;
+    color: #353535;
+    text-align: right;
+    margin-top: 5px;
+}
+
+.message_left .time {
+    font-size: 10px;
+    color: #353535;
+    text-align: left;
+    margin-top: 5px;
+}

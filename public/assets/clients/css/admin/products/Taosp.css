@@ -1,0 +1,183 @@
+/* Reset một số mặc định */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+body {
+  background-color: #e5e6e68b;
+}
+
+/* Container */
+.taosp-container {
+  max-width: 95%;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Header */
+.header_1 h1 {
+  font-size: 15px;
+  margin-bottom: 20px;
+  color: #007bff;
+  text-decoration: none;
+}
+.header_1 a {
+  text-decoration: none;
+}
+
+/* Form */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Responsive row with 2 columns */
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.form-group {
+  flex: 1 1 calc(50% - 10px);
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group-full {
+  flex: 1 1 100%;
+}
+
+.form-group label {
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #333;
+}
+
+/* Input & Select styling */
+input,
+select,
+textarea {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+  transition: border-color 0.3s;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* Textarea */
+textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* Chọn ảnh */
+#chon-anh {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  align-self: flex-start;
+}
+
+#chon-anh:hover {
+  background-color: #0056b3;
+}
+#mo-ta-san-pham {
+  width: 200%;
+  min-height: 150px;
+  resize: vertical;
+  margin-top: 10px;
+}
+/* Button group */
+.form-row.buttons {
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.btn-luu,
+.btn-huy {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btn-luu {
+  background-color: #28a745;
+}
+.btn-luu:hover {
+  background-color: #218838;
+}
+
+.btn-huy {
+  background-color: #dc3545;
+}
+.btn-huy:hover {
+  background-color: #c82333;
+}
+
+/* Responsive breakpoint */
+@media (max-width: 768px) {
+  .form-group {
+    flex: 1 1 100%;
+  }
+}
+
+.preview-item {
+    position: relative;
+    width: 60px;  /* Reduced from 100px */
+    height: 60px; /* Reduced from 100px */
+    border-radius: 4px;
+    overflow: hidden;
+    margin: 5px;
+}
+
+.preview-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.remove-preview {
+    position: absolute;
+    top: 2px;    /* Adjusted position */
+    right: 2px;  /* Adjusted position */
+    width: 15px; /* Reduced size */
+    height: 15px;/* Reduced size */
+    border-radius: 50%;
+    background: rgba(255, 0, 0, 0.7);
+    color: white;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px; /* Reduced font size */
+    padding: 0;
+}
+
+.preview-container {
+    display: flex;  /* Changed from grid to flex */
+    flex-wrap: wrap;
+    gap: 5px;      /* Reduced gap */
+    margin-top: 10px;
+}
