@@ -170,7 +170,7 @@ class Product extends Controller
 
     public function productByCategory()
     {
-        $this->validateUser();
+        // $this->validateUser();
         // Lấy các tham số từ URL
         $getCategory = trim($_GET['category'] ?? "");
         $subProduct = trim($_GET['sub'] ?? "");
