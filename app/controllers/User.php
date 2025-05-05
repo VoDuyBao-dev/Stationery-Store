@@ -354,6 +354,10 @@ class User extends Controller
             }
             $result = $this->userModel->changePassword($_SESSION['email'], $hashPassword);
             if ($result === true) {
+                //Nếu có cảnh báo đăng nhập quá số lần thì xóa khi đổi thành công mật khẩu
+                if (isset($_SESSION['warning_signin'])) {
+                    unset($_SESSION['warning_signin']);
+                }
                 unset($_SESSION['email']);
                 Helpers::setFlash('success', 'Đổi mật khẩu thành công!');
                 unset($_SESSION['oldEmail_forgotPass']);

@@ -51,7 +51,7 @@
                 <input type="date" name="date" class="data-picker" value="<?php echo $_GET['date'] ?? ''; ?>" onchange="this.form.submit()" required />
                 <!-- Giữ lại các tham số cũ của 'limit' và 'page' -->
                 <input type="hidden" name="limit" value="<?php echo $_GET['limit'] ?? 10; ?>" />
-                <input type="hidden" name="page" value="<?php echo $_GET['page'] ?? 1; ?>" />
+                <input type="hidden" name="page" value="<?php echo 1; ?>" />
             </form>
 
             <table>

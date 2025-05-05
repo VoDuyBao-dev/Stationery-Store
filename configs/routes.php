@@ -1,4 +1,6 @@
 <?php
+
+$routes['default_controller'] = 'product'; // controller mặc định khi vào trang web
 // trang chu
 $routes['trang-chu'] = 'product/index';
 

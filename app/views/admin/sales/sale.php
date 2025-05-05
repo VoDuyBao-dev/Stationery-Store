@@ -154,7 +154,7 @@
                     <div class="form-actions">
                         <input type="hidden" name="coupon_id" id="delete-coupon-id">
                         <button id="cancelDeleteBtn" class="cancel-btn" type="button">Hủy</button>
-                        <button id="confirmDeleteBtn" class="delete-btn" type='submit'>Xóa</button>
+                        <button id="confirmDeleteBtn" class="delete-btnn" type='submit'>Xóa</button>
                     </div>
                 </div>
             </form>

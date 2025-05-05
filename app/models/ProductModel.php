@@ -73,7 +73,7 @@ JOIN product_type pt ON pt.product_id = p.product_id
 JOIN (
     SELECT product_id, MAX(created_at) AS latest_create_at
     FROM product_type
-    WHERE created_at >= DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)
+    WHERE created_at >= DATE_SUB(CURRENT_DATE(), INTERVAL 21 DAY)
     GROUP BY product_id
 ) latest ON pt.product_id = latest.product_id 
     AND pt.created_at = latest.latest_create_at
